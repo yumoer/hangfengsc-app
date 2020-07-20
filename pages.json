@@ -1,0 +1,562 @@
+{
+	"easycom": {
+		"^u-(.*)": "@/uview-ui/components/u-$1/u-$1.vue"
+	},
+	"pages": [
+		{
+			"path": "pages/index/init",
+			"style": {
+				
+				"navigationBarTitleText": "入口页",
+				"titleNView": false
+			}
+		}, {
+			"path": "pages/index/guide",
+			"style": {
+				"navigationBarTitleText": "引导页",
+				"titleNView": false,
+				"app-plus": {
+					"bounce": "none"
+				}
+			}
+		}, 
+		
+		{
+			"path": "pages/index/index",
+			"style": {
+				// #ifdef MP 
+				"navigationBarTitleText": "行丰商城",
+				//"navigationStyle": "custom",
+				// #endif
+				"app-plus": {
+					"titleNView": {
+						"type": "transparent",
+						"searchInput": {
+							"backgroundColor": "rgba(231, 231, 231,.7)",
+							"borderRadius": "16px",
+							"placeholder": "请点击搜索商品",
+							"disabled": true,
+							"placeholderColor": "#606266"
+						},
+						"buttons": [
+							/* {
+								"fontSrc": "/static/yticon.ttf",
+								"text": "\ue608",
+								"fontSize": "22",
+								"color": "#fff",
+								"float": "left",
+								"background": "rgba(0,0,0,0)"
+							}, */
+							{	
+								"fontSrc": "/static/yticon.ttf",
+								"text": "\ue60d",
+								"fontSize": "26",
+								"color": "#303133",
+								"float": "left",
+								"background": "rgba(0,0,0,0)"
+							},
+							{
+								"fontSrc": "/static/yticon.ttf",
+								"text": "\ue744",
+								"fontSize": "27",
+								"color": "#303133",
+								"background": "rgba(0,0,0,0)",
+								"redDot": true
+							}
+						]
+					}
+				}
+			}
+		},{
+			"path": "pages/product/product",
+			"style": {
+				"navigationBarTitleText": "详情展示",
+				"app-plus": {
+					"titleNView": {
+						"type": "transparent"
+					}
+				}
+			}
+		},
+		{
+			"path": "pages/index/code",
+			"style": {
+				"navigationBarTitleText": "扫描详情"
+			}
+		},
+		{
+			"path": "pages/set/set",
+			"style": {
+				"navigationBarTitleText": "设置"
+			}
+		},
+		
+		{
+			"path": "pages/set/userInfo",
+			"style": {
+				"navigationBarTitleText": "个人资料"
+			}
+		},
+		
+		{
+			"path": "pages/set/avator",
+			"style": {
+				"navigationBarTitleText": "修改头像"
+			}
+		},
+		
+		{
+			"path": "uview-ui/components/u-avatar-cropper/u-avatar-cropper",
+			"style": {
+				"navigationBarTitleText": "头像裁剪",
+				"navigationBarBackgroundColor": "#000000"
+			}
+		},
+		
+		{
+			"path": "pages/set/editPass",
+			"style": {
+				"navigationBarTitleText": "修改密码"
+			}
+		},
+		
+		
+
+		{
+			"path": "pages/userinfo/userinfo",
+			"style": {
+				"navigationBarTitleText": "修改资料"
+			}
+		}, {
+			"path": "pages/cart/cart",
+			"style": {
+				"navigationBarTitleText": "购物车"
+			}
+		},
+		{
+			"path": "pages/search/search",
+			"style": {
+				"navigationBarTitleText": "搜索"
+			}
+		}, 
+		{
+			"path": "pages/share/share",
+			"style": {
+				"navigationBarTitleText": "分享"
+			}
+		}, 
+		{
+			"path": "pages/public/login",
+			"style": {
+				"navigationBarTitleText": "",
+				"navigationStyle": "custom",
+				"app-plus": {
+					"titleNView": false,
+					"animationType": "slide-in-bottom"
+				}
+			}
+		},{
+            "path" : "pages/public/regist",
+            "style" : {
+				"app-plus": {
+					"titleNView": false,
+					"animationType": "slide-in-bottom"
+				}
+			}
+        },{
+            "path" : "pages/public/forgetPwd",
+            "style" : {
+				"app-plus": {
+					"titleNView": false,
+					"animationType": "slide-in-bottom"
+				}
+			}
+        },{
+            "path" : "pages/public/oauthCallback",
+            "style" : {
+				"app-plus": {
+					"titleNView": false,
+					"animationType": "slide-in-bottom"
+				}
+			}
+        }
+		, {
+			"path": "pages/user/user",
+			"style": {
+				"navigationBarTitleText": "我的",
+				// #ifdef MP
+				"navigationStyle": "custom",
+				// #endif
+				"app-plus": {
+					"bounce": "none",
+					"titleNView": {
+						"type": "transparent",
+						"buttons": [{
+								"fontSrc": "/static/yticon.ttf",
+								"text": "\ue60f",
+								"fontSize": "24",
+								"color": "#303133",
+								"width": "46px",
+								"background": "rgba(0,0,0,0)"
+							},
+							{
+								"fontSrc": "/static/yticon.ttf",
+								"text": "\ue744",
+								"fontSize": "28",
+								"color": "#303133",
+								"background": "rgba(0,0,0,0)",
+								"redDot": true
+							}
+						]
+					}
+				}
+			}
+		}, {
+			"path": "pages/detail/detail",
+			"style": {
+				"navigationBarTitleText": "",
+				"app-plus": {
+					"titleNView": {
+						"type": "transparent"
+					}
+				}
+			}
+		},{
+			"path": "pages/coupon/exchange",
+			"style": {
+				"navigationBarTitleText": "我的优惠券"
+			}
+		},{
+			"path": "pages/coupon/coupon",
+			"style": {
+				"navigationBarTitleText": "领取优惠券"
+			}
+		},
+		{
+			"path": "pages/coupon/voucher",
+			"style": {
+				"navigationBarTitleText": "意见反馈"
+			}
+		},{
+			"path": "pages/coupon/reduction",
+			"style": {
+				"navigationBarTitleText": "我的收藏"
+			}
+		},{
+			"path": "pages/coupon/couponShop",
+			"style": {
+				"navigationBarTitleText": "优惠商品"
+			}
+		},{
+			"path": "pages/order/order",
+			"style": {
+				"navigationBarTitleText": "我的订单",
+				"app-plus": {
+					"bounce": "none"
+				}
+			}
+		},{
+			"path": "pages/money/money",
+			"style": {}
+		}, {
+			"path": "pages/order/createOrder",
+			"style": {
+				"navigationBarTitleText": "提交订单"
+			}
+		}, {
+			"path": "pages/appDown/appDown",
+			"style": {
+				"navigationBarTitleText": "下载中心"
+			}
+		}, {
+			"path": "pages/address/address",
+			"style": {
+				"navigationBarTitleText": "收货地址",
+				"app-plus": {
+					"bounce": "none",
+					"titleNView": {
+						"buttons": [
+							{
+								"fontSrc": "/static/yticon.ttf",
+								"text": "\ue61c",
+								"fontSize": "22",
+								"color": "#303133",
+								"background": "rgba(0,0,0,0)"
+							}
+						]
+					}
+				}
+				
+			}
+		},{
+			"path": "pages/address/addressManage",
+			"style": {
+				"navigationBarTitleText": "地址管理"
+			}
+		}, {
+			"path": "pages/invoice/invoice",
+			"style": {
+				"navigationBarTitleText": "发票管理",
+				"app-plus": {
+					"bounce": "none",
+					"titleNView": {
+						"buttons": [
+							{
+								"fontSrc": "/static/yticon.ttf",
+								"text": "\ue61c",
+								"fontSize": "22",
+								"color": "#303133",
+								"background": "rgba(0,0,0,0)"
+							}
+						]
+					}
+				}
+			}
+		},  {
+			"path": "pages/invoice/invoiceManage",
+			"style": {
+				"navigationBarTitleText": "新增普票/电子票"
+			}
+		}, {
+			"path": "pages/invoice/invoiceManages",
+			"style": {
+				"navigationBarTitleText": "新增增值税发票"
+			}
+		}, {
+			"path": "pages/money/pay",
+			"style": {
+				"navigationBarTitleText": "支付方式"
+			}
+		},
+		{
+			"path": "pages/money/paySuccess",
+			"style": {
+				"navigationBarTitleText": "订单提交成功"
+			}
+		}
+	    ,{
+            "path" : "pages/notice/notice",
+            "style" : {
+				"navigationBarTitleText": "通知"
+			}
+        }/* ,{
+            "path" : "pages/chat/message",
+            "style" : {
+				"navigationBarTitleText": "消息"
+			}
+        } */
+		,{
+		    "path" : "pages/notice/noticeDetail",
+		    "style" : {
+				"navigationBarTitleText": "通知详情"
+			}
+		}
+		,{
+		    "path" : "pages/search/searchList",
+		    "style" : {
+				"navigationBarTitleText": "商品列表"
+			}
+		}
+        ,{
+            "path" : "pages/category/category",
+            "style" : {
+				"navigationBarTitleText": "分类",
+				"app-plus": {
+					"bounce": "none"
+				}
+			}
+        }
+        ,{
+            "path" : "pages/product/list",
+            "style" : {
+				"enablePullDownRefresh": true,
+				"navigationBarTitleText": "商品列表"
+			}
+        },{
+            "path" : "pages/chat/chat",
+            "style" : {
+				"enablePullDownRefresh": true,
+				"navigationBarTitleText": "客服",
+				"app-plus": {
+					"bounce": "none"
+				}
+			}
+        },{
+            "path" : "pages/chat/chatAdmin",
+            "style" : {
+				"enablePullDownRefresh": true,
+				"navigationBarTitleText": "用户"
+			}
+        },{
+            "path" : "pages/order/assess/assess",
+            "style" : {
+				"navigationBarTitleText": "立即评价"
+			}
+        },{
+		    "path" : "pages/order/trackInfo/trackInfo",
+		    "style" : {
+				"navigationBarTitleText": "物流信息"
+			}
+		}
+        ,{
+            "path" : "pages/order/lookDetails/lookDetails",
+            "style" : {
+				"navigationBarTitleText": "订单详情"
+			}
+        }
+        ,{
+            "path" : "pages/order/lookDetails/concalShops",
+            "style" : {
+				"navigationBarTitleText": "退/换货"
+			}
+        }
+        ,{
+            "path" : "pages/allAssess/allAssess",
+            "style" : {
+				"navigationBarTitleText": "我的评价"
+			}
+        }
+        ,{
+            "path" : "pages/order/postSale/postSale",
+            "style" : {
+				"navigationBarTitleText": "退换/售后"
+			}
+        },{
+            "path" : "pages/order/postSale/postDetails",
+            "style" : {
+				"navigationBarTitleText": "退换/售后详情"
+			}
+        }
+        ,{
+            "path" : "pages/index/subject/zfcg/zfcg",
+            "style" : {
+				"navigationBarTitleText": "政府采购"
+			}
+        }
+        ,{
+            "path" : "pages/index/subject/jdcg/jdcg",
+            "style" : {
+				"navigationBarTitleText": "军队采购"
+			}
+        }
+        ,{
+            "path" : "pages/index/subject/hzhb/hzhb",
+            "style" : {
+				"navigationBarTitleText": "合作伙伴"
+			}
+        }
+        ,{
+            "path" : "pages/index/subject/lpdz/lpdz",
+            "style" : {
+            	"navigationBarTitleText": "礼品定制"
+            }
+        }
+        ,{
+            "path" : "pages/index/subject/wxfw/wxfw",
+            "style" : {
+            	"navigationBarTitleText": "维修服务"
+            }
+        }
+        ,{
+            "path" : "pages/index/subject/cjcg/cjcg",
+            "style" : {
+            	"navigationBarTitleText": "场景采购"
+            }
+        }
+        ,{
+            "path" : "pages/index/subject/gyhf/gyhf",
+            "style" : {
+            	"navigationBarTitleText": "关于行丰"
+            }
+        }
+        ,{
+            "path" : "pages/index/subject/zprc/zprc",
+            "style" : {
+            	"navigationBarTitleText": "招聘人才"
+            }
+        }
+        ,{
+            "path" : "pages/index/subject/bghc/bghc",
+            "style" : {
+            	"navigationBarTitleText": "教育培训" /* 办公耗材 */
+            }
+        }
+        ,{
+            "path" : "pages/index/subject/bgsb/bgsb",
+            "style" : {
+            	"navigationBarTitleText": "法律咨询" /* 办公设备*/
+            }
+        } 
+        
+        ,{
+            "path" : "pages/set/about",
+            "style" : {
+				"navigationBarTitleText": "关于行丰商城"
+			}
+        },
+		
+		{
+		    "path" : "pages/set/service",
+		    "style" : {
+				"navigationBarTitleText": "服务协议"
+			}
+		},
+		
+		{
+		    "path" : "pages/set/verBody",
+		    "style" : {
+				"navigationBarTitleText": "当前系统版本"
+			}
+		},
+		
+		{
+		    "path" : "pages/set/privacy",
+		    "style" : {
+				"navigationBarTitleText": "隐私保护政策"
+			}
+		}
+    ],
+	"globalStyle": {
+		"navigationBarTextStyle": "black",
+		"navigationBarTitleText": "行丰商城",
+		"navigationBarBackgroundColor": "#FFFFFF",
+		"backgroundColor": "#f8f8f8"
+	},
+	"tabBar": {
+		"color": "#C0C4CC",
+		"selectedColor": "#fa436a",
+		"borderStyle": "black",
+		"backgroundColor": "#ffffff",
+		"list": [{
+				"pagePath": "pages/index/index",
+				"iconPath": "static/tab-home.png",
+				"selectedIconPath": "static/tab-home-current.png",
+				"text": "首页"
+			},
+			{
+				"pagePath": "pages/category/category",
+				"iconPath": "static/tab-cate.png",
+				"selectedIconPath": "static/tab-cate-current.png",
+				"text": "分类"
+			},
+			{
+				"pagePath": "pages/search/search",
+				"iconPath": "static/tab-search.png",
+				"selectedIconPath": "static/tab-search-current.png",
+				"text": "搜索"
+			},
+			{
+				"pagePath": "pages/cart/cart",
+				"iconPath": "static/tab-cart.png",
+				"selectedIconPath": "static/tab-cart-current.png",
+				"text": "购物车"
+			},
+			{
+				"pagePath": "pages/user/user",
+				"iconPath": "static/tab-my.png",
+				"selectedIconPath": "static/tab-my-current.png",
+				"text": "我的"
+			}
+		]
+	}
+}

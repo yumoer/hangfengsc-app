@@ -1,0 +1,233 @@
+{
+    "name" : "行丰商城",
+    "appid" : "__UNI__18D6605",
+    "description" : "uni.UNI18D6605(wgt版本：1. 2.19 | apk版本：1.2.18）",
+    "versionName" : "1.2.19",
+    "versionCode" : 1219,
+    "transformPx" : false,
+    "app-plus" : {
+        "compatible" : {
+            "runtimeVersion" : "1.0.7", //根据实际情况填写  
+            "compilerVersion" : "1.0.7" //根据实际情况填写  
+        },
+        /* 5+App特有相关 */
+        "usingComponents" : true,
+        "splashscreen" : {
+            "alwaysShowBeforeRender" : true,
+            "waiting" : true,
+            "autoclose" : true,
+            "delay" : 0
+        },
+        "modules" : {
+            "Share" : {},
+            "Maps" : {},
+            "OAuth" : {},
+            "Payment" : {},
+            "Speech" : {}
+        },
+        /* 模块配置 */
+        "distribute" : {
+            /* 应用发布信息 */
+            "android" : {
+                /* android打包配置 */
+                "permissions" : [
+                    "<uses-feature android:name=\"android.hardware.camera\"/>",
+                    "<uses-feature android:name=\"android.hardware.camera.autofocus\"/>",
+                    "<uses-permission android:name=\"android.permission.ACCESS_COARSE_LOCATION\"/>",
+                    "<uses-permission android:name=\"android.permission.ACCESS_FINE_LOCATION\"/>",
+                    "<uses-permission android:name=\"android.permission.ACCESS_NETWORK_STATE\"/>",
+                    "<uses-permission android:name=\"android.permission.ACCESS_WIFI_STATE\"/>",
+                    "<uses-permission android:name=\"android.permission.CALL_PHONE\"/>",
+                    "<uses-permission android:name=\"android.permission.CAMERA\"/>",
+                    "<uses-permission android:name=\"android.permission.CHANGE_NETWORK_STATE\"/>",
+                    "<uses-permission android:name=\"android.permission.CHANGE_WIFI_STATE\"/>",
+                    "<uses-permission android:name=\"android.permission.FLASHLIGHT\"/>",
+                    "<uses-permission android:name=\"android.permission.GET_ACCOUNTS\"/>",
+                    "<uses-permission android:name=\"android.permission.INTERNET\"/>",
+                    "<uses-permission android:name=\"android.permission.MODIFY_AUDIO_SETTINGS\"/>",
+                    "<uses-permission android:name=\"android.permission.MOUNT_UNMOUNT_FILESYSTEMS\"/>",
+                    "<uses-permission android:name=\"android.permission.READ_CONTACTS\"/>",
+                    "<uses-permission android:name=\"android.permission.READ_LOGS\"/>",
+                    "<uses-permission android:name=\"android.permission.READ_PHONE_STATE\"/>",
+                    "<uses-permission android:name=\"android.permission.RECORD_AUDIO\"/>",
+                    "<uses-permission android:name=\"android.permission.VIBRATE\"/>",
+                    "<uses-permission android:name=\"android.permission.WAKE_LOCK\"/>",
+                    "<uses-permission android:name=\"android.permission.WRITE_CONTACTS\"/>",
+                    "<uses-permission android:name=\"android.permission.WRITE_EXTERNAL_STORAGE\"/>",
+                    "<uses-permission android:name=\"android.permission.WRITE_SETTINGS\"/>"
+                ],
+                "abiFilters" : [ "armeabi-v7a", "x86" ]
+            },
+            "ios" : {},
+            /* ios打包配置 */
+            "sdkConfigs" : {
+                "maps" : {
+                    "amap" : {
+                        "appkey_ios" : "9a8d9bc45ef193ae4bfd5827913c53f2",
+                        "appkey_android" : "eae5e2ac0d9ad949274c711ca3a6b57a"
+                    }
+                },
+                "oauth" : {
+                    "qq" : {
+                        "appid" : "1110153651"
+                    },
+                    "weixin" : {
+                        "appid" : "wx21f53b851acd7d86",
+                        "appsecret" : "8c7966c4164908fbaba80c2a2cab4763",
+                        "UniversalLinks" : "https://demo.dcloud.net.cn/ulink/"
+                    },
+                    "apple" : {}
+                },
+                "payment" : {
+                    "alipay" : {},
+                    "weixin" : {
+                        "appid" : "wx21f53b851acd7d86",
+                        "UniversalLinks" : "https://demo.dcloud.net.cn/ulink/"
+                    },
+                    "appleiap" : {}
+                },
+                "share" : {
+                    "weixin" : {
+                        "appid" : "wx21f53b851acd7d86",
+                        "UniversalLinks" : "https://demo.dcloud.net.cn/ulink/"
+                    },
+                    "qq" : {
+                        "appid" : "1110153651"
+                    }
+                },
+                "speech" : {
+                    "ifly" : {}
+                },
+                "push" : {},
+                "ad" : {}
+            },
+            "icons" : {
+                "android" : {
+                    "hdpi" : "unpackage/res/icons/72x72.png",
+                    "xhdpi" : "unpackage/res/icons/96x96.png",
+                    "xxhdpi" : "unpackage/res/icons/144x144.png",
+                    "xxxhdpi" : "unpackage/res/icons/192x192.png"
+                },
+                "ios" : {
+                    "appstore" : "unpackage/res/icons/1024x1024.png",
+                    "ipad" : {
+                        "app" : "unpackage/res/icons/76x76.png",
+                        "app@2x" : "unpackage/res/icons/152x152.png",
+                        "notification" : "unpackage/res/icons/20x20.png",
+                        "notification@2x" : "unpackage/res/icons/40x40.png",
+                        "proapp@2x" : "unpackage/res/icons/167x167.png",
+                        "settings" : "unpackage/res/icons/29x29.png",
+                        "settings@2x" : "unpackage/res/icons/58x58.png",
+                        "spotlight" : "unpackage/res/icons/40x40.png",
+                        "spotlight@2x" : "unpackage/res/icons/80x80.png"
+                    },
+                    "iphone" : {
+                        "app@2x" : "unpackage/res/icons/120x120.png",
+                        "app@3x" : "unpackage/res/icons/180x180.png",
+                        "notification@2x" : "unpackage/res/icons/40x40.png",
+                        "notification@3x" : "unpackage/res/icons/60x60.png",
+                        "settings@2x" : "unpackage/res/icons/58x58.png",
+                        "settings@3x" : "unpackage/res/icons/87x87.png",
+                        "spotlight@2x" : "unpackage/res/icons/80x80.png",
+                        "spotlight@3x" : "unpackage/res/icons/120x120.png"
+                    }
+                }
+            },
+            "splashscreen" : {
+                "android" : {
+                    "hdpi" : "unpackage/res/启动页.png",
+                    "xhdpi" : "unpackage/res/启动页.png",
+                    "xxhdpi" : "unpackage/res/启动页.png"
+                },
+                "ios" : {
+                    "iphone" : {
+                        "portrait-896h@3x" : "unpackage/res/启动页.png",
+                        "landscape-896h@3x" : "unpackage/res/启动页.png",
+                        "portrait-896h@2x" : "unpackage/res/启动页.png",
+                        "landscape-896h@2x" : "unpackage/res/启动页.png",
+                        "iphonex" : "unpackage/res/启动页.png",
+                        "iphonexl" : "unpackage/res/启动页.png",
+                        "retina55" : "unpackage/res/启动页.png",
+                        "retina55l" : "unpackage/res/启动页.png",
+                        "retina47" : "unpackage/res/启动页.png",
+                        "retina47l" : "unpackage/res/启动页.png",
+                        "retina40" : "unpackage/res/启动页.png",
+                        "retina40l" : "unpackage/res/启动页.png",
+                        "retina35" : "unpackage/res/启动页.png"
+                    }
+                }
+            }
+        },
+        "nativePlugins" : {
+            "CL-UpDater" : {
+                "__plugin_info__" : {
+                    "name" : "app版本升级原生弹框和进度提示(包含wgt升级)",
+                    "description" : "app版本升级(包含热更新)弹框提示和进度显示，apk自动安装",
+                    "platforms" : "Android,iOS",
+                    "url" : "https://ext.dcloud.net.cn/plugin?id=1371",
+                    "android_package_name" : "uni.UNI18D6605",
+                    "ios_bundle_id" : "",
+                    "isCloud" : true,
+                    "bought" : 1,
+                    "pid" : "1371",
+                    "parameters" : {}
+                }
+            }
+        }
+    },
+    /* SDK配置 */
+    "quickapp" : {},
+    /* 快应用特有相关 */
+    "mp-weixin" : {
+        /* 小程序特有相关 */
+        "usingComponents" : true,
+        "appid" : "wxd81e424b4a1a38dc",
+        "setting" : {
+            "urlCheck" : true,
+            "es6" : true,
+            "postcss" : false,
+            "minified" : false
+        }
+    },
+    "h5" : {
+        "title" : "行丰商城",
+        "domain" : "m.hfyt365.com",
+        "publicPath" : "./",
+        "router" : {
+            "mode" : "hash",
+            "base" : ""
+        },
+        "devServer" : {
+            "port" : 8000,
+            "disableHostCheck" : true,
+            "proxy" : {
+                "/api" : {
+                    "target" : "http://socket.hfyt365.com",
+                    "changeOrigin" : true,
+                    "secure" : false,
+                    "pathRewrite" : {
+                        "^/api" : ""
+                    }
+                }
+            },
+            "https" : false
+        },
+        "sdkConfigs" : {
+            "maps" : {
+                "qqmap" : {
+                    "key" : ""
+                }
+            }
+        },
+        "optimization" : {
+            "treeShaking" : {
+                "enable" : true
+            }
+        }
+    },
+    "mp-toutiao" : {
+        "setting" : {
+            "minified" : false
+        }
+    }
+}

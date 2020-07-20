@@ -1,0 +1,1 @@
+<view><view>{{'条码内容:'+value+''}}<view class="_br"></view></view></view>
