@@ -398,7 +398,7 @@
 				const upDater=uni.requireNativePlugin("CL-UpDater");
 				let options={
 					title:"有新版本更新，请点击升级",
-					con:"1、新增我的收藏功能;\r\n2、新增banner管理;\r\n3、版本升级提示更新;",
+					con:"1、更新了一些内容",
 					downUrl:"http://47.94.106.106:8000/mobile/download/apk",//提示android端需设置apk下载地址,ios只需设置苹果商店app地址;
 					hidCancelbtn:false,
 					btnBgColor:"#ff3300"
@@ -418,7 +418,7 @@
 				const upDater=uni.requireNativePlugin("CL-UpDater");
 				let options={
 					title:"有小版本更新，请点击升级",
-					con:"1、新增我的收藏功能;\r\n2、新增banner管理;\r\n3、版本升级提示更新",
+					con:"1、更新了一些内容",
 					downUrl:"http://47.94.106.106:8000/mobile/download/wgt",
 					hidCancelbtn:false,
 					btnBgColor:"#ffaa00",
@@ -449,7 +449,6 @@
 								})								
 							});
 						}
-									
 					});
 				})
 			},

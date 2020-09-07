@@ -5,7 +5,7 @@
 			<image src="/static/emptyCart.jpg" mode="aspectFit"></image>
 			<view v-if="hasLogin" class="empty-tips">
 				空空如也
-				<view class="navigator" v-if="hasLogin" url="../index/index" open-type="switchTab">随便逛逛></view>
+				<view class="navigator" @click="navTo('/pages/index/index')" open-type="switchTab">随便逛逛></view>
 			</view>
 			<view v-else class="empty-tips">
 				空空如也
@@ -168,6 +168,11 @@
 			gotoPath(id){
 				uni.navigateTo({
 					url: '/pages/product/product?id='+id
+				})
+			},
+			navTo(url){
+				uni.switchTab({
+					url: url
 				})
 			},
 			navToLogin(){

@@ -119,8 +119,8 @@
 	*/
    /*每个页面公共css */
    
-   @import "colorui/main.css";
-   @import "colorui/icon.css";
+   /* @import "colorui/main.css";
+   @import "colorui/icon.css"; */
    @import "uview-ui/index.scss";
    @import "static/css/index-app.css";
    @import "static/iconfont/font.scss";
@@ -152,7 +152,7 @@
 		font-family: yticon;
 		font-weight: normal;
 		font-style: normal;
-		src: url('https://at.alicdn.com/t/font_1211716_vq8z14fq8ld.ttf') format('truetype');
+		src: url('https://at.alicdn.com/t/font_1211716_361r3wp5lpd.ttf') format('truetype');
 	}
 
 	.yticon {
@@ -233,6 +233,14 @@
 
 	.icon-daifukuan:before {
 		content: "\e68f";
+	}
+	
+	.icon-fankui:before {
+		content: "\e650";
+	}
+	
+	.icon-xiazai:before {
+		content: "\e64d";
 	}
 
 	.icon-pinglun-copy:before {

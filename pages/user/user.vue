@@ -39,6 +39,20 @@
 			@touchend="coverTouchend"
 		>
 			<image class="arc" src="/static/arc.png"></image>
+			<view class="tj-sction">
+				<view class="tj-item">
+					<text class="num">{{balance}}</text>
+					<text>余额</text>
+				</view>
+				<view class="tj-item">
+					<text class="num">{{coupon}}</text>
+					<text>优惠券</text>
+				</view>
+				<view class="tj-item">
+					<text class="num">0</text>
+					<text>积分</text>
+				</view>
+			</view>
 			<!-- 订单 -->
 			<view class="history-section icon">
 				<list-cell icon="icon-shouye" @eventClick="navTo('/pages/order/order?state=0')" iconColor="#e07472" title="我的订单" tips="全部订单"></list-cell>
@@ -67,7 +81,7 @@
 							</view>
 							<view class="order-item" @click="navTo('/pages/order/postSale/postSale')" hover-class="common-hover"  :hover-stay-time="50">
 								<text class="yticon icon-shouhoutuikuan"></text>
-								<min-badge :count="count5" style="position: absolute;margin: -40upx 20upx;"></min-badge>
+								<min-badge :count="count5" style="position: absolute;margin: -40upx 20upx;"></min-badge> 
 								<text>退款/售后</text>
 							</view>
 						</view>
@@ -101,13 +115,14 @@
 				<list-cell icon="icon-fapiao" iconColor="#5cba22" title="发票信息" @eventClick="navTo('/pages/invoice/invoice')" tips="添加普票/增票/电子票"></list-cell>
 				<list-cell icon="icon-gerenziliao" iconColor="#ee663b" title="个人资料" @eventClick="navTo('/pages/set/userInfo')" tips="修改个人资料"></list-cell>
 				<list-cell icon="icon-mima" iconColor="#22ee3b" title="修改密码" @eventClick="navTo('/pages/set/editPass')"></list-cell>
-				<list-cell icon="icon-xiaoxi" iconColor="#54b4ef" title="意见反馈" @eventClick="voucher('/pages/coupon/voucher')" tips="提交意见反馈"></list-cell>
-				<list-cell icon="icon-shoucang_xuanzhongzhuangtai" iconColor="#54b4ef" title="我的收藏" @eventClick="voucher('/pages/coupon/reduction')"></list-cell>
+				<list-cell icon="icon-fankui" iconColor="#e68841" title="意见反馈" @eventClick="navTo('/pages/coupon/voucher')" tips="提交意见反馈"></list-cell>
+				<list-cell icon="icon-shoucang_xuanzhongzhuangtai" iconColor="#54b4ef" title="我的收藏" @eventClick="navTo('/pages/coupon/reduction')"></list-cell>
+				<list-cell icon="icon-iconfontweixin" iconColor="#e65504" title="余额充值" @eventClick="navTo('/pages/recharge/recharge')"></list-cell>
 				<!-- #ifdef APP-PLUS -->
 				<list-cell icon="icon-share" @eventClick="navTo('/pages/share/share')" iconColor="#9789f7" title="分享" tips="分享app给好友"></list-cell>
 				<!-- #endif --> 
 				<!-- #ifdef H5 -->
-				<list-cell icon="icon-Group-" @eventClick="navTo('/pages/appDown/appDown')" iconColor="#9789f7" title="下载中心" tips="下载app最新版本"></list-cell>
+				<list-cell icon="icon-xiazai" @eventClick="navTo('/pages/appDown/appDown')" iconColor="#9789f7" title="下载中心" tips="下载app最新版本"></list-cell>
 				<!-- #endif -->
 				<list-cell icon="icon-shezhi1" iconColor="#e07472" title="设置" border="" @eventClick="navTo('/pages/set/set')"></list-cell>
 			</view>
@@ -133,6 +148,8 @@
 				coverTransition: '0s',
 				moving: false,
 				histories:[],
+				balance:'0.00',
+				coupon:0,
 				exNum:{
 					coupon:0,
 					voucher:0,
@@ -146,8 +163,24 @@
 				count5:null,
 			}
 		},
-		onLoad(options){
+		async onLoad(options){
 			console.log(options.data)
+			const response = await uniRequest({
+				url:'/balance/',
+				method:'get',
+				headers:{
+					Authorization:'JWT '+uni.getStorageSync('userInfo').token
+				},
+			}).then(response=>{
+				if(response.status === 200){
+					console.log(response.data)
+					this.balance = response.data
+				}else if(response.status === 400){
+					
+				}
+			}).catch(error=>{
+				console.log(error)
+			})
 		},
 		onShow(){
 			console.log(this.hasLogin)

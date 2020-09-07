@@ -120,6 +120,51 @@
 			}
 		},
 		
+		{
+			"path": "pages/cdkey/cdkey",
+			"style": {
+				// "navigationBarTitleText": "券卡兑换",
+				"app-plus": {
+					"titleNView": false,
+					"animationType": "slide-in-bottom"
+				}
+			}
+		},
+		
+		{
+			"path": "pages/cdkey/cdkeyDetail",
+			"style": {
+				"navigationBarTitleText": "卡券详情"
+			}
+		},
+		
+		{
+			"path": "pages/cdkey/lookAllOrder",
+			"style": {
+				"navigationBarTitleText": "我的订单",
+				"app-plus": {
+					"titleNView": {
+						"titleSize": "18px",
+						"autoBackButton": false
+					}
+				}
+				
+			}
+		},
+		
+		{
+			"path": "pages/cdkey/cdkeyOrder",
+			"style": {
+				"navigationBarTitleText": "订单详情"
+			}
+		},
+		
+		{
+			"path": "pages/cdkey/shopDetail",
+			"style": {
+				"navigationBarTitleText": "商品详情"
+			}
+		},
 		
 
 		{
@@ -143,6 +188,12 @@
 			"path": "pages/share/share",
 			"style": {
 				"navigationBarTitleText": "分享"
+			}
+		}, 
+		{
+			"path": "pages/recharge/recharge",
+			"style": {
+				"navigationBarTitleText": "充值"
 			}
 		}, 
 		{

@@ -25,6 +25,10 @@ import QSInfinitePics from './components/QS-inputs-split/elements/QS-infinitePic
 import QSwitch from './components/QS-inputs-split/elements/QS-switch/index.vue';
 // main.js
 import uView from "uview-ui";
+
+import VueClipboard from 'vue-clipboard2'
+ 
+Vue.use(VueClipboard);
 Vue.use(uView);
 
 Vue.component('QSInput',QSInput);
@@ -40,7 +44,7 @@ Vue.component('QSInfinitePics',QSInfinitePics);
 Vue.component('QSwitch',QSwitch);
 
 uniRequest.defaults.baseURL = 'http://47.94.106.106:8000';
-// uniRequest.defaults.baseURL = 'http://192.168.1.59:8000'
+// uniRequest.defaults.baseURL = 'http://192.168.1.9:8000'
 uniRequest.defaults.headers.post['Content-Type'] = 'application/json';
 /* uniRequest.defaults.setRequestHeader("Access-Control-Allow-Origin: *");
 uniRequest.defaults.setRequestHeader('Access-Control-Allow-Methods:*');
@@ -52,9 +56,11 @@ uniRequest.interceptors.response.use(async function(response) {
 	if(response.status === 500 || response.status === 502){
 		Vue.prototype.$api.msg('服务器错误,请稍后重试')
 	}
+	console.log(response)
     console.log('返回进入拦截成功')
     return Promise.resolve(response);
 }, function(error) {
+	console.log(error)
     console.log('返回进入拦截失败')
     return Promise.reject(error);
 });
@@ -89,7 +95,6 @@ const prePage = ()=>{
 	// #ifdef APP-PLUS
 	return prePage.$vm;
 	// #endif
-	
 }
 
 

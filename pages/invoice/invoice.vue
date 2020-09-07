@@ -29,9 +29,7 @@
 
 <script>
 	import uniRequest from 'uni-request'
-	import uniPopup from "@/components/uni-popup/uni-popup.vue"
 	export default {
-		components: {uniPopup},
 		data() {
 			return {
 				source: 0,

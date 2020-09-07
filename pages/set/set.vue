@@ -31,6 +31,10 @@
 			<text class="cell-tit">清除缓存</text>
 			<text class="cell-more yticon icon-you"></text>
 		</view>
+		<view class="list-cell b-b" @click="logout" hover-class="cell-hover" :hover-stay-time="50">
+			<text class="cell-tit">注销账户</text>
+			<text class="cell-more yticon icon-you"></text>
+		</view>
 		
 		
 		<!-- #ifdef APP-PLUS -->
@@ -214,6 +218,7 @@
 				    content: '退出登录数据会被清除,确定要退出登录?',
 				    success: (e)=>{
 				    	if(e.confirm){
+							uni.removeStorage({key:'userInfo'})
 				    		this.logout();
 							uni.navigateBack();
 				    	}
@@ -225,6 +230,31 @@
 				let statusTip = e.detail.value ? '打开': '关闭';
 				this.$api.msg(`${statusTip}消息推送`);
 			},
+			
+			logout(){
+				uni.showModal({
+					title:'提示',
+				    content: '注销成功后，您的账号将无法登录！',
+				    success: async(e) =>{
+				    	if(e.confirm){
+							const response = await uniRequest({
+								url:'/users/',
+								method:'delete',
+								headers:{
+									Authorization:'JWT '+uni.getStorageSync('userInfo').token
+								},
+							}).then(response=>{
+								console.log(response)
+								uni.removeStorage({key:'userInfo'})
+								this.logout();
+								uni.navigateBack();
+							}).catch(error=>{
+								console.log(error)
+							})
+				    	}
+				    }
+				});
+			}
 
 		}
 	}
