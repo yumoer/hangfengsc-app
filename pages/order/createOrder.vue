@@ -13,7 +13,6 @@
 				</view>
 				<text class="yticon icon-you"></text>
 			</view>
-
 		</navigator>
 
 		<view class="goods-section">
@@ -22,26 +21,26 @@
 				<text class="name">商品列表</text>
 			</view>
 			<!-- 商品列表 -->
-			<view class="g-item" v-if="datas.length > 0" v-for="(data,index) in datas" :key="index">
+			<view class="g-item" v-for="(data,index) in datas" :key="index">
 				<image :src="data.default_image_url"></image>
 				<view class="right">
-					<text class="title clamp">{{data.name}}</text>
+					<text class="title clamp">{{data.title}}</text>
 					<view class="price-box" style="margin-top: 20px;">
-						<text class="price" style="color: red;">￥{{data.price}}</text>
-						<text class="number" style="float: right;display: inherit;">x {{data.count}}</text>
+						<text class="price" style="color: red;">￥{{(data.price)}}</text>
+						<text class="number" style="float: right;">共{{data.count}}件</text>
 					</view>
 				</view>
 			</view>
-			<view class="g-item" v-if="datas.length === undefined">
+			<!-- <view class="g-item" v-if="datas.length === undefined">
 				<image :src="datas.default_image_url"></image>
 				<view class="right">
-					<text class="title clamp">{{datas.name}}</text>
+					<text class="title clamp">{{datas.title}}</text>
 					<view class="price-box" style="margin-top: 20px;">
-						<text class="price" style="color: red;">￥{{datas.price}}</text>
-						<text class="number" style="float: right;display: inherit;">x {{datas.count}}</text>
+						<text class="price" style="color: red;float: left;">￥{{datas.price}}</text>
+						<text class="number" style="float: right;display: inherit;">共{{datas.count}}件</text>
 					</view>
 				</view>
-			</view>
+			</view> -->
 		</view>
 
 		<!-- 优惠明细 -->
@@ -110,14 +109,13 @@
 		<view class="yt-list">
 			<view class="yt-list-cell b-b">
 				<text class="cell-tit clamp">商品金额</text>
-				<text class="cell-tip" v-if="!price">￥{{Number(datas.price) * count}}2</text>
-				<text class="cell-tip" v-else>￥{{Number(price)}}</text>
+				<text class="cell-tip">￥{{price}}</text>
 			</view>
 			
 			<view class="yt-list-cell b-b">
 
 				<text class="cell-tit clamp">运费</text>
-				<text class="cell-tip" v-if="price >= 99">免运费</text>
+				<text class="cell-tip" v-if="price >= 100">免运费</text>
 				<text class="cell-tip" v-else>￥13.00</text>
 			</view>
 			
@@ -134,19 +132,12 @@
 			<view class="price-content">
 				<text>实付款</text>
 				<text class="price-tip">￥</text>
-				<!-- 购物车 -->
-				<text v-if="price >= 99">
-					<text class="price" v-if="!price">{{Number(datas.price) * count}}</text>
-					<text class="price" v-else>{{Number(price) - reduction}}</text>
-				</text>
-				<text v-else>
-					<text class="price" v-if="!price">{{Number(datas.price) * count + 13.00}}</text>
-					<text class="price" v-else>{{Number(price) + 13.00}}</text>
+				<text>
+					<text class="price">{{allPrice}}</text>
 				</text>
 				<text class="coupon">
 					已优惠<text>{{reduction}}</text>元
 				</text>
-				
 			</view>
 			<text class="submit" @click="submit">提交订单</text>
 		</view>
@@ -164,6 +155,7 @@
 				desc: '', //备注
 				payType: 1, //1微信 2支付宝
 				price: 0,
+				allPrice:0,
 				disPrice:0, // 优惠价
 				invoice: '选择发票',
 				goods_id:'',
@@ -217,19 +209,21 @@
 		},
 		onLoad(option) {
 			//商品数据
-			let data = JSON.parse(option.data)
+			let data = JSON.parse(decodeURIComponent(option.data))
 			console.log(data)
-			this.type = option.type
+			this.type = Number(option.type)
 			console.log(this.type)
-			if (option.count) {  // 直接购买
-				this.datas = data
-				this.datas.count = option.count
-				this.price = this.datas.price*option.count
-				this.goods_id = option.goods_id
-			} else { // 购物车购买
+			if (this.type === 1) {  // 直接购买
+				data.count = Number(option.count)
+				data.title = data.name
+				this.price = data.price.toFixed(2)
+				data.price >= 100 
+				? this.allPrice = (Number(data.price) * Number(data.count)).toFixed(2) 
+				: this.allPrice = (Number(data.price) * Number(data.count)+13).toFixed(2)
+				this.datas.push(data)
+			} else if(this.type === 2) { // 购物车购买
 				this.datas = data
 				console.log(this.datas)
-				this.type = "coupon"
 				let price
 				const priceArr = []
 				this.datas.forEach(ele => {
@@ -239,7 +233,21 @@
 				priceArr.forEach(ele => {
 					this.price += ele
 				})
+				this.price >= 100
+				? this.allPrice = this.price
+				: this.allPrice = (this.price+13).toFixed(2)
 				this.price = this.price.toFixed(2)
+			}else if(this.type === 3){ // 再次购买
+				data.forEach(ele=>{
+					ele.default_image_url = ele.image
+					this.price += Number(ele.price)
+				})
+				let price = this.price
+				price >= 100
+				? this.allPrice = price
+				: this.allPrice = (price+13).toFixed(2)
+				this.price = this.price.toFixed(2)
+				this.datas = data
 			}
 		},
 		methods: {
@@ -320,7 +328,7 @@
 					})
 				}else{
 					uni.redirectTo({  // 购物车购买
-						url: '/pages/money/pay?info=' + JSON.stringify(this.info) + '&price='+ (this.price - this.reduction)
+						url: '/pages/money/pay?info=' + JSON.stringify(this.info) + '&price='+ Number(this.price - this.reduction)
 					})
 				}
 				
@@ -633,6 +641,7 @@
 		.coupon{
 			font-size: $font-sm;
 			color: $font-color-light;
+			margin-left: 10px;
 			text{
 				color: $font-color-dark;
 			}

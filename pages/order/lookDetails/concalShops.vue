@@ -3,11 +3,11 @@
 		<view class="order-item">
 			<view class="">
 				<view class="goods-box-single">
-					<image class="goods-img" :src="goodsItem.sku_image" mode="aspectFill"></image>
+					<image class="goods-img" :src="goodItem.image" mode="aspectFill"></image>
 					<view class="right">
-						<text class="title clamp">{{goodsItem.sku_name}}</text>
-						<text class="price" style="float: left;">{{goodsItem.price}} 
-							<text class="attr-box" style="float: right;">  x {{goodsItem.num}}</text>
+						<text class="title clamp">{{goodItem.title}}</text>
+						<text class="price" style="float: left;">{{goodItem.price}} 
+							<text class="attr-box" style="float: right;">  x {{goodItem.count}}</text>
 						</text>
 					</view>
 				</view>
@@ -16,7 +16,7 @@
 					<view class="right" style="display: inline-block;float: right;">
 						<view >
 							<view>
-								<uni-number-box @change="bindChange" :min="1" :max="goodsItem.num" :value="goodsItem.num"></uni-number-box>
+								<uni-number-box @change="bindChange" :min="1" :max="goodItem.count" :value="goodItem.count"></uni-number-box>
 							</view>
 						</view>
 					</view>
@@ -69,9 +69,7 @@
 					</view>
 			</view>
 			
-			<!-- <view>
-				<inputs :inputsArray="inputsArray" activeName="提交" @activeFc="activeFc($event)"/>
-			</view> -->
+		
 			<view class="issue-btn-box" style="position: absolute;bottom: 20upx;text-align: center;width: 95%;left: 20upx;">
 				<button class="submit-btn" type="primary" style="background-color: #fa436a" @click="doSubmit">提交</button>
 					<slot name="submit"></slot>
@@ -89,16 +87,18 @@
 	export default {
 		data() {
 			return {
-				goodsItem:{},
+				goodItem:{},
 				desc:'',
 				count:1,
 				textareaValue:'请说明退换货原因',
 				type:1,
 				blob:{},
 				imgList: [],
+				fileData:[],
 				modalName: null,
 				index:-1,
 				orderId:null,
+				subOrderId:null,
 				radioItems: [{
 						value: '退货',
 						checked: 'true',
@@ -132,12 +132,10 @@
 		},
 		components:{uniNumberBox,inputs},
 		onLoad(options){
-			console.log(options.item)
-			console.log(JSON.parse(options.item))
-			this.goodsItem = JSON.parse(options.item)
-			console.log(this.goodsItem)
+			console.log(options)
+			this.goodItem = JSON.parse(decodeURIComponent(options.item))
 			this.orderId = options.order_id
-			console.log(this.orderId)
+			this.subOrderId = options.sub_order_id
 		},
 		methods: {
 			blur(e){
@@ -152,39 +150,13 @@
 					sourceType: ['album'], //从相册选择
 					success: (res) => {
 						// this.blob = res
-						console.log(res)
 						//blob数据转file
 						this.imgList = this.imgList.concat(res.tempFilePaths)
-						
-						/* let imgs = this.imageList.map((value, index) => {
-						    return {
-						            name: "image" + index, 
-						            uri: value
-						        }
-						}); */
-						console.log(this.imgList)
-						uni.uploadFile({
-							url: 'http://47.96.106.106:8000/api/order/create/return/goods/user/', //仅为示例，非真实的接口地址
-							filePath: this.imgList[0],
-							name:'image1',
-							header: {
-								token:'JWT '+uni.getStorageSync('userInfo').token,
-								"Content-Type": "multipart/form-data"
-							},
-							
-							success: (uploadFileRes) => { 
-								resolve(uploadFileRes.data);  
-							}
-						});
-						/* formData: {
-							'image1': this.imgList[0]
-						}, */
-						// this.urlTobase64(this.imgList[0])
+						this.fileData = this.fileData.concat(res.tempFiles)
 					}
 				});
 				 
 			},
-			
 			
 			
 			urlTobase64(url){
@@ -284,23 +256,27 @@
 			textInput(e){
 				console.log(e)
 			},
-			async doSubmit(e){
+			async doSubmit(){
+				console.log(this.fileData[0])
 				await uniRequest({
-					url:'order/create/return/goods/user/',
+					url:'/orders/create/return/goods/user/',
 					method:'post',
 					data: {
 						order_id:this.orderId,
-						goods_id:this.goodsItem.sku,
-						count:this.count,
+						sub_order_id:this.subOrderId,
+						sku_id:this.goodItem.id,
+						count:this.goodItem.count,
 						cause:this.desc,
-						image1:this.imgList[0],
-						image2:this.imgList[1],
-						image3:this.imgList[2],
-						image4:this.imgList[3],
+						image1:this.fileData[0],
+						image2:this.fileData[1],
+						image3:this.fileData[2],
+						image4:this.fileData[3],
 						service_type:this.type
 					},
+					dataType: 'json',
 					headers:{
-						Authorization:'JWT '+uni.getStorageSync('userInfo').token,
+						'Authorization':'JWT '+ uni.getStorageSync('userInfo').token,
+						'Content-Type':'application/x-www-form-urlencoded',
 					},
 				}).then(res=>{
 					if(res.status === 200){
@@ -310,7 +286,7 @@
 							uni.navigateBack()
 						},300)
 					}else{
-						this.$api.msg(res.data.non_field_errors[0])
+						this.$api.msg(res.data.message)
 					}
 				}).catch(error=>{
 					console.log(error)
@@ -320,18 +296,6 @@
 	}
 </script>
 <style>
-	/*
-	  ColorUi for uniApp  v2.1.6 | by 文晓港 2019-05-31 10:44:24
-	  仅供学习交流，如作它用所承受的法律责任一概与作者无关  
-	  
-	  *使用ColorUi开发扩展与插件时，请注明基于ColorUi开发 
-	  
-	  （QQ交流群：240787041）
-	*/
-	
-	/* ==================
-	        初始化
-	 ==================== */
 	body {
 		background-color: #f1f1f1;
 		font-size: 28upx;

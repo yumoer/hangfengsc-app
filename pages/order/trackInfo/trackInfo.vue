@@ -19,16 +19,14 @@ export default {
     }
   },
   async onLoad(options){
-	  console.log(options.order_id)
 	  uni.showLoading({
 	  	title: '请稍后'
 	  })
-	  const response = await uniRequest({
-	  	url:'/yangcai/order/track/',
+	  await uniRequest({
+	  	url:'/orders/track/recording/',
 	  	method:'post',
 	  	data:{
-	  		order_id:options.order_id,
-	  		accessToken:'JWT ' + uni.getStorageSync('userInfo').token
+	  		sub_order_id:Number(options.order_id),
 	  	},
 	  	headers:{
 	  		Authorization:'JWT '+uni.getStorageSync('userInfo').token
@@ -37,13 +35,13 @@ export default {
 	  	console.log(res)
 	  	if(res.status === 200){
 	  		uni.hideLoading();
+			this.tracesData = res.data.orderLogisticStatus
 			console.log(this.tracesData)
-			console.log(res.data.orderLogisticStatus)
-			this.tracesData = res.data.orderLogisticStatus.reverse()
-			/* res.data.orderLogisticStatus.forEach(ele=>{
-				ele.operateState
-			}) */
-			
+			this.tracesData.forEach(ele=>{
+				ele.acceptStation = ele.operateState
+				ele.createTime = ele.operateTime
+				ele.statusName = ele.username
+			})
 	  	}
 	  	
 	  }).catch(error=>{

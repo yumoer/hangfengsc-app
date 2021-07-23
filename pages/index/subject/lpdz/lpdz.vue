@@ -1,6 +1,6 @@
 <template>
-	<view>
-		<image style="width: 100%;height: 360upx;" src="/static/gift_customization/banner1.jpg" mode=""></image>
+	<view style="">
+		<image style="width: 100%;height: 400upx;" src="/static/gift_customization/banner1.jpg" mode=""></image>
 		<!-- <view style="width: 100%;height: 100%;margin-top: -10upx;">
 			<view style="text-align: center;background:#9C7408;color: #fff;font-size: 28upx;padding: 10upx 0;">
 			  <view>专业团队</view>
@@ -16,26 +16,26 @@
 			  </view>
 			</view>
 	    </view> -->
-		<view style="float:left;width:100%;height: 100%">
+		<view style="float:left;width:100%;height: 100%;">
 			<view style="text-align: center;background:#C0D3FF;color: #fff;font-size: 28upx;padding: 10upx 0;">
 			  <view>热门定制</view>
 			  <view>---- 物美价廉，争先恐后 ----</view>
 			</view>
 			
-			<uni-grid :column="4" :show-border="false"  :square="false" style="display: inline-block;width: 100%;margin-top: 20upx;">
+			<uni-grid :column="5" :show-border="false"  :square="false" style="display: inline-block;width: 100%;padding:10px">
 			    <uni-grid-item  v-for="(Popular,index) in Populars" :key="index" style="margin-bottom: 20upx;">
-			        <image style="width: 60px;height: 60px;margin-left: 15px;margin-bottom: 10upx;" :src="Popular.src" @click="goto('/pages/search/searchList?value='+Popular.name)" ></image>
-			        <view @click="goto('/pages/search/searchList?value='+Popular.name)"  style="font-size: 16px;color: #2b66ea;text-align: center;">{{Popular.name}}</view>
+			        <image style="width: 50px;height: 50px;margin-left: 15px;margin-bottom: 10upx;" :src="Popular.src" @click="goto('/pages/search/searchList?value='+Popular.name)" ></image>
+			        <view @click="goto('/pages/search/searchList?value='+Popular.name)"  style="font-size: 14px;color: #2b66ea;text-align: center;">{{Popular.name}}</view>
 			    </uni-grid-item>
 			</uni-grid>
 		</view>
-		<view style="float:left;width:100%;height: 100%">
+		<view style="float:left;width:100%;height: 100%;">
 			<view style="text-align: center;background:#C1F0E8;color: #fff;font-size: 28upx;padding: 10upx 0;">
 			  <view>定制流程</view>
 			  <view>---- 已有礼品，直接下单 ----</view>
 			</view>
 			<view style="padding: 10px">
-			  <image style="width: 100%;height: 200upx;" src="/static/gift_customization/dingzhiliucheng.png" mode=""></image>
+			  <image style="width: 100%;height: 160upx;padding: 10px;" src="/static/gift_customization/dingzhiliucheng.png" mode=""></image>
 			</view>
 		</view>
 		
@@ -47,9 +47,9 @@
 			<view style="padding: 10px">
 			  <view v-for="(SpecialGift,index) in SpecialGifts" :key="index" style="margin-bottom: 20px">
 				<view @click="ImagePreview(SpecialGift.src)">
-				  <image style="width: 100%;height: 400upx;" :src="SpecialGift.src" mode=""></image>
+				  <image style="width: 100%;height: 300upx;" :src="SpecialGift.src" mode=""></image>
 				</view>
-				<view style="height: 30px;line-height: 30px;font-size: 30upx;">
+				<view style="height: 30px;line-height: 30px;font-size: 28upx;">
 				  <text style="float: left;color: #ea9d2b">{{SpecialGift.name}}</text>
 				  <text style="float: right;color: red">进入专题(暂未开发)</text>
 				</view>
@@ -57,21 +57,21 @@
 			</view>
 		</view>
 		
-		<view style="float:left;width:100%;height: 100%">
+		<!-- <view style="float:left;width:100%;height: 100%">
 			<view style="text-align: center;background:#F2D5FF;color: #fff;font-size: 28upx;padding: 10upx 0;">
 			  <view>万种礼品</view>
 			  <view>---- 种类丰富，任君挑选 ----</view>
 			</view>
-			<view>
+			<view style="padding: 10px;"> 
 			  <uni-collapse accordion="true">
 				<uni-collapse-item v-for="(ThousandGift,index) in ThousandGifts" :key="index" :title="ThousandGift.head" :name="index" style="">
-				  <span style="font-size: 32upx;padding: 20upx;color: blue;" v-for="(kind,index) in ThousandGift.kinds" :key="index" @click="goto('/pages/search/searchList?value='+kind)">{{kind}}</span>
+				  <view style="font-size: 32upx;padding: 20upx;color: #999;display: inline-block;" v-for="(kind,index) in ThousandGift.kinds" :key="index" @click="goto('/pages/search/searchList?value='+kind)">{{kind}}</view>
 				</uni-collapse-item>
 			  </uni-collapse>
 			</view>
-		</view>
+		</view> -->
 		
-		<view style="float:left;width:100%;height: 100%">
+		<!-- <view style="float:left;width:100%;height: 100%">
 			<view style="text-align: center;background:#D6E3FF;color: #fff;font-size: 28upx;padding: 10upx 0;">
 			  <view>经典案例</view>
 			  <view>---- 经典印象，连结你我 ----</view>
@@ -88,9 +88,7 @@
 					</uni-grid>
 				</view>
 			</view>
-			
-			
-		</view>
+		</view> -->
 		
 		<view style="float:left;width:100%;height: 100%">
 			<view style="text-align: center;background:#FDFFB6;color: #fff;font-size: 28upx;padding: 10upx 0;">
@@ -98,7 +96,7 @@
 			  <view>---- 感恩呵护，积少成多 ----</view>
 			</view>
 			<view style="padding: 10px" @click="ImagePreview('/static/gift_customization/bufenkehu.jpg')">
-			  <image style="width: 100%" src="/static/gift_customization/bufenkehu.jpg" mode=""></image>
+			  <image style="width: 100%;height: 300upx;" src="/static/gift_customization/bufenkehu.jpg" mode=""></image>
 			</view>
 		</view>
 	
@@ -108,7 +106,7 @@
 			  <view>---- 各行各业，礼多不怪 ----</view>
 			</view>
 			<view style="padding: 10px" @click="ImagePreview('/static/gift_customization/hangyelipin.jpg')">
-			  <image style="width: 100%" src="/static/gift_customization/hangyelipin.jpg" mode=""></image>
+			  <image style="width: 100%;height: 300upx;" src="/static/gift_customization/hangyelipin.jpg" mode=""></image>
 			</view>
 		</view>
 	
@@ -118,7 +116,7 @@
 			  <view>---- 互帮互助，砥砺前行 ----</view>
 			</view>
 			<view style="padding: 10px" @click="ImagePreview('/static/gift_customization/hezuohuoban.jpg')">
-			  <image style="width: 100%" src="/static/gift_customization/hezuohuoban.jpg" mode=""></image>
+			  <image style="width: 100%;height: 300upx;" src="/static/gift_customization/hezuohuoban.jpg" mode=""></image>
 			</view>
 		</view>
 	

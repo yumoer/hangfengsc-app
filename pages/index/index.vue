@@ -1,12 +1,5 @@
 <template>
 	<view class="container">
-		<!-- 小程序头部兼容 -->
-		<!-- #ifdef MP -->
-		<view class="mp-search-box">
-			<input class="ser-input" type="text" value="输入关键字搜索" disabled />
-		</view>
-		<!-- #endif -->
-		
 		<!-- 头部轮播 -->
 		<view class="carousel-section">
 			<!-- 标题栏和状态栏占位符 -->
@@ -14,7 +7,7 @@
 			<!-- 背景色区域 -->
 			<view class="titleNview-background" :style="{backgroundColor:titleNViewBackground}"></view>
 			<swiper class="carousel" circular autoplay @change="swiperChange">
-				<swiper-item v-for="(item, index) in carouselList" :key="index" class="carousel-item" @click="into(item)">
+				<swiper-item v-for="(item, index) in carouselList" :key="index" class="carousel-item" @click="goToPage(item.url)">
 					<image :src="item.image"/>
 				</swiper-item>
 			</swiper>
@@ -25,7 +18,8 @@
 				<text class="num">{{swiperLength}}</text>
 			</view>
 		</view>
-		<!-- 分类 -->
+		
+		<!-- 主题ICON -->
 		<view class="cate-section">
 			<view class="cate-item" v-for="(homePage,index) in homePageList" :key=index @click="goIcon(homePage)">
 				<image :src="homePage.src"></image>
@@ -137,7 +131,7 @@
 		</view>
 		<view class="hot-floor">
 			<view class="floor-img-box">
-				<image class="floor-img" src="/static/img/3.jpg" mode="scaleToFill"></image>
+				<image class="floor-img" src="/static/index/classBack.jpg" mode="scaleToFill"></image>
 			</view>
 			<scroll-view class="floor-list" scroll-x>
 				<view class="scoll-wrapper">
@@ -147,7 +141,7 @@
 						class="floor-item"
 						@click="navToDetailPage(item)"
 					>
-						<image :src="item.default_image_url" mode="aspectFill"></image>
+						<image v-if="item.detail_image !== null" :src="item.detail_image" mode="aspectFill"></image>
 						<!-- #ifdef H5 -->
 						<text style="text-align: center;" class="title clamp">{{item.name}}</text>
 						<!-- #endif -->
@@ -177,16 +171,17 @@
 		
 		<view class="guess-section">
 			<view 
-				v-for="(item, index) in skus" :key="index"
+				v-for="(item, index) in skuData" :key="index"
 				class="guess-item"
 				@click="navToDetailPage(item)"
+				v-if="item.object !== null"
 			>
 				<view class="image-wrapper" >
-					<image style="border: 1px solid #ddd;" :src="item.object.default_image_url" mode="aspectFill"></image>
+					<image style="border: 1px solid #ddd;" :src="item._source.detail_image" mode="aspectFill"></image>
 				</view>
-				<text class="title clamp">{{item.object.name}}</text>
+				<text class="title clamp">{{item._source.name}}</text>
 				<text style="display: inline-block;">
-					<text class="price">￥{{item.object.price}}</text>
+					<text class="price">￥{{item._source.price}}</text>
 					<!-- <text style="float:right;color: rgb(144, 147, 153); line-height:60upx;font-size: 28upx;" >库存: {{item.object.stock}}</text> -->
 				</text>
 				
@@ -197,10 +192,14 @@
 		
 		
 		<!-- #ifdef H5 -->
-		<view @click="navTo('/pages/appDown/appDown')" style="position: fixed;bottom: 160px;right: 10px;width: 100%;height: 60px;z-index: 1;right: -77%;">
+		<view @click="goToPage('/pages/appDown/appDown')" style="position: fixed;bottom: 160px;right: 10px;width: 100%;height: 60px;z-index: 1;right: -77%;">
 			<image style="width: 100px;height: 60px;" src="/static/tag.png" mode=""></image>
 		</view>
 		<!-- #endif -->
+		
+		<view @click="goToPage('/pages/contact/contact')" style="position: fixed;bottom: 112px;z-index: 1;right:20px">
+			<image style="width: 40px;height: 40px;" src="/static/index/lianxi.jpg" mode=""></image>
+		</view>
 		
 		<!-- <view v-if="" @click="navTo('/pages/coupon/coupon')" style="position: fixed;bottom: 95px;right: 5px;width: 100%;height: 60px;z-index: 1;right: -85%;">
 			<image style="width: 40px;height: 40px;" src="/static/index/coupon.png" mode=""></image>
@@ -242,19 +241,19 @@
 				goodsList: [],
 				goodList:[],
 				homePageList:[],
-				skus:[],
+				skuData:[],
 				loadingType: 'more', //加载更多状态
 				hour:0,
 				minute:0,
 				second:0,
 				load:false,
-				page:1,
 				version:'',
 				wgtver:"",
 				appver:"",
 				iconRootPath:"_www/static/static",
+				page:1,
 				page_size:10,
-				ordering:'create_time',
+				ordering:'-create_time',
 				img:'../../static/app.png',
 				visible:true,
 				
@@ -271,24 +270,10 @@
 		onLoad(){
 			this.loadData();
 			this.getDate();
+			
 			// #ifdef APP-PLUS
-			let that=this;
-			plus.runtime.getProperty(plus.runtime.appid,(wgtinfo)=>{
-				console.log(wgtinfo)
-				that.wgtver =  wgtinfo.version
-			});
-			that.appver = plus.runtime.version;
-			console.log(that.appver,that.wgtver)
-			uni.getSystemInfo({
-				success:(res) => {
-					console.log(res.platform);  
-					//检测当前平台，如果是安卓则启动安卓更新  
-					if(res.platform=="android"){  
-						// this.AndroidCheckUpdate();  
-						that.checkVersionClick()
-					}  
-				}  
-			})
+			this.getVersion()
+			
 			// #endif
 		},
 		
@@ -299,16 +284,33 @@
 		},
 		
 		methods: {
-			/**
-			 * 请求静态数据只是为了代码不那么乱
-			 * 分次请求未作整合
-			 */
 			// 监听显示状态
 			close(val) {
 				console.log(val)
 				this.visible = val;
 			},
 			
+			getVersion(){
+				let that=this;
+				plus.runtime.getProperty(plus.runtime.appid,(wgtinfo)=>{
+					console.log(wgtinfo)
+					that.wgtver =  wgtinfo.version
+				});
+				that.appver = plus.runtime.version;
+				console.log(that.appver,that.wgtver)
+				uni.getSystemInfo({
+					success:(res) => {
+						console.log(res.platform);  
+						//检测当前平台，如果是安卓则启动安卓更新  
+						if(res.platform=="android"){  
+							// this.AndroidCheckUpdate();  
+							that.checkVersionClick()
+						}  
+					}  
+				})
+			},
+			
+			// 更新提示
 			async AndroidCheckUpdate(){  
 				const sendData = {
 					appid:'__UNI__8601E36',
@@ -368,8 +370,9 @@
 					}  
 				}
 			}, 
+			
+			// 获取版本信息
 			async checkVersionClick(){  // https://ext.dcloud.net.cn/plugin?id=543
-				 // 获取版本信息
 				const appver = {
 					appid:'__UNI__8601E36',
 					version:this.appver,
@@ -453,6 +456,64 @@
 				})
 			},
 			
+			// 标题栏input搜索框点击
+			onNavigationBarSearchInputClicked(e) {
+				uni.switchTab({
+					url: '/pages/search/search'
+				})
+			},
+			// 点击导航栏 buttons 时触发
+			onNavigationBarButtonTap(e) {
+				const index = e.index;
+				if (index === 0) {
+					/* uni.navigateTo({
+						url: '/pages/notice/notice'
+					}) */
+					// #ifdef APP-PLUS
+					uni.scanCode({
+						success: function (res) {
+							console.log(res)
+							console.log('条码类型：' + res.scanType);
+							console.log('条码内容：' + res.result);
+							if(res.result.split('://')[0] === 'http' || res.result.split('://')[0] === 'https' || res.result.split('://')[0] === 'HTTPS'|| res.result.split('://')[0] === 'wxp' || res.result.split('.')[0] === 'www'){
+								// void plus.runtime.openURL(decodeURIComponent(res.result))
+								void plus.runtime.openWeb(res.result,function(e){
+									// 识别失败代码
+									console.log(res.result)
+								})
+							}else{
+								console.log(res.result)
+								uni.navigateTo({
+									url: '/pages/index/code?value='+res.result
+								})
+							}
+							
+						}
+					})
+					// #endif
+				} else if (index === 1) {
+					// #ifdef APP-PLUS
+					const pages = getCurrentPages();
+					const page = pages[pages.length - 1];
+					const currentWebview = page.$getAppWebview();
+					currentWebview.hideTitleNViewButtonRedDot({
+						index
+					});
+					// #endif
+					uni.navigateTo({
+						url: '/pages/notice/notice'
+					})
+				}
+			},
+			
+			loadData() {
+				this.getBanner()
+				this.gethomePage()
+				this.getLimitTime()
+				this.getCateChange()
+			},
+			
+			// 猜你喜欢
 			async getDate(type='add', loading){
 				//没有更多直接返回
 				if(type === 'add'){
@@ -463,23 +524,52 @@
 				}else{
 					this.loadingType = 'more'
 				}
-				try {
-					const response = await uniRequest.get('/skus/search/?text=&page='+this.page+'&page_size='+this.page_size);
-					// console.log(response);
-					this.skus = response.data.results
-					if(this.skus.length === 0){
+				
+				await uniRequest.post('/goods/new/search/',{text:'',page:this.page,page_size:this.page_size,orderBy:'',sort:''})
+				.then(res=>{
+					this.skuData = res.data.sku_list
+					if(this.skuData.length === 0){
 						this.loadingType = 'nomore';
 					}
-				} catch (error) {
-					console.error(error);
-				}
+				}).catch(error=>{
+					console.log(error)
+				})
 			},
-			async loadData() {
+			
+			// 轮播图
+			async getBanner(){
+				await uniRequest({
+					url: '/mobile/banner/',
+					method: 'GET',
+				}).then(res => {
+					console.log(res)
+					if(res.data.length > 0){
+						let carouselList = res.data
+						this.titleNViewBackground = carouselList[0].color;
+						this.swiperLength = carouselList.length;
+						this.carouselList = carouselList;
+					}
+				}).catch(error => {
+					console.log(error) 
+					this.$api.msg('提交失败')
+				}) 
+			},
+			
+			// 主题ICON
+			async gethomePage(){
 				let homePageList = await this.$api.json('homePageList');
 				this.homePageList = homePageList;
-				
+			},
+			
+			// 分类精选
+			async getCateChange(){
+				const response = await uniRequest.get('/goods/categories/147/skus/?page='+this.page+'&page_size='+this.page_size+'&ordering='+this.ordering);
+				this.goodsList = response.data.results
+			},
+			
+			// 限时秒杀
+			async getLimitTime(){
 				const res = await uniRequest.get('/goods/limit/time/sku/');
-				// console.log(res)
 				if(res.status === 200){
 					var data = new Date()
 					const Y = data.getFullYear()
@@ -489,9 +579,7 @@
 					const m = data.getMinutes()
 					const s = data.getSeconds()
 					const Day = Y+'-'+M+'-'+D+' '+h
-					// console.log(Day)
-					// console.log(res.data.active.start_time)
-					if(res.data.active.start_time === Day){
+					/* if(res.data.active.start_time === Day){
 						const res = await uniRequest.get('/goods/limit/time/sku/');
 						// console.log(res)
 						this.goodList = res.data.active.data
@@ -510,26 +598,10 @@
 						this.hour = 23 - h + +res.data.next.start_time.split(' ')[1]
 						this.minute = 59 - m
 						this.second = 60 - s
-					}
+					} */
 				}
-				
-				uniRequest({
-					url: '/mobile/banner/',
-					method: 'GET',
-				}).then(res => {
-					console.log(res)
-					let carouselList = res.data
-					this.titleNViewBackground = carouselList[0].color;
-					this.swiperLength = carouselList.length;
-					this.carouselList = carouselList;
-				}).catch(error => {
-					console.log(error) 
-					this.$api.msg('提交失败')
-				}) 
-				
-				const response = await uniRequest.get('/categories/74/skus/?page='+this.page+'&page_size='+this.page_size+'&ordering='+this.ordering);
-				this.goodsList = response.data.results
 			},
+			
 			//轮播图切换修改背景色
 			swiperChange(e) {
 				const index = e.detail.current;
@@ -537,17 +609,21 @@
 				this.titleNViewBackground = this.carouselList[index].color;
 			},
 			
-			into(item){
+			// 跳转详情页
+			goToPage(url){
 				uni.navigateTo({
-					url:item.url
+					url:url
 				})
 			},
+			
+			// 跳转分类
 			toCategory(){
 				uni.switchTab({
 				      url: '/pages/category/category'
 				})
 			},
 			
+			// 跳转主题页
 			goIcon(value){
 				console.log(value.index)
 				if(value.index === 0){
@@ -600,80 +676,24 @@
 				}
 			},
 			
-			navTo(url){
-				uni.navigateTo({
-					url
-				})
-			},
-			
-			//详情页
+			// 跳转详情页
 			navToDetailPage(item,value) {
 				console.log(item,value)
 				//测试数据没有写id，用title代替
-				if(item.object === undefined){
+				if(item._source === undefined){
 				    let id = item.id;
 					uni.navigateTo({
 						url: `/pages/product/product?id=`+id+'&value='+value
 					})
 				}else{
-					let id = item.object.id;
+					let id = item._source.id;
 					uni.navigateTo({
 						url: `/pages/product/product?id=`+id+'&value='+value
 					})
 				}
 			},
 		},
-		// 标题栏input搜索框点击
-		onNavigationBarSearchInputClicked(e) {
-			uni.switchTab({
-				url: '/pages/search/search'
-			})
-		},
-		//点击导航栏 buttons 时触发
-		onNavigationBarButtonTap(e) {
-			// console.lgggog(e)
-			
-			const index = e.index;
-			if (index === 0) {
-				/* uni.navigateTo({
-					url: '/pages/notice/notice'
-				}) */
-				// #ifdef APP-PLUS
-				uni.scanCode({
-					success: function (res) {
-						console.log(res)
-						console.log('条码类型：' + res.scanType);
-						console.log('条码内容：' + res.result);
-						if(res.result.split('://')[0] === 'http' || res.result.split('://')[0] === 'https' || res.result.split('://')[0] === 'HTTPS'|| res.result.split('://')[0] === 'wxp' || res.result.split('.')[0] === 'www'){
-							// void plus.runtime.openURL(decodeURIComponent(res.result))
-							void plus.runtime.openWeb(res.result,function(e){
-								// 识别失败代码
-								console.log(res.result)
-							})
-						}else{
-							console.log(res.result)
-							uni.navigateTo({
-								url: '/pages/index/code?value='+res.result
-							})
-						}
-						
-					}
-				})
-				// #endif
-			} else if (index === 1) {
-				// #ifdef APP-PLUS
-				const pages = getCurrentPages();
-				const page = pages[pages.length - 1];
-				const currentWebview = page.$getAppWebview();
-				currentWebview.hideTitleNViewButtonRedDot({
-					index
-				});
-				// #endif
-				uni.navigateTo({
-					url: '/pages/notice/notice'
-				})
-			}
-		}
+		
 	}
 </script>
 

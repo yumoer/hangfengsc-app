@@ -42,7 +42,7 @@
 			...mapMutations(['logout']),
 			async getDate() {
 				await uniRequest({
-					url: '/user/',
+					url: '/user/detail/',
 					method: 'get',
 					headers: {
 						Authorization: 'JWT ' + uni.getStorageSync('userInfo').token
@@ -59,7 +59,7 @@
 			async toTest(){
 				if(this.emailText === '去验证'){
 					await uniRequest({
-						url: '/email/',
+						url: '/user/email/',
 						method: 'put',
 						data:{
 							email: this.userInfo.email
@@ -96,7 +96,7 @@
 				
 				
 				uniRequest({
-					url: '/users/update/info/',
+					url: '/user/detail/',
 					method: 'put',
 					data:this.userInfo,
 					headers: {

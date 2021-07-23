@@ -2,9 +2,9 @@
     <view class="content">
 		<view class="order-item">
 			<view class="goods-box-single">
-				<image class="goods-img" :src="goodsItem.image_url" mode="aspectFill"></image>
+				<image class="goods-img" :src="goodsItem.image" mode="aspectFill"></image>
 				<view class="right">
-					<text class="title clamp">{{goodsItem.name}}</text>
+					<text class="title clamp">{{goodsItem.title}}</text>
 					<text class="price" style="float: left;">{{goodsItem.price}} 
 						<text class="attr-box" style="float: right;">  x {{goodsItem.count}}</text>
 					</text>
@@ -28,6 +28,8 @@
 				 tabCurrentIndex: 0,
 				 goodsItem:{},
 				 desc:'',
+				 orderId:null,
+				 subOrderId:null,
 				 infoReceive:{
 					 score:5,
 					 is_anonymous:false,
@@ -38,9 +40,11 @@
 		 },
 		 components:{uniSection,myIssue},
 		 onLoad(options){
-			 console.log(JSON.parse(options.item))
-			 this.goodsItem = JSON.parse(options.item)
-			 console.log(this.infoReceive.is_anonymous)
+			 console.log(options)
+			 this.goodsItem = JSON.parse(decodeURIComponent(options.item))
+			 console.log(this.goodsItem)
+			 this.orderId = options.order_id
+			 this.subOrderId = options.sub_order_id
 		 },
 		 onShow(){
 			if(uni.getStorageSync('avatar') !== undefined){
@@ -55,11 +59,12 @@
 			   async submit(e){
 				   console.log(e)
 				   const response = await uniRequest({
-				   	url:'user/goods/comment/',
+				   	url:'/goods/user/comment/',
 				   	method:'post',
 					data:{
-						sku: this.goodsItem.sku_id,
-						order: this.goodsItem.orderId,
+						sku: this.goodsItem.id,
+						sub_order_id:this.subOrderId,
+						order_id: this.orderId,
 						comment:e.textareaValue,
 						is_anonymous:e.is_anonymous,
 						score:e.score
@@ -71,10 +76,12 @@
 					   console.log(res)
 					   if(res.status === 201){
 						   this.$api.msg('评论成功')
-						   this.getAssess()
+						   setTimeout(function() {
+							  uni.navigateBack();
+						   }, 600);
+						   // this.getAssess(e)
 					   }else{
-						   this.$api.msg(res.data.order[0])
-						   this.$api.msg(res.data.sku.non_field_errors[0])
+						   this.$api.msg(res.data.message)
 					   }
 				   }).catch(error=>{
 					   console.log(error)

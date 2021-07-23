@@ -7,7 +7,6 @@
 			</view>
 		</view>
 		
-		
 		<view class="c-list">
 			<view class="c-row b-b">
 				<text class="tit">订单编号</text>
@@ -24,44 +23,50 @@
 			<view class="c-row b-b">
 				<text class="tit">订单总额</text>
 				<view class="bz-list con">
-					<text><!-- ￥ -->{{goodsItem.total_price}}元</text>
+					<text><!-- ￥ -->{{goodsItem.total_amount}}元</text>
 				</view>
 			</view>
 			<view class="c-row b-b">
 				<text class="tit">支付方式</text>
 				<view class="bz-list con">
-					<text>{{goodsItem.pay_method}}</text>
+					<text v-if="goodsItem.pay_method === 1">货到付款</text>
+					<text v-if="goodsItem.pay_method === 2">支付宝支付</text>
+					<text v-if="goodsItem.pay_method === 8">微信支付</text>
+					<text v-if="goodsItem.pay_method === 9">余额支付</text>
 				</view>
 			</view>
-			<!-- <view class="c-row b-b">
-				<text class="tit">支付方式</text>
-				<view class="bz-list con">
-					<text>{{goodsItem.pay_method}}</text>
-				</view>
-			</view> -->
 		</view>
 		
-		<view class="order-item" v-for="(goodItem,goodIndex) in goodsItem.skus" :key="goodIndex">
-			<view 
-				class="goods-box-single"
-			>
-				<image class="goods-img" :src="goodItem.sku_image" mode="aspectFill"></image>
+		<view class="order-item" v-for="(goodItem,goodIndex) in goodsItem.goods" :key="goodIndex">
+			<view class="goods-box-single">
+				<image class="goods-img" :src="goodItem.image" mode="aspectFill"></image>
 				<view class="right">
-					<text class="title clamp">{{goodItem.sku_name}}</text>
+					<text class="title clamp">{{goodItem.title}}</text>
 					<text class="price" style="float: left;">{{goodItem.price}} 
-						<text class="attr-box" style="float: right;">  x {{goodItem.num}}</text>
+						<text class="attr-box" style="float: right;">  x {{goodItem.count}}</text>
 					</text>
 				</view>
 			</view>
 			
 			<view class="price-box" >
 				实付款
-				<text class="price">{{goodItem.price * goodItem.num}}</text>
+				<text class="price">{{goodsItem.total_amount}}</text>
 			</view>
 			
-			<view class="action-box b-t">
-				<button class="action-btn recom" v-if="goodItem.is_return === 0" @click="replaceGoods(goodItem)">退换</button>
-				<button class="action-btn recom" v-if="goodItem.is_return === 1" @click="replaceDetails(goodItem)">退换详情</button>
+			<view>
+				<view class="action-box b-t" v-if="goodsItem.order_status === 1">
+					<button class="action-btn recom" @click="editAddress(goodsItem)">修改地址</button>
+				</view>
+				<view class="action-box b-t" v-if="goodsItem.order_status === 3">
+					<button class="action-btn recom" @click="lookViewOrder(goodsItem)">查看物流</button>
+				</view>
+				<view class="action-box b-t" v-if="goodsItem.order_status === 4">
+					<button class="action-btn" @click="replaceGoods(goodItem)">退换</button>
+					<button class="action-btn recom" v-if="!goodItem.comment" @click="accessOrder(goodItem,goodsItem)">立即评价</button>
+				</view>
+				<view class="action-box b-t" v-if="goodsItem.order_status === 6">
+					<button class="action-btn recom" @click="replaceDetails(goodsItem)">退换详情</button>
+				</view>
 			</view>
 		</view>
 	</view>
@@ -76,26 +81,18 @@
 			return {
 				goodsItem:[],
 				orderId:'',
-				title:'订单已完成',
+				title:'订单已生成',
 				navList:[]
 			}
 		},
-		async onShow(){
-			this.getDate()
-			
-		},
 		onLoad(options){
-			console.log(JSON.parse(options.item))
-			this.navList = JSON.parse(options.item)
-			
-			// this.goodsItem = JSON.parse(options.item)
-			// console.log(this.goodsItem)
+			console.log(options)
 			this.orderId = options.order_id
 			this.getDate()
 		},
 		methods: {
-			async getDate(e){
-				await uniRequest({
+			async getDate(){
+				/* await uniRequest({
 					url:'mobile/order/list/return/goods/user/',
 					method:'get',
 					headers:{
@@ -107,25 +104,20 @@
 					console.log(this.navList)
 				}).catch(error=>{
 					console.log(error)
-				})
-				
+				}) */
 				
 				await uniRequest({
-					url:'orders/details/',
-					method:'post',
-					data:{
-						order_id:this.orderId
+					url:'/wxapp/order/info/',
+					method:'get',
+					params:{
+						sub_order_id:this.orderId
 					},
 					headers:{
 						Authorization:'JWT '+uni.getStorageSync('userInfo').token
 					},
 				}).then(res=>{
-					console.log(res)
-					this.goodsItem = res.data.result
-					// this.goodsItem.skus = this.navList.goods
-					// this.goodsItem.pay_method = this.navList.pay_method
+					this.goodsItem = res.data
 					this.goodsItem.state = this.navList.state
-					console.log(this.goodsItem)
 				}).catch(error=>{
 					console.log(error)
 				})
@@ -134,10 +126,20 @@
 			replaceGoods(item){
 				console.log(item)
 				uni.navigateTo({
-					url:'/pages/order/lookDetails/concalShops?item='+JSON.stringify(item)+'&order_id='+this.goodsItem.order_id
+					url:'/pages/order/lookDetails/concalShops?item='+encodeURIComponent(JSON.stringify(item))+'&order_id='+this.goodsItem.order_id+'&sub_order_id='+this.goodsItem.sub_order_id
 				})
-				// this.$refs.unikModals.show()
-				// this.goodsItem = item.goods[0]
+			},
+			
+			// 修改地址
+			editAddress(item){
+				this.$api.msg('修改地址')
+			},
+			
+			// 物流信息
+			async lookViewOrder(item){
+				uni.navigateTo({
+					url:'/pages/order/trackInfo/trackInfo?order_id='+item.order_id
+				})
 			},
 			
 			replaceDetails(item){
@@ -151,9 +153,16 @@
 					})
 				}
 				uni.navigateTo({
-					url:'/pages/order/postSale/postDetails?item='+JSON.stringify(item)
+					url:'/pages/order/postSale/postDetails?item='+encodeURIComponent(JSON.stringify(item))
 				})
 				
+			},
+			
+			// 评价订单
+			accessOrder(item,data){
+				uni.navigateTo({
+					url:'/pages/order/assess/assess?item='+encodeURIComponent(JSON.stringify(item))+'&order_id='+data.order_id+'&sub_order_id='+data.sub_order_id
+				})
 			},
 			
 		}

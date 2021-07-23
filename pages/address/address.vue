@@ -7,7 +7,7 @@
 		<view class="list b-b" v-for="(item, index) in addressList" :key="index" @click="checkAddress(item)">
 			<view class="wrapper">
 				<view class="address-box">
-					<text v-if="item.default_address_id" class="tag">默认</text>
+					<text v-if="item.default_address_id" class="tag">默</text>
 					<text class="address">{{item.addressName}} {{item.place}}</text>
 				</view>
 				<view class="u-box">
@@ -21,7 +21,7 @@
 			<image style="width: 200px;height: 200px;position: absolute;left: 0;right: 0;top: 120px;margin: auto;" src="../../static/img/icon.png" mode=""></image>
 			<text style="position: absolute;left: 0;right: 0;top: 330px;margin: 0px auto;text-align: center;font-size: 16px;">暂无地址,点击右上方新增</text>
 		</view>
-		<!-- <button class="add-btn" @click="addAddress('add')">新增地址</button> -->
+		<button class="add-btn" @click="addAddress('add')">新增地址</button>
 	</view>
 </template>
 
@@ -54,7 +54,7 @@
 			async getAddress(data,type){
 				console.log(data)
 				const response = await uniRequest({
-					url:'/addresses/',
+					url:'/user/addresses/',
 					method:'get',
 					headers:{
 						Authorization:'JWT '+uni.getStorageSync('userInfo').token

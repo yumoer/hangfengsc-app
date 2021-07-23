@@ -17,7 +17,7 @@
 			>
 				<image class="goods-img" :src="goodsItem.sku_image" mode="aspectFill"></image>
 				<view class="right">
-					<text class="title clamp">{{goodsItem.goods_name}}</text>
+					<text class="title clamp">{{goodsItem.sku_name}}</text>
 					<text class="price" style="float: left;">{{goodsItem.price}} 
 						<text class="attr-box" style="float: right;">  x {{goodsItem.count}}</text>
 					</text>
@@ -25,8 +25,8 @@
 			</view>
 			
 			<view class="price-box" >
-				退款
-				<text class="price">{{goodsItem.price * goodsItem.count}}</text>
+				已退款
+				<text class="price">{{(goodsItem.price * goodsItem.count).toFixed(2)}}</text>
 			</view>
 		</view>
 		<view class="history-section icon">
@@ -71,7 +71,6 @@
 		},
 		
 		onLoad(options){
-			console.log(JSON.parse(options.item))
 			this.goodsItem = JSON.parse(options.item)
 		},
 	    onShow(){

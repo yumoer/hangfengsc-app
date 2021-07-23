@@ -65,7 +65,7 @@
 				}
 				
 				uniRequest({
-					url: '/users/'+this.user_id+'/password/',
+					url: '/user/password/',
 					method: 'put',
 					data:{
 					    old_password: this.userInfo.oldPwd,
@@ -73,7 +73,8 @@
 					    password2: this.userInfo.confirmPwd
 					},
 					headers: {
-						Authorization: 'JWT ' + uni.getStorageSync('userInfo').token
+						Authorization: 'JWT ' + uni.getStorageSync('userInfo').token,
+						'Content-Type':'application/json'
 					},
 				}).then(res => {
 					console.log(res)

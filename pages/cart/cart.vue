@@ -93,6 +93,7 @@
 	import {
 		mapState
 	} from 'vuex';
+	// import {getHomeOrderAnalysis} from '../../common/api.js'
 	import uniNumberBox from '@/components/uni-number-box.vue'
 	import uniRequest from 'uni-request'
 	export default {
@@ -110,6 +111,9 @@
 			};
 		},
 		onLoad(){
+			/* getHomeOrderAnalysis().then(res=>{
+				console.log(res)
+			}) */
 		},
 		onShow(){
 			this.loadData();
@@ -130,7 +134,7 @@
 			//请求数据
 			async loadData(){
 				const response = await uniRequest({
-					url:'/cart/',
+					url:'/carts/cart_sku/',
 					method:'get',
 					headers:{
 						Authorization:'JWT '+uni.getStorageSync('userInfo').token
@@ -184,7 +188,7 @@
 			async check(type, index){
 				if(type === 'item'){
 					const response = await uniRequest({
-						url:'/cart/',
+						url:'/carts/cart_sku/',
 						method:'put',
 						data:{
 							sku_id: this.cartList[index].id,
@@ -198,11 +202,23 @@
 					this.cartList[index].selected = !this.cartList[index].selected;
 				}else{
 					const selected = !this.allChecked
-					const list = this.cartList;
-					list.forEach(item=>{
-						item.selected = selected;
+					await uniRequest({
+						url:'/carts/cart_skus/',
+						method:'put',
+						data:{selected:selected},
+						headers:{
+							Authorization:'JWT '+uni.getStorageSync('userInfo').token
+						},
+					}).then(res=>{
+						console.log(res)
+						if(res.status === 400){
+							this.$api.msg(res.data.message)
+						}else{
+							this.loadData();
+						}
+					}).catch(err=>{
+						console.log(err)
 					})
-					this.allChecked = selected;
 				}
 				this.calcTotal(type);
 			},
@@ -233,18 +249,19 @@
 					content: '删除当前商品？',
 					success: async (e)=>{
 						if(e.confirm){
-							const response = await uniRequest({
-								url:'/cart/',
+							await uniRequest({
+								url:'/carts/cart_sku/',
 								method:'delete',
 								data:{sku_id:id},
 								headers:{
 									Authorization:'JWT '+uni.getStorageSync('userInfo').token
 								},
+							}).then(res=>{
+								this.cartList.splice(index, 1);
+								this.$api.msg(`删除 `+row.title+`成功`);
+								this.calcTotal();
+								uni.hideLoading();
 							})
-							this.cartList.splice(index, 1);
-							this.$api.msg(`删除 `+row.name+`成功`);
-							this.calcTotal();
-							uni.hideLoading();
 						}
 					}
 				})
@@ -255,15 +272,16 @@
 					content: '清空购物车？',
 					success:async (e)=>{
 						if(e.confirm){
-							const response = await uniRequest({
+							await uniRequest({
 								url:'/cart/select/',
 								method:'delete',
 								headers:{
 									Authorization:'JWT '+uni.getStorageSync('userInfo').token
 								},
+							}).then(res=>{
+								this.cartList = [];
+								this.$api.msg(`全部商品删除成功`);
 							})
-							this.cartList = [];
-							this.$api.msg(`全部商品删除成功`);
 						}
 					}
 				})
@@ -298,7 +316,7 @@
 				})
 				if(goodsData.length !== 0){
 					uni.navigateTo({
-						url: `/pages/order/createOrder?data=`+JSON.stringify(goodsData)
+						url: `/pages/order/createOrder?type=2&data=`+encodeURIComponent(JSON.stringify(goodsData))
 					})
 				}else{
 					this.$api.msg('购买商品不能为空')

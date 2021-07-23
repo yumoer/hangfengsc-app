@@ -99,7 +99,7 @@
 				console.log(e)
 				if(e.detail.value === true){
 					const response = await uniRequest({
-						url: '/addresses/' + this.addressData.id + '/status/',
+						url: '/user/addresses/' + this.addressData.id + '/status/',
 						method: 'put',
 						headers: {
 							Authorization: 'JWT ' + uni.getStorageSync('userInfo').token
@@ -216,7 +216,7 @@
 				console.log(content)
 				
 				const response = await uniRequest({
-					url: '/addresses/' + this.addressData.id + '/',
+					url: '/user/addresses/' + this.addressData.id + '/',
 					data: content,
 					method: 'put',
 					headers: {
@@ -230,8 +230,6 @@
 				})
 			},
 			async getAddress(content){
-				console.log(content)
-				console.log(this.addressData)
 				this.form_address = {
 				  title:this.addressData.receiver,
 				  receiver: this.addressData.receiver,
@@ -243,15 +241,21 @@
 				  addresses:content.addresses,
 				  addressName:content.addressName,
 				}
-				const response = await uniRequest({
-					url: '/addresses/',
+				await uniRequest({
+					url: '/user/addresses/',
 					method: 'post',
 					data:this.form_address,
 					headers: {
 						Authorization: 'JWT ' + uni.getStorageSync('userInfo').token
 					},
-				}).then(response => {
-					console.log(response)
+				}).then(res => {
+					console.log(res)
+					if(res.status === 200){
+						this.$api.msg('地址新增成功')
+					}else{
+						this.$api.msg(res.data.message)
+						return
+					}
 				}).catch(error => {
 					console.log(error)
 				})
@@ -299,7 +303,7 @@
 			// 删除
 			async condelete(data){
 				const response = await uniRequest({
-					url: '/addresses/' + this.addressData.id + '/',
+					url: '/user/addresses/' + this.addressData.id + '/',
 					method: 'delete',
 					headers: {
 						Authorization: 'JWT ' + uni.getStorageSync('userInfo').token

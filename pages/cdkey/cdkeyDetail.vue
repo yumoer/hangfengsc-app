@@ -1,55 +1,52 @@
 <template>
 	<view class="view" style="">
 		<view>
-			<!-- 商品详情 -->
-			<view class="shop" style="padding: 40upx 10upx 40upx 10upx;width: 100%;height: 240px;background-color: #ddd;">
-				<view class="shop_details" style="width: 100%;height: 240upx;">
-					<view class="image" style="float: left;padding: 10px;">
+			<!-- 商品详情 --><!-- background-color: #E8E4E1; -->
+			<view class="shop" style="padding: 40upx 10upx;width: 100%;height: 200px;background:url(../../static/timg.jpg) no-repeat 100%;">
+				<view class="shop_details" style="width: 100%;height: 200upx;">
+					<view class="image" style="float: left;padding-left: 20px;" @click="lookDetails">
 						<image style="width: 200upx;height: 200upx;" :src="exchanges.image" mode=""></image>
 					</view>
-					<view style="float: right;margin-right: 10px;">
+					<view style="float: right;padding-right: 20px;">
 						<text style="font-size: 16px;font-weight: bold;">{{exchanges.name}}</text><br>
-						<view style="margin-top: 60upx;line-height: 24px;font-size: 24upx;color: #999;">
+						<view style="margin-top: 20upx;line-height: 24px;font-size: 24upx;color: #999;">
 							<text>{{exchanges.explain}}</text><br>
 						</view>
 					</view>
 				</view>
 				<view class="shop_btn" style="width: 200px;margin: 30px auto;display: block;">
-					<button type="default" style="color: red;border-radius: 20px;text-align: center;margin: 0 auto;height: 40px;" @click="lookDetails">查看详情</button>
+					<button type="default" style="color: #fff;border-radius: 10px;text-align: center;margin: 0 auto;height: 40px;background-color: #FF7F50;border-color:#FF7F50;" @click="lookDetails">查看订单</button>
 				</view>
 			</view>
 			<!-- 卡券信息 -->
 			<view class="cdkey" style="width: 100%;padding: 0 10px;line-height: 24px;">
 				<view style="width:100%;text-align: center;margin: 20px 0;">
-					<text style="font-size: 18px;">——卡券信息——</text>
+					<text style="font-size: 16px;">———卡券信息———</text>
 				</view>
-				<!-- <view style="width: 100%;line-height: 24px;border-bottom: #ddd 1px solid;height: 30px;font-size: 16px;">
-					<text style="float: left;">卡券状态</text>
-					<text style="float: right;">卡券为真，已提货</text>
-				</view> -->
-				<!-- <view style="width: 100%;line-height: 24px;border-bottom: #ddd 1px solid;height: 30px;margin-top: 20px;font-size: 16px;">
-					<text style="float: left;">订单编号</text>
-					<text style="float: right;">45678843294732962433</text>
-				</view> -->
-				<view style="width: 100%;line-height: 24px;border-bottom: #ddd 1px solid;height: 30px;margin-top: 20px;font-size: 16px;">
+				
+				<view style="width: 100%;line-height: 24px;border-bottom: #ddd 1px solid;height: 30px;margin-top: 20px;font-size: 14px;">
+					<text style="float: left;">卡券名称</text>
+					<text style="float: right;color: #999;">{{exchanges.name}}</text>
+				</view>
+				<view style="width: 100%;line-height: 24px;border-bottom: #ddd 1px solid;height: 30px;margin-top: 20px;font-size: 14px;">
 					<text style="float: left;">卡券编码</text>
 					<text style="float: right;color: #999;">{{card_number}}</text>
 				</view>
-				<view style="width: 100%;line-height: 24px;border-bottom: #ddd 1px solid;height: 30px;margin-top: 20px;font-size: 16px;">
+				<view style="width: 100%;line-height: 24px;border-bottom: #ddd 1px solid;height: 30px;margin-top: 20px;font-size: 14px;">
 					<text style="float: left;">卡券面值</text>
 					<text style="float: right;color: #999;">￥{{exchanges.total_amount}}</text>
 				</view>
-				<view style="width: 100%;line-height: 24px;border-bottom: #ddd 1px solid;height: 30px;margin-top: 20px;font-size: 16px;">
+				<view style="width: 100%;line-height: 24px;border-bottom: #ddd 1px solid;height: 30px;margin-top: 20px;font-size: 14px;">
 					<text style="float: left;">起始有效期</text>
-					<text style="float: right;color: #999;">{{(exchanges.start_time || '').split('T')[0]}}</text>
+					<text style="float: right;color: #999;">{{(exchanges.start_time || '').split('T')[0]}} {{(exchanges.start_time || '').split('T')[1]}}</text>
 				</view>
-				<view style="width: 100%;line-height: 24px;border-bottom: #ddd 1px solid;height: 30px;margin-top: 20px;font-size: 16px;">
+				<view style="width: 100%;line-height: 24px;border-bottom: #ddd 1px solid;height: 30px;margin-top: 20px;font-size: 14px;">
 					<text style="float: left;">结束有效期</text>
-					<text style="float: right;color: #999;">{{(exchanges.end_time || '').split('T')[0]}}</text>
+					<text style="float: right;color: #999;">{{(exchanges.end_time || '').split('T')[0]}} {{(exchanges.end_time || '').split('T')[1]}}</text>
 				</view>
 			</view>
 			<view class="shop_btn" style="width: 100%;position: absolute;bottom: 0;">
-				<button style="color: #fff;background-color: red;height: 50px;line-height: 50px;" @click="editAddress">填写地址</button>
+				<button style="color: #fff;background-color: #fa436a;height: 45px;line-height: 45px;" @click="editAddress">填写地址</button>
 			</view>
 			
 			<view>
@@ -78,13 +75,11 @@
 						<text style="font-size: 14px;color: #999;">{{exchanges.explain}}</text>
 					</view>
 					
-					
-					
 					<image style="width: 100%;height: 8000px;padding: 10px;" v-if="exchanges.detail_image !== undefined" :src="exchanges.detail_image" mode=""></image>
 				</u-popup>
 			</view>
 			
-			<neil-modal :show="show" @close="closeModal" title="填写地址" @cancel="bindBtn('cancel')" @confirm="bindBtn('confirm')" :auto-close="false">
+			<neil-modal :show="show" @close="closeModal" title="填写地址" @cancel="bindBtn('cancel')" @confirm="bindBtn('confirm')" :auto-close="false" style="width: 100%;">
 			    <view style="min-height: 90upx;padding: 32upx 24upx;">
 					<u-field
 						v-model="name"
@@ -103,10 +98,24 @@
 					>
 					</u-field>
 					<u-field
-						v-model="address"
-						label="地址"
+						v-model="Taddress"
+						label="省市区"
+						type="select"
+						:disabled="true"
 						:required="true"
-						placeholder="请填写省市区详细地址"
+						placeholder="请选择省市区"
+						@click="openShow"
+						:error-message="errTaddress"
+						right-icon="arrow-down-fill"
+					>
+					</u-field>
+					<u-field
+						v-model="address"
+						label="详细地址"
+						type="textarea"
+						style="height: 120upx;"
+						:required="true"
+						placeholder="请填写街道详细地址"
 						:error-message="errAddress"
 					>
 					</u-field>
@@ -118,6 +127,7 @@
 					</u-field>
 			    </view>
 			</neil-modal>
+			<city-select v-model="showing" mode="mutil-column-auto" @city-change="cityChange"></city-select>
 		</view>
 	</view>
 </template>
@@ -125,15 +135,18 @@
 <script>
 	import uniRequest from 'uni-request';
 	import neilModal from '@/components/neil-modal/neil-modal.vue';
+	import citySelect from '@/components/cityDate/u-city-select.vue';
 	export default{
 		data(){
 			return {
 				show:false,
+				showing:false,
 				ifshow:false,
 				showHide:true,
 				name:'',
 				mobile:'',
 				address:'',
+				Taddress:'',
 				remark:'',
 				exchange:'',
 				open_id:'',
@@ -144,6 +157,7 @@
 				errName:'',
 				errMobile:'',
 				errAddress:'',
+				errTaddress:'',
 				carouselList:[
 					{image:'../../static/cdkey/image1.jpg'},
 					{image:'../../static/cdkey/image2.jpg'},
@@ -153,7 +167,7 @@
 				]
 			}
 		},
-		components: {neilModal},
+		components: {neilModal,citySelect},
 		onLoad(options){
 			console.log(options)
 			this.exchange_user = options.exchange_user
@@ -170,7 +184,7 @@
 				console.log(error)
 			})
 			
-			
+			console.log(this.list)
 		},
 		
 		
@@ -180,6 +194,12 @@
 			lookDetails(){
 				this.ifshow = true
 				// this.$refs.popup.open()
+			},
+			openShow(){
+				this.showing = true
+			},
+			cityChange(e) {
+				this.Taddress = e.province.label +  e.city.label + e.area.label;
 			},
 			/* 填写地址 */
 			editAddress(){
@@ -207,28 +227,35 @@
 				})
 			},
 			bindBtn(type){
-				console.log(type)
 				if(type === 'cancel'){
 					this.show = false
 				}else{
-					console.log('222')
+					this.show = true
 					if(this.name === ''){
 						this.errName = '姓名不能为空'
 					}else if(this.mobile === ''){
 						this.errName = ''
 						this.errMobile = '手机不能为空'
+					}else if(this.Taddress === ''){
+						this.errName = ''
+						this.errMobile = ''
+						this.errTaddress = '省市区不能为空'
 					}else if(this.address === ''){
 						this.errName = ''
 						this.errMobile = ''
-						this.errAddress = '地址不能为空'
+						this.errTaddress = ''
+						this.errAddress = '详细地址不能为空'
+						console.log(this)
 					}else{
+						this.show = false
 						this.errName = ''
 						this.errMobile = ''
+						this.errTaddress = ''
 						this.errAddress = ''
 						const sendData = {
 							exchange:this.exchange_user,
 							name:this.name,
-							address:this.address,
+							address:this.Taddress + this.address,
 							mobile:this.mobile,
 							remark:this.remark,
 							open_id:uni.getStorageSync('open_id'),
@@ -243,6 +270,7 @@
 								this.addresss = res.data
 								this.name = ''
 								this.mobile = ''
+								this.Taddress = ''
 								this.address = ''
 								this.remark = ''
 								uni.navigateTo({
@@ -252,6 +280,7 @@
 							if(res.status === 400){
 								this.name = ''
 								this.mobile = ''
+								this.Taddress = ''
 								this.address = ''
 								this.remark = ''
 								this.show = false

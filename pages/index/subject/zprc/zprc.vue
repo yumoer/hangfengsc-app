@@ -4,24 +4,23 @@
 			<image src="/static/img/join.jpg" mode=""></image>
 		</view>
 		<view class="">
-			<uni-collapse accordion="true">
-			    <uni-collapse-item v-for="(job,index) in jobs" :key="index" thumb="http://myumo.top/job.png" :title="job.job" thumb1="http://myumo.top/place.png" :title1="job.place" thumb2="http://myumo.top/mun.png" :title2="job.num">
-			        <view style="padding: 30rpx;">
-			            <view>
-							<text>{{job.job}}</text>
-							<view style="font-size: 16px;margin-bottom: 20upx;margin-top: 20upx;" v-if="job.duty.length !== 0">
+			<u-collapse :item-style="itemStyle" :head-style="headStyle" event-type="close" :arrow="arrow" :accordion="accordion" @change="change">
+			    <u-collapse-item v-for="(job,index) in jobs" :key="index" :index="index" @change="itemChange" :title="job.job+'('+job.num+')'"> <!-- thumb="http://myumo.top/job.png" :title="job.job" thumb1="http://myumo.top/place.png" :title1="job.place" thumb2="http://myumo.top/mun.png" :title2="job.num"-->
+			        <view>
+			            <view class="collapse-item">
+							<view style="font-size: 16px;padding: 40upx;" v-if="job.duty.length !== 0">
 							  <text style="color: #000">工作职责:</text>
-							  <p style="font-size: 14px;line-height: 24px" v-for="(duty,index) in job.duty" :key="index">{{duty}}</p>
+							  <p style="font-size: 34upx;line-height: 50upx;padding-top: 20upx;" v-for="(duty,index) in job.duty" :key="index">{{duty}}</p>
 							</view>
-							<view style="font-size: 16px;" v-if="job.require.length !== 0">
+							<view style="font-size: 16px;padding: 40upx;" v-if="job.require.length !== 0">
 							  <text style="color: #000">职位要求:</text>
-							  <p style="font-size: 14px;line-height: 24px" v-for="(require,index) in job.require" :key="index">{{require}}</p>
+							  <p style="font-size: 34upx;line-height: 50upx;padding-top: 20upx;" v-for="(require,index) in job.require" :key="index">{{require}}</p>
 							</view>
-						  </view>
+						 </view>
 			        </view>
-			    </uni-collapse-item>
+			    </u-collapse-item>
 			    
-			</uni-collapse>
+			</u-collapse>
 		</view>
 	</view>
 </template>
@@ -33,6 +32,14 @@
 		components: {uniCollapse,uniCollapseItem},
 		data() {
 			return {
+				itemStyle: {
+					marginTop: '20px'
+				},
+				headStyle:{
+					marginLeft: '20px',
+					marginRight: '20px',
+					fontSize:'34upx'
+				},
 				jobs:[
 				  {job:'运营总监',num:'1人',place:'北京',hide:'false',id:1,
 					duty:['1、规划、完善公司电商事业部的运营战略，年度经营目标及实施规划，年度费用计划与费用控制；' ,
@@ -204,7 +211,7 @@
 					  '联系人：158-1051-7314（王女士/刘女士）；' ,
 					  '地址：北京市大兴区星光影视园联排B座10号楼4层；',
 					  '乘车路线：4号线新宫地铁站-专67(金西路西口)',
-					  '公司名字：北京行丰银拓科技有限公司',
+					  '公司名字：行丰银拓科技集团有限公司',
 					],
 					require:[]},
 		
@@ -219,8 +226,11 @@
 		.img{
 			image{
 				width: 100%;
-				height:300upx;
+				height:400upx;
 			}
 		}
+	}
+	.collapse-item {
+		padding-bottom: 10px;
 	}
 </style>

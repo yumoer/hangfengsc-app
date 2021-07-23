@@ -7,16 +7,16 @@
 						<view class="tab-item" style="border-bottom: 1px solid #ddd;">
 							<a href="javascript:void(0);" class="aui-well-item aui-well-item-clear">
 								<view class="aui-well-item-bd">
-									<text style="font-size: 12px;">{{cart.order_id}}</text>
+									<text style="font-size: 13px;">{{cart.order_id}}</text>
 								</view>
 							</a>
-							<view class="shop_details" style="width: 100%;height: 240upx;padding: 10px 20px;background-color: #F0F0F0;" @click="cdShopDetail(cart.exchange.exchange)">
+							<view class="shop_details" style="width: 100%;height: 240upx;padding: 10px 20px;background:url(../../static/timg.jpg) no-repeat 100%;" @click="cdShopDetail(cart.exchange.exchange)">
 								<view class="image" style="float: left;">
 									<image style="width: 200upx;height: 200upx;" :src="cart.exchange.exchange.image" mode=""></image>
 								</view>
 								<view style="float: right;">
 									<text style="font-size: 16px;font-weight: bold;">{{cart.exchange.exchange.name}}</text><br>
-									<view style="margin-top: 20upx;line-height: 24px;font-size: 24upx;color: #999;">
+									<view style="margin-top: 16upx;line-height: 24px;font-size: 24upx;color: #999;">
 										<text>{{cart.exchange.exchange.explain}}</text><br>
 									</view>
 								</view>
@@ -623,8 +623,9 @@
 	}
 	
 	.aui-mail-button .aui-df-color {
-	    color: #f0250f;
-	    border: 1px solid #f0250f;
+	    color: #fff;
+	    border: 1px solid #fa436a;
+		background-color: #fa436a;
 	}
 	
 	.aui-well-wait {

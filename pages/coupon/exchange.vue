@@ -6,13 +6,17 @@
 			<div style="width: 60px;color:#fa436a;" @click="confirm">立即兑换</div>
 		</view>
 		
-		<view style="position: relative;">
+		<view style="position: relative;" v-if="tikets.length > 0">
 			<view v-for="(tiket,index) in tikets" :key=index style="padding:15px;" >
 				<image style="background: #ea5504;align-items: center;width:65%;height: 180upx;" :src="tiket.coupons.image" mode="" >
 					<text class="yticon icon-bangzhu" style="position: absolute;z-index: 1;margin-left: -36px;" @click="showHide(tiket)"></text>
 				</image>
 				<image style="width: 35%;height: 180upx;" src="/static/index/lijishiyong.png" mode="" @click="lookPrice(tiket)"></image>
 			</view>
+		</view>
+		
+		<view v-else style="text-align: center;margin: 20px 0;">
+			<text style="font-size: 16px;">暂无优惠券</text>
 		</view>
 	</view>
 </template>
@@ -84,11 +88,13 @@
 					},
 				}).then(res => {
 					console.log(res)
-					if(res.status === 401){
+					if(res.status === 200){
+						this.tikets = res.data.results
+					}else if(res.status === 401){
 						this.$api.msg('用户过期或未登录')
-						return
+					}else if(res.status === 500){
+						this.$api.msg('服务器错误')
 					}
-					this.tikets = res.data.results
 				}).catch(error => {
 					console.log(error);
 				})

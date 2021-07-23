@@ -56,7 +56,8 @@
 				logining: false,
 				openid:'',
 				type:'',
-				code:''
+				code:'',
+				nuionid:'',
 			}
 		},
 		onLoad(options){
@@ -65,6 +66,7 @@
 			this.type = options.type
 			this.openid = options.openid
 			this.code = options.code
+			this.nuionid = options.nuionid
 			this.message()
 		},
 		methods: {
@@ -129,7 +131,8 @@
 				const sendData = {
 					mobile,
 					password,
-					openid:this.openid
+					openid:this.openid,
+					nuionid:this.nuionid,
 				};
 				console.log(sendData)
 				if(this.type === 'qq'){

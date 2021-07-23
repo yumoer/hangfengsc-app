@@ -4,9 +4,9 @@
 			{{introduce}}
 		</view>
 		<view class="body">
-			<uni-grid :column="2" :show-border="false"  :square="false" class="wrap">
+			<uni-grid :column="1" :show-border="false"  :square="false" class="wrap">
 			    <uni-grid-item v-for="(img_src,index) in img_srcs" :key="index" class="item">
-					<image class="img" :src="img_src.img_src"  @click="goto(img_src.a_href)"></image>
+					<image class="img" :src="img_src.img_src"></image> <!-- @click="goto(img_src.a_href)"-->
 			        <text class="name" v-bind:style="{color:img_src.color}">{{img_src.title}}</text>
 			    </uni-grid-item>
 			</uni-grid>
@@ -18,7 +18,7 @@
 	export default {
 		data() {
 			return {
-				introduce:'北京行丰银拓科技有限公司自成立以来一直秉承“以客为尊，用心服务，诚信永恒，高效卓越”的企业文化和服务宗旨。公司依靠优秀的技术，销售，物流，售后团队致力于打造一流的一站式办公服务平台，公司自成立以来一直不断进步，深受各个政府采购方面的信任和喜爱，现已与各大政府部门有着深远的合作以及平台对接。在一起前进的道路上，我们保证一定继续提供最优质的服务。',
+				introduce:'行丰银拓科技集团有限公司自成立以来一直秉承“以客为尊，用心服务，诚信永恒，高效卓越”的企业文化和服务宗旨。公司依靠优秀的技术，销售，物流，售后团队致力于打造一流的一站式办公服务平台，公司自成立以来一直不断进步，深受各个政府采购方面的信任和喜爱，现已与各大政府部门有着深远的合作以及平台对接。在一起前进的道路上，我们保证一定继续提供最优质的服务。',
 				img_srcs:[
 				  {title:'中国政府采购网',img_src:'../../../../static/infoCenter/001.jpg',a_href:'http://www.ccgp.gov.cn/',color:'#2180d8'},
 				  {title:'中央政府采购网',img_src:'../../../../static/infoCenter/002.jpg',a_href:'http://www.zycg.gov.cn/',color:'#c90101'},
@@ -39,7 +39,7 @@
 			};
 		},
 		methods: {
-		      goto(href){
+		      /* goto(href){
 				  console.log(href)
 				  // #ifdef APP-PLUS
 				  void plus.runtime.openWeb(href,function(e){
@@ -50,7 +50,7 @@
 				  // #ifdef H5
 				  location.href = href
 				  // #endif
-			  }
+			  } */
 		}
 	}
 </script>
@@ -58,8 +58,8 @@
 <style lang="scss">
 	#zfcg{
 		.title{
-			padding: 10upx;
-			font-size: 30upx;
+			padding: 40upx;
+			font-size: 34upx;
 			line-height: 48upx;
 			color: #333;
 			text-indent: 2em;
@@ -69,13 +69,14 @@
 				margin-top: 20upx;
 				.item{
 					margin-bottom: 30upx;
-					padding: 0 10upx;
+					padding:10upx 40upx;
 					text-align: center;
 					.img{
 						width: 100%;
-						height: 100upx;
+						height: 140upx;
 					}
 					.name{
+						padding-top: 20upx;
 						font-size: 27upx;
 					}
 				}

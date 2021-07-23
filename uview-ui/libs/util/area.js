@@ -5980,7 +5980,11 @@ var areaData = [
       {
         "label": "登封市",
         "value": "410185"
-      }
+      },
+	  {
+	    "label": "郑东新区",
+	    "value": ""
+	  }
     ],
     [{
         "label": "龙亭区",
@@ -6018,6 +6022,7 @@ var areaData = [
         "label": "兰考县",
         "value": "410225"
       }
+	  
     ],
     [{
         "label": "老城区",

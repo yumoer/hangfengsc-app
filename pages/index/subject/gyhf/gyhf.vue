@@ -2,10 +2,10 @@
 	<view>
 		<liuyunoTabs :tabData="tabs" :defaultIndex="defaultIndex" @tabClick='tabClick' />
 		<view class="" v-if="defaultIndex === 0">
-			<view style="padding: 10px;">
+			<view style="padding: 20px;">
 				<image style="width: 100%" src="/static/about_us/zhongfu.png" alt=""></image>
 				<p>
-				  北京行丰银拓科技有限公司（简称：行丰）是坐落于北京市星光影视园一家拥有<b>综合办公物资采购服务平台</b>并致力于为客户提供<b>整体解决方案</b>的高新技术企业，
+				  行丰银拓科技集团有限公司（简称：行丰）是坐落于北京市星光影视园一家拥有<b>综合办公物资采购服务平台</b>并致力于为客户提供<b>整体解决方案</b>的高新技术企业，
 				  公司自创立以来，便取得了与中国政府，中央国家机关单位，各省政府，中国企事业单位，军队，银行，高等院校，等500强企业广泛而深远的支持与合作，
 				  <b>为政府企事业单位认证和指定</b>的模范单位，公司立志成为行业的佼佼者，并努力通过科学技术贡献和团队合作给客户提供更高效和更满意的优质服务。
 				</p>
@@ -45,15 +45,14 @@
 			  </view>
 		</view> 
 		<view class="" v-if="defaultIndex === 1">
-			<view style="padding: 10px">
+			<view style="padding: 20px">
 				<p>企业文化：忠诚，民主，创新，发展。</p>
-				
 				<p>企业愿景：创建平台，实现价值，突破和改变自己，实现个人价值。</p>
-				<image style="width: 100%;" src="/static/about_us/pingtai.jpg" mode=""></image>
+				<image style="width: 100%;height: 400upx;" src="/static/about_us/pingtai.jpg" mode=""></image>
 				<p>企业宗旨：充满激情，积极向上，懂得感恩，创建工作生活快乐大家庭。</p>
-				<image style="width: 100%;" src="/static/about_us/dajiating.jpg" mode=""></image>
+				<image style="width: 100%;height: 400upx;" src="/static/about_us/dajiating.jpg" mode=""></image>
 				<p>企业竞争力：完善先进的服务管理体系，平台，系统，将其软件化。</p>
-				<image style="width: 100%;" src="/static/about_us/ruanjianhua.jpg" mode=""></image>
+				<image style="width: 100%;height: 400upx;" src="/static/about_us/ruanjianhua.jpg" mode=""></image>
 				<p>员工三大职责：宣传企业品牌，销售公司产品，引荐优秀人才。</p>
 				<p>服务宗旨：以客为尊，用心服务，诚信永恒，高效卓越</p>
 			</view>
@@ -163,18 +162,18 @@
 			</view>
 		</view>
 		<view class="" v-if="defaultIndex === 3">
-			<view class="team" style="padding: 10px">
+			<view class="team" style="padding: 20px">
 				<p>我们是一家以'技术'+'销售'为驱动力的公司，大家庭是由一群来自五湖四海充满激情，积极上进，懂得感恩，怀揣着梦想的业内外精英组成，我们希望团队一直加强忠诚品质，守法意识，团队精神，责任意识，开拓精神，奉献意识的这些优良品质和内涵，公司经过十多年的发展和市场磨合， 我们具备优秀的市场营销团队，商务谈判团队，IT开发团队，业务团队，设备售后维修团队，拥有一批10多年本行业专业人才，带领我们走向成功的彼岸，我们也有朝气蓬勃，团结互助热情洋溢的年轻人，他们勤奋，敢作敢为，对生活和工作都充满期待。
 				</p>
-				<image style="width: 100%;" src="/static/about_us/12zhounian.png" mode=""></image>
+				<image style="width: 100%;height: 400upx;" src="/static/about_us/12zhounian.png" mode=""></image>
 				<p>我们的家庭分为不同的团队，有为业绩而奋斗在一线的业务团队，有维护稳定客户的客服团队，有礼品采购定制方案的顾问团队，有各个采购平台维护的运营团队，有负责厂家联系订货的采购团队，有设备售后维修服务团队，有搭建自己办公物资采购平台的技术团队，有账单核对开票的财务团队，有自己仓库物流管理团队，有直接送货上门的物流司机团队...我们来自五湖四海，确只为您提供最为全面，周到，快捷，方便的产品和服务。
 				</p>
-				<image style="width: 100%;" src="/static/about_us/our_team.png" mode=""></image>
+				<image style="width: 100%;height: 400upx;" src="/static/about_us/our_team.png" mode=""></image>
 			  </view>
 		</view>
 		<view class="" v-if="defaultIndex === 4">
-			<view class="products" style="padding: 10px">
-				<image style="width: 100%;height: 150px;" src="/static/about_us/banner.jpg" mode=""></image>
+			<view class="products" style="padding: 20px">
+				<image style="width: 100%;height: 200px;" src="/static/about_us/banner.jpg" mode=""></image>
 				<p>
 				  我们扎根于办公物资采购行业，但是我们的产品和服务确不限于此，我们提供it软硬件产品，家用电器，电脑手机数码科技产品，
 				  办公用品，家居家具，打印耗材，学生用品，
@@ -189,7 +188,7 @@
 		    </view>
 		</view>
 		<view class="" v-if="defaultIndex === 5">
-			<view style="padding: 10px">
+			<view style="padding: 20px">
 				<image style="width: 100%;height: 300upx;" src="/static/gift_customization/bufenkehu.jpg" mode=""></image>
 				<p>公司目前以线上+线下的模式大步前进，正积极打造自己的办公服务平台，并已经和中国政府采购网，中央政府采购网，
 				  北京市政府采购网，中共中央直属机关采购中心，中国军队采购网，中国海关采购网，
@@ -202,16 +201,16 @@
 			</view>
 		</view>
 		<view class="" v-if="defaultIndex === 6">
-			<view class="" style="padding: 10px">
+			<view class="" style="padding: 20px">
 				<image style="width: 100%;height: 300upx;" src="/static/gift_customization/hezuohuoban.jpg" mode=""></image>
 				<p>公司经营产品种类以百万计，为国内国际 如齐心，得力，莱盛，惠普，佳能，三星，理光，联想，东芝，飞利浦，索尼，双立人等 众多品牌的金牌代理和优质合作伙伴，行丰同时也拥有打印耗材，复印纸，纸杯等多种自有产品， 在各行各业积累了大量可信赖的客户，如中央电视台，新华社，社会科学院，国家电网，国家知识产权局，广电总局， 银监会，中国人民银行，光大银行，建设银行，浦发银行，火箭局，北京大兴国税，清华大学，北京大学，北京医院，武警总署医院， 中石油，中石化，中国移动等等.</p>
 			</view>
 		</view>
 		<view class="" v-if="defaultIndex === 7">
-			<view class="" style="padding: 10px">
+			<view class="" style="padding: 20px">
 				<image style="width: 100%;height: 300upx;" src="/static/about_us/dashiji.jpg" mode=""></image>
 				<p>
-				  2008年11月14日，北京行丰银拓科技有限公司以注册资本2300.0000万元正式挂牌成立并运营。
+				  2008年11月14日，行丰银拓科技集团有限公司以注册资本2300.0000万元正式挂牌成立并运营。
 				</p>
 				<p>2009年2月，获得北京市国家税务局颁发的纳税信用A级单位。</p>
 				<p>2009年3月，被佳能认定为IT办公设备指定维修站，优秀代理商。</p>
@@ -268,8 +267,8 @@
 	p{
 	    text-indent: 2em;
 	    margin:10px 0;
-	    line-height:24px;
-		font-size: 30upx;
+	    line-height:30px;
+		font-size: 34upx;
 		b{
 			color:#000;
 		}

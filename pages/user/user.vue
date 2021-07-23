@@ -40,11 +40,11 @@
 		>
 			<image class="arc" src="/static/arc.png"></image>
 			<view class="tj-sction">
-				<view class="tj-item">
-					<text class="num">{{balance}}</text>
+				<view class="tj-item" @click="navTo('/pages/recharge/recharge')">
+					<text class="num">￥{{balance}}</text>
 					<text>余额</text>
 				</view>
-				<view class="tj-item">
+				<view class="tj-item" @click="navTo('/pages/coupon/exchange')">
 					<text class="num">{{coupon}}</text>
 					<text>优惠券</text>
 				</view>
@@ -61,27 +61,27 @@
 						<view class="order-section">
 							<view class="order-item" @click="navTo('/pages/order/order?state=1')"  hover-class="common-hover" :hover-stay-time="50">
 								<text class="yticon icon-daifukuan"></text>
-								<min-badge :count="count1" style="position: absolute;margin: -40upx 20upx;"></min-badge>
+								<min-badge :count="count1" style="top: -30px;right:-10px"></min-badge>
 								<text>待付款</text>
 							</view>
 							<view class="order-item" @click="navTo('/pages/order/order?state=2')"  hover-class="common-hover" :hover-stay-time="50">
 								<text class="yticon icon-daifahuo"  style="font-size: 18px;font-weight: bold;margin-top: 4px;padding: 1px 0;"></text>
-								<min-badge :count="count2" style="position: absolute;margin: -40upx 20upx;"></min-badge>
+								<min-badge :count="count2" style="top: -30px;right:-10px"></min-badge>
 								<text>待发货</text>
 							</view>
 							<view class="order-item" @click="navTo('/pages/order/order?state=3')" hover-class="common-hover"  :hover-stay-time="50">
 								<text class="yticon icon-yishouhuo"></text>
-								<min-badge :count="count3" style="position: absolute;margin: -40upx 20upx;"></min-badge>
+								<min-badge :count="count3" style="top: -30px;right:-10px"></min-badge>
 								<text>待收货</text>
 							</view>
 							<view class="order-item" @click="navTo('/pages/order/order?state=4')" hover-class="common-hover"  :hover-stay-time="50">
 								<text class="yticon icon-daipingjia" style="width: 22px;"></text>
-								<min-badge :count="count4" style="position: absolute;margin: -40upx 20upx;"></min-badge>
+								<min-badge :count="count4" style="top: -30px;right:-10px"></min-badge>
 								<text>待评价</text>
 							</view>
 							<view class="order-item" @click="navTo('/pages/order/postSale/postSale')" hover-class="common-hover"  :hover-stay-time="50">
 								<text class="yticon icon-shouhoutuikuan"></text>
-								<min-badge :count="count5" style="position: absolute;margin: -40upx 20upx;"></min-badge> 
+								<min-badge :count="count5" style="top: -30px;right:-10px"></min-badge> 
 								<text>退款/售后</text>
 							</view>
 						</view>
@@ -110,14 +110,13 @@
 			<view class="history-section icon">
 				<list-cell icon="icon-dizhi" iconColor="#5fcda2" title="收货地址" @eventClick="navTo('/pages/address/address')" tips="完善收货地址"></list-cell>
 				<list-cell icon="icon-shopsIdea" iconColor="#f088a2" title="我的评价" @eventClick="navTo('/pages/allAssess/allAssess')" tips="查看所有商品评价"></list-cell>
-				<list-cell icon="icon-youhuiquan" @eventClick="navTo('/pages/coupon/exchange')" iconColor="#e07472" title="我的优惠券" tips="兑换码兑换"></list-cell>
+				<!-- <list-cell icon="icon-youhuiquan" @eventClick="navTo('/pages/coupon/exchange')" iconColor="#e07472" title="我的优惠券" tips="兑换码兑换"></list-cell> -->
 				<!-- <list-cell icon="icon-xiaoxi" iconColor="#54b4ef" title="我的客服" @eventClick="navTo('/pages/chat/chat')" tips="查看客服消息"></list-cell> -->
 				<list-cell icon="icon-fapiao" iconColor="#5cba22" title="发票信息" @eventClick="navTo('/pages/invoice/invoice')" tips="添加普票/增票/电子票"></list-cell>
 				<list-cell icon="icon-gerenziliao" iconColor="#ee663b" title="个人资料" @eventClick="navTo('/pages/set/userInfo')" tips="修改个人资料"></list-cell>
 				<list-cell icon="icon-mima" iconColor="#22ee3b" title="修改密码" @eventClick="navTo('/pages/set/editPass')"></list-cell>
 				<list-cell icon="icon-fankui" iconColor="#e68841" title="意见反馈" @eventClick="navTo('/pages/coupon/voucher')" tips="提交意见反馈"></list-cell>
 				<list-cell icon="icon-shoucang_xuanzhongzhuangtai" iconColor="#54b4ef" title="我的收藏" @eventClick="navTo('/pages/coupon/reduction')"></list-cell>
-				<list-cell icon="icon-iconfontweixin" iconColor="#e65504" title="余额充值" @eventClick="navTo('/pages/recharge/recharge')"></list-cell>
 				<!-- #ifdef APP-PLUS -->
 				<list-cell icon="icon-share" @eventClick="navTo('/pages/share/share')" iconColor="#9789f7" title="分享" tips="分享app给好友"></list-cell>
 				<!-- #endif --> 
@@ -148,7 +147,7 @@
 				coverTransition: '0s',
 				moving: false,
 				histories:[],
-				balance:'0.00',
+				balance:0,
 				coupon:0,
 				exNum:{
 					coupon:0,
@@ -163,30 +162,14 @@
 				count5:null,
 			}
 		},
+		
 		async onLoad(options){
 			console.log(options.data)
-			const response = await uniRequest({
-				url:'/balance/',
-				method:'get',
-				headers:{
-					Authorization:'JWT '+uni.getStorageSync('userInfo').token
-				},
-			}).then(response=>{
-				if(response.status === 200){
-					console.log(response.data)
-					this.balance = response.data
-				}else if(response.status === 400){
-					
-				}
-			}).catch(error=>{
-				console.log(error)
-			})
 		},
 		onShow(){
 			console.log(this.hasLogin)
 			if(this.hasLogin === true){
 				this.code = '普通用户'
-				console.log(uni.getStorageSync('avatar'))
 				if(uni.getStorageSync('avatar') !== ''){
 					this.userInfo.portrait = uni.getStorageSync('avatar')
 				}else if(uni.getStorageSync('userInfo').avatar !== ''){
@@ -194,19 +177,21 @@
 				}else{
 					this.userInfo.portrait = 'http://img.zcool.cn/community/01786557e4a6fa0000018c1bf080ca.png'
 				}
-				this.getDate('待支付')
-				this.getDate('待发货')
-				this.getDate('待收获')
-				this.getDate('待评价')
+				this.getDate(2)
+				this.getDate(3)
+				this.getDate(4)
+				this.getDate(5)
 				this.getDate1()
+				this.getBanlace()
 				this.browseHistories()
 			}else{
 				this.code = '未登录用户'
-				this.count1 = 0
-				this.count2 = 0
-				this.count3 = 0
-				this.count4 = 0
-				this.count5 = 0
+				this.getDate(2)
+				this.getDate(3)
+				this.getDate(4)
+				this.getDate(5)
+				this.getDate1()
+				this.getBanlace()
 				this.browseHistories()
 			}
 			
@@ -267,6 +252,25 @@
 				}
 			}, 
 			
+			async getBanlace(){
+				const response = await uniRequest({
+					url:'/user/balance/',
+					method:'get',
+					headers:{
+						Authorization:'JWT '+uni.getStorageSync('userInfo').token
+					},
+				}).then(response=>{
+					if(response.status === 200){
+						console.log(response.data)
+						this.balance = response.data.balance
+					}else{
+						this.balance = 0
+					}
+				}).catch(error=>{
+					console.log(error)
+				})
+			},
+			
 			// 兑换码兑换
 			exchange(){
 				uni.navigateTo({
@@ -280,39 +284,6 @@
 				})
 			},
 			
-			/* // 代金券
-			coupon(){
-				if(this.exNum.coupon === 0){
-					this.$api.msg('您还未有代金券')
-				}else{
-					uni.navigateTo({
-						url:'/pages/coupon/exchange'
-					})
-				}
-				
-			},
-			
-			// 折扣券
-			voucher(){
-				if(this.exNum.voucher === 0){
-					this.$api.msg('您还未有折扣券')
-				}else{
-					uni.navigateTo({
-						url:'/pages/coupon/exchange'
-					})
-				}
-			},
-			
-			// 满减券
-			reduction(){
-				if(this.exNum.reduction === 0){
-					this.$api.msg('您还未有满减券')
-				}else{
-					uni.navigateTo({
-						url:'/pages/coupon/exchange'
-					})
-				}
-			}, */
 			
 			length(obj) {
 			     var count = 0;
@@ -322,29 +293,29 @@
 			     return count;
 			 },
 			
-			async getDate(status){
-				const response = await uniRequest({
-					url:'/orders/info/?status='+status,
+			async getDate(state){
+				console.log(state)
+				await uniRequest({
+					url:'/mobile/order/list/',
 					method:'get',
+					params:{page:1,page_size:10,status:state},
 					headers:{
 						Authorization:'JWT '+uni.getStorageSync('userInfo').token
 					},
-				}).then(response=>{
-					if(response.status === 200){
-						console.log(response.data.order_id)
-						const count = this.length(response.data.order_id)
-						if(status === '待支付'){
-							this.count1 = count
-						}else if(status === '待发货'){
-							this.count2 = count
-						}else if(status === '待收货'){
-							this.count3 = count
-						}else if(status === '待评价'){
-							this.count4 = count
-						}else if(status === '已完成'){
-							this.count5 = count
-						}
-						
+				}).then(res=>{
+					switch (state){
+						case 2:
+							this.count1 = res.data.count
+							break;
+						case 3:
+							this.count2 = res.data.count
+							break;
+						case 4:
+							this.count3 = res.data.count
+							break;
+						case 5:
+							this.count4 = res.data.count
+							break;
 					}
 				}).catch(error=>{
 					console.log(error)
@@ -352,17 +323,18 @@
 			},
 			
 			async getDate1(){
-				const response = await uniRequest({
-					url:'mobile/order/list/return/goods/user/',
+				await uniRequest({
+					url:'/mobile/order/list/return/goods/user/',
 					method:'get',
+					params:{page:1,page_size:10},
 					headers:{
 						Authorization:'JWT '+uni.getStorageSync('userInfo').token
 					},
-				}).then(response=>{
-					if(response.status === 200){
-						console.log(response.data.order_id)
-						const count = this.length(response.data)
-						this.count5 = count
+				}).then(res=>{
+					if(res.status === 200){
+						this.count5 = this.length(res.data)
+					}else{
+						this.count5 = 0
 					}
 				}).catch(error=>{
 					console.log(error)
@@ -370,8 +342,8 @@
 			},
 			
 			async browseHistories(){
-				const response = await uniRequest({
-					url:'/browse_histories/',
+				await uniRequest({
+					url:'/user/browse_histories/',
 					method:'get',
 					headers:{
 						Authorization:'JWT '+uni.getStorageSync('userInfo').token,

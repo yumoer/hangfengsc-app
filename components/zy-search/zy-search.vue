@@ -14,7 +14,7 @@
 		</view>
 		<view :class="'s-' + theme" v-if="hList.length > 0">
 			<view class="header">
-				历史记录
+				历史搜索
 				<image src="../../static/zy-search/delete.svg" mode="aspectFit" @click="delhistory"></image>
 			</view>
 			<view class="list">
@@ -22,7 +22,7 @@
 			</view>
 		</view>
 		<view :class="'wanted-' + theme" v-if="showWant">
-			<view class="header">猜你想搜的</view>
+			<view class="header">搜索发现</view>
 			<view class="list">
 				<view v-for="(item,index) in hotList" :key="index" @click="keywordsClick(item)">{{item}}</view>
 			</view>
@@ -148,7 +148,6 @@
 			font-size: 28upx;
 			border-radius: 50upx;
 			height: 60upx;
-			
 		}
 		.voice-icon{
 			width: 60upx;
@@ -175,6 +174,7 @@
 			font-size: 32upx;
 			padding: 30upx;
 			position: relative;
+			font-weight: bold;
 			image{
 				width: 36upx;
 				height: 36upx;
@@ -239,6 +239,7 @@
 		.header{
 			font-size: 32upx;
 			padding: 30upx;
+			font-weight: bold;
 		}
 		.list{
 			display: flex;

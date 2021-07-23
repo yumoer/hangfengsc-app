@@ -2,7 +2,9 @@
 	/**
 	 * vuex管理登陆状态，具体可以参考官方登陆模板示例
 	 */
+	import pageAnimation from './components/page-animation'
 	import uniRequest from 'uni-request'
+	import uniLoadMore from '@/components/uni-load-more/uni-load-more.vue';
 	import {
 		mapMutations
 	} from 'vuex';
@@ -12,71 +14,19 @@
 				version:'',
 			}
 		},
+		mixins: [pageAnimation],
+		components:{uniLoadMore},
 		methods: {
 			...mapMutations(['login']),
-			async AndroidCheckUpdate(){
-				const sendData = {
-					appid:'__UNI__8601E36',
-					version:this.version,
-				}; 
-				const res = await uniRequest.post('/mobile/check/app/version/',sendData)
-				console.log(res.data,this.version)
-				if(this.version !== '' && res.data.max_version>this.version){
-					if(plus.networkinfo.getCurrentType()!=3){
-						uni.showModal({  //提醒用户更新
-							title: '更新提示',
-							content: '有新的版本发布，检测到您目前非Wifi连接，为节约您的流量，程序已停止自动更新，将在您连接WIFI之后重新检测更新。',
-							
-							success: function (res) {
-								if (res.confirm) {
-									console.log('用户点击确定');
-								} else if (res.cancel) {
-									console.log('用户点击取消');
-								}
-							}
-						});
-					}else{
-						var dtask = plus.downloader.createDownload( "http://47.94.106.106:8000/mobile/download/apk", {}, function ( d, status ) {
-							// 下载完成  
-							if ( status == 200 ) {   
-								plus.runtime.install(plus.io.convertLocalFileSystemURL(d.filename),{},{},function(error){  
-									uni.showToast({  
-										title: '安装失败',  
-										mask: false,  
-										duration: 1500  
-									});  
-								})  
-							} else {  
-								 uni.showToast({  
-									title: '更新失败',  
-									mask: false,  
-									duration: 1500  
-								 });  
-							}    
-						});  
-						uni.showModal({
-							title: '更新提示',
-							content: '有新的版本发布，检测到您目前为Wifi连接，程序已启动自动更新。新版本下载完成后将自动弹出安装程序',
-							confirmText:'确认下载',
-							icon:'none',
-							success: function (res) {
-								if (res.confirm) {
-									console.log('用户点击确定');
-									dtask.start();  
-								} else if (res.cancel) {
-									console.log('用户点击取消');
-								}
-							}
-						}); 
-					}  
-				}/* else{
-					uni.showToast({
-						title:'已是最新版本'
-					})
-				} */
-			}
 		},
 		onLaunch: async function() {
+			console.log('App Launch')
+			// #ifdef APP-PLUS
+			//app关闭默认的启动 方法关闭启动图。但是这个时间不能太晚，6s 超时后依旧会主动关闭。
+			setTimeout(()=>{
+				plus.navigator.closeSplashscreen();
+			},100)
+			// #endif
 			let userInfo = uni.getStorageSync('userInfo') || '';
 			if(userInfo.user_id){
 				//更新登陆状态
@@ -87,22 +37,6 @@
 					}
 				});
 			}
-			//#ifdef APP-PLUS  
-			//升级检测数据 
-			/* plus.runtime.getProperty(plus.runtime.appid,(wgtinfo)=>{
-				console.log(wgtinfo.version)
-				this.version =  wgtinfo.version
-			});
-			uni.getSystemInfo({
-				success:(res) => {  
-					console.log(res.platform);
-					//检测当前平台，如果是安卓则启动安卓更新  
-					if(res.platform=="android"){  
-						this.AndroidCheckUpdate();  
-					}  
-				}  
-			}) */
-			//#endif  
 		},
 		onShow: function() {
 			console.log('App Show')
@@ -152,7 +86,7 @@
 		font-family: yticon;
 		font-weight: normal;
 		font-style: normal;
-		src: url('https://at.alicdn.com/t/font_1211716_361r3wp5lpd.ttf') format('truetype');
+		src: url('https://at.alicdn.com/t/font_1211716_pokm04b2g5s.ttf?t=1620192710167') format('truetype');
 	}
 
 	.yticon {
@@ -161,6 +95,14 @@
 		font-style: normal;
 		-webkit-font-smoothing: antialiased;
 		-moz-osx-font-smoothing: grayscale;
+	}
+	
+	.icon-yuezhifu:before {
+		content: "\e653";
+	}
+	
+	.icon-huodaofukuan1:before {
+		content: "\e652";
 	}
 	
 	.icon-gerenziliao:before {
@@ -525,10 +467,6 @@
 	
 	.icon-gongwuka:before{
 		content: '\e6da';
-	}
-	
-	.icon-zhaunzhang:before{
-		content: '\e63b';
 	}
 	
 	.icon-zhaunzhang:before{

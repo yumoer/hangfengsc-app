@@ -2,7 +2,7 @@
 	<view class="container">
 		<view class="carousel">
 			<swiper indicator-dots circular=true duration="400">
-				<swiper-item class="swiper-item" v-for="(item,index) in imgList" :key="index" v-if="item !== null">
+				<swiper-item class="swiper-item" v-for="(item,index) in detailsArr.images" :key="index" v-if="item !== null">
 					<view class="image-wrapper">
 						<image
 							:src="item" 
@@ -22,6 +22,13 @@
 				<text class="m-price">¥{{detailsArr.market_price}}</text>
 				<text class="coupon-tip">{{tip}}</text>
 				<!-- <text style="display: inline-block;float: right;color: #909399;">库存: {{detailsArr.stock}}</text> -->
+			</view>
+		</view>
+		
+		<view class="introduce-section" v-if="specs.length > 0">
+			<text>{{specs[0].name}}</text>
+			<view v-for="(spec,index) in specs[0].data" :key="index" style="display: inline-block;padding: 5px;margin-left: 15px;" v-bind:class="{'back':spec.sku === Number(sku_id)}" @click="getPages(spec.sku)">
+				<text>{{spec.value}}</text>
 			</view>
 		</view>
 		
@@ -56,6 +63,15 @@
 		<!-- #endif -->
 		
 		<view class="c-list">
+			<view class="c-row b-b" @click="join">
+				<text class="tit">购买类型</text>
+				<view class="con">
+					<text class="selected-text" v-for="(sItem, sIndex) in specSelected" :key="sIndex">
+						{{sItem.name}}
+					</text>
+				</view>
+				<text class="yticon icon-you"></text>
+			</view>
 			<view class="c-row b-b">
 				<text class="tit">促销活动</text>
 				<view class="con-list">
@@ -94,8 +110,8 @@
 					
 				</view>
 			</view>
-			
-			<button type="default" @click="lookAll">{{lookBtn}}</button>
+		    <el-button type="primary" icon="el-icon-search" style="text-align: center;" circle @click="lookAll">{{lookBtn}}</el-button>
+			<!-- <button type="text" @click="lookAll">{{lookBtn}}</button> -->
 		</view>
 		
 		<view class="detail-desc">
@@ -122,7 +138,7 @@
 			</navigator>
 			<navigator url="/pages/cart/cart" open-type="switchTab" class="p-b-btn">
 				<text class="yticon icon-gouwuche"></text>
-				<min-badge :count="num" style="position: absolute;margin: -40upx 20upx;"></min-badge>
+				<min-badge :count="num" style="position: absolute;margin-left: 40upx;top: 20upx;"></min-badge>
 				<text>购物车</text>
 			</navigator>
 			<!-- <view v-if="username" @click="toCart" open-type="switchTab" class="p-b-btn">
@@ -164,7 +180,28 @@
 						<text class="stock" style="font-size: 14px;text-overflow: ellipsis;overflow: hidden;display: -webkit-box;-webkit-box-orient: vertical;-webkit-line-clamp: 2;">{{detailsArr.name}}</text>
 						<text style="display: inline-block;margin-top: 20px;">
 							<text class="price" style="color: red;float: left;">¥{{detailsArr.price}}</text>
+							<view class="selected" style="float: right;">
+								已选：
+								<text class="selected-text" v-for="(sItem, sIndex) in specSelected" :key="sIndex">
+									{{sItem.name}}
+								</text>
+							</view>
 							<!-- <text class="stock" style="float: right;">库存：{{detailsArr.stock}}件</text> -->
+						</text>
+					</view>
+				</view>
+				
+				<view v-for="(item,index) in specList" :key="index" class="attr-list">
+					<text>{{item.name}}</text>
+					<view class="item-list">
+						<text 
+							v-for="(childItem, childIndex) in specChildList" 
+							v-if="childItem.pid === item.id"
+							:key="childIndex" class="tit"
+							:class="{selected: childItem.selected}"
+							@click="selectSpec(childIndex, childItem.pid)"
+						>
+							{{childItem.name}}
 						</text>
 					</view>
 				</view>
@@ -210,7 +247,7 @@
 		data() {
 			return {
 				comment:3,
-				lookBtn:'查看全部',
+				lookBtn:'更多',
 				specClass: 'none',
 				specSelected:[],
 				detailsArr:{},
@@ -221,10 +258,7 @@
 				count:1,
 				counts:0,
 				value: 1,
-				min:0,
-				max:3,
-				specList: [],
-				specChildList: [],
+				
 				sku_id:'',
 				skuId:'',
 				num:0,
@@ -235,11 +269,29 @@
 				tip:'市场价',
 				text:'即将开抢',
 				disabled:true,
+				specs:[],
 				shareObj:{
 					shareMenu:''
 				},
-				
-				
+				/* simulatedDATA:{
+					specifications:[],
+					sku_spec:[]
+				}, */
+				specList: [],
+				specChildList: [],
+				simulatedDATA: { //模拟后台返回的数据 多规格
+					"specifications":[
+						{"name":"颜色","values":[{"name":"黑色"},{"name":"白色"}]},
+						{"name":"内存","values":[{"name":"16G"}]},
+						{"name":"套餐","values":[{"name":"套餐一"},{"name":"套餐二"}]},
+					],
+					"sku_spec":[
+						{"skuId":"12328","values":"黑色,16G,套餐一",stock:'0'},
+						{"skuId":"12329","values":"白色,16G,套餐一",stock:'2'},
+						{"skuId":"12330","values":"白色,16G,套餐二",stock:'10'},
+						{"skuId":"12331","values":"黑色,16G,套餐二",stock:'19'},
+					]
+				},
 			};
 		},
 		
@@ -273,9 +325,7 @@
 		},
 		
 		onShow(){
-			if(uni.getStorageSync('avatar') !== undefined){
-				this.headPicValue = uni.getStorageSync('avatar')
-			}else if(uni.getStorageSync('userInfo').avatar !== ''){
+			if(uni.getStorageSync('userInfo').avatar !== ''){
 				this.headPicValue = uni.getStorageSync('userInfo').avatar
 			}else{
 				this.headPicValue = 'http://img.zcool.cn/community/01786557e4a6fa0000018c1bf080ca.png'
@@ -305,79 +355,91 @@
 			this.ifFavorite()
 			if(id){
 				// this.$api.msg(`点击了${id}`);
-				this.getDate(id)
+				await uniRequest({
+					url: '/goods/mobile/get/goods/'+id+'/',
+					method: 'get',
+				}).then(async res => {
+					this.detailsArr = res.data.success
+					uniRequest({
+						url: '/goods/'+id+'/specs/',
+						method: 'POST',
+					}).then(res => {
+						console.log(res.data.result)
+						if(res.status === 200){
+							this.simulatedDATA.specifications = res.data.result.specifications
+							this.simulatedDATA.sku_spec = res.data.result.sku_spec
+							res.data.result.specifications.forEach((ele,index)=>{
+								ele.id = index+1
+								ele.values.forEach((el,inde)=>{
+									el.id = inde+1
+									el.pid = index+1
+									this.specChildList.push(el)
+								})
+							})
+							this.specList = res.data.result.specifications
+							console.log(this.specList,this.specChildList)
+							
+							//规格 默认选中第一条
+							console.log(this.detailsArr)
+							this.detailsArr.sku_spec.values.split(',').forEach(ele=>{
+								for(let cItem of this.specChildList){
+									if(cItem.name === ele){
+										console.log(cItem)
+										this.$set(cItem, 'selected', true);
+										this.specSelected.push(cItem);
+										console.log(this.specSelected)
+										break; //forEach不能使用break
+									}
+								}
+							})
+						}
+					}).catch(error => {
+						console.log(error);
+					})
+					if(this.value === 'time'){
+						this.tip = '限时抢购(每天10点开抢)'
+						const res = await uniRequest.get('/goods/limit/time/sku/');
+						console.log(res)
+						if(res.status === 200){
+							res.data.active.data.forEach(ele=>{
+								if(ele.id+'' === id){
+									this.detailsArr.price = ele.price
+									this.detailsArr.market_price = ele.old_price
+								}
+							})
+							var data = new Date()
+							const Y = data.getFullYear()
+							const M = data.getMonth()+1 < 10 ? '0'+(data.getMonth()+1) : data.getMonth()+1
+							const D = data.getDate() < 10 ? '0'+data.getDate() : data.getDate()
+							const h = data.getHours()
+							const m = data.getMinutes()
+							const s = data.getSeconds()
+							const Day = Y+'-'+M+'-'+D+' '+h
+							console.log(Day,res.data.active.start_time)
+							if(res.data.active.start_time === Day){
+								this.disabled = false
+								this.text = '立即开抢'
+							}else if(res.data.active.start_time !== Day){
+							}
+						}
+					}
+					this.imgList = res.data.images
+				}).catch(error => {
+					console.log(error.data)
+				})
+				
 				if(uni.getStorageSync('userInfo').token){
 					this.getAssess(id)
 				}
 				this.getShopCount()
 			}
-			
-			//规格 默认选中第一条
-			this.specList.forEach(item=>{
-				for(let cItem of this.specChildList){
-					if(cItem.pid === item.id){
-						this.$set(cItem, 'selected', true);
-						this.specSelected.push(cItem);
-						break; //forEach不能使用break
-					}
-				}
-			})
-			this.shareList = await this.$api.json('shareList');
 		},
 		
 		computed: {
 			...mapState(['hasLogin','userInfo'])
 		},
+		
 		methods:{
-			async getDate(id){
-				try {
-					await uniRequest({
-						url: '/mobile/get/goods/'+id,
-						method: 'get',
-						/* headers: {
-							Authorization: 'JWT ' + uni.getStorageSync('userInfo').token
-						}, */
-					}).then(async res => {
-						this.detailsArr = res.data
-						if(this.value === 'time'){
-							this.tip = '限时抢购(每天10点开抢)'
-							const res = await uniRequest.get('/goods/limit/time/sku/');
-							console.log(res)
-							if(res.status === 200){
-								res.data.active.data.forEach(ele=>{
-									if(ele.id+'' === id){
-										this.detailsArr.price = ele.price
-										this.detailsArr.market_price = ele.old_price
-									}
-									
-								})
-								var data = new Date()
-								const Y = data.getFullYear()
-								const M = data.getMonth()+1 < 10 ? '0'+(data.getMonth()+1) : data.getMonth()+1
-								const D = data.getDate() < 10 ? '0'+data.getDate() : data.getDate()
-								const h = data.getHours()
-								const m = data.getMinutes()
-								const s = data.getSeconds()
-								const Day = Y+'-'+M+'-'+D+' '+h
-								console.log(Day,res.data.active.start_time)
-								if(res.data.active.start_time === Day){
-									this.disabled = false
-									this.text = '立即开抢'
-								}else if(res.data.active.start_time !== Day){
-								}
-							}
-							console.log(res.data.active.data)
-							console.log(this.detailsArr)
-						}
-						this.imgList = res.data.images
-					}).catch(error => {
-						console.log(error.data)
-					})
-				} catch (error) {
-					console.error(error);
-				}
-			},
-			
 			async getAssess(id){
 				const response = await uniRequest({
 					url:'/goods/comment/?id='+id,
@@ -411,20 +473,28 @@
 				console.log('返回数据',res);
 			},
 			
+			getPages(skuId){
+				if(skuId !== Number(this.sku_id)){
+					uni.navigateTo({
+						url:'/pages/product/product?id='+skuId+'&value=undefined'
+					})
+				}
+			},
+			
 			ifFavorite(){
 				uniRequest({
-					url: '/user/collection/',
+					url: '/carts/collection/',
 					method: 'GET',
+					params:{page:1,page_size:10},
 					headers: {
 						Authorization: 'JWT ' + uni.getStorageSync('userInfo').token
 					},
 				}).then(res => {
-					console.log(res,res.data.results)
 					if(res.status === 200){
 						res.data.results.forEach(ele=>{
-							console.log(ele.sku.id)
 							if(ele.sku.id === +this.sku_id){
 								this.favorite = true
+								this.skuId = ele.id
 							}
 						})
 					}
@@ -435,10 +505,11 @@
 			
 			//收藏
 			async toFavorite(){
-				console.log(this.skuId)
-				if(this.skuId !== undefined){
+				console.log(this.favorite)
+				if(this.favorite){
+					// this.ifFavorite()
 					await uniRequest({
-						url: '/user/collection/'+this.skuId+'/',
+						url: '/carts/collection/'+this.skuId+'/',
 						method: 'DELETE',
 						headers: {
 							Authorization: 'JWT ' + uni.getStorageSync('userInfo').token
@@ -448,29 +519,7 @@
 						if(res.status === 204){
 							this.favorite = false
 							this.$api.msg('取消收藏')
-						}else if(res.status === 404){
-							uniRequest({
-									url:'/user/collection/',
-									method:'POST',
-									headers:{
-										Authorization:'JWT '+uni.getStorageSync('userInfo').token
-									},
-									data:{
-										sku:this.sku_id
-									}
-								}).then(res=>{
-									console.log(res)
-									if(res.status === 201){
-										this.$api.msg('收藏成功')
-										this.favorite = true
-									}else if(res.status === 400){
-										this.$api.msg(res.data.non_field_errors[0])
-									}else if(res.status === 401){
-										this.$api.msg('请先登录')
-									}
-								}).catch(error=>{
-								   console.log(error)
-								})
+							this.ifFavorite()
 						}else if(res.status === 401){
 							this.$api.msg('请先登录')
 						}
@@ -479,29 +528,29 @@
 					})
 				}else{
 					await uniRequest({
-							url:'/user/collection/',
-							method:'POST',
-							headers:{
-								Authorization:'JWT '+uni.getStorageSync('userInfo').token
-							},
-							data:{
-								sku:this.sku_id
-							}
-						}).then(res=>{
-							console.log(res)
-							if(res.status === 201){
-								this.$api.msg('收藏成功')
-								this.favorite = true
-							}else if(res.status === 400){
-								this.$api.msg(res.data.non_field_errors[0]+',在"我的收藏"查看')
-							}else if(res.status === 401){
-								this.$api.msg('请先登录')
-							}
-						}).catch(error=>{
-						   console.log(error)
-						})
+						url:'/carts/collection/',
+						method:'POST',
+						headers:{
+							Authorization:'JWT '+uni.getStorageSync('userInfo').token
+						},
+						data:{
+							sku:Number(this.sku_id)
+						}
+					}).then(res=>{
+						console.log(res)
+						if(res.status === 201){
+							this.$api.msg('收藏成功')
+							this.favorite = true
+							this.ifFavorite()
+						}else if(res.status === 400){
+							this.$api.msg(res.data.non_field_errors[0]+',在"我的收藏"查看')
+						}else if(res.status === 401){
+							this.$api.msg('请先登录')
+						}
+					}).catch(error=>{
+					   console.log(error)
+					})
 				}
-				
 			},
 			//规格弹窗开关
 			toggleSpec() {
@@ -515,29 +564,36 @@
 				}
 				
 			},
+			
 			async toggleJoin(){
 				this.toggleSpec()
 				// #ifdef APP-PLUS
-				await uniRequest({
-					url:'/cart/',
-					method:'post',
-					data:{sku_id: this.sku_id, count: this.count},
-					headers:{
-						Authorization:'JWT '+uni.getStorageSync('userInfo').token,
-					},
-					crossDomain: true,
-					xhrFields: {
-						withCredentials: true
-					},
-				}).then(res=>{
-					console.log(res.data)
-					if(res.data.selected === true){
-						this.$api.msg(`加入购物车成功`);
-						this.getShopCount()
-					}
-				}).catch(error=>{
-					console.log(error)
-				})
+				if(!uni.getStorageSync('userInfo').token){
+					uni.navigateTo({
+						url: `/pages/public/login`
+					})
+				}else{
+					await uniRequest({
+						url:'/carts/cart_sku/',
+						method:'post',
+						data:{sku_id: this.sku_id, count: this.count},
+						headers:{
+							Authorization:'JWT '+uni.getStorageSync('userInfo').token,
+						},
+						crossDomain: true,
+						xhrFields: {
+							withCredentials: true
+						},
+					}).then(res=>{
+						console.log(res.data)
+						if(res.data.selected === true){
+							this.$api.msg(`加入购物车成功`);
+							this.getShopCount()
+						}
+					}).catch(error=>{
+						console.log(error)
+					})
+				}
 				// #endif
 				// #ifdef H5
 				if(!uni.getStorageSync('userInfo').token){
@@ -546,7 +602,7 @@
 					})
 				}else{
 					await uniRequest({
-						url:'/cart/',
+						url:'/carts/cart_sku/',
 						method:'post',
 						data:{sku_id: this.sku_id, count: this.count},
 						headers:{
@@ -575,8 +631,8 @@
 				// #endif
 			},
 			async getShopCount(){
-				const response = await uniRequest({
-					url:'/cart/',
+				await uniRequest({
+					url:'/carts/cart_sku/',
 					method:'get',
 					headers:{
 						Authorization:'JWT '+uni.getStorageSync('userInfo').token,
@@ -586,14 +642,14 @@
 						withCredentials: true
 					},
 				}).then(res=>{
-					console.log(res.data)
+					// console.log(res.data)
 					this.num = res.data.length
 				}).catch(err=>{
 					
 				})
 				
 			},
-			async toggleBuy(){
+			toggleBuy(){
 				this.toggleSpec()
 				if(!uni.getStorageSync('userInfo').token){
 					uni.navigateTo({
@@ -602,7 +658,7 @@
 				}else{
 					this.detailsArr.goods = {}
 					uni.navigateTo({
-						url: `/pages/order/createOrder?data=`+JSON.stringify(this.detailsArr)+`&count=`+this.count + `&goods_id=`+ this.sku_id + `&type=`+ this.value
+						url: `/pages/order/createOrder?type=1&data=`+encodeURIComponent(JSON.stringify(this.detailsArr))+`&count=`+this.count
 					})
 				}
 			},
@@ -612,7 +668,7 @@
 					this.lookBtn = '收起'
 					this.comment = 100
 				}else{
-					this.lookBtn = '查看全部'
+					this.lookBtn = '更多'
 					this.comment = 3
 				}
 			},
@@ -634,11 +690,25 @@
 				 * 选择的规格存放在specSelected中
 				 */
 				this.specSelected = []; 
+				var arr = []
 				list.forEach(item=>{ 
 					if(item.selected === true){ 
-						this.specSelected.push(item); 
-					} 
+						console.log(item.name)
+						arr.push(item.name)
+						this.specSelected.push(item);
+					}
 				})
+				console.log(arr)
+				this.specSelected.forEach(ele=>{
+					console.log(ele.name)
+					if(ele.name[0] === arr[0] && this.detailsArr.sku_spec.values.split(',')[1] === arr[1] && this.detailsArr.sku_spec.values.split(',')[2] === arr[2]){
+						console.log(ele.skuId)
+						uni.navigateTo({
+							url:'/pages/product/product?id='+ele.skuId+'&value=undefined'
+						})
+					}
+				})
+				
 			},
 			
 			
@@ -788,6 +858,7 @@
 		background: $page-color-base;
 		padding-bottom: 160upx;
 	}
+	
 	.icon-you{
 		font-size: $font-base + 2upx;
 		color: #888;
@@ -816,12 +887,47 @@
 		
 	}
 	
-	
+	.product-delcom {
+	  color: #323232;
+	  font-size: 14px;
+	  border-bottom: 1px solid #EEEEEE;
+	  padding: 30px 0;
+	}
+	.product-footerlist {
+	  margin-top: 10px;
+	}
+	.product-footerlist li {
+	  border: 1px solid #606060;
+	  border-radius: 5px;
+	  color: #606060;
+	  text-align: center;
+	  padding: 10px 30px;
+	  float: left;
+	  margin-right: 20px;
+	  cursor: pointer;
+	  list-style: none;
+	}
+	.product-footerlist li.productActive {
+	  background-color: #1A1A29;
+	  color: #fff;
+	  border: 1px solid #1A1A29;
+	}
+	.product-footerlist li.noneActive {
+	  background-color: #ccc;
+	  opacity: 0.4;
+	  color: #000;
+	  pointer-events: none;
+	}
 	
 	/* 标题简介 */
 	.introduce-section{
 		background: #fff;
 		padding: 20upx 30upx;
+		
+		.back{
+			background-color: #fa436a;
+			color: #fff;
+		}
 		
 		.title{
 			font-size: 32upx;
@@ -866,6 +972,7 @@
 			}
 		}
 	}
+	
 	/* 分享 */
 	.share-section{
 		display:flex;

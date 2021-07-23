@@ -11,7 +11,7 @@
 			>
 				<image class="goods-img" :src="goodsItem.sku_image" mode="aspectFill"></image>
 				<view class="right">
-					<text class="title clamp">{{goodsItem.goods_name}}</text>
+					<text class="title clamp">{{goodsItem.sku_name}}</text>
 					<text class="price" style="float: left;">{{goodsItem.price}} 
 						<text class="attr-box" style="float: right;">  x {{goodsItem.count}}</text>
 					</text>
@@ -20,7 +20,7 @@
 			
 			<view class="price-box" >
 				实付款
-				<text class="price">{{goodsItem.price * goodsItem.count}}</text>
+				<text class="price">{{price}}</text>
 			</view>
 			
 			<view class="action-box b-t">
@@ -49,7 +49,7 @@
 		data() {
 			return {
 				modalTitle: '退/换货',
-				
+				price:0,
 				tabCurrentIndex: 0,
 				orderList:[],
 				navList: [],
@@ -65,7 +65,7 @@
 		methods: {
 			async getDate(){
 				await uniRequest({
-					url:'mobile/order/list/return/goods/user/',
+					url:'/mobile/order/list/return/goods/user/',
 					method:'get',
 					headers:{
 						Authorization:'JWT '+uni.getStorageSync('userInfo').token
@@ -73,7 +73,10 @@
 				}).then(res=>{
 					console.log(res)
 					this.navList = res.data
-					
+					this.navList.forEach(ele=>{
+						this.price += ele.price * ele.count
+					})
+					this.price = this.price.toFixed(2)
 				}).catch(error=>{
 					console.log(error)
 				})

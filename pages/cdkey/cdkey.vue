@@ -14,47 +14,53 @@
 					<text class="tit">卡号</text>
 					<input 
 						:value="card_number" 
+						type="number"
 						placeholder="请输入卡号"
 						maxlength="12"
 						data-key="card_number"
+						:adjust-position="true"
 						@input="inputChange"
 					/>
 				</view>
 				
-				<view class="input-item">
+				<view class="input-item" style="position: relative;">
 					<text class="tit">卡密</text>
 					<input 
-						type="password" 
+						type="text" 
 						:value="card_paw" 
 						placeholder="请输入卡密"
 						placeholder-class="input-empty"
 						maxlength="8"
-						password 
+						:password="show"
+						:adjust-position="true"
 						data-key="card_paw"
 						@input="inputChange"
 					/>
+					<text @click="typeChange" style="position: absolute;right: 20upx;bottom: 15upx;">
+						<image style="width: 20px;height : 20px;" :src="show === true?'../../static/cdkey/yan-off.png':'../../static/cdkey/yan-on.png'" mode=""></image>
+					</text>
 				</view>
 				
 				<view class="input-item" style="position: relative;">
 					<text class="tit">验证码</text>
 					<input 
 						:value="image_code" 
+						type="text"
 						placeholder="请输入验证码"
 						placeholder-class="input-empty"
 						maxlength="4"
+						:adjust-position="true"
 						data-key="image_code"
 						@input="inputChange"
+						@confirm="toExchange"
 					/>
-					<view style="position: absolute;right: 0;top: 20upx;" @click="generate_image_code">
+					<view style="position: absolute;right: 16upx;top: 16upx;" @click="generate_image_code">
 						<image style="width: 100px;height: 35px;" :src="image_code_url" mode=""></image>
 					</view>
 				</view>
-				
-				
 			</view>
 		</view>
 		<button class="confirm-btn" @click="toExchange">查询</button>
-		
 	</view>
 </template>
 
@@ -73,7 +79,8 @@
 				image_code_id: '', // uuid
 				image_code_url:'', // 访问后端视图的地址，得到image
 				getText:'',
-				open_id:''
+				open_id:'',
+				show:true,
 			}
 		},
 		onLoad(options){
@@ -86,6 +93,8 @@
 			this.generate_image_code()
 		},
 		
+		
+		
 		methods: {
 			inputChange(e){
 				const key = e.currentTarget.dataset.key;
@@ -93,6 +102,10 @@
 			},
 			navBack(){
 				uni.navigateBack();  
+			},
+			
+			typeChange(){
+				this.show = !this.show
 			},
 			
 			// 生成一个验证码的编号，并设置页面中验证码img标签的src属性
@@ -106,8 +119,6 @@
 				this.image_code_id = this.generate_uuid();
 				
 				console.log(this.image_code_id)
-				
-				
 				
 				// 设置页面中验证码img标签的src属性
 				this.image_code_url = "http://47.94.106.106:8000/image/codes/exchange/?open_id="+this.open_id+'&id='+this.image_code_id
@@ -134,7 +145,6 @@
 			},  
 			
 			async toExchange(){
-				
 				// 用户名验证
 				if(!this.card_number){
 					this.$api.msg('请输入卡号');
@@ -189,6 +199,8 @@
 					}
 					if(res.status === 400){
 						this.$api.msg(res.data.message)
+						this.image_code = ''
+						this.generate_image_code()
 					}
 				}).catch(error=>{
 					console.log(error)

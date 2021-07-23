@@ -63,10 +63,10 @@
 				}
 				this.invoiceData.invoice_title = data.invoice_title
 				this.invoiceData.invoice_org_code = data.invoice_org_code
-				this.invoiceData.register_address = ''
-				this.invoiceData.invoice_phone = ''
-				this.invoiceData.invoice_bank = ''
-				this.invoiceData.invoice_bank_code = ''
+				this.invoiceData.register_address = null
+				this.invoiceData.invoice_phone = null
+				this.invoiceData.invoice_bank = null
+				this.invoiceData.invoice_bank_code = null
 				if(this.manageType === 'edit'){
 					this.setInvoice(data)
 				}else if(this.manageType === 'add'){
@@ -113,6 +113,7 @@
 			
 			// 删除
 			async condelete(data){
+				console.log(data)
 				const response = await uniRequest({
 					url: '/orders/invoice/' + data.id + '/',
 					method: 'delete',
@@ -121,7 +122,7 @@
 					},
 				}).then(response => {
 					console.log(response)
-					this.$api.prePage().refreshList(data);
+					// this.$api.prePage().refreshList(data);
 					this.$api.msg('删除成功')
 					setTimeout(() => {
 						uni.navigateBack()

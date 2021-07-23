@@ -14,16 +14,15 @@
 		</view>
 		<view class="guess-section">
 			<view 
-				v-for="(item, index) in skus" :key="index"
+				v-for="(item, index) in searchData" :key="index"
 				class="guess-item"
 				@click="navToDetailPage(item)"
-				v-if="item.object !== null"
 			>
 				<view class="image-wrapper">
-					<image style="border: 1px solid #ddd;" :src="item.object.default_image_url" mode="aspectFill"></image>
+					<image style="border: 1px solid #ddd;" :src="item._source.detail_image" mode="aspectFill"></image>
 				</view>
-				<text class="title clamp">{{item.object.name}}</text>
-				<text class="price">￥{{item.object.price}}</text>
+				<text class="title clamp">{{item._source.name}}</text>
+				<text class="price">￥{{item._source.price}}</text>
 			</view>
 		</view>
 		<uni-load-more :status="loadingType"></uni-load-more>
@@ -43,7 +42,7 @@
 				isFocus:false, 
 				speechEngine:'iFly',
 				loadingType: 'more', //加载更多状态
-				skus:[],
+				searchData:[],
 				page:1,
 				page_size:10,
 				backTop: {
@@ -58,7 +57,6 @@
 		},
 		components:{uniLoadMore,backTop},
 		onLoad(option){
-			console.log(option.value)
 			this.searchText = option.value
 			this.getDate('add')
 		},
@@ -77,27 +75,25 @@
 				}else{
 					this.loadingType = 'loading'
 				}
-				try {
-					const response = await uniRequest.get('/skus/search/?text='+this.searchText+'&page='+this.page+'&page_size='+this.page_size);
-					console.log(response);
-					if(response.data.results.length === 0){
+				await uniRequest.post('/goods/new/search/',{text:this.searchText,page:this.page,page_size:this.page_size}).then(res=>{
+					if(res.data.count === 0){
 						uni.showToast({
 							title: '搜索失败，无此关键字',
 							icon: 'none',
 							duration: 1000
 						});
 						this.loadingType = 'nomore'
-						this.skus = response.data.results
+						this.searchData = res.data.sku_list
+						console.log(this.searchData)
 					}else{
-						this.skus = response.data.results
-						if(this.skus.length < 10){
+						this.searchData = res.data.sku_list
+						console.log(this.searchData)
+						if(this.searchData.length < 10){
 							this.loadingType = 'nomore'
 						}
 						
 					}
-				} catch (error) {
-					console.error(error);
-				}
+				});
 			},
 			searchStart() {	//触发搜索
 				let _this = this;
@@ -162,7 +158,7 @@
 				console.log(item)
 				//测试数据没有写id，用title代替
 				if(item.object === undefined){
-				    let id = item.id;
+				    let id = item._id;
 					uni.navigateTo({
 						url: `/pages/product/product?id=`+id
 					})

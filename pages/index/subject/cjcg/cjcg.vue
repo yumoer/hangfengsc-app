@@ -1,9 +1,9 @@
 <template>
 	<view id="">
 		<view class="">
-			<uni-collapse>
+			<uni-collapse style="font-weight: bold;font-size: 36upx;">
 			    <uni-collapse-item :open="true" :disabled="true" :title="bg_pic.title" v-for="(bg_pic,index) in bg_pics" :key="index">
-			        <view style="padding: 20upx;">
+			        <view style="padding: 40upx;">
 			            <image style="width: 100%;height: 400upx;" :src="bg_pic.src"></image>
 						<text v-for="(text,ind) in bg_pic.msg" :key="ind"  style="font-size: 14px;line-height:24px;margin-right: 20px;color: #969799;" @click="goto(text.name,index)">{{text.name}}</text>
 			        </view>
@@ -152,6 +152,8 @@
 	}
 </script>
 
-<style lang="scss">
-
+<style>
+	.uni-icons .uni-collapse-cell__title-arrow .uni-collapse-cell__title-arrow-active{
+		display: none;
+	}
 </style>

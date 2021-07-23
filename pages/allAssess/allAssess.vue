@@ -10,13 +10,12 @@
 				 	<text class="yticon icon-you"></text>
 				 </view>
 				<view v-for="(result,index) in results" :key="index"  style="margin-top: 16upx;background: #fff;">
-					
 					<view class="eva-box" >
 						<image class="portrait" :src="headPicValue"></image>
 						<view class="right">
 							<text class="name" style="display: inline-block;">{{username}}
 								<text class="bot" style="float: right;">
-									<text class="time">{{result.create_time.split('T')[0]+' '}}{{result.create_time.split('T')[1].split('.')[0]}}</text>
+									<text class="time">{{result.create_time}}</text>
 								</text>
 							</text>
 							<text class="con">{{result.comment}}</text>
@@ -26,7 +25,7 @@
 						<view class="goods-box-single">
 							<image class="goods-img" :src="result.sku.default_image_url" mode="aspectFill"></image>
 							<view class="right">
-								<text class="title clamp">{{result.sku.name}}</text>
+								<text class="title clamp">{{result.sku.title}}</text>
 								<text class="price" style="float: left;">{{result.sku.price}} 
 									<!-- <text class="attr-box" style="float: right;">  x {{result.sku.sales}}</text> -->
 								</text>
@@ -57,61 +56,38 @@
 				username:uni.getStorageSync('userInfo').username,
 			}
 		},
-		async onShow(){
-			await uniRequest({
-				url:'user/goods/comment/',
-				method:'get',
-				headers:{
-					Authorization:'JWT '+uni.getStorageSync('userInfo').token
-				},
-			}).then(res=>{
-				console.log(res)
-				if(res.status === 200){
-					this.results = res.data.results.reverse()
-					var score = 0
-					var sku = 0
-					this.results.forEach(async (ele,index)=>{
-						score += ele.score * 1/5
-						this.score = Math.round(score/this.results.length*100) + '%'
-						
-						/* await uniRequest({
-							url:'categories/get/goods/'+ele.sku,
-							method:'get',
-							headers:{
-								Authorization:'JWT '+uni.getStorageSync('userInfo').token
-							},
-						}).then(res=>{
-							
-							if(res.status === 200){
-								// this.goodsItem = res.data
-								// this.results[index].goodsItem = this.goodsItem
-								
-								this.goodsItem.push(res.data)
-								console.log(this.goodsItem)
-								this.goodsItem = this.goodsItem.reverse()
-							}
-						}).catch(error=>{
-							console.log(error)
-						}) */
-						// ele.goodsItem = this.goodsItem
-					})
-				}
-			}).catch(error=>{
-				console.log(error)
-			})
-			console.log(this.results)
-			if(uni.getStorageSync('avatar') !== undefined){
-				this.headPicValue = uni.getStorageSync('avatar')
-			}else if(uni.getStorageSync('userInfo').avatar !== ''){
-				this.headPicValue = uni.getStorageSync('userInfo').avatar
-			}else{
-				this.headPicValue = 'http://img.zcool.cn/community/01786557e4a6fa0000018c1bf080ca.png'
-			}
-		},
 		onLoad(options){
-			// this.getData()
+			this.getData()
 		},
 		methods: {
+			async getData(){
+				await uniRequest({
+					url:'/goods/user/comment/',
+					method:'get',
+					params:{page:1,page_size:10},
+					headers:{
+						Authorization:'JWT '+uni.getStorageSync('userInfo').token
+					},
+				}).then(res=>{
+					console.log(res)
+					if(res.status === 200){
+						this.results = res.data.results
+						var score = 0
+						var sku = 0
+						this.results.forEach(async (ele,index)=>{
+							score += ele.score * 1/5
+							this.score = Math.round(score/this.results.length*100) + '%'
+						})
+					}
+				}).catch(error=>{
+					console.log(error)
+				})
+				if(uni.getStorageSync('userInfo')){
+					this.headPicValue = uni.getStorageSync('userInfo').avatar
+				}else{
+					this.headPicValue = 'http://img.zcool.cn/community/01786557e4a6fa0000018c1bf080ca.png'
+				}
+			},
 			async getShops(sku){
 				console.log(sku)
 				

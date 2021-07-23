@@ -18,7 +18,7 @@
 				@click="navToDetailPage(item)"
 			>
 				<view class="image-wrapper">
-					<image :src="item.default_image_url" mode="aspectFill"></image>
+					<image :src="item.detail_image" mode="aspectFill"></image>
 				</view>
 				<text class="title clamp">{{item.name}}</text>
 				<view class="price-box">
@@ -132,7 +132,7 @@
 				}
 				
 				
-				const response = await uniRequest.get('/categories/'+this.cateId+'/skus/?page='+this.page+'&page_size='+this.page_size+'&ordering='+this.ordering);
+				const response = await uniRequest.get('/goods/categories/'+this.cateId+'/skus/?page='+this.page+'&page_size='+this.page_size+'&ordering='+this.ordering);
 				console.log(response)
 				if(response.status === 200){
 					this.goodsList = response.data.results;
@@ -147,25 +147,6 @@
 						}
 					}
 				}
-				
-				/* let goodsList = await this.$api.json('goodsList');
-				if(type === 'refresh'){
-					this.goodsList = [];
-				}
-				//筛选，测试数据直接前端筛选了
-				if(this.filterIndex === 1){
-					goodsList.sort((a,b)=>b.sales - a.sales)
-				}
-				if(this.filterIndex === 2){
-					goodsList.sort((a,b)=>{
-						if(this.priceOrder == 1){
-							return a.price - b.price;
-						}
-						return b.price - a.price;
-					})
-				} */
-				
-				
 			},
 			//筛选点击
 			tabClick(index){

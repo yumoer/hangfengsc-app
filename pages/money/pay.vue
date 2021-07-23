@@ -28,13 +28,23 @@
 					</radio>
 				</label>
 			</view>
-			<view class="type-item b-b" @click="changePayType(1)">
-				<text class="icon yticon icon-huodaofukuan"></text>
+			<!-- <view class="type-item b-b" @click="changePayType(1)">
+				<text class="icon yticon icon-huodaofukuan1"></text>
 				<view class="con">
 					<text class="tit">货到付款</text>
 				</view>
 				<label class="radio">
 					<radio value="" color="#fa436a" :checked='payType == 1' />
+					</radio>
+				</label>
+			</view> -->
+			<view class="type-item b-b" @click="changePayType(9)">
+				<text class="icon yticon icon-iconfontweixin"></text>
+				<view class="con">
+					<text class="tit">余额支付</text>
+				</view>
+				<label class="radio">
+					<radio value="" color="#fa436a" :checked='payType == 9' />
 					</radio>
 				</label>
 			</view>
@@ -90,7 +100,7 @@
 				console.log(this.orderInfo.goods_id)
 				if(this.orderInfo.goods_id === undefined || this.orderInfo.goods_id === ''){   // 购物车购买
 					const res = await uniRequest({
-						url: '/orders/',
+						url: '/orders/commit/',
 						method: 'post',
 						data:this.orderInfo,
 						headers: {
@@ -129,6 +139,7 @@
 					})
 				}else{
 					console.log(this.orderInfo)
+					this.orderInfo.sku_id = this.orderInfo.goods_id
 					const res = await uniRequest({  // 直接购买
 						url: '/orders/directly/create/',
 						method: 'post',
@@ -245,12 +256,18 @@
 			color: #36cb59;
 			
 		}
-		.icon-huodaofukuan {
+		.icon-huodaofukuan1 {
 			color: #fe8e2e;
 		}
+		
+		.icon-iconfontweixin{
+			color: #D6003C;
+		}
+		
 		.icon-zhipiao {
 			color: red;
 		}
+		
 		
 		.icon-zhuangzhang{
 			color: #25bb87;

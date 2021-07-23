@@ -2,9 +2,9 @@
 	<view>
 		<view class="w1200">
 			<h4 class="title">律所介绍</h4>
-			<view style="font-size: 18px;">
-				<text style="color: #880000;">北京市广盛律师事务所</text>
-				<image style="width: 100%;margin: 10px 0;" src="/static/guangshengfalv/com.png" mode=""></image>
+			<view>
+				<text style="color: #880000;font-size: 18px;">北京市广盛律师事务所</text>
+				<image style="width: 100%;padding-top: 10px;" src="/static/guangshengfalv/com.png" mode=""></image>
 				<view>
 					<p>广盛律师事务所是位于北京的一家中国大型的律师事务所，并在上海、郑州等地设有分所。其前身为司法部直属的中国法律事务中心，经一九九六年改制创立如今的合伙制律师事务所。</p>
 					<p style="margin-top: 10px;">
@@ -19,17 +19,19 @@
 			<h4 class="title">律师介绍</h4>
 			<view v-for="info in infos">
 				<view style="width: 100%;text-align: center;padding-bottom: 10px;">
-					<image v-bind:src="info.url" style="width: 200px;height: 220px;"></image>
+					<image v-bind:src="info.url" style="width:180px;height: 220px;"></image>
 					<h3>{{ info.name }}</h3>
 					<text style="font-size: 16px;font-weight: bold;color:red ;">{{ info.job }}</text>
 				</view>
-				<view style="line-height: 25px;padding-bottom: 10px;">
-					<p v-for="inf in info.msg">
+				<view style="padding-bottom: 30upx;">
+					<p v-for="inf in info.msg" style="font-size: 34upx;line-height: 50upx;">
 						{{ inf }}
 					</p>
 				</view>
 			</view>
 		</view>
+		
+		
 				
 		<view class="w1200 clearfix" >
 			<h4 class="title">主要业务</h4>
@@ -182,7 +184,7 @@ page{
 }
 .w1200 {
     width:100%;
-	padding: 10px;
+	padding: 15px;
     margin:0 auto;
 }
 .title{
@@ -195,7 +197,8 @@ page{
     /*margin-bottom:40px;*/
 }
 p{
-	font-size: 14px;
+	font-size: 34upx;
+	line-height: 50upx;
 }
 
 

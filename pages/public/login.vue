@@ -8,8 +8,6 @@
 			<view class="left-top-sign">LOGIN<view class="welcome">
 				登录
 			</view></view>
-			<!-- <image style="width: 200upx;height: 120upx;margin-left: 80upx;"  src="../../static/logo.png"></image> -->
-			
 			<view class="input-content">
 				<view class="input-item">
 					<text class="tit">用户名/手机号码</text>
@@ -58,27 +56,15 @@
 		<view class="otherLogin">
 			<view class="weiixnLogin" @click="wx_login">
 				<image style="width: 100upx;height: 100upx;" src="../../static/weixin.png" mode=""></image>
-				<!-- <text style="display: flex;justify-content: center;font-size: 32upx;color: #3c3c3c;">微信</text> -->
 			</view>
 			<view class="qqLogin" @click="QQ_login">
 				<image style="width: 100upx;height: 100upx;" src="../../static/QQ2.png" mode=""></image>
-				<!-- <text style="display: flex;justify-content: center;font-size: 32upx;color: #3c3c3c">QQ</text> -->
+			</view>
+			<view class="qqLogin" v-if="system >= 13 && platform=='ios'"  @click="appleLogin">
+				<image style="width: 100upx;height: 100upx;" src="../../static/timg.png" mode=""></image>
 			</view>
 		</view>
 		<!-- #endif -->
-		<!-- #ifdef H5 -->
-		<!-- <view class="otherLoginTitle">其他方式登录</view>
-		<uni-grid :column="5" :show-border="false" style="text-align: center;">
-			<uni-grid-item></uni-grid-item>
-			<uni-grid-item></uni-grid-item>
-		    <view class=""  @click="qq_login">
-				<uni-grid-item type="button" style="text-align: center;" >
-					<image src="../../static/qq.png" style="width: 100upx;height: 100upx;margin-top: 20upx;margin: auto;" mode=""></image>
-				</uni-grid-item>
-			</view>
-		</uni-grid> -->
-		<!-- #endif -->
-		
 		<view class="register-section">
 			还没有账号?
 			<text @click="toRegist">马上注册</text><br>
@@ -106,10 +92,22 @@
 				logining: false,
 				remember:true,
 				next:'',
+				system: '', // 系统版本
+				platform: '',   // 平台
 			}
 		},
 		components: {uniGrid,uniGridItem},
 		onLoad(){
+			uni.getSystemInfo({
+				success: (res) => {
+					console.log(res)
+					this.system = res.system
+					this.platform = res.platform
+				},fail: (err) => {
+				},complete: () => {
+					
+				}
+			})
 			this.message()
 		},
 		methods: {
@@ -186,13 +184,13 @@
 					username:username,
 					password:password,
 				};
-				const response = await uniRequest.post('/auth2/',sendData);
+				const response = await uniRequest.post('/user/login/',sendData);
 				console.log(response)
 				if(response.status === 200){
 					if(this.remember === true){
 						this.$api.msg('登录成功');
 						this.login(response.data);
-						uni.navigateBack();  
+						uni.navigateBack()
 					}
 				}else if(response.status === 500){
 					this.$api.msg('服务器出现异常，请稍后重试');
@@ -219,6 +217,42 @@
 				   this.$toast({
 				     message:'服务器错误'
 				   })
+				})
+			},
+			
+			// 苹果登录
+			appleLogin() {
+				var appleOauth = null;
+				plus.oauth.getServices(function(services) {
+				console.log(services)
+				plus.nativeUI.toast(JSON.stringify(services))
+				  for (var i in services) {
+					var service = services[i];
+					// 获取苹果授权登录对象，苹果授权登录id 为 'apple' iOS13以下系统，不会返回苹果登录对应的 service
+					if (service.id == 'apple') {
+					  appleOauth = service;
+					  break;
+					}
+				  }
+				  if (!appleOauth) {
+					plus.nativeUI.toast('暂不支持apple账户登陆')
+					return
+				  }
+				  appleOauth.login(function(oauth) {
+					// 授权成功，苹果授权返回的信息在 oauth.target.appleInfo 中
+					plus.nativeUI.showWaiting('登陆中...')
+					//向后台发送登陆需要的参数
+				  }, function(err) {
+					// 授权失败 error
+					console.log(err);
+					plus.nativeUI.toast('授权登陆失败')
+				  }, {
+					// 默认只会请求用户名字信息，如需请求用户邮箱信息，需要设置 scope: 'email'
+					scope: 'email'
+				  })
+				}, function(err) {
+				  console.log(err);
+				  // 获取 services 失败
 				})
 			},
 			
@@ -283,7 +317,7 @@
 												console.log(res.data)
 												if(res.data.message === false){
 													uni.navigateTo({
-														url: "/pages/public/oauthCallback?type=weixin&openid="+infoRes.userInfo.openId
+														url: "/pages/public/oauthCallback?type=weixin&openid="+infoRes.userInfo.openId+"&nuionid="+infoRes.userInfo.nuionid
 													})
 												}else if(res.data.message === true){
 													vm.login(res.data);

@@ -151,7 +151,7 @@
 	}
 
 	.uni-collapse-cell--disabled {
-		background-color: $uni-bg-color-hover;
+		background-color: #fff;
 		// opacity: 0.3;
 	}
 
@@ -197,7 +197,7 @@
 		height: 20px;
 		transform: rotate(0deg);
 		transform-origin: center center;
-
+		display: none;
 	}
 
 	.uni-collapse-cell__title-arrow-active {

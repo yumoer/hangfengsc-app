@@ -40,7 +40,7 @@
 			</view>
 			<view class="hot-floor">
 				<view class="floor-img-box">
-					<image class="floor-img" src="/static/img/3.jpg" mode="scaleToFill"></image>
+					<image class="floor-img" src="/static/index/classBack.jpg" mode="scaleToFill"></image>
 				</view>
 				<scroll-view class="floor-list" scroll-x>
 					<view class="scoll-wrapper">

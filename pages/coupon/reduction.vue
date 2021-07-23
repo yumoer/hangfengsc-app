@@ -8,7 +8,7 @@
 				<view class="image-wrapper" @click="navToDetailPage(item)">
 					<image :src="item.sku.default_image_url" mode="aspectFill"></image>
 				</view>
-				<text class="title clamp" @click="navToDetailPage(item)">{{item.sku.name}}</text>
+				<text class="title clamp" @click="navToDetailPage(item)">{{item.sku.title}}</text>
 				<view class="price-box">
 					<text class="price">{{item.sku.price}}</text>
 				</view>
@@ -55,8 +55,9 @@
 			},
 			ifFavorite(){
 				uniRequest({
-					url: '/user/collection/',
+					url: '/carts/collection/',
 					method: 'GET',
+					params:{page:1,page_size:10},
 					headers: {
 						Authorization: 'JWT ' + uni.getStorageSync('userInfo').token
 					},

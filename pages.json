@@ -6,7 +6,6 @@
 		{
 			"path": "pages/index/init",
 			"style": {
-				
 				"navigationBarTitleText": "入口页",
 				"titleNView": false
 			}
@@ -47,7 +46,7 @@
 								"float": "left",
 								"background": "rgba(0,0,0,0)"
 							}, */
-							{	
+							{
 								"fontSrc": "/static/yticon.ttf",
 								"text": "\ue60d",
 								"fontSize": "26",
@@ -90,7 +89,6 @@
 				"navigationBarTitleText": "设置"
 			}
 		},
-		
 		{
 			"path": "pages/set/userInfo",
 			"style": {
@@ -121,6 +119,12 @@
 		},
 		
 		{
+			"path": "pages/paypwd/addpaypwd",
+			"style": {
+				"navigationBarTitleText": "设置支付密码"
+			}
+		},
+		{
 			"path": "pages/cdkey/cdkey",
 			"style": {
 				// "navigationBarTitleText": "券卡兑换",
@@ -139,6 +143,13 @@
 		},
 		
 		{
+			"path": "pages/cdkey/cdkeyActivity",
+			"style": {
+				"navigationBarTitleText": "兑换"
+			}
+		},
+		
+		{
 			"path": "pages/cdkey/lookAllOrder",
 			"style": {
 				"navigationBarTitleText": "我的订单",
@@ -148,7 +159,6 @@
 						"autoBackButton": false
 					}
 				}
-				
 			}
 		},
 		
@@ -193,7 +203,13 @@
 		{
 			"path": "pages/recharge/recharge",
 			"style": {
-				"navigationBarTitleText": "充值"
+				"navigationBarTitleText": "余额"
+			}
+		}, 
+		{
+			"path": "pages/recharge/deposit",
+			"style": {
+				"navigationBarTitleText": "余额"
 			}
 		}, 
 		{
@@ -302,8 +318,18 @@
 			"path": "pages/order/order",
 			"style": {
 				"navigationBarTitleText": "我的订单",
+				"enablePullDownRefresh": true,
 				"app-plus": {
 					"bounce": "none"
+				},
+				
+				"globalStyle": {
+					"navigationBarTextStyle": "white",
+					"navigationBarTitleText": "",
+					"navigationBarBackgroundColor": "#1097FF",
+					"backgroundColor": "#1097FF",
+					"onReachBottomDistance": 200
+					// "navigationStyle": "custom"
 				}
 			}
 		},{
@@ -390,13 +416,34 @@
             "style" : {
 				"navigationBarTitleText": "通知"
 			}
-        }/* ,{
-            "path" : "pages/chat/message",
+        },{
+            "path" : "pages/visitor/visitor",
             "style" : {
-				"navigationBarTitleText": "消息"
+				"navigationBarTitleText": "访客登记",
+				"app-plus": {
+					"titleNView": false,
+					"animationType": "slide-in-bottom"
+				}
 			}
-        } */
-		,{
+        },{
+            "path" : "pages/vote/vote",
+            "style" : {
+				"navigationBarTitleText": "投票活动",
+				"app-plus": {
+					"titleNView": false,
+					"animationType": "slide-in-bottom"
+				}
+			}
+        },{
+            "path" : "pages/vote/votes",
+            "style" : {
+				"navigationBarTitleText": "投票排名",
+				"app-plus": {
+					"titleNView": false,
+					"animationType": "slide-in-bottom"
+				}
+			}
+        },{
 		    "path" : "pages/notice/noticeDetail",
 		    "style" : {
 				"navigationBarTitleText": "通知详情"
@@ -538,7 +585,55 @@
             	"navigationBarTitleText": "法律咨询" /* 办公设备*/
             }
         } 
-        
+		
+		,{
+		    "path" : "pages/index/subject/cqtg/cqtg",
+			"style": {
+				"navigationBarTitleText": "同城团购",
+				"app-plus": {
+					"bounce": "none",
+					"titleNView": {
+						"buttons": [
+							{
+								"fontSrc": "/static/yticon.ttf",
+								"text": "\ue7ce",
+								"fontSize": "24",
+								"color": "#303133",
+								"background": "rgba(0,0,0,0)"
+							}
+						]
+					}
+				}
+			}
+		} 
+		
+		,{
+		    "path" : "pages/search/search_cq",
+		    "style" : {
+		    	"navigationBarTitleText": "搜索"
+		    }
+		} 
+		
+		,{
+		    "path" : "pages/search/searchList_cq",
+		    "style" : {
+		    	"navigationBarTitleText": "搜索列表",
+				"app-plus": {
+					"bounce": "none",
+					"titleNView": {
+						"buttons": [
+							{
+								"fontSrc": "/static/yticon.ttf",
+								"text": "\ue609",
+								"fontSize": "20",
+								"color": "#303133",
+								"background": "rgba(0,0,0,0)"
+							}
+						]
+					}
+				}
+		    }
+		}
         ,{
             "path" : "pages/set/about",
             "style" : {
@@ -566,6 +661,15 @@
 				"navigationBarTitleText": "隐私保护政策"
 			}
 		}
+        ,{
+            "path" : "pages/contact/contact",
+            "style" :                                                                                    
+            {
+                "navigationBarTitleText": "联系客服",
+                "enablePullDownRefresh": false
+            }
+            
+        }
     ],
 	"globalStyle": {
 		"navigationBarTextStyle": "black",

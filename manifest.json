@@ -1,9 +1,9 @@
 {
     "name" : "行丰商城",
     "appid" : "__UNI__18D6605",
-    "description" : "uni.UNI18D6605(wgt版本：1.2.23 | apk版本：1.2.19）",
-    "versionName" : "1.2.23",
-    "versionCode" : 1223,
+    "description" : "uni.UNI18D6605(wgt版本：1.2.292 apk版本：1.2.30/1.2.19）",
+    "versionName" : "1.2.30",
+    "versionCode" : 1230,
     "transformPx" : false,
     "app-plus" : {
         "compatible" : {
@@ -12,10 +12,12 @@
         },
         /* 5+App特有相关 */
         "usingComponents" : true,
+		// 设置 启动界面
         "splashscreen" : {
-            "alwaysShowBeforeRender" : true,
-            "waiting" : true,
-            "autoclose" : true,
+            "alwaysShowBeforeRender" : false,
+            "waiting" : false,
+            // "autoclose" : true,
+            "autoclose" : false,
             "delay" : 0
         },
         "modules" : {
@@ -23,7 +25,9 @@
             "Maps" : {},
             "OAuth" : {},
             "Payment" : {},
-            "Speech" : {}
+            "Speech" : {},
+            "iBeacon" : {},
+            "LivePusher" : {}
         },
         /* 模块配置 */
         "distribute" : {
@@ -37,6 +41,8 @@
                     "<uses-permission android:name=\"android.permission.ACCESS_FINE_LOCATION\"/>",
                     "<uses-permission android:name=\"android.permission.ACCESS_NETWORK_STATE\"/>",
                     "<uses-permission android:name=\"android.permission.ACCESS_WIFI_STATE\"/>",
+                    "<uses-permission android:name=\"android.permission.BLUETOOTH\"/>",
+                    "<uses-permission android:name=\"android.permission.BLUETOOTH_ADMIN\"/>",
                     "<uses-permission android:name=\"android.permission.CALL_PHONE\"/>",
                     "<uses-permission android:name=\"android.permission.CAMERA\"/>",
                     "<uses-permission android:name=\"android.permission.CHANGE_NETWORK_STATE\"/>",
@@ -54,7 +60,9 @@
                     "<uses-permission android:name=\"android.permission.WAKE_LOCK\"/>",
                     "<uses-permission android:name=\"android.permission.WRITE_CONTACTS\"/>",
                     "<uses-permission android:name=\"android.permission.WRITE_EXTERNAL_STORAGE\"/>",
-                    "<uses-permission android:name=\"android.permission.WRITE_SETTINGS\"/>"
+                    "<uses-permission android:name=\"android.permission.WRITE_SETTINGS\"/>",
+                    "<uses-permission android:name=\"android.permission.BLUETOOTH\"/>",
+                    "<uses-permission android:name=\"android.permission.BLUETOOTH_ADMIN\"/>"
                 ],
                 "abiFilters" : [ "armeabi-v7a", "x86" ]
             },
@@ -99,7 +107,14 @@
                     "ifly" : {}
                 },
                 "push" : {},
-                "ad" : {}
+                "ad" : {},
+                "geolocation" : {
+                    "baidu" : {
+                        "__platform__" : [ "ios", "android" ],
+                        "appkey_ios" : "",
+                        "appkey_android" : ""
+                    }
+                }
             },
             "icons" : {
                 "android" : {
@@ -135,9 +150,9 @@
             },
             "splashscreen" : {
                 "android" : {
-                    "hdpi" : "unpackage/res/启动页.png",
-                    "xhdpi" : "unpackage/res/启动页.png",
-                    "xxhdpi" : "unpackage/res/启动页.png"
+                    "hdpi" : "unpackage/res/qidong.png",
+                    "xhdpi" : "unpackage/res/qidong.png",
+                    "xxhdpi" : "unpackage/res/qidong.png"
                 },
                 "ios" : {
                     "iphone" : {
@@ -155,7 +170,8 @@
                         "retina40l" : "unpackage/res/启动页.png",
                         "retina35" : "unpackage/res/启动页.png"
                     }
-                }
+                },
+                "iosStyle" : "default"
             }
         },
         "nativePlugins" : {
@@ -191,7 +207,7 @@
     },
     "h5" : {
         "title" : "行丰商城",
-        "domain" : "m.hfyt365.com",
+        "domain" : "http://m.hfyt365.com",
         "publicPath" : "./",
         "router" : {
             "mode" : "hash",

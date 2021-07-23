@@ -5,20 +5,20 @@
 		</view>
 		<liuyuno-tabs :tabData="tabs" :defaultIndex="defaultIndex" @tabClick='tabClick' />
 		<view class="" v-if="defaultIndex === 0">
-			<QSInput :name="formName" variableName="username" title="姓名" required v-model="values.username"></QSInput>
-			<QSInput :name="formName" variableName="mobile" title="手机号" required v-model="values.mobile"></QSInput>
+			<QSInput :name="formName" variableName="username" title="姓名" :titleFlex="0.5" required v-model="values.username"></QSInput>
+			<QSInput :name="formName" variableName="mobile" title="手机号" :titleFlex="0.5" required v-model="values.mobile"></QSInput>
 			<QSInput :name="formName" variableName="address " title="维修地址" required v-model="values.address"></QSInput>
-			<QSInput :name="formName" variableName="devicename" title="设备名称" v-model="values.devicename"></QSInput>
-			<QSInput :name="formName" variableName="model" title="规格型号" v-model="values.model"></QSInput>
+			<QSInput :name="formName" variableName="devicename" title="设备名称" required v-model="values.devicename"></QSInput>
+			<QSInput :name="formName" variableName="model" title="规格型号" required v-model="values.model"></QSInput>
 			
-			<QSPickerCustom ref="pickerCustom1" :name="formName" variableName="remarks" title="技术服务类型" v-model="values.remarks"/>
-			<QSPickerCustom ref="pickerCustom2" :name="formName" variableName="brand" title="仪器品牌" v-model="values.brand"/>
-			<QSPickerCustom ref="pickerCustom3" :name="formName" variableName="fault_describe" title="问题描述" v-model="values.fault_describe"/>
+			<QSPickerCustom ref="pickerCustom1" :name="formName" required variableName="remarks" title="技术服务类型" v-model="values.remarks"/>
+			<QSPickerCustom ref="pickerCustom2" :name="formName" required variableName="brand" title="仪器品牌" v-model="values.brand"/>
+			<QSPickerCustom ref="pickerCustom3" :name="formName" required variableName="fault_describe" title="问题描述" v-model="values.fault_describe"/>
 			<button class="confirm-btn" @click="toOrder">提交订单</button>
 		</view>
 		<view class="" v-if="defaultIndex === 1">
 			<view class="" v-if="ifphone">
-				<QSInput :name="formName" variableName="phone" title="手机号" required v-model="values.phone"></QSInput>
+				<QSInput :name="formName" variableName="phone" :titleFlex="0.5" title="手机号" required v-model="values.phone"></QSInput>
 				<button class="confirm-btn" @click="todeviceOrder">查询维修单</button>
 			</view>
 			<view style="background: #fff;padding:2upx 0;" v-else >

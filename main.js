@@ -26,9 +26,12 @@ import QSwitch from './components/QS-inputs-split/elements/QS-switch/index.vue';
 // main.js
 import uView from "uview-ui";
 
-import VueClipboard from 'vue-clipboard2'
- 
+import VueClipboard from 'vue-clipboard2';
+
+import jsrsasign from './node_modules/jsrsasign/lib/jsrsasign.js';
+
 Vue.use(VueClipboard);
+Vue.use(jsrsasign);
 Vue.use(uView);
 
 Vue.component('QSInput',QSInput);
@@ -43,14 +46,9 @@ Vue.component('QSPics',QSPics);
 Vue.component('QSInfinitePics',QSInfinitePics);
 Vue.component('QSwitch',QSwitch);
 
-uniRequest.defaults.baseURL = 'http://47.94.106.106:8000';
-// uniRequest.defaults.baseURL = 'http://192.168.1.9:8000'
+uniRequest.defaults.baseURL = 'http://api.hfyt365.com';
+// uniRequest.defaults.baseURL = 'http://192.168.1.31:8001'
 uniRequest.defaults.headers.post['Content-Type'] = 'application/json';
-/* uniRequest.defaults.setRequestHeader("Access-Control-Allow-Origin: *");
-uniRequest.defaults.setRequestHeader('Access-Control-Allow-Methods:*');
-uniRequest.defaults.setRequestHeader('Access-Control-Allow-Headers:*');
-uniRequest.defaults.setRequestHeader("Access-Control-Request-Headers: *"); */
-
 
 uniRequest.interceptors.response.use(async function(response) {
 	if(response.status === 500 || response.status === 502){

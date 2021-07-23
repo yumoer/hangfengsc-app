@@ -18,6 +18,11 @@
 			<text class="cell-tit">收货地址</text>
 			<text class="cell-more yticon icon-you"></text>
 		</view>
+		
+		<view class="list-cell b-b" @click="navTo('/pages/paypwd/addpaypwd')" hover-class="cell-hover" :hover-stay-time="50">
+			<text class="cell-tit">支付密码</text>
+			<text class="cell-more yticon icon-you"></text>
+		</view>
 		<!-- <view class="list-cell" @click="navTo('实名认证')" hover-class="cell-hover" :hover-stay-time="50">
 			<text class="cell-tit">实名认证</text>
 			<text class="cell-more yticon icon-you"></text>
@@ -31,7 +36,7 @@
 			<text class="cell-tit">清除缓存</text>
 			<text class="cell-more yticon icon-you"></text>
 		</view>
-		<view class="list-cell b-b" @click="logout" hover-class="cell-hover" :hover-stay-time="50">
+		<view class="list-cell b-b" @click="logouts" hover-class="cell-hover" :hover-stay-time="50">
 			<text class="cell-tit">注销账户</text>
 			<text class="cell-more yticon icon-you"></text>
 		</view>
@@ -231,7 +236,7 @@
 				this.$api.msg(`${statusTip}消息推送`);
 			},
 			
-			logout(){
+			logouts(){
 				uni.showModal({
 					title:'提示',
 				    content: '注销成功后，您的账号将无法登录！',

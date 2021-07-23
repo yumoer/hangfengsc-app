@@ -13,10 +13,7 @@
 
 		<swiper :current="tabCurrentIndex" class="swiper-box" duration="300" @change="changeTab">
 			<swiper-item class="tab-content" v-for="(tabItem,tabIndex) in navList" :key="tabIndex">
-				<scroll-view 
-					class="list-scroll-content" 
-					scroll-y
-				>
+				<scroll-view class="list-scroll-content" scroll-y @scrolltolower="getAddData">
 					<!-- 空白页 -->
 					<empty v-if="tabItem.loaded === true && tabItem.orderList.length === 0"></empty>
 					<!-- 订单列表 -->
@@ -25,7 +22,7 @@
 						v-for="(item,index) in tabItem.orderList" :key="index"
 						class="order-item"
 					>
-						<view v-if="item.state === 1 || item.state === 2 || item.state === 3  ||  item.state === 5 || item.state === 9" >
+						<view>
 							<view class="i-top b-b">
 								<text class="time">订单编号 : {{item.order_id}}</text>
 								<text class="state" :style="{color: item.stateTipColor}">{{item.stateTip}}</text>
@@ -34,91 +31,66 @@
 							<view 
 								class="goods-box-single"
 								v-for="(goodsItem, goodsIndex) in item.goods" :key="goodsIndex"
+								@click="lookDetails(item)"
 							>
-								<image class="goods-img" :src="goodsItem.image_url" mode="aspectFill"></image>
+								<image class="goods-img" :src="goodsItem.image" mode="aspectFill"></image>
 								<view class="right">
-									<text class="title clamp">{{goodsItem.name}}</text>
-									<text class="price" style="float: left;">{{goodsItem.price}} 
+									<text class="title clamp">{{goodsItem.title}}</text>
+									<text class="price" style="float: left;color: red;margin-top: 20px;">{{goodsItem.price}} 
 										<text class="attr-box" style="float: right;">  x {{goodsItem.count}}</text>
 									</text>
 								</view>
 							</view>
 							
 							<view class="price-box" >
-								实付款
-								<text class="price">{{item.total_amount}}</text>
+								支付方式 
+								<text class="method" v-if="item.pay_method === 1">货到付款</text>
+								<text class="method" v-if="item.pay_method === 2">支付宝支付</text>
+								<text class="method" v-if="item.pay_method === 8">微信支付</text>
+								<text class="method" v-if="item.pay_method === 9">余额支付</text>
+								实付款<text class="price">{{item.total_amount}}</text>
 							</view>
+							
 							<view class="action-box b-t" v-if="item.state === 1">
 								<button class="action-btn" @click="cancelOrder(item)">取消订单</button>
-								<button class="action-btn recom" @click="payOrder(item)" v-if="item.pay_method_id !== 3">立即支付</button>
+								<button class="action-btn recom" @click="payOrder(item)" v-if="item.pay_status === 0">立即支付</button>
 							</view>
 							<view class="action-box b-t" v-if="item.state === 2">
-								<button class="action-btn" @click="cancelOrder(item)">取消订单</button>
+								<button class="action-btn" @click="cancelOrder(item)" >取消订单</button>
+								<button class="action-btn recom" @click="editAddress(item,item.order_id)">修改地址</button>
 							</view>
 							<view class="action-box b-t" v-if="item.state === 3">
-								<button class="action-btn" @click="lookViewOrder(item)">查看物流</button>
+								<button class="action-btn" @click="lookViewOrder(item,item.order_id)">查看物流</button>
 								<button class="action-btn recom" @click="confirmOrder(item)">确认收货</button>
+							</view>
+							<view class="action-box b-t" v-if="item.state === 4">
+								<button class="action-btn" @click="goBuyAgain(item,item.order_id)">再次购买</button>
+								<button class="action-btn recom" @click="accessOrder(item)">前往评价</button>
 							</view>
 							
 							<view class="action-box b-t" v-if="item.state === 5">
-								<!-- <button class="action-btn" @click="replaceGoods(item.goods[goodsIndex])">退货/换货</button> -->
-								<button class="action-btn recom" @click="lookDetails(item,item.order_id)">订单详情</button>
+								<button class="action-btn recom" @click="goBuyAgain(item,item.order_id)">再次购买</button>
 							</view>
-							
+							<view class="action-box b-t" v-if="item.state === 6">
+								<button class="action-btn recom" @click="goBuyAgain(item,item.order_id)">再次购买</button>
+								
+							</view>
 						</view>
-						
-						
-						
-						<view class="" v-if="item.state === 4 " v-for="(goodsItem, goodsIndex) in item.goods" :key="goodsIndex">
-							<view class="i-top b-b">
-								<text class="time">{{item.create_time}}</text>
-								<text class="state" :style="{color: item.stateTipColor}">{{item.stateTip}}</text>
-							</view>
-							
-							<view 
-								class="goods-box-single"
-							>
-								<image class="goods-img" :src="goodsItem.image_url" mode="aspectFill"></image>
-								<view class="right">
-									<text class="title clamp">{{goodsItem.name}}</text>
-									<text class="price" style="float: left;">{{goodsItem.price}} 
-										<text class="attr-box" style="float: right;">  x {{goodsItem.count}}</text>
-									</text>
-								</view>
-							</view>
-							
-							<view class="price-box" >
-								实付款
-								<text class="price">{{goodsItem.price * goodsItem.count}}</text>
-							</view>
-							
-							<view class="action-box b-t" v-if="goodsItem.is_commented === true">
-								<button class="action-btn">已评价</button>
-							</view>
-							<view class="action-box b-t" v-if="goodsItem.is_commented === false">
-								<button class="action-btn recom" @click="accessOrder(goodsItem,item.order_id)">立即评价</button>
-							</view>
-							
-							
-							
-						</view>
-						
 					</view>
 					
-				<uni-load-more :status="tabItem.loadingType"></uni-load-more>
+					<uni-load-more :status="tabItem.loadingType"></uni-load-more>
 				</scroll-view>
-				
 			</swiper-item>
-			
 		</swiper>
-		<!-- <unik-modal
-			ref="unikModals"
-			:modalTitle="modalTitle"
-			@confirmModal="confirmModal"
-			@cancelModal="cancelModal"
-			>
-			sss
-		</unik-modal> -->
+		
+		<ssPaymentPassword ref="paymentPassword" :mode="mode" :value="pay_password" @submit="submitHandle" />
+		<u-mask :show="show" @click="show = false">
+			<view class="warp">
+				<view class="rect" @tap.stop>
+					<image @click="show = false" style="width: 100%;height: 100%;" src="../../static/brow2.png" mode=""></image>
+				</view>
+			</view>
+		</u-mask>
 	</view>
 </template> 
 
@@ -129,6 +101,9 @@
 	import empty from "@/components/empty";
 	import uniRequest from 'uni-request';
 	import Json from '@/Json';
+	import ssPaymentPassword from '@/components/sanshui-payment-password'
+	import jsencrypt from '@/components/jsencrypt/jsencrypt.vue';
+	import jsrsasign from '@/node_modules/jsrsasign/lib/jsrsasign.js' 
 	import {
 	    mapState 
 	} from 'vuex';  
@@ -138,7 +113,8 @@
 			uniLoadMore,
 			empty,
 			minBadge,
-			uniSection
+			uniSection,
+			ssPaymentPassword
 		},
 		data() {
 			return {
@@ -146,42 +122,43 @@
 				tabCurrentIndex: 0,
 				orderList:[],
 				orderId:null,
+				pay_password:'',
+				mode:0,
+				show:false,
+				page_size:10,
+				currentPage:1,
+				private:'', //签名
+				public:'', //加密
 				navList: [{
 						state: 0,
 						text: '全部',
-						loadingType: 'loading',
+						loadingType: 'more',
 						orderList: []
 					},
 					{
 						state: 1,
 						text: '待付款',
-						loadingType: 'loading',
+						loadingType: 'more',
 						orderList: []
 					},
 					{
 						state: 2,
 						text: '待发货',
-						loadingType: 'loading',
+						loadingType: 'more',
 						orderList: []
 					},
 					{
 						state: 3,
 						text: '待收货',
-						loadingType: 'loading',
+						loadingType: 'more',
 						orderList: []
 					},
 					{
 						state: 4,
 						text: '待评价',
-						loadingType: 'loading',
+						loadingType: 'more',
 						orderList: []
 					},
-					{
-						state: 5,
-						text: '已完成',
-						loadingType: 'loading',
-						orderList: []
-					}
 				],
 			};
 		},
@@ -189,162 +166,147 @@
 			...mapState(['userInfo'])
 		},
 		
-		onLoad(options){
+		/* onPageScroll(e) {
+			this.backTop.scrollTop = e.scrollTop;
+		}, */
+		
+		//加载更多
+		onReachBottom(){
+			console.log('222')
+			this.getDate(1)
+			/* this.currentPage = this.currentPage + 1
+			this.loadData('tabChange',this.tabCurrentIndex); */
+		},
+		
+		async onLoad(options){
 			/**
 			 * 修复app端点击除全部订单外的按钮进入时不加载数据的问题
 			 * 替换onLoad下代码即可
 			 */
-			this.tabCurrentIndex = +options.state;
-			console.log(this.tabCurrentIndex,options.state)
-			// #ifndef MP
-			if(+options.state == 0){
-				this.loadData('tabChange','全部')
-			}else if(+options.state === 1){
-				this.loadData('tabChange','待支付')
-			}else if(+options.state === 2){
-				this.loadData('tabChange','待发货')
-			}else if(+options.state === 3){
-				this.loadData('tabChange','待收货')
-			}else if(+options.state === 4){
-				this.loadData('tabChange','待评价')
-			}else if(+options.state === 5){
-				this.loadData('tabChange','已完成')
+			if(options.state){
+				this.tabCurrentIndex = Number(options.state);
 			}
-			// #endif
+			this.loadData('tabChange',this.tabCurrentIndex)
 		},
-	    onShow(){
-			 
-		},
+		
 		
 		methods: {
 			//获取订单列表
-			loadData(source,status){
+			async loadData(source,status){
 				//这里是将订单挂载到tab列表下
-				let index = this.tabCurrentIndex;
-				let navItem = this.navList[index];
-				let state = navItem.state;
+				let navItem = this.navList[status];
+				let data = navItem.data;
 				
 				if(source === 'tabChange' && navItem.loaded === true){
 					//tab切换只有第一次需要加载数据
 					return;
 				}
+				console.log(navItem.loadingType)
 				if(navItem.loadingType === 'loading'){
-					this.getDate(status)
 					//防止重复加载
-					return;
+					this.getDate(status)
+					return
+				}else{
+					this.getDate(status)
 				}
 			}, 
 			
-			
-			setData(e){
-				console.log(e)
-				let pages = getCurrentPages();
-				let currPage = pages[pages.length-1];
-				// currPage.data.isDoRefresh = e.isDoRefresh
-				if (e.isDoRefresh == true){
-					e.isDoRefresh = false;
-					if(this.tabCurrentIndex === 0){
-						this.getDate('全部');
-					}else if(this.tabCurrentIndex === 4){
-						this.getDate('待评价');
-					}
-				}else{
-				   //不用刷新
-				}
-			},
 			async getDate(status){
-				this.orderList = []
 				let index = this.tabCurrentIndex;
 				let navItem = this.navList[index];
-				let state = navItem.state;
-				const response = await uniRequest({
-					url:'/orders/info/?status='+status,
+				let data = navItem.data;
+				navItem.loadingType = 'loading'
+				await uniRequest({
+					url:'/mobile/order/list/',
 					method:'get',
+					params:{page:this.currentPage,page_size:10,status:status+1},
 					headers:{
 						Authorization:'JWT '+uni.getStorageSync('userInfo').token
 					},
-				}).then(response=>{
-					if(response.status === 200){
-						console.log(response.data.order_id)
-						if(response.data.order_id.goods === undefined){
-							navItem.orderList = []
-						}
-						const order_id = response.data.order_id;//所有订单对象
-						for (var key in order_id) {
-							this.orderList.push(order_id[key]);
-						}
-						setTimeout(()=>{
-							let orderList = this.orderList.filter(item=>{
-								//添加不同状态下订单的表现形式
-								if(item.status === '全部'){
-									item.state = 0
-								}else if(item.status === '待支付'){
+				}).then(res=>{
+					if(res.status === 200){
+						this.orderList = res.data.data
+						uni.hideLoading()
+						let orderList = this.orderList.filter(item=>{
+							switch (item.pay_status){
+								case 0:
 									item.state = 1
-								}else if(item.status === '待发货'){
+									break;
+								case 1:
 									item.state = 2
-								}else if(item.status === '待收货'){
+									break;
+								case 2:
+									item.state = 6
+									break;
+							}
+							switch (item.order_status){
+								case 3:
 									item.state = 3
-								}else if(item.status === '待评价'){
+									break;
+								case 4:
 									item.state = 4
-								}else if(item.status === '已完成'){
+									break;
+								case 5:
 									item.state = 5
-								}else if(item.status === '已取消'){
-									item.state = 9
-								}
-								
-								item = Object.assign(item, this.orderStateExp(item.state));
-								//演示数据所以自己进行状态筛选
-								if(state === 0){
-									//0为全部订单
-									return item;
-								}
-								return item.state
-							});
-							orderList.forEach(item=>{
-								navItem.orderList.push(item);
-							})
-							//loaded新字段用于表示数据加载完毕，如果为空可以显示空白页
-							this.$set(navItem, 'loaded', true);
-							//判断是否还有数据， 有改为 more， 没有改为noMore 
-							navItem.loadingType = 'nomore';
-							
-						}, 10);
+									break;
+								case 6:
+									item.state = 6
+									break;
+							}
+							//添加不同状态下订单的表现形式
+							item = Object.assign(item, this.orderStateExp(item.state));
+							/* //演示数据所以自己进行状态筛选
+							if(status === 0){
+								//0为全部订单
+								return item;
+							} */
+							return item.state
+						})
+						orderList.forEach(item=>{
+							navItem.orderList.push(item);
+						})
+						//loaded新字段用于表示数据加载完毕，如果为空可以显示空白页
+						this.$set(navItem, 'loaded', true);
+						//判断是否还有数据， 有改为 more， 没有改为noMore 
+						navItem.loadingType = navItem.orderList.length > 0 ? 'noMore' : 'more'
 					}
 				}).catch(error=>{
 					console.log(error)
 				})
 			},
 			
+			// 下拉加载
+			getAddData(){
+				this.currentPage = this.currentPage + 1
+				this.loadData('refrsh',this.tabCurrentIndex);
+			},
 			//swiper 切换
 			changeTab(e){
+				this.currentPage = 1
 				this.tabCurrentIndex = e.target.current;
-				if(this.tabCurrentIndex === 0){
-					this.getDate('全部')
-				}else if(this.tabCurrentIndex === 1){
-					this.getDate('待支付')
-				}else if(this.tabCurrentIndex === 2){
-					this.getDate('待发货')
-				}else if(this.tabCurrentIndex === 3){
-					this.getDate('待收货')
-				}else if(this.tabCurrentIndex === 4){
-					this.getDate('待评价')
-				}else if(this.tabCurrentIndex === 5){
-					this.getDate('已完成')
-				}
+				this.loadData('tabChange',this.tabCurrentIndex)
 			},
+			
 			//顶部tab点击
 			tabClick(index){
-				console.log(index)
 				this.tabCurrentIndex = index;
+				
 			},
+			
 			//立即支付
 			async payOrder(item){
-				console.log(item.pay_method_id)
+				console.log(item.pay_method)
 				this.orderId = item.order_id
-				if(item.pay_method_id === 2){ // 支付宝支付
+				var ua = navigator.userAgent.toLowerCase();
+				var isWeixin = ua.indexOf('micromessenger') != -1;
+				if (isWeixin) {
+					this.show = true
+					return
+				}
+				if(item.pay_method === 2){ // 支付宝支付
 					 // #ifdef APP-PLUS
 					 await uniRequest({
-					 	url: 'orders/app/'+this.orderId+'/payment/',
+					 	url: '/payment/ali/app/orders/'+this.orderId+'/',
 					 	method: 'get',
 					 	headers: {
 					 		Authorization: 'JWT ' + uni.getStorageSync('userInfo').token
@@ -380,7 +342,7 @@
 					 // #endif
 					 // #ifdef H5
 					 const res = await uniRequest({
-					 	url: '/orders/'+this.orderId+'/payment/?mobile=1',
+					 	url: '/payment/ali/orders/'+this.orderId+'/?mobile=1',
 					 	method: 'get',
 					 	headers: {
 					 		Authorization: 'JWT ' + uni.getStorageSync('userInfo').token
@@ -390,11 +352,11 @@
 						location.href =  'https://openapi.alipay.com/gateway.do?'+res.data.alipay_url
 					 })
 				     // #endif
-				}else if(item.pay_method_id === 8){  // 微信支付
+				}else if(item.pay_method === 8){  // 微信支付
 					// #ifdef APP-PLUS
 					console.log(uni.getStorageSync('userInfo').token)
 					await uniRequest({
-						url: '/orders/wechat/app/'+this.orderId+'/payment/',
+						url: '/payment/wechat/app/orders/'+this.orderId+'/',
 						method: 'get',
 						headers: {
 							Authorization: 'JWT ' + uni.getStorageSync('userInfo').token
@@ -447,7 +409,7 @@
 					// #endif
 					// #ifdef H5
 					uniRequest({
-						url: '/wechat/h5/orders/'+this.orderId+'/payment/',
+						url: '/payment/wechat/h5/orders/'+this.orderId+'/',
 						method: 'get',
 						headers: {
 							Authorization: 'JWT ' + uni.getStorageSync('userInfo').token
@@ -459,8 +421,13 @@
 						console.log(error.data)
 					})
 					// #endif
+				}else if(item.pay_method === 9){
+					this.mode = 1;
+					this.getSecretKey();
+					this.$refs.paymentPassword.modalFun('show');
 				}
 			},
+			
 			//删除订单
 			deleteOrder(index){
 				uni.showLoading({
@@ -471,48 +438,73 @@
 					uni.hideLoading();
 				}, 600)
 			},
+			
+			// 再次购买
+			async goBuyAgain(item){
+				await uniRequest({
+					url:'/orders/repeat/',
+					method:'post',
+					data:{
+						id:item.sub_order_id
+					},
+					headers:{
+						Authorization:'JWT '+uni.getStorageSync('userInfo').token
+					},
+				}).then(res=>{
+					console.log(res.status)
+					if(res.status === 200){
+						uni.switchTab({
+							url:'/pages/cart/cart'
+						})
+					}
+				}).catch(err=>{
+					console.log(err)
+				})
+			},
+			
+			// 修改地址
+			editAddress(item){
+				this.$api.msg('修改地址')
+			},
+			
 			// 退货/换货
 			replaceGoods(item){
-				console.log(item)
 				uni.navigateTo({
 					url:'/pages/order/lookDetails/concalShops?item='+JSON.stringify(item)+'?order_id='+order_id
 				})
 			},
 			
 			// 查看详情
-			async lookDetails(item,order_id){
-				console.log(order_id)
-				
-				console.log(item)
+			lookDetails(item){
 				uni.navigateTo({
-					url:'/pages/order/lookDetails/lookDetails?item='+JSON.stringify(item)+'&order_id='+order_id
+					url:'/pages/order/lookDetails/lookDetails?order_id='+item.sub_order_id
 				})
 			},
+			
 			// 物流信息
-			async lookViewOrder(item){
+			lookViewOrder(item){
 				uni.navigateTo({
-					url:'/pages/order/trackInfo/trackInfo?order_id='+item.order_id
+					url:'/pages/order/trackInfo/trackInfo?order_id='+item.sub_order_id
 				})
-				console.log(item)
-				
 			},
+			
 			// 确认收货
 			async confirmOrder(item){
 				console.log(item)
 				uni.showLoading({
 					title: '请稍后'
 				})
-				const response = await uniRequest({
-					url:'orders/update/status/',
+				await uniRequest({
+					url:'/orders/confirm/receipt/',
 					method:'post',
 					data:{
-						order_id:item.order_id
+						id:item.sub_order_id
 					},
 					headers:{
 						Authorization:'JWT '+uni.getStorageSync('userInfo').token
 					},
 				}).then(res=>{
-					if(res.status === 200){
+					if(res.status === 204){
 						console.log(res)
 						if(res.data.order_id === item.order_id){
 							setTimeout(()=>{
@@ -550,54 +542,31 @@
 					title: '请稍后'
 				})
 				const response = await uniRequest({
-					url:'/orders/cancel/?order_id='+item.order_id,
+					url:'/orders/cancel/?id='+item.sub_order_id,
 					method:'get',
 					headers:{
 						Authorization:'JWT '+uni.getStorageSync('userInfo').token
 					},
 				}).then(res=>{
-					if(res.data.massage){
-						this.$api.msg(res.data.massage)
-						if(res.data.massage === '该订单不支持直接取消'){
-							return
-						}
-						if(this.tabCurrentIndex === 0){
-							this.getDate('全部')
-						}else{
-							setTimeout(()=>{
-								let {stateTip, stateTipColor} = this.orderStateExp(9);
-								item = Object.assign(item, {
-									state: 9,
-									stateTip, 
-									stateTipColor
-								})
-								//取消订单后删除待付款中该项
-								if(this.tabCurrentIndex === 1){
-									this.getDate('待支付')
-								}else{
-									this.getDate('待发货')
-								}
-								/* let list = this.navList[this.tabCurrentIndex].orderList;
-								let index = list.findIndex(val=>val.id === item.id);
-								console.log(index)
-								index !== -1 && list.splice(index, 1); */
-								uni.hideLoading();
-							}, 600)
-						}
-						
-						
-					}
-					
+					this.$api.msg(res.data.massage)
+					uni.hideLoading();
+					this.getDate(this.tabCurrentIndex)
+					let {stateTip, stateTipColor} = this.orderStateExp(5);
+					item = Object.assign(item, {
+						state: 5,
+						stateTip, 
+						stateTipColor
+					})
 				}).catch(error=>{
-					
+					this.$api.msg(error.response.data.massage)
 				})
 				
 			},
+			
 			// 评价订单
-			accessOrder(item,orderId){
-				item.orderId = orderId
+			accessOrder(item){
 				uni.navigateTo({
-					url:'/pages/order/assess/assess?item='+JSON.stringify(item)
+					url:'/pages/order/lookDetails/lookDetails?order_id='+item.sub_order_id
 				})
 			},
 
@@ -605,7 +574,7 @@
 			orderStateExp(state){
 				let stateTip = '',
 					stateTipColor = '#fa436a';
-				switch(+state){
+				switch(state){
 					case 1:
 						stateTip = '待付款'; break;
 					case 2:
@@ -615,21 +584,134 @@
 					case 4:
 						stateTip = '待评价'; break;
 					case 5:
-						stateTip = '已完成'; break;
-					case 9:
 						stateTip = '订单已关闭'; 
 						stateTipColor = '#909399';
 						break;
-						
+					case 6:
+						stateTip = '已退换'; break;
 					//更多自定义
 				}
 				return {stateTip, stateTipColor};
-			}
-		},
+			},
 		
+			// 加密
+			async getSecretKey(){
+				await uniRequest({
+					url:'/payment/secret/key/',
+					method:'GET',
+					headers:{
+						Authorization:'JWT '+uni.getStorageSync('userInfo').token
+					},
+				}).then(response=>{
+					if(response.status === 200){
+						this.private = response.data.private
+						this.public = response.data.public
+					}else if(response.status === 400){
+						this.$api.msg(response.data.message)
+					}else if(response.status === 500){
+						this.$api.msg('服务器错误')
+					}
+				}).catch(error=>{
+					console.log(error)
+				})
+			},
+			
+			//公共方法挂载
+			getCode(publiukey,data){
+			     //此处操作与后端约定参数
+			     // 创建RSAKey对象
+			     var rsa = new jsrsasign.RSAKey();
+			     //因为后端提供的是pck#8的密钥对，所以这里使用 KEYUTIL.getKey来解析密钥
+			     var k = publiukey
+			     // 将密钥转码
+			     rsa = jsrsasign.KEYUTIL.getKey(k); 
+			     // 创建Signature对象，设置签名编码算法
+			     var sig = new jsrsasign.KJUR.crypto.Signature({"alg": "SHA256withRSA",prvkeypem:publiukey});
+			     // 初始化
+			     sig.init(rsa)
+			     // 传入待加密字符串
+			     sig.updateString(data)
+			     // 生成密文
+			     var sign = jsrsasign.hextob64(sig.sign());
+			     return sign
+			},
+			
+			jsencrypt(data){
+				//公钥.
+				
+				var publiukey=this.public;
+				
+				//限制117字符加密 (超过117字节会加载失败 中文或其他字符超过41个字符会加密失败)
+				
+				var pubblicData=jsencrypt.setEncrypt(publiukey,data);
+				
+				console.log(pubblicData);
+				
+				return pubblicData
+			},
+			
+			jsencryptRsa(data){
+				//公钥.
+				var privatekey=this.private;
+				
+				//限制117字符加密 (超过117字节会加载失败 中文或其他字符超过41个字符会加密失败)
+				
+				var ArrayData=this.getCode(privatekey,data);
+				
+				console.log(ArrayData)
+				
+				return ArrayData
+			},
+			
+			async submitHandle(e){
+				console.log(e);
+				this.pay_password = e.value
+				console.log(this.pay_password)
+				this.pay_password = this.jsencrypt(this.pay_password)
+				const orderData = {
+					order_id:this.orderId,
+					pwd:this.pay_password,
+					time:Date.parse(new Date())
+				}
+				console.log(JSON.stringify(orderData))
+				const sign = this.jsencryptRsa(JSON.stringify(orderData))
+				console.log(sign)
+				const response = await uniRequest({
+					url:'/payment/balance/',
+					method:'POST',
+					headers:{
+						Authorization:'JWT '+uni.getStorageSync('userInfo').token
+					},
+					data:{
+						order_id:this.orderId,
+						pwd:this.pay_password,
+						time:Date.parse(new Date()),
+						sign:sign,
+					}
+				}).then(response=>{
+					if(response.status === 200){
+						console.log(response.data)
+						uni.showToast({
+							title: "支付成功"
+						})
+						setTimeout(()=>{
+							uni.switchTab({
+								url:'/pages/user/user'
+							})
+						},500)
+					}else if(response.status === 400){
+						this.$api.msg(response.data.message)
+					}else if(response.status === 500){
+						this.$api.msg('服务器错误')
+					}
+				}).catch(error=>{
+					console.log(error)
+				})
+			},
+		},
 	}
 </script>
-
+	
 <style lang="scss">
 	page, .content{
 		background: $page-color-base;
@@ -642,8 +724,6 @@
 	.list-scroll-content{
 		height: 100%;
 	}
-	
-	
 	
 	.navbar{
 		display: flex;
@@ -762,8 +842,7 @@
 				}
 				.price{
 					font-size: $font-base + 2upx;
-					color: red;
-					margin-top: 20px;
+					color: $font-color-dark;
 					&:before{
 						content: '￥';
 						font-size: $font-sm;
@@ -784,9 +863,14 @@
 				margin: 0 8upx;
 				color: $font-color-dark;
 			}
+			.method{
+				margin: 0 10px;
+				font-size: 14px;
+				color: $font-color-dark;
+			}
 			.price{
 				font-size: $font-lg;
-				color: red;
+				color: $font-color-dark;
 				&:before{
 					content: '￥';
 					font-size: $font-sm;
@@ -825,17 +909,6 @@
 				}
 			}
 		}
-	}
-	
-	textarea{
-		width: 100%;
-		height: 420upx;
-		background-color: #white;
-		font-size: 16px;
-		color: #898989;
-		padding: 24upx;
-		box-sizing: border-box;
-		line-height: 40upx
 	}
 	
 	

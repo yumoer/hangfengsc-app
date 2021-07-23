@@ -7,8 +7,9 @@
 		</scroll-view>
 		<scroll-view scroll-with-animation scroll-y class="right-aside">
 			<view v-for="item in slist[currentId]" :key="item.id" class="s-list" :id="'main-'+item.id">
-				<text class="s-item">{{item.name}}</text>
-				<view class="t-list" >
+				<!-- <text class="s-item">{{item.name}}</text> -->
+				<image style="width: 98%;height: 100px;" :src="item.image" mode=""></image>
+				<view class="t-list">
 					<view @click="navToList(titem.id)" v-for="titem in item.subs" :key="titem.id" class="t-item" >
 						<image :src="titem.image!== ''?titem.image:'http://hbimg.b0.upaiyun.com/dbfaad8aed38c49805b16e7b2afdb441ab2813b68895-ihqaSI_fw658'"></image>
 						<text style="text-align:center;">{{titem.name}}</text>
