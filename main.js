@@ -3,7 +3,8 @@ import Vue from 'vue'
 import store from './store'
 import App from './App'
 import uniRequest from 'uni-request';
-
+import initModal from "@/components/show-modal/initModal.js"
+import showModal from "@/components/show-modal/showModal.vue"
 import Json from './Json' //测试用数据
 
 //把vuex定义成全局组件
@@ -33,7 +34,8 @@ import jsrsasign from './node_modules/jsrsasign/lib/jsrsasign.js';
 Vue.use(VueClipboard);
 Vue.use(jsrsasign);
 Vue.use(uView);
-
+initModal(Vue);
+Vue.component('show-modal',showModal);
 Vue.component('QSInput',QSInput);
 Vue.component('QSRadio',QSRadio);
 Vue.component('QSCheckbox',QSCheckbox);

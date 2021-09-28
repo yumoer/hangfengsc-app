@@ -17,7 +17,6 @@
 					<!-- 空白页 -->
 					<empty v-if="tabItem.loaded === true && tabItem.orderList.length === 0"></empty>
 					<!-- 订单列表 -->
-					
 					<view
 						v-for="(item,index) in tabItem.orderList" :key="index"
 						class="order-item"
@@ -27,53 +26,61 @@
 								<text class="time">订单编号 : {{item.order_id}}</text>
 								<text class="state" :style="{color: item.stateTipColor}">{{item.stateTip}}</text>
 							</view>
-							
 							<view 
 								class="goods-box-single"
 								v-for="(goodsItem, goodsIndex) in item.goods" :key="goodsIndex"
 								@click="lookDetails(item)"
 							>
 								<image class="goods-img" :src="goodsItem.image" mode="aspectFill"></image>
-								<view class="right">
-									<text class="title clamp">{{goodsItem.title}}</text>
-									<text class="price" style="float: left;color: red;margin-top: 20px;">{{goodsItem.price}} 
-										<text class="attr-box" style="float: right;">  x {{goodsItem.count}}</text>
-									</text>
+								<view class="right"> <!-- clamp-->
+									<text class="title">{{goodsItem.title}}</text>
+									<view class="" style="margin-top: 10px;">
+										<text class="spec" style="float: left;">黑色款</text>
+										<text class="attr-box" style="float: right;margin-top: -2px;">  x {{goodsItem.count}}</text>
+									</view>
 								</view>
 							</view>
 							
 							<view class="price-box" >
-								支付方式 
-								<text class="method" v-if="item.pay_method === 1">货到付款</text>
-								<text class="method" v-if="item.pay_method === 2">支付宝支付</text>
-								<text class="method" v-if="item.pay_method === 8">微信支付</text>
-								<text class="method" v-if="item.pay_method === 9">余额支付</text>
-								实付款<text class="price">{{item.total_amount}}</text>
+								<text>
+									总价:<text class="method">￥29.80</text>
+								</text>
+								<!-- <text>
+									优惠:<text class="method">￥29.80</text>
+								</text> -->
+								<text style="font-size: 16px;color: #333;">
+									<text>需付款:</text>
+									<text class="price">{{item.total_amount}}</text>
+								</text>
 							</view>
 							
 							<view class="action-box b-t" v-if="item.state === 1">
-								<button class="action-btn" @click="cancelOrder(item)">取消订单</button>
-								<button class="action-btn recom" @click="payOrder(item)" v-if="item.pay_status === 0">立即支付</button>
-							</view>
-							<view class="action-box b-t" v-if="item.state === 2">
-								<button class="action-btn" @click="cancelOrder(item)" >取消订单</button>
-								<button class="action-btn recom" @click="editAddress(item,item.order_id)">修改地址</button>
+								<view class="more">更多</view>
+								<button class="action-btn" @click="editAddress(item)">修改地址</button>
+								<button class="action-btn recom" @click="payOrder(item)" v-if="item.pay_status === 0">去支付</button>
 							</view>
 							<view class="action-box b-t" v-if="item.state === 3">
+								<text class="more">更多</text>
 								<button class="action-btn" @click="lookViewOrder(item,item.order_id)">查看物流</button>
 								<button class="action-btn recom" @click="confirmOrder(item)">确认收货</button>
 							</view>
-							<view class="action-box b-t" v-if="item.state === 4">
-								<button class="action-btn" @click="goBuyAgain(item,item.order_id)">再次购买</button>
-								<button class="action-btn recom" @click="accessOrder(item)">前往评价</button>
+							<view class="action-box b-t" v-if="item.state === 4 && !item.goods[0].comment">
+								<text class="more">更多</text>
+								<button class="action-btn" @click="lookViewOrder(item,item.order_id)">查看物流</button>
+								<button class="action-btn recom" @click="accessOrder(item)">评价</button>
+							</view>
+							
+							<view class="action-box b-t" v-if="item.state === 4 && item.goods[0].comment">
+								<text class="more">更多</text>
+								<button class="action-btn" @click="cancelOrder(item,item.order_id)">取消订单</button>
+								<button class="action-btn" @click="goBuyAgain(item,item.order_id)">申请发票</button>
+								<button class="action-btn recom" @click="goBuyAgain(item,item.order_id)">再次购买</button>
 							</view>
 							
 							<view class="action-box b-t" v-if="item.state === 5">
+								<text class="more">更多</text>
+								<button class="action-btn" @click="cancelOrder(item,item.order_id)">取消订单</button>
 								<button class="action-btn recom" @click="goBuyAgain(item,item.order_id)">再次购买</button>
-							</view>
-							<view class="action-box b-t" v-if="item.state === 6">
-								<button class="action-btn recom" @click="goBuyAgain(item,item.order_id)">再次购买</button>
-								
 							</view>
 						</view>
 					</view>
@@ -165,24 +172,12 @@
 		computed:{
 			...mapState(['userInfo'])
 		},
-		
-		/* onPageScroll(e) {
-			this.backTop.scrollTop = e.scrollTop;
-		}, */
-		
-		//加载更多
-		onReachBottom(){
-			console.log('222')
-			this.getDate(1)
-			/* this.currentPage = this.currentPage + 1
-			this.loadData('tabChange',this.tabCurrentIndex); */
-		},
-		
 		async onLoad(options){
 			/**
 			 * 修复app端点击除全部订单外的按钮进入时不加载数据的问题
 			 * 替换onLoad下代码即可
 			 */
+			document.getElementsByClassName('uni-page-head')[0].style = 'padding-right:10px;background:#fff;color:#000'
 			if(options.state){
 				this.tabCurrentIndex = Number(options.state);
 			}
@@ -229,26 +224,33 @@
 						uni.hideLoading()
 						let orderList = this.orderList.filter(item=>{
 							switch (item.pay_status){
+								// 待付款
 								case 0:
 									item.state = 1
 									break;
+								// 已支付
 								case 1:
 									item.state = 2
 									break;
+								// 已退款
 								case 2:
 									item.state = 6
 									break;
 							}
 							switch (item.order_status){
+								// 待收货
 								case 3:
 									item.state = 3
 									break;
+								// 已完成
 								case 4:
 									item.state = 4
 									break;
+								// 已取消
 								case 5:
 									item.state = 5
 									break;
+								// 已退货
 								case 6:
 									item.state = 6
 									break;
@@ -290,7 +292,6 @@
 			//顶部tab点击
 			tabClick(index){
 				this.tabCurrentIndex = index;
-				
 			},
 			
 			//立即支付
@@ -465,12 +466,15 @@
 			// 修改地址
 			editAddress(item){
 				this.$api.msg('修改地址')
+				uni.navigateTo({
+					url:'/pages/order/editAdress/editAdress?item='+JSON.stringify(item)
+				})
 			},
 			
 			// 退货/换货
 			replaceGoods(item){
 				uni.navigateTo({
-					url:'/pages/order/lookDetails/concalShops?item='+JSON.stringify(item)+'?order_id='+order_id
+					url:'/pages/order/lookDetails/concalShops?item='+JSON.stringify(item)+'&order_id='+order_id
 				})
 			},
 			
@@ -573,7 +577,7 @@
 			//订单状态文字和颜色
 			orderStateExp(state){
 				let stateTip = '',
-					stateTipColor = '#fa436a';
+					stateTipColor = '#EE1D23';
 				switch(state){
 					case 1:
 						stateTip = '待付款'; break;
@@ -584,9 +588,7 @@
 					case 4:
 						stateTip = '待评价'; break;
 					case 5:
-						stateTip = '订单已关闭'; 
-						stateTipColor = '#909399';
-						break;
+						stateTip = '交易失败';break;
 					case 6:
 						stateTip = '已退换'; break;
 					//更多自定义
@@ -717,9 +719,10 @@
 		background: $page-color-base;
 		height: 100%;
 	}
-	
 	.swiper-box{
 		height: calc(100% - 40px);
+		margin: 0 20upx;
+		border-radius: 10upx;
 	}
 	.list-scroll-content{
 		height: 100%;
@@ -740,10 +743,10 @@
 			align-items: center;
 			height: 100%;
 			font-size: 15px;
-			color: $font-color-dark;
+			color: #666;
 			position: relative;
 			&.current{
-				color: $base-color;
+				color: $uni-color-hangfeng;
 				&:after{
 					content: '';
 					position: absolute;
@@ -752,7 +755,7 @@
 					transform: translateX(-50%);
 					width: 44px;
 					height: 0;
-					border-bottom: 2px solid $base-color;
+					border-bottom: 2px solid $uni-color-hangfeng;
 				}
 			}
 		}
@@ -772,11 +775,12 @@
 			align-items: center;
 			height: 80upx;
 			padding-right:30upx;
-			font-size: $font-base;
 			color: $font-color-dark;
 			position: relative;
 			.time{
 				flex: 1;
+				font-size: 26upx;
+				color: #666;
 			}
 			.state{
 				color: $base-color;
@@ -833,16 +837,31 @@
 				.title{
 					font-size: $font-base + 2upx;
 					color: $font-color-dark;
-					line-height: 1;
+					line-height: 40upx;
+					overflow: hidden;
+					-webkit-line-clamp: 2;
+					text-overflow: ellipsis;
+					display: -webkit-box;
+					-webkit-box-orient: vertical;
 				}
 				.attr-box{
 					font-size: $font-sm + 2upx;
 					color: $font-color-light;
 					padding: 10upx 12upx;
 				}
+				.spec{
+					height: 40upx;
+					padding: 10upx 20upx;
+					line-height: 20upx;
+					font-size: 24upx;
+					border-radius: 10upx;
+					color: #999;
+					text-align: center;
+					background: rgba(0,0,0,.1);
+				}
 				.price{
 					font-size: $font-base + 2upx;
-					color: $font-color-dark;
+					color: $uni-color-hangfeng;
 					&:before{
 						content: '￥';
 						font-size: $font-sm;
@@ -864,9 +883,9 @@
 				color: $font-color-dark;
 			}
 			.method{
-				margin: 0 10px;
-				font-size: 14px;
-				color: $font-color-dark;
+				margin: 0 5px;
+				font-size: 12px;
+				color: #999;
 			}
 			.price{
 				font-size: $font-lg;
@@ -886,6 +905,11 @@
 			position: relative;
 			padding-right: 30upx;
 		}
+		.more{
+			position: absolute;
+			left: 0;
+			color: #666;
+		}
 		.action-btn{
 			width: 160upx;
 			height: 60upx;
@@ -895,15 +919,16 @@
 			text-align: center;
 			line-height: 60upx;
 			font-size: $font-sm + 2upx;
-			color: $font-color-dark;
+			color: $uni-color-hangfeng;
 			background: #fff;
 			border-radius: 100px;
 			&:after{
 				border-radius: 100px;
+				border: 2upx solid #EE1D23;
 			}
 			&.recom{
-				background: #fff9f9;
-				color: $base-color;
+				background:linear-gradient(to right,#EE1D23,#F04023);
+				color: #fff;
 				&:after{
 					border-color: #f7bcc8;
 				}

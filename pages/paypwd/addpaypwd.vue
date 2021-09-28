@@ -1,52 +1,36 @@
 <template>
 	<view class="content">
-		<view v-if="o_view">
-			<view>
-				<text style="font-size: 20px;font-weight: bold;">发送短信验证码</text>
-			</view>
-			<view style="text-align: center;margin-top: 50px;">
-				<text style="font-size: 24px;font-weight: bold;">{{phone}}</text>
-			</view>
-			<button type="default" style="background-color: #00C777;color: #fff;margin-top: 30px;" @click="firstBtn">发送验证码</button>
+		<view class="pay-wran">
+			<text class="pay-text">为了您的账户安全，请完成身份验证</text>
 		</view>
-		<view v-if="s_view">
-			<view>
-				<text style="font-size: 20px;font-weight: bold;">输入短信验证码</text>
+		<view class="wrap" v-if="o_view">
+			<view class="row b-b">
+				<text class="tit">手机号</text>
+				<input class="input" type="text" maxlength="11" v-model="phone" placeholder="请输入手机号" placeholder-class="placeholder" />
 			</view>
-			<view class="text-area">
-				<text class="title">验证码已发送至<text>{{phone}}</text>,请在下方输入框内输入6位数字验证码</text>
+			<view class="row b-b">
+				<text class="tit">验证码</text>
+				<input class="input" type="number" maxlength="6" v-model="sms_code" placeholder="请输入验证码" placeholder-class="placeholder" />
+				<text style="font-size: 14px;color: #EE1D23;" v-if="show" @click="smsCode">获取验证码</text>
+				<text style="font-size: 14px;color: #999999;" v-else>{{time}}s后重新发送</text>
 			</view>
-			<wakary-input style="margin-top: 50px;" type="bottom" v-model="sms_code" @finish="finish"></wakary-input>
-			<view style="text-align: center;margin-top: 10px;">
-				<text style="color: #999;" v-if="show">{{time}}s后重新发送</text>
-				<text style="color: #2B85E4;" @click="smsCode" v-else>重新发送</text>
-			</view>
-			<button type="default" v-if="btnShow" style="background-color: #00C777;color: #fff;margin-top: 30px;" @click="secendBtn">下一步</button>
+			<button type="default" class="pay-next" @click="nextBtn">下一步</button>
 		</view>
-		<view v-if="t_view">
-			<view>
-				<text style="font-size: 20px;font-weight: bold;">设置支付密码</text>
+		<view class="wrap" v-else>
+			<view class="row b-b">
+				<text class="tit addWidth">设置支付密码</text>
+				<input class="input" type="password" maxlength="6" v-model="pay_password" placeholder="请输入6位支付密码" placeholder-class="placeholder" />
 			</view>
-			<view class="text-area">
-				<text class="title">请在下方输入框内输入6位支付密码，注意不要重复或连续数字</text>
+			<view class="row b-b">
+				<text class="tit addWidth">确认支付密码</text>
+				<input class="input" type="password" maxlength="6" v-model="pay_password2" placeholder="请确认6位支付密码" placeholder-class="placeholder" />
 			</view>
-			<wakary-inputs :isPwd="true" style="margin-top: 50px;" type="box" v-model="pay_password" @finish="finished"></wakary-inputs>
-			<!-- <button type="default" style="background-color: #00C777;color: #fff;margin-top: 30px;" @click="topBtn">上一页</button> -->
-			<button type="default" v-if="btnsShow" style="background-color: #00C777;color: #fff;margin-top: 30px;" @click="thirdBtn">下一步</button>
+			
+			<button type="default" class="pay-submit" @click="submitBth">确认</button>
+			
+			<button type="default" class="pay-prev" @click="prevBtn">上一页</button>
+			
 		</view>
-		
-		<view v-if="f_view">
-			<view>
-				<text style="font-size: 20px;font-weight: bold;">确认支付密码</text>
-			</view>
-			<view class="text-area">
-				<text class="title">请在下方输入框内输入6位支付密码，注意与上次支付密码一致</text>
-			</view>
-			<wakary-inputss :isPwd="true" style="margin-top: 50px;" type="box" v-model="pay_password2" @finish="finisheds"></wakary-inputss>
-			<button type="default" style="background-color: #00C777;color: #fff;margin-top: 30px;" @click="topsBtn">上一页</button>
-			<button type="default" v-if="btnssShow" style="background-color: #00C777;color: #fff;margin-top: 30px;" @click="forthBtn">完成</button>
-		</view>
-		
 	</view>
 </template>
 <script>
@@ -66,14 +50,7 @@
 				phone:'', // 手机号
 				time:300, // 倒计时
 				show:true, // 倒计时文字信息
-				btnShow:false, // 下一步
-				btnsShow:false, // 下一步
-				btnssShow:false, // 完成
 				o_view:true, // 第一页
-				s_view:false, // 第二页
-				t_view:false, // 第三页
-				f_view:false, // 第四页
-				
 			};
 		},
 		onLoad(e) {
@@ -84,32 +61,41 @@
 			// 倒计时
 			countDown(){
 				// 设置倒计时
+				this.show = false
 				this.intervalBtn = setInterval(() => {
-					if(this.time <= 0) {
+					if(this.time < 0) {
 						// 重置btn提示信息
 						this.show = true
 						// 清除定时器
 						clearInterval(this.intervalBtn)
 						// 重置倒计时状态
-						this.time = 1;
+						this.time = 300
 					};
 					// 倒计时
 					this.time -- ;
+					// window.name = this.time
 					if(this.time === 0){
-						this.show = false
-						this.time = 0
+						this.show = true
 					}
 				}, 1000);
 			},
-			//发送验证码
-			firstBtn(){
-				this.o_view = false
-				this.s_view = true
-				this.smsCode()
-				this.countDown()
+			//下一步
+			nextBtn(){
+				if(this.sms_code){
+					this.o_view = false
+					this.pay_password = ''
+					this.pay_password2 = ''
+				}else{
+					this.$api.msg('请输入验证码')
+				}
 			},
 			// 发送验证码
 			smsCode(){
+				uni.showLoading({
+					title: '验证码发送中...',
+					mask:true
+				})
+				
 				uniRequest({
 					url: '/verify/sms_code/pay/password/',
 					method: 'GET',
@@ -119,7 +105,9 @@
 				}).then(res => {
 					console.log(res.data)
 					if(res.status === 200){
-						this.$api.msg('请接收验证码')
+						this.$api.msg('验证码已发送')
+						uni.hideLoading()
+						this.countDown()
 					}else if(res.status === 400){
 						this.$api.msg(res.data.message)
 					}
@@ -127,57 +115,17 @@
 					console.log(error);
 				})
 			},
-			
-			//获取短信验证码
-			finish(val) {
-				console.log(val)
-				if(val.length === 6){
-					this.sms_code = val
-					this.btnShow = true
-					
-				}
-			},
-			//下一步
-			secendBtn(){
-				this.s_view = false
-				this.t_view = true
-			},
-			// 获取第一次的支付密码
-			finished(val) {
-				console.log(val)
-				if(val.length === 6){
-					this.pay_password = val
-					this.btnsShow = true
-				}
-			},
-			// 下一步
-			thirdBtn(){
-				this.t_view = false
-				this.f_view = true
-			},
-			// 获取第二次的支付密码
-			finisheds(val){
-				console.log(val)
-				if(val.length === 6){
-					this.pay_password2 = val
-					this.btnssShow = true
-				}
-			},
-			topBtn(){
-				this.t_view = false
-				this.s_view = true
-				this.pay_password = ''
+			// 上一步
+			prevBtn(){
+				this.o_view = true
 				this.sms_code = ''
 			},
-			// 上一页
-			topsBtn(){
-				this.f_view = false
-				this.t_view = true
-				this.pay_password2 = ''
-			},
 			// 完成
-			forthBtn(){
+			submitBth(){
 				console.log(this.sms_code,this.pay_password,this.pay_password2)
+				uni.showLoading({
+					title: '提交中...'
+				})
 				uniRequest({
 					url: '/user/pay/password/',
 					method: 'POST',
@@ -194,7 +142,9 @@
 					if(res.status === 200){
 						this.$api.msg('支付密码设置成功')
 						setTimeout(()=>{
-							uni.navigateBack();
+							uni.navigateTo({
+								url:'/pages/set/set'
+							})
 						},1000)
 					}else if(res.status === 400){
 						this.$api.msg(res.data.message)
@@ -208,30 +158,83 @@
 </script>
 <style lang="scss" scoped>
 	.content {
+		// padding: 30upx;
+	}
+	
+	.pay-wran{
+		width: 100%;
+		height: 80upx;
+		background-color: #F7F7F7;
+		padding: 0 20upx;
+	}
+	
+	.pay-text{
+		font-size: 14px;
+		color: #999;
+		line-height: 80upx;
+	}
+	
+	.wrap{
+		width: 100%;
+		height: 100%;
+		padding: 30upx;
+		background: #fff;
+		// border-radius: 20upx;
+	}
+	
+	.pay-next{
+		color: #fff;
+		margin: 20px auto;
+		width: 590upx;
+		height: 80upx;
+		border-radius: 40upx;
+		background: linear-gradient(to right,#EE1D23,#F04023);
+	}
+	
+	.row {
 		display: flex;
-		flex-direction: column;
-		align-items: left;
-		justify-content: left;
-		padding: 20px 20px 0 20px;
+		align-items: center;
+		position: relative;
+		padding: 0 30upx;
+		height: 110upx;
+		.tit {
+			flex-shrink: 0;
+			width: 160upx;
+			font-size: 30upx;
+			color: $font-color-dark;
+		}
+		.addWidth{
+			width: 200upx;
+		}
+	
+		.input {
+			flex: 1;
+			font-size: 30upx;
+			color: $font-color-dark;
+		}
+	
+		.icon-shouhuodizhi {
+			font-size: 36upx;
+			color: $font-color-light;
+		}
 	}
 	
-	.logo {
-		height: 200upx;
-		width: 200upx;
-		margin-top: 200upx;
-		margin-left: auto;
-		margin-right: auto;
-		margin-bottom: 50upx;
+	.pay-submit{
+		background: linear-gradient(to right,#EE1D23,#F04023);
+		color: #fff;
+		margin-top: 30px;
+		width: 590upx;
+		height: 80upx;
+		border-radius: 40upx;
 	}
 	
-	.text-area {
-		display: flex;
-		justify-content: center;
-	}
-	
-	.title {
-		font-size: 34upx;
-		color: #8f8f94;
-		margin-top: 10px;
+	.pay-prev{
+		background: #fff;
+		color: #666;
+		margin-top: 15px;
+		width: 590upx;
+		height: 80upx;
+		border-radius: 40upx;
+		border: 2upx solid #999;
 	}
 </style>

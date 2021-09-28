@@ -1,5 +1,21 @@
 <template>
 	<view class="content">
+		<view class="">
+			
+		</view>
+		<view class="">
+			<view class="" style="width: 100%;height: 250upx;background-color: #0066CC;margin-bottom: 30upx;background: url('../../static/index/mjj.png');background-size: 100% 100%;">
+				<text></text>
+			</view>
+			<view class="" style="width: 100%;height: 250upx;background-color: #0066CC;margin-bottom: 30upx;background: url('../../static/index/djj.png');background-size: 100% 100%;">
+				<text></text>
+			</view>
+			<view class="" style="width: 100%;height: 250upx;background-color: #0066CC;margin-bottom: 30upx;background: url('../../static/index/zkj.png');background-size: 100% 100%;">
+				<text></text>
+			</view>
+		</view>
+	</view>
+	<!-- <view class="content">
 		<view class="row b-b">
 			<text class="tit">兑换码</text>
 			<input class="input" type="text" v-model="exNum" placeholder="请输入兑换码" placeholder-class="placeholder" />
@@ -18,7 +34,7 @@
 		<view v-else style="text-align: center;margin: 20px 0;">
 			<text style="font-size: 16px;">暂无优惠券</text>
 		</view>
-	</view>
+	</view> -->
 </template>
 
 <script>
@@ -121,23 +137,18 @@
 </script>
 
 <style lang="scss">
-	page {
-		background: $page-color-base;
-		padding-top: 16upx;
-		
-	}
+	
 	.content{
 		position: relative;
+		padding: 30upx;
 	}
 
 	.row {
 		display: flex;
 		align-items: center;
-		// position: fixed;
 		padding: 0 30upx;
 		height: 110upx;
 		background: #fff;
-		// z-index: 1;
 		.tit {
 			flex-shrink: 0;
 			width: 160upx;

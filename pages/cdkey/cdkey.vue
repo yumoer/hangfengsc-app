@@ -121,8 +121,24 @@
 				console.log(this.image_code_id)
 				
 				// 设置页面中验证码img标签的src属性
-				this.image_code_url = "http://47.94.106.106:8000/image/codes/exchange/?open_id="+this.open_id+'&id='+this.image_code_id
+				this.image_code_url = "http://api.hfyt365.com/verify/image_codes/" + this.image_code_id + "/";
 				console.log(this.image_code_url)
+				
+				setTimeout(()=>{
+					uniRequest.get('/verify/image_codes/text/'+this.image_code_id+'/').then(res=>{
+						console.log(res.data)
+						if(res.status === 200){
+							if(res.data.text !== undefined){
+								this.getText = res.data.text.toLowerCase()
+							}
+						}else{
+							this.$api.msg(res.data.message)
+						}
+					}).catch(error=>{
+						console.log(error)
+					})
+				},500)
+				
 			},
 			
 			// 生成uuid
@@ -135,7 +151,7 @@
 				var d = new Date().getTime();
 				d += Date.now();
 				// #endif
-				console.log(d)
+				
 				var uuid = 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, function(c) {
 				  var r = (d + Math.random()*16)%16 | 0;
 				  d = Math.floor(d/16);

@@ -1,77 +1,119 @@
 <template>
 	<view class="container">
-		<view class="left-bottom-sign"></view>
-		<view class="back-btn yticon icon-zuojiantou-up" @click="navBack"></view>
-		<view class="right-top-sign"></view>
+		<view class="header">
+			<view class="back-btn-left yticon icon-zuojt-login" @click="navBack"></view>
+			<view class="back-btn-right" @click="toRegist">注册</view>
+		</view>
 		<!-- 设置白色背景防止软键盘把下部绝对定位元素顶上来盖住输入框等 -->
 		<view class="wrapper">
-			<view class="left-top-sign">LOGIN<view class="welcome">
-				登录
-			</view></view>
-			<view class="input-content">
-				<view class="input-item">
-					<text class="tit">用户名/手机号码</text>
-					<input 
-						:value="username" 
-						placeholder="请输入用户名/手机号码"
-						maxlength="20"
-						data-key="username"
-						@input="inputChange"
-					/>
-				</view>
-				<view class="input-item">
-					<text class="tit">密码</text>
-					<input 
-						type="password" 
-						:value="password" 
-						placeholder="8-20位不含特殊字符的数字、字母组合"
-						placeholder-class="input-empty"
-						maxlength="20"
-						password 
-						data-key="password"
-						@input="inputChange"
-						@confirm="toLogin"
-					/>
-				</view>
-				<view class="forget-section">
-					<view class="b-b" >
-						<label class="radio" @click="changePayType">
-							<radio value="" color="#fa436a" :checked='remember' />
-							</radio>
-						</label>
-						<text style="text-align: left;display: inline-block;" @click="changePayType">记住登陆</text>
-						<span style="float: right;display: inline-block;" @click="forgetPwd">忘记密码?</span>
+			<view class="aside">
+				<view class="content">
+					<view class="msg">
+						<text class="text">您好,</text><br>
+						<text class="text">欢迎来到行丰商城!</text>
+					</view>
+					<view class="input-content" v-if="showCode">
+						<view class="wrap">
+							<view class="input-item">
+								<input 
+									:value="username" 
+									placeholder="请输入手机号"
+									maxlength="20"
+									data-key="username"
+									@input="inputChange"
+								/>
+							</view>
+							<view class="errorMsg">
+								<text class="message" v-if="phone">请输入正确的手机号码</text>
+							</view>
+						</view>
+						<view class="wrap">
+							<view class="input-item">
+								<input 
+									:value="username" 
+									placeholder="请输入手机验证码"
+									maxlength="20"
+									data-key="username"
+									@input="inputChange"
+								/>
+								<view style="position: absolute;right: 40px;" v-if="send">
+									<text type="text" @click="mobileCode" style="color: #999;font-size: 12px;padding: 0 20px;border-left: 1px solid #999;">获取验证码</text>
+								</view>
+								<view style="position: absolute;right: 50px;" v-else>
+									<text type="text" disabled="" @click="mobileCode" style="color: #999;font-size: 12px;height: 30px;line-height: 30px;">{{time}}s后重新获取</text>
+								</view>
+							</view>
+							<view class="errorMsg">
+								<text class="message" v-if="code">请输入正确的验证码</text>
+							</view>
+						</view>
+					</view>
+					<view class="input-content" v-else>
+						<view class="wrap">
+							<view class="input-item">
+								<input 
+									:value="username" 
+									placeholder="请输入用户名/手机号"
+									maxlength="20"
+									data-key="username"
+									@input="inputChange"
+								/>
+							</view>
+							<view class="errorMsg">
+								<text class="message" v-if="phone">请输入正确的手机号码</text>
+							</view>
+						</view>
+						<view class="wrap">
+							<view class="input-item">
+								<input 
+									type="password" 
+									:value="password" 
+									placeholder="请输入密码"
+									maxlength="20"
+									password 
+									data-key="password"
+									@input="inputChange"
+									@confirm="toLogin"
+								/>
+							</view>
+							<view class="errorMsg">
+								<text class="message" v-if="pwd">请输入正确的密码</text>
+							</view>
+						</view>
+					</view>
+					<view class="info">
+						<text class="left" v-if="showCode" @click="showHide">密码登录</text>
+						<text class="left" v-else @click="showHide">验证码登录</text>
+						<text class="right" @click="forgetPwd">忘记密码?</text>
+					</view>
+					<view class="loginBtn">
+						<button class="confirm-btn" @click="toLogin" :disabled="logining">登录</button>
 					</view>
 				</view>
 			</view>
-			
-			<button class="confirm-btn" @click="toLogin" :disabled="logining">登录</button>
-			
 		</view>
-		
-		
 		<!-- 其他登录方式 -->
-		<!-- #ifdef APP-PLUS -->
-		<view class="otherLoginTitle">其他方式登录</view>
-		<view class="otherLogin">
-			<view class="weiixnLogin" @click="wx_login">
-				<image style="width: 100upx;height: 100upx;" src="../../static/weixin.png" mode=""></image>
-			</view>
-			<view class="qqLogin" @click="QQ_login">
-				<image style="width: 100upx;height: 100upx;" src="../../static/QQ2.png" mode=""></image>
-			</view>
-			<view class="qqLogin" v-if="system >= 13 && platform=='ios'"  @click="appleLogin">
-				<image style="width: 100upx;height: 100upx;" src="../../static/timg.png" mode=""></image>
-			</view>
-		</view>
-		<!-- #endif -->
 		<view class="register-section">
-			还没有账号?
-			<text @click="toRegist">马上注册</text><br>
-			<view style="margin-top: 20upx;color: #606266;">
+			<!-- #ifdef APP-PLUS -->
+			<view class="login" style="margin-bottom: 50px;">
+				<view class="otherLoginTitle">其他方式登录</view>
+				<view class="otherLogin">
+					<view class="weiixnLogin" @click="wx_login">
+						<image style="width: 60upx;height: 50upx;" src="../../static/img/weixin.png" mode=""></image>
+					</view>
+					<view class="qqLogin" @click="QQ_login">
+						<image style="width: 45upx;height: 50upx;" src="../../static/img/qq.png" mode=""></image>
+					</view>
+					<view class="qqLogin" v-if="system >= 13 && platform=='ios'"  @click="appleLogin">
+						<image style="width: 45upx;height: 50upx;" src="../../static/timg.png" mode=""></image>
+					</view>
+				</view>
+			</view>
+			<!-- #endif -->
+			<view class="otherAllow">
 				登录即同意
-				<text style="color: #fa436a;" @click="toService">《行丰用户服务协议》</text>
-				<text style="color: #fa436a;" @click="toPrivacy">《行丰隐私保护政策》</text>
+				<text @click="toService">《行丰用户服务协议》</text>
+				<text @click="toPrivacy">《行丰隐私保护政策》</text>
 			</view>
 		</view>
 	</view>
@@ -90,10 +132,16 @@
 				username: '',
 				password: '',
 				logining: false,
+				phone:false, //手机号
+				code:false, // 验证码
+				pwd:false, // 密码
 				remember:true,
+				showCode:false, // true:验证码登录  false:密码登录
 				next:'',
 				system: '', // 系统版本
 				platform: '',   // 平台
+				send:true,
+				time:60, 
 			}
 		},
 		components: {uniGrid,uniGridItem},
@@ -129,16 +177,72 @@
 					url:'/pages/public/regist'
 				})
 			},
+			
+			// 协议
 			toService(){
 				uni.navigateTo({
 					url:'/pages/set/service'
 				})
 			},
+			
+			// 政策
 			toPrivacy(){
 				uni.navigateTo({
 					url:'/pages/set/privacy'
 				})
 			},
+			
+			// 发送验证码
+			mobileCode(){
+				// 验证码验证
+				console.log(this.phone,this.getText)
+				/* if(!this.imageCode){ 
+					this.$api.msg('请输入验证码');
+					return
+				}else if(this.imageCode.toLowerCase() !== this.getText){
+					this.$api.msg('验证码错误');
+					return
+				}
+				
+				// 手机号验证
+				if(!this.mobile){ 
+					this.$api.msg('请输入手机号');
+					return
+				}else{
+					if(this.mobile.length !== 11){
+						this.$api.msg('手机号格式错误')
+					}
+					uniRequest.get('/mobiles/'+this.mobile+'/count/').then(res=>{
+						if(res.data.count>0){
+							this.$api.msg('手机号已存在')
+							return
+						}
+					})
+				}
+				
+				uniRequest.get('/sms_codes/'+this.mobile+'/?text='+this.getText+'&image_code_id='+this.image_code_id).then(res=>{
+					if(res.status === 200){
+						var num = setInterval(()=>{
+							this.send = false
+							this.time -= 1
+							if(this.time < 1){
+								clearInterval(num)
+								this.send = true
+							}
+						},1000)
+					}else if(res.status === 400){
+						this.$api.msg(res.data.non_field_errors[0])
+						if(res.data.non_field_errors[0] === '无效验证码'){
+							// this.generate_image_code();
+							uni.redirectTo({
+								url:'/pages/public/regist'
+							})
+						}
+					}
+				}).catch(error=>{
+					console.log(error)
+				}) */
+			}, 
 			
 			// 忘记密码
 			forgetPwd(){
@@ -146,12 +250,17 @@
 					url:'/pages/public/forgetPwd'
 				})
 			},
+			
+			// 记住密码
 			changePayType(){
 				this.remember = !this.remember
 				console.log(this.remember)
 			},
 			
-			
+			// 登录方式切换
+			showHide(){
+				this.showCode = !this.showCode
+			},
 			
 			// 去登陆
 			async toLogin(){
@@ -340,116 +449,130 @@
 </script>
 
 <style lang='scss'>
-	page{
-		background: #fff;
-	}
 	.container{
-		padding-top: 35px;
 		position:relative;
 		width: 100vw;
 		height: 100vh;
 		overflow: hidden;
 		background: #fff;
-		/* background-image: url(../../static/index/yindao2.jpg);
-		background-attachment:fixed;
-	    background-repeat:no-repeat;
-		background-position: center center; */
+		.back-btn-left{
+			position:absolute;
+			left: 40upx;
+			z-index: 9999;
+			padding-top: var(--status-bar-height);
+			top: 40upx;
+			font-size: 36upx;
+			color: $font-color-regist;
+		}
+		.back-btn-right{
+			position:absolute;
+			right: 60upx;
+			z-index: 9999;
+			padding-top: var(--status-bar-height);
+			top: 40upx;
+			font-size: 34upx;
+			color: $font-color-regist;
+		}
+		.left-top-sign{
+			font-size: 120upx;
+			color: $page-color-base;
+			position:relative;
+			left: -16upx;
+		}
 	}
 	.wrapper{
 		position:relative;
 		z-index: 90;
-		/* background: #fff; */
 		padding-bottom: 40upx;
-		margin-top: 40px;
-	}
-	.back-btn{
-		position:absolute;
-		left: 40upx;
-		z-index: 9999;
-		padding-top: var(--status-bar-height);
-		top: 40upx;
-		font-size: 40upx;
-		color: $font-color-dark;
-	}
-	.left-top-sign{
-		font-size: 120upx;
-		color: $page-color-base;
-		position:relative;
-		left: -16upx;
-	}
-	.right-top-sign{
-		position:absolute;
-		top: 80upx;
-		right: -30upx;
-		z-index: 95;
-		
-		&:before, &:after{
-			display:block;
-			content:"";
-			
-			width: 400upx;
-			height: 80upx;
-			background: #b4f3e2;
-		}
-		&:before{
-			transform: rotate(50deg);
-			border-radius: 0 50px 0 0;
-			
-		}
-		&:after{
-			position: absolute;
-			right: -198upx;
-			top: 0;
-			transform: rotate(-50deg);
-			border-radius: 50px 0 0 0;
-			/* background: pink; */
-		}
-	}
-	.left-bottom-sign{
-		position:absolute;
-		left: -270upx;
-		bottom: -320upx;
-		border: 100upx solid #d0d1fd;
-		border-radius: 50%;
-		padding: 180upx;
-	}
-	.welcome{
-		position:relative;
-		left: 50upx;
-		top: -90upx;
-		font-size: 46upx;
-		color: #555;
-		text-shadow: 1px 0px 1px rgba(0,0,0,.3);
-	}
-	.input-content{
-		padding: 0 60upx;
-		margin-top: -20px;
-	}
-	.input-item{
-		display:flex;
-		flex-direction: column;
-		align-items:flex-start;
-		justify-content: center;
-		padding: 0 30upx;
-		background:$page-color-light;
-		height: 120upx;
-		border-radius: 4px;
-		margin-bottom: 20upx;
-		&:last-child{
-			margin-bottom: 0;
-		}
-		.tit{
-			height: 50upx;
-			line-height: 56upx;
-			font-size: $font-sm+2upx;
-			color: $font-color-base;
-		}
-		input{
-			height: 60upx;
-			font-size: $font-base + 2upx;
-			color: $font-color-dark;
+		margin-top: 200upx;
+		.aside{
 			width: 100%;
-		}	
+			height: 340px;
+			.content{
+				margin: 0 auto;
+				width: 80%;
+				height:100%;
+				
+				.msg{
+					width: 200px;
+					height: 100px;
+					line-height: 34px;
+					.text{
+						color: #333;
+						font-size: 18px;
+						font-weight: bold;
+					}
+				}
+			}
+			.input-content{
+				width: 100%;
+				height: 130px;
+				.wrap{
+					.errorMsg{
+						width: 100%;
+						height: 60upx;
+						.message{
+							height: 30px;
+							line-height: 30px;
+							color: red;
+							font-size: 12px;
+							margin-left:60upx;
+						}
+					}
+					.input-item{
+						display:flex;
+						flex-direction: column;
+						align-items:flex-start;
+						justify-content: center;
+						padding: 0 60upx;
+						background:#fff;
+						height: 100upx;
+						border-radius: 30px;
+						border: 1px solid $border-color-base;
+						.tit{
+							height: 50upx;
+							line-height: 50upx;
+							font-size: $font-sm+2upx;
+							color: $border-color-dark;
+						}
+						input{
+							height: 60upx;
+							font-size: $font-base;
+							color: $font-color-dark;
+							width: 100%;
+						}	
+					}
+				}
+			}
+			.info{
+				width: 100%;
+				height: 50px;
+				margin-top: 80upx;
+				color: #666;
+				.left{
+					float: left;
+				}
+				.right{
+					float: right;
+				}
+			}
+			.loginBtn{
+				width: 100%;
+				height: 50px;
+				.confirm-btn{
+					width: 100%;
+					height: 76upx;
+					line-height: 76upx;
+					border-radius: 50px;
+					color: #fff;
+					background:linear-gradient(to right,#EE1D23,#F04023);
+					font-size: $font-lg;
+					&:after{
+						border-radius: 100px;
+					}
+				}
+			}
+		}
 	}
 	
 	.register-section{
@@ -463,62 +586,39 @@
 		text{
 			color: $font-color-spec;
 			margin-left: 10upx;
+		}
+		.login{
+			margin-bottom: 50px;
+			.otherLoginTitle {
+				width: 100%;
+				margin-top: 40upx;
+				text-align: center;
+				color: #555555;
+				font-size: 24upx;
+				line-height: 160upx;
+			}
+			.otherLogin {
+				width: 500upx;
+				height: 60upx;
+				margin: 10upx auto;
+				display: flex;
+				justify-content: space-around;
+				view {
+					width: 60upx;
+					height: 50upx;
+					background: #fff;
+					border-radius: 50upx;
+				}
+			}
+		}
+		.otherAllow{
+			margin-top: 40upx;
+			color: #606266;
+			font-size: 12px;
+			text{
+				color: #909399;
+			}
 		}
 	}
 
-	.confirm-btn{
-		width: 630upx;
-		height: 76upx;
-		line-height: 76upx;
-		border-radius: 50px;
-		margin-top: 30upx;
-		background: $uni-color-primary;
-		color: #fff;
-		font-size: $font-lg;
-		&:after{
-			border-radius: 100px;
-		}
-	}
-	.forget-section{
-		font-size: $font-sm+2upx;
-		color: $font-color-spec;
-		margin-top: 40upx;
-	}
-	.register-section{
-		position:absolute;
-		left: 0;
-		bottom: 50upx;
-		width: 100%;
-		font-size: $font-sm+2upx;
-		color: $font-color-base;
-		text-align: center;
-		text{
-			color: $font-color-spec;
-			margin-left: 10upx;
-		}
-	}
-	
-	.otherLogin {
-		width: 500upx;
-		height: 95upx;
-		margin: 10upx auto;
-		display: flex;
-		justify-content: space-around;
-	}
-	
-	.otherLogin>view {
-		width: 95upx;
-		height: 95upx;
-		background: #fff;
-		border-radius: 95upx;
-	}
-	
-	.otherLoginTitle {
-		width: 100%;
-		margin-top: 40upx;
-		text-align: center;
-		color: #555555;
-		font-size: 28upx;
-		line-height: 80upx;
-	}
 </style>

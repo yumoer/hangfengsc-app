@@ -1,5 +1,5 @@
 <template>
-	<view>
+	<view class="container">
 		<!-- 地址 -->
 		<navigator url="/pages/address/address?source=1" class="address-section">
 			<view class="order-content">
@@ -14,123 +14,122 @@
 				<text class="yticon icon-you"></text>
 			</view>
 		</navigator>
-
-		<view class="goods-section">
-			<view class="g-header b-b">
-				<!-- <image class="logo" src="http://duoduo.qibukj.cn/./Upload/Images/20190321/201903211727515.png"></image> -->
-				<text class="name">商品列表</text>
-			</view>
-			<!-- 商品列表 -->
-			<view class="g-item" v-for="(data,index) in datas" :key="index">
-				<image :src="data.default_image_url"></image>
-				<view class="right">
-					<text class="title clamp">{{data.title}}</text>
-					<view class="price-box" style="margin-top: 20px;">
-						<text class="price" style="color: red;">￥{{(data.price)}}</text>
-						<text class="number" style="float: right;">共{{data.count}}件</text>
+		
+		<view class="" style="margin: 0 20upx;">
+			<!-- 商品 -->
+			<view class="goods-section">
+				<!-- 商品列表 -->
+				<view class="g-item" v-for="(data,index) in datas" :key="index">
+					<image :src="data.default_image_url"></image>
+					<view class="right">
+						<text class="title">{{data.title}}</text>
+						<text class="attr">黑色款</text>
+						<view class="price-box">
+							<text class="price" style="color: red;">￥{{(data.price)}}</text>
+							<uni-number-box
+								style="position: absolute;right: 0;"
+								class="step"
+								:min="1" 
+								:value="data.count"
+								:isMin="data.count===1"
+								@change="numberChange"
+							></uni-number-box>
+						</view>
 					</view>
 				</view>
 			</view>
-			<!-- <view class="g-item" v-if="datas.length === undefined">
-				<image :src="datas.default_image_url"></image>
-				<view class="right">
-					<text class="title clamp">{{datas.title}}</text>
-					<view class="price-box" style="margin-top: 20px;">
-						<text class="price" style="color: red;float: left;">￥{{datas.price}}</text>
-						<text class="number" style="float: right;display: inherit;">共{{datas.count}}件</text>
-					</view>
-				</view>
-			</view> -->
-		</view>
-
-		<!-- 优惠明细 -->
-		<view class="yt-list">
-			<navigator url="/pages/invoice/invoice?source=1" class="yt-list-cell b-b">
-				<view class="cell-icon">
-					票
-				</view>
-				<text class="cell-tit clamp">发票信息</text>
-				<text class="cell-tip active" style="margin-right: 5px;">{{invoice}}</text>
-				<text class="yticon icon-you" style="font-size: 14px;line-height: 20px"></text>
-				<text class="cell-more wanjia wanjia-gengduo-d"></text>
-			</navigator>
 			
-			<view class="uni-list" v-if="couponList.id !== undefined">
-				<view class="pay-type-list">
-					<view class="type-item b-b">
-						<view class="con">
-							<text class="tit">{{couponList.invoice_title}}</text>
-							<text>{{couponList.invoice_org_code}}</text>
+			<!-- 优惠明细 -->
+			<view class="yt-list">
+				<navigator url="/pages/invoice/invoice?source=1" class="yt-list-cell b-b">
+					<text class="cell-tit clamp">发票</text>
+					<text class="cell-tip active" style="margin-right: 5px;">{{invoice}}</text>
+					<text class="yticon icon-you" style="font-size: 14px;line-height: 20px"></text>
+					<text class="cell-more wanjia wanjia-gengduo-d"></text>
+				</navigator>
+				
+				<view class="uni-list" v-if="couponList.id !== undefined">
+					<view class="pay-type-list">
+						<view class="type-item b-b">
+							<view class="con">
+								<text class="tit">{{couponList.invoice_title}}</text>
+								<text>{{couponList.invoice_org_code}}</text>
+							</view>
+							<view class="right">
+								<text class="price" style="color: #fa436a;font-size: 14px;" v-if="couponList.invoice_bank === '' || couponList.invoice_bank_code === '' || couponList.invoice_phone === '' || couponList.register_address === ''">普票|电子票</text>
+								<text class="price" style="color: #fa436a;font-size: 14px;" v-else>增值税发票</text>
+								<text class="del-btn yticon icon-fork" style="margin-left: 20upx;" @click="delInvoice()"></text>
+							</view>
 						</view>
-						<view class="right">
-							<text class="price" style="color: #fa436a;font-size: 14px;" v-if="couponList.invoice_bank === '' || couponList.invoice_bank_code === '' || couponList.invoice_phone === '' || couponList.register_address === ''">普票|电子票</text>
-							<text class="price" style="color: #fa436a;font-size: 14px;" v-else>增值税发票</text>
-							<text class="del-btn yticon icon-fork" style="margin-left: 20upx;" @click="delInvoice()"></text>
-						</view>
+						
 					</view>
+				</view>
+				
+				<view class="yt-list-cell desc-cell">
+					<text class="cell-tit clamp">发票邮寄地址</text>
+					<!-- <text class="cell-tip" style="margin-right: 5px;">发票具体邮寄地址</text> -->
+					<input class="desc" type="text" v-model="info.send_invoice_address" placeholder="请填写发票具体邮寄地址" placeholder-class="placeholder" />
+				</view>
+				
+			</view>
+			
+			
+			
+			<!-- 金额明细 -->
+			<view class="yt-list">
+				<view class="yt-list-cell b-b">
+			
+					<text class="cell-tit clamp">运费</text>
+					<text class="cell-tip" v-if="price >= 100">免运费</text>
+					<text class="cell-tip" v-else>￥13.00</text>
+				</view>
+				
+				<!-- 优惠券 -->
+				<view class="yt-list"> <!--  v-if="type === 'coupon'"-->
+					<navigator url="/pages/coupon/exchange?source=1" class="yt-list-cell b-b">
+						<text class="cell-tit clamp">优惠券</text>
+						<text class="cell-tip active" style="margin-right: 5px;">选择优惠券</text>
+						<text class="yticon icon-you" style="font-size: 14px;line-height: 20px"></text>
+						<text class="cell-more wanjia wanjia-gengduo-d"></text>
+					</navigator>
 					
-				</view>
-			</view>
-			
-			<view class="yt-list-cell desc-cell">
-				<text class="cell-tit clamp">发票邮寄地址</text>
-				<input class="desc" type="text" v-model="info.send_invoice_address" placeholder="请填写发票具体邮寄地址" placeholder-class="placeholder" />
-			</view>
-			
-		</view>
-		
-		<!-- 优惠券 -->
-		<view class="yt-list" v-if="type === 'coupon'">
-			<navigator url="/pages/coupon/exchange?source=1" class="yt-list-cell b-b">
-				<view class="cell-icon">
-					惠
-				</view>
-				<text class="cell-tit clamp">优惠券</text>
-				<text class="cell-tip active" style="margin-right: 5px;">选择优惠券</text>
-				<text class="yticon icon-you" style="font-size: 14px;line-height: 20px"></text>
-				<text class="cell-more wanjia wanjia-gengduo-d"></text>
-			</navigator>
-			
-			<view class="uni-list" style="padding: 30upx 0upx;height: 200upx;" v-if="tiket.id !== undefined">
-				<view class="pay-type-list">
-					<view class="type-item b-b">
-						<view class="con">
-							<image style="background: #ea5504;align-items: center;width:100%;height: 180upx;line-height: 180upx;" :src="tiket.coupons.image" mode=""></image>
+					<view class="uni-list" style="padding: 30upx 0upx;height: 200upx;" v-if="tiket.id !== undefined">
+						<view class="pay-type-list">
+							<view class="type-item b-b">
+								<view class="con">
+									<image style="background: #EE1D23;align-items: center;width:100%;height: 180upx;line-height: 180upx;" :src="tiket.coupons.image" mode=""></image>
+								</view>
+							</view>
+							
 						</view>
 					</view>
-					
 				</view>
-			</view>
-		</view>
-		
-		
-		
-		<!-- 金额明细 -->
-		<view class="yt-list">
-			<view class="yt-list-cell b-b">
-				<text class="cell-tit clamp">商品金额</text>
-				<text class="cell-tip">￥{{price}}</text>
-			</view>
-			
-			<view class="yt-list-cell b-b">
-
-				<text class="cell-tit clamp">运费</text>
-				<text class="cell-tip" v-if="price >= 100">免运费</text>
-				<text class="cell-tip" v-else>￥13.00</text>
-			</view>
-			
-			
-			
-			<view class="yt-list-cell desc-cell">
-				<text class="cell-tit clamp">备注</text>
-				<input class="desc" type="text" v-model="desc" placeholder="请填写备注信息" placeholder-class="placeholder" />
+				
+				<view class="yt-list-cell desc-cell">
+					<text class="cell-tit clamp">订单备注</text>
+					<input class="desc" type="text" v-model="desc" placeholder="请填写备注信息" placeholder-class="placeholder" />
+				</view>
+				
+				<view class="yt-list-cell">
+					<text class="cell-tit clamp">支付方式</text>
+					<text class="cell-tip">在线支付</text>
+				</view>
+				
+				<view class="" style="height: 40px;line-height: 25px;">
+					<text style="position: absolute;right: 25px;">
+						<text style="color: #999;">小计 :</text>
+						<text style="color: #333;margin: 0 20upx;">共{{1}}件</text>
+						<text style="color: #EE1D23;font-weight: bold;">￥{{allPrice}}</text>
+					</text>
+				</view>
+				
 			</view>
 		</view>
 
 		<!-- 底部 -->
 		<view class="footer">
 			<view class="price-content">
-				<text>实付款</text>
+				<text>合计 :</text>
 				<text class="price-tip">￥</text>
 				<text>
 					<text class="price">{{allPrice}}</text>
@@ -146,6 +145,7 @@
 
 <script>
 	import uniRequest from 'uni-request';
+	import uniNumberBox from '@/components/uni-number-box/uni-number-box.vue'
 	export default {
 		data() {
 			return {
@@ -176,6 +176,9 @@
 					send_invoice_address:'' // 发票邮寄地址
 				}
 			}
+		},
+		components:{
+			uniNumberBox
 		},
 		onShow(){
 			console.log(this.couponList)
@@ -210,16 +213,15 @@
 		onLoad(option) {
 			//商品数据
 			let data = JSON.parse(decodeURIComponent(option.data))
-			console.log(data)
 			this.type = Number(option.type)
 			console.log(this.type)
 			if (this.type === 1) {  // 直接购买
-				data.count = Number(option.count)
+				this.count = Number(option.count)
 				data.title = data.name
 				this.price = data.price.toFixed(2)
 				data.price >= 100 
-				? this.allPrice = (Number(data.price) * Number(data.count)).toFixed(2) 
-				: this.allPrice = (Number(data.price) * Number(data.count)+13).toFixed(2)
+				? this.allPrice = (Number(data.price) * Number(this.count)).toFixed(2) 
+				: this.allPrice = (Number(data.price) * Number(this.count)+13).toFixed(2)
 				this.datas.push(data)
 			} else if(this.type === 2) { // 购物车购买
 				this.datas = data
@@ -296,7 +298,26 @@
 		    },
 			
 			numberChange(data) {
-				this.number = data.number;
+				this.count = Number(data);
+				this.calcTotal();
+			},
+			//计算总价
+			calcTotal(){
+				let list = this.datas;
+				if(list.length === 0){
+					this.empty = true;
+					return;
+				}
+				let total = 0;
+				list.forEach(item=>{
+					total += item.price * this.count;
+				})
+				this.allPrice = Number(total).toFixed(2);
+				if(this.allPrice > 100){
+					this.allPrice = Number(total).toFixed(2);
+				}else{
+					this.allPrice = Number(total+13).toFixed(2);
+				}
 			},
 			changePayType(index,data) {
 				console.log(index,data)
@@ -340,14 +361,14 @@
 <style lang="scss">
 	page {
 		background: $page-color-base;
-		padding-bottom: 100upx;
 	}
 
 	.address-section {
 		padding: 30upx 0;
+		margin: 20upx;
 		background: #fff;
+		overflow: hidden;
 		position: relative;
-
 		.order-content {
 			display: flex;
 			align-items: center;
@@ -360,7 +381,7 @@
 			justify-content: center;
 			width: 90upx;
 			color: #888;
-			font-size: 44upx;
+			font-size: 36upx;
 		}
 		
 		.icon-jia1{
@@ -384,14 +405,22 @@
 		
 
 		.name {
-			font-size: 34upx;
+			font-size: 32upx;
+			color: $font-color-text6;
+			margin-right: 24upx;
+		}
+		
+		.mobile{
+			font-size: 28upx;
+			color: $font-color-text9;
 			margin-right: 24upx;
 		}
 
 		.address {
 			margin-top: 16upx;
 			margin-right: 20upx;
-			color: $font-color-light;
+			font-size: 26upx;
+			color: $font-color-text3;
 		}
 
 		.icon-you {
@@ -411,10 +440,8 @@
 	}
 
 	.goods-section {
-		margin-top: 16upx;
 		background: #fff;
 		padding-bottom: 1px;
-
 		.g-header {
 			display: flex;
 			align-items: center;
@@ -439,12 +466,12 @@
 		.g-item {
 			display: flex;
 			margin: 20upx 30upx;
-
+			padding: 20upx;
 			image {
 				flex-shrink: 0;
 				display: block;
-				width: 140upx;
-				height: 140upx;
+				width: 160upx;
+				height: 160upx;
 				border-radius: 4upx;
 			}
 
@@ -455,8 +482,23 @@
 			}
 
 			.title {
-				font-size: 30upx;
-				color: $font-color-dark;
+				font-size: 28upx;
+				overflow: hidden;
+				-webkit-line-clamp: 2;
+				text-overflow: ellipsis;
+				display: -webkit-box;
+				-webkit-box-orient: vertical;
+				color: #333;
+			}
+			
+			.attr{
+				font-size: $font-sm - 2upx;
+				color: $font-color-light;
+				height: 50upx;
+				line-height: 80upx;
+				background-color: rgba(0,0,0,.1);
+				padding: 10upx;
+				border-radius: 10upx;
 			}
 
 			.spec {
@@ -470,11 +512,9 @@
 				font-size: 32upx;
 				color: $font-color-dark;
 				padding-top: 10upx;
-
 				.price {
 					margin-bottom: 4upx;
 				}
-
 				.number {
 					font-size: 26upx;
 					color: $font-color-base;
@@ -489,7 +529,6 @@
 	}
 
 	.yt-list {
-		margin-top: 16upx;
 		background: #fff;
 	}
 
@@ -553,7 +592,7 @@
 			}
 
 			&.active {
-				color: $base-color;
+				color: $uni-color-hangfeng;
 			}
 
 			&.red {
@@ -563,7 +602,7 @@
 
 		&.desc-cell {
 			.cell-tit {
-				max-width: 90upx;
+				max-width: 160upx;
 			}
 		}
 
@@ -661,11 +700,13 @@
 			display: flex;
 			align-items: center;
 			justify-content: center;
-			width: 280upx;
-			height: 100%;
+			width: 200upx;
+			height: 35px;
+			margin-right: 20px;
+			border-radius: 30px;
 			color: #fff;
-			font-size: 32upx;
-			background-color: $base-color;
+			font-size: 28upx;
+			background: linear-gradient(to right, #EE1D23,#F04023,#EE1D23);
 		}
 	}
 

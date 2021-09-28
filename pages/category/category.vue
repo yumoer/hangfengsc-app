@@ -6,28 +6,21 @@
 			</view>
 		</scroll-view>
 		<scroll-view scroll-with-animation scroll-y class="right-aside">
-			<view v-for="item in slist[currentId]" :key="item.id" class="s-list" :id="'main-'+item.id">
-				<!-- <text class="s-item">{{item.name}}</text> -->
-				<image style="width: 98%;height: 100px;" :src="item.image" mode=""></image>
-				<view class="t-list">
-					<view @click="navToList(titem.id)" v-for="titem in item.subs" :key="titem.id" class="t-item" >
-						<image :src="titem.image!== ''?titem.image:'http://hbimg.b0.upaiyun.com/dbfaad8aed38c49805b16e7b2afdb441ab2813b68895-ihqaSI_fw658'"></image>
+			<view v-for="(item,index) in slist[currentId]" :key="item.id" class="s-list" style="position: relative;" :id="'main-'+item.id">
+				<view class="" @click="showHide(index)">
+					<text class="s-item" style="text-shadow: 0px 0px 4px #000">{{item.name}}</text>
+					<text v-if="index === cateIndex" class="yticon icon-xiajiantou s-item" style="font-size: 20px;right: 20px;text-shadow: 0px 0px 4px #000"></text>
+					<text v-else class="yticon icon-youjiantou s-item" style="font-size: 20px;right: 20px;text-shadow: 0px 0px 4px #000"></text>
+					<image style="width: 98%;height: 100px;margin-bottom: 15px;border-radius: 5px;" :src="item.image" mode=""></image>
+				</view>
+				<view class="t-list" v-if="index === cateIndex">
+					<view v-for="(titem,inde) in item.subs" :key="titem.id" class="t-item" @click="navToList(titem)" >
+						<image style="width: 140upx; height: 140upx; " mode="aspectFit" :src="titem.image!== ''?titem.image:'/static/errorImage.jpg'"></image>
 						<text style="text-align:center;">{{titem.name}}</text>
 					</view>
 				</view>
 			</view>
 		</scroll-view>
-		<!-- <scroll-view scroll-with-animation scroll-y class="right-aside" @scroll="asideScroll" :scroll-top="tabScrollTop">
-			<view v-for="item in slist" class="s-list" :id="item.id">
-				<text class="s-item">{{item.name}}</text>
-				<view class="t-list">
-					<view @click="navToList(item.id, titem.id)" v-if="titem.id === item.id" class="t-item" v-for="titem in tlist" :key="titem.id">
-						<image :src="titem.image"></image>
-						<text>{{titem.name}}</text>
-					</view>
-				</view>
-			</view>
-		</scroll-view> -->
 	</view>
 </template>
 
@@ -39,12 +32,26 @@
 				sizeCalcState: false,
 				tabScrollTop: 0,
 				currentId: 0,
+				show:false,
 				flist: [],
 				slist: [],
+				cateIndex:null,
+				threeItem:[]
 			}
 		},
 		onLoad(){
+			document.getElementsByClassName('uni-page-head')[0].style = 'padding-right:10px;background:#fff;color:#000'
 			this.loadData();
+		},
+		// 点击导航栏 buttons 时触发
+		onNavigationBarButtonTap(e) {
+			const index = e.index;
+			console.log(index)
+			if (index === 0) {
+				uni.navigateTo({
+					url: '/pages/search/search'
+				})
+			}
 		},
 		methods: {
 			async loadData(){
@@ -54,32 +61,11 @@
 					var slist = []
 					this.flist = response.data
 					this.flist.forEach(ele=>{
-						this.slist.push(ele.subs)
+						slist.push(ele.subs)
 					})
+					this.slist = slist
 					console.log(this.slist)
-					
-					/* this.flist.forEach(ele=>{
-						this.slist.push(ele.subs)
-						console.log(this.slist)
-						this.slist.forEach(el=>{
-							this.tlist.push(el)
-							console.log(this.tlist)
-						})
-					}) */
-					
-				}else{
-					
 				}
-				/* let list = await this.$api.json('cateList');
-				list.forEach(item=>{
-					if(!item.pid){
-						this.flist.push(item);  //pid为父级id, 没有pid或者pid=0是一级分类
-					}else if(!item.picture){
-						this.slist.push(item); //没有图的是2级分类
-					}else{
-						this.tlist.push(item); //3级分类
-					}
-				}) */
 			},
 			//一级分类点击
 			tabtap(item){
@@ -94,7 +80,6 @@
 						sitem.subs === item.subs
 					}
 				});
-				console.log(index)
 				if(this.slist[index] !== undefined){
 					this.tabScrollTop = this.slist[index].top;
 				}
@@ -129,10 +114,27 @@
 				})
 				this.sizeCalcState = true;
 			},
-			navToList(tid){
+			
+			// 跳转商品列表
+			navToList(item){
+				console.log(item)
 				uni.navigateTo({
-					url: `/pages/product/list?tid=${tid}`
+					url: `/pages/product/list?tid=${item.id}`
 				})
+				/* uni.navigateTo({
+					url: `/pages/search/searchList?value=${item.name}&tid=${item.id}`
+				}) */
+			},
+			
+			// 三级分类显示隐藏
+			showHide(index){
+				if(this.cateIndex === index){
+					this.cateIndex = null
+					return
+				}else{
+					this.cateIndex = index
+					return
+				}
 			}
 		}
 	}
@@ -142,7 +144,7 @@
 	page,
 	.content {
 		height: 100%;
-		background-color: #f8f8f8;
+		background-color: #fff;
 	}
 
 	.content {
@@ -189,10 +191,16 @@
 	.s-item{
 		display: flex;
 		align-items: center;
-		height: 70upx;
 		padding-top: 8upx;
 		font-size: 28upx;
 		color: $font-color-dark;
+		position: absolute;
+		z-index: 1;
+		color: #F7F7F7;
+		font-size: 16px;
+		margin-left: 20px;
+		line-height: 100px;
+		height: 100px;
 	}
 	.t-list{
 		display: flex;
@@ -216,10 +224,5 @@
 		font-size: 26upx;
 		color: #666;
 		padding-bottom: 20upx;
-		
-		image{
-			width: 140upx;
-			height: 140upx;
-		}
 	}
 </style>

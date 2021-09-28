@@ -106,7 +106,7 @@
 	};
 </script>
 <style lang="scss" scoped>
-	$box-height: 35px;
+	$box-height: 25px;
 	/* #ifdef APP-NVUE */
 	$box-line-height: 35px;
 	/* #endif */
@@ -125,15 +125,17 @@
 
 	.uni-numbox__value {
 		background-color: $uni-bg-color;
-		width: 40px;
+		width: $box-width;
 		height: $box-height;
 		text-align: center;
 		font-size: $uni-font-size-lg;
 		border-width: 1rpx;
 		border-style: solid;
-		border-color: $uni-border-color;
-		border-left-width: 0;
-		border-right-width: 0;
+		border-color: #c8c7cc;
+		border-top-width:0 ;
+		border-bottom-width:0 ;
+		border-left-width:0 ;
+		border-right-width:0 ;
 	}
 
 	.uni-numbox__minus {
@@ -143,19 +145,17 @@
 		flex-direction: row;
 		align-items: center;
 		justify-content: center;
-		width: $box-width;
-		height: $box-height;
+		width: 25px;
+		height: 25px;
 		// line-height: $box-line-height;
 		// text-align: center;
 		font-size: 20px;
 		color: $uni-text-color;
-		background-color: $uni-bg-color-grey;
-		border-width: 1rpx;
+		background-color: #fff;
+		border-width: 2upx;
 		border-style: solid;
-		border-color: $uni-border-color;
-		border-top-left-radius: $uni-border-radius-base;
-		border-bottom-left-radius: $uni-border-radius-base;
-		border-right-width: 0;
+		border-color: #c8c7cc;
+		
 	}
 
 	.uni-numbox__plus {
@@ -165,15 +165,12 @@
 		flex-direction: row;
 		align-items: center;
 		justify-content: center;
-		width: $box-width;
-		height: $box-height;
-		border-width: 1rpx;
+		width: 25px;
+		height: 25px;
+		border-width: 2upx;
 		border-style: solid;
-		border-color: $uni-border-color;
-		border-top-right-radius: $uni-border-radius-base;
-		border-bottom-right-radius: $uni-border-radius-base;
-		background-color: $uni-bg-color-grey;
-		border-left-width: 0;
+		border-color: #c8c7cc;
+		background-color: #fff;
 	}
 
 	.uni-numbox--text {

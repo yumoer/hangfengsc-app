@@ -1,6 +1,6 @@
 <template>
 	<view class="container">
-		<view class="list-cell b-b m-t" @click="navTo('/pages/set/userInfo')" hover-class="cell-hover" :hover-stay-time="50">
+		<view class="list-cell b-b" @click="navTo('/pages/set/userInfo')" hover-class="cell-hover" :hover-stay-time="50">
 			<text class="cell-tit">个人资料</text>
 			<text class="cell-more yticon icon-you"></text>
 		</view>
@@ -30,7 +30,7 @@
 		
 		<view class="list-cell b-b m-t">
 			<text class="cell-tit">消息推送</text>
-			<switch checked color="#fa436a" @change="switchChange" />
+			<switch checked color="#EE1D23" @change="switchChange" />
 		</view>
 		<view class="list-cell b-b" @click="clear" hover-class="cell-hover" :hover-stay-time="50">
 			<text class="cell-tit">清除缓存</text>
@@ -50,22 +50,11 @@
 		</view>
 		<!-- #endif -->
 		
-		
-		
-		<view class="list-cell log-out-btn" @click="toLogout">
-			<text class="cell-tit">退出登录</text>
+		<view class="loginBtn">
+			<button class="confirm-btn" @click="toLogout">退出登录</button>
 		</view>
 		
-		<view class="cell-tit" style="text-align: center;margin-top: 80upx;font-size: 28upx;color: #606266;line-height: 50upx;">
-			<text>Copyright@2008-2020</text></br>
-			<text>行丰银拓hfyt365.com 版权所有</text>
-		</view>
-		
-		<!-- <view class="cell-tit" style="position: absolute;bottom: 20px;width: 100%;text-align: center;">
-			<text style="font-size: 30upx;margin:0 auto;">
-				<text @click="navTo('/pages/set/service')">服务协议</text> | <text @click="navTo('/pages/set/privacy')">隐私协议</text>
-			</text>
-		</view> -->
+		<show-modal></show-modal>
 	</view>
 </template>
 
@@ -109,7 +98,7 @@
 				console.log(res.data,this.version)
 				if(this.version !== '' && res.data.max_version>this.version){
 					if(plus.networkinfo.getCurrentType()!=3){
-						uni.showModal({  //提醒用户更新
+						this.$showModal({  //提醒用户更新
 							title: '更新提示',
 							content: '有新的版本发布，检测到您目前非Wifi连接，为节约您的流量，程序已停止自动更新，将在您连接WIFI之后重新检测更新。',
 							
@@ -140,7 +129,7 @@
 								 });  
 							}    
 						});  
-						uni.showModal({
+						this.$showModal({
 							title: '更新提示',
 							content: '有新的版本发布，检测到您目前为Wifi连接，程序已启动自动更新。新版本下载完成后将自动弹出安装程序。',
 							confirmText:'确认下载',
@@ -178,9 +167,11 @@
 					}
 					console.log(self.size)
 					 //可以询问用户是否删除
-					  uni.showModal({
+					  this.$showModal({
 						title:'提示',
-						content:'确定清除缓存吗?',
+						content:'确认清除缓存吗?',
+						cancelText:"取消",
+						confirmText:"确认",
 						success(res) {
 						   // 用户确定要删除
 							if(res.confirm){
@@ -203,9 +194,11 @@
 				// #endif
 				// #ifdef H5
 				uni.removeStorage({key:'userInfo'})
-				uni.showModal({
+				this.$showModal({
 					title:'提示',
-				    content: '清除成功后，需要重新登录?',
+				    content: '确认清除缓存吗?',
+					cancelText:"取消",
+					confirmText:"确认",
 				    success: (e)=>{
 				    	if(e.confirm){
 				    		this.logout();
@@ -218,9 +211,11 @@
 			},
 			//退出登录
 			toLogout(){
-				uni.showModal({
-					title:'提示',
-				    content: '退出登录数据会被清除,确定要退出登录?',
+				this.$showModal({
+					title:'确认退出登录?',
+				    content: '退出登录后,登录信息会被清除',
+					cancelText:"取消",
+					confirmText:"确认",
 				    success: (e)=>{
 				    	if(e.confirm){
 							uni.removeStorage({key:'userInfo'})
@@ -237,9 +232,11 @@
 			},
 			
 			logouts(){
-				uni.showModal({
-					title:'提示',
-				    content: '注销成功后，您的账号将无法登录！',
+				this.$showModal({
+					title:'确认注销账户?',
+				    content: '注销账号后,您的账号将无法登录',
+					cancelText:"取消",
+					confirmText:"确认",
 				    success: async(e) =>{
 				    	if(e.confirm){
 							const response = await uniRequest({
@@ -266,15 +263,33 @@
 </script>
 
 <style lang='scss'>
-	page{
-		background: $page-color-base;
+	.container{
+		padding-top: 16upx;
+	}
+	.loginBtn{
+		width: 70%;
+		margin: 0 auto;
+		position: relative;
+		bottom: -280px;
+		.confirm-btn{
+			width: 100%;
+			height: 80upx;
+			line-height: 80upx;
+			border-radius: 50px;
+			color: #fff;
+			background:linear-gradient(to right,#EE1D23,#F04023);
+			font-size: $font-lg;
+			&:after{
+				border-radius: 100px;
+			}
+		}
 	}
 	.list-cell{
 		display:flex;
+		padding-top: 16upx;
 		align-items:baseline;
 		padding: 20upx $page-row-spacing;
 		line-height:60upx;
-		position:relative;
 		background: #fff;
 		justify-content: center;
 		&.log-out-btn{
@@ -303,13 +318,15 @@
 		.cell-tit{
 			flex: 1;
 			font-size: $font-base + 2upx;
-			color: $font-color-dark;
+			color: #666;
 			margin-right:10upx;
 		}
 		.cell-tip{
 			font-size: $font-base;
 			color: $font-color-light;
 		}
+		
+		
 		switch{
 			transform: translateX(16upx) scale(.84);
 		}

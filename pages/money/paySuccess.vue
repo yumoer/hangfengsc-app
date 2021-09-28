@@ -1,6 +1,45 @@
 <template>
 	<view class="content">
-		<text class="success-icon yticon icon-xuanzhong2"></text>
+		<view class="" style="width: 100%;background: url(../../static/index/paybg.png);background-size: 100% 100%;background-repeat: no-repeat;">
+			<view class="" style="margin: 0 auto;margin-top: 80upx;text-align: center;">
+				<image style="width: 92upx;height: 92upx;margin-bottom: 10px;" src="../../static/index/paysuccess.png" mode=""></image><br/>
+				<text style="font-size: 36upx;color: #fff;font-weight: bold;">支付成功</text>
+			</view>
+			<view class="" style="width: 92%;height: 170upx;background-color: #fff;margin: 0 30upx;border-radius: 10px;margin-top: 40upx;">
+				<view class="" style="text-align: center;padding: 44upx;display: flex;flex-direction: row;justify-content: space-between;">
+					<navigator url="/pages/index/index" class="action-btn">返回首页</navigator>
+					<navigator url="/pages/order/order?state=0" class="action-btn recom">查看订单</navigator>
+				</view>
+			</view>
+		</view>
+		
+		<view class="" style="width: 100%;height: 500px;margin-top: 30px;">
+			<view class="" style="width: 100%;text-align: center;height: 120upx;line-height: 120upx;">
+				<image style="width: 480upx;height: 37upx;" src="../../static/index/cainixihuan.png" mode=""></image>
+			</view>
+			<view class="guess-section">
+				<view 
+					v-for="(item, index) in skuData" :key="index"
+					class="guess-item"
+					@click="navToDetailPage(item)"
+					v-if="item.object !== null"
+				>
+					<view class="image-wrapper" >
+						<image :src="item._source.detail_image" mode="aspectFill"></image>
+					</view>
+					<view class="" style="padding: 10px;position: relative;">
+						<text class="title">{{item._source.name}}</text>
+						<text style="display: inline-block;">
+							<text class="price">{{item._source.price}}</text>
+							<text style="color: rgb(144, 147, 153); line-height:60upx;font-size: 28upx;position: absolute;right: 16px;" >{{item._source.sales}}人付款</text>
+						</text>
+					</view>
+					
+				</view>
+			</view>
+		</view>
+		
+		<!-- <text class="success-icon yticon icon-xuanzhong2"></text>
 		<text class="tit">订单提交成功</text>
 		
 		<view class="btn-group">
@@ -9,7 +48,7 @@
 				<navigator url="/pages/index/index" v-if="payType === 1 || payType === 3 || payType === 4" open-type="switchTab" class="mix-btn hollow">继续购物</navigator>
 				<navigator @click="goPay(payType)" v-if="payType === 2 || payType === 8 || payType === 9" open-type="switchTab" class="mix-btn hollow">去支付</navigator>
 			</view>
-		</view>
+		</view> -->
 		
 		<ssPaymentPassword ref="paymentPassword" :mode="mode" :value="pay_password" @submit="submitHandle" />
 		<u-mask :show="show" @click="show = false">
@@ -35,6 +74,7 @@
 				payType:null,
 				pay_password:'',
 				show:false,
+				skuData:[],
 				mode:0,
 				private:'', //签名
 				public:'', //加密
@@ -45,6 +85,16 @@
 			console.log(JSON.parse(option.payType))
 			this.payType = JSON.parse(option.payType)
 			this.orderId = JSON.parse(option.orderId)
+			
+			await uniRequest.post('/goods/new/search/',{text:'',page:this.page,page_size:this.page_size,orderBy:'',sort:''})
+			.then(res=>{
+				this.skuData = res.data.sku_list
+				if(this.skuData.length === 0){
+					this.loadingType = 'nomore';
+				}
+			}).catch(error=>{
+				console.log(error)
+			})
 			
 			const response = await uniRequest({
 				url:'/payment/secret/key/',
@@ -309,6 +359,76 @@
 	}
 	.btn-group{
 		padding-top: 100upx;
+	}
+	.guess-section{
+		display:flex;
+		flex-wrap:wrap;
+		padding: 0 30upx;
+		.guess-item{
+			display:flex;
+			flex-direction: column;
+			width: 48%;
+			border-radius: 0 0 10px 10px;
+			margin-bottom: 40upx;
+			background-color: #fff;
+			&:nth-child(2n+1){
+				margin-right: 4%;
+			}
+		}
+		.image-wrapper{
+			width: 100%;
+			height: 330upx;
+			border-radius: 0;
+			overflow: hidden;
+			image{
+				width: 100%;
+				height: 100%;
+				opacity: 1;
+			}
+		}
+		.title{
+			font-size: $font-base;
+			color: $font-color-dark;
+			overflow: hidden;
+			text-overflow: ellipsis;
+			display: -webkit-box;
+			-webkit-box-orient:vertical;
+			-webkit-line-clamp: 2;
+		}
+		.price{
+			font-size: 30upx;
+			color: $uni-color-hangfeng;
+			line-height: 60upx;
+			margin-left: -10upx;
+			font-weight: bold;
+			&:before{
+				content: '￥';
+				font-size: $font-sm;
+				margin: 0 2upx 0 8upx;
+			}
+		}
+	}
+	.action-btn{
+		width: 220upx;
+		height: 80upx;
+		margin-left: 48upx;
+		padding: 0;
+		display: inline-block;
+		text-align: center;
+		line-height: 80upx;
+		font-size: $font-sm + 6upx;
+		color: $uni-color-hangfeng;
+		border: 1px solid #EE1D23;
+		border-radius: 100px;
+		background: #fff;
+		border-radius: 100px;
+		&.recom{
+			background:linear-gradient(to right,#EE1D23,#F04023);
+			color: #fff;
+			&:after{
+				border-color: #f7bcc8;
+			}
+		}
 	}
 	.mix-btn {
 		margin-top: 30upx;

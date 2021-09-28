@@ -1,16 +1,18 @@
 <template>
 	<view class="content">
-		<view class="row b-b">
-			<text class="tit">当前密码</text>
-			<input class="input" type="password" v-model="userInfo.oldPwd" placeholder="请填写当前密码" placeholder-class="placeholder" />
-		</view>
-		<view class="row b-b">
-			<text class="tit">新密码</text>
-			<input class="input" type="password" v-model="userInfo.newPwd" placeholder="请填写新密码" placeholder-class="placeholder" />
-		</view>
-		<view class="row b-b">
-			<text class="tit">确认密码</text>
-			<input class="input" type="password" v-model="userInfo.confirmPwd" placeholder="请填写确认密码" placeholder-class="placeholder" />
+		<view class="wrap">
+			<view class="row b-b">
+				<text class="tit">当前密码</text>
+				<input class="input" type="password" maxlength="16" v-model="userInfo.oldPwd" placeholder="请填写当前密码" placeholder-class="placeholder" />
+			</view>
+			<view class="row b-b">
+				<text class="tit">新密码</text>
+				<input class="input" type="password" maxlength="16" v-model="userInfo.newPwd" placeholder="请填写新密码" placeholder-class="placeholder" />
+			</view>
+			<view class="row b-b">
+				<text class="tit">确认密码</text>
+				<input class="input" type="password" maxlength="16" v-model="userInfo.confirmPwd" placeholder="请填写确认密码" placeholder-class="placeholder" />
+			</view>
 		</view>
 		
 		<button class="add-btn" @click="confirm">修改</button>
@@ -100,9 +102,14 @@
 </script>
 
 <style lang="scss">
-	page {
-		background: $page-color-base;
-		padding-top: 16upx;
+	.content{
+		padding: 30upx;
+	}
+	.wrap{
+		width: 100%;
+		height: 100%;
+		background: #fff;
+		border-radius: 20upx;
 	}
 
 	.row {
@@ -111,8 +118,6 @@
 		position: relative;
 		padding: 0 30upx;
 		height: 110upx;
-		background: #fff;
-
 		.tit {
 			flex-shrink: 0;
 			width: 160upx;
@@ -148,24 +153,13 @@
 		display: flex;
 		align-items: center;
 		justify-content: center;
-		width: 690upx;
+		width: 590upx;
 		height: 80upx;
 		margin: 60upx auto;
 		font-size: $font-lg;
 		color: #fff;
-		background-color: $base-color;
-		border-radius: 10upx;
+		background: linear-gradient(to right,#EE1D23,#F04023);
+		border-radius: 40upx;
 		box-shadow: 1px 2px 5px rgba(219, 63, 96, 0.6);
-	}
-	.del-btn {
-		display: flex;
-		align-items: center;
-		justify-content: center;
-		width: 160upx;
-		height: 80upx;
-		margin: 60upx auto;
-		font-size: $font-lg;
-		border-radius: 10upx;
-		box-shadow: 1px 2px 5px rgba(219, 63, 96, 0.4);
 	}
 </style>

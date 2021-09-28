@@ -141,9 +141,6 @@
 	border-radius 5px
 	margin-right 5px
 }
-/deep/ .uni-page-head-btn{
-	margin 0 4px
-}
 
 #page{
 	width 100%

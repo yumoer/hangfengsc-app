@@ -46,7 +46,7 @@
 				</view>
 			</view>
 			<view class="shop_btn" style="width: 100%;position: absolute;bottom: 0;">
-				<button style="color: #fff;background-color: #fa436a;height: 45px;line-height: 45px;" @click="editAddress">填写地址</button>
+				<button style="color: #fff;background-color: rgb(255, 127, 80);height: 45px;line-height: 45px;" @click="editAddress">填写地址</button>
 			</view>
 			
 			<view>
@@ -93,6 +93,8 @@
 						v-model="mobile"
 						label="手机"
 						:required="true"
+						type="number"
+						:maxlength="11"
 						placeholder="请填写手机号"
 						:error-message="errMobile"
 					>
@@ -112,8 +114,6 @@
 					<u-field
 						v-model="address"
 						label="详细地址"
-						type="textarea"
-						style="height: 120upx;"
 						:required="true"
 						placeholder="请填写街道详细地址"
 						:error-message="errAddress"
@@ -127,7 +127,8 @@
 					</u-field>
 			    </view>
 			</neil-modal>
-			<city-select v-model="showing" mode="mutil-column-auto" @city-change="cityChange"></city-select>
+			<!-- <city-select v-model="showing" mode="mutil-column-auto" @city-change="cityChange"></city-select> -->
+			<selectAddress ref='selectAddress' @selectAddress="successSelectAddress"></selectAddress>
 		</view>
 	</view>
 </template>
@@ -136,6 +137,7 @@
 	import uniRequest from 'uni-request';
 	import neilModal from '@/components/neil-modal/neil-modal.vue';
 	import citySelect from '@/components/cityDate/u-city-select.vue';
+	import selectAddress from '@/components/yixuan-selectAddress/yixuan-selectAddress.vue';
 	export default{
 		data(){
 			return {
@@ -167,7 +169,7 @@
 				]
 			}
 		},
-		components: {neilModal,citySelect},
+		components: {neilModal,citySelect,selectAddress},
 		onLoad(options){
 			console.log(options)
 			this.exchange_user = options.exchange_user
@@ -196,10 +198,16 @@
 				// this.$refs.popup.open()
 			},
 			openShow(){
-				this.showing = true
+				// this.showing = true
+				this.$refs.selectAddress.show()
 			},
 			cityChange(e) {
+				console.log(e)
 				this.Taddress = e.province.label +  e.city.label + e.area.label;
+			},
+			successSelectAddress(address){ //选择成功回调
+				console.log(address)
+				this.Taddress = address;
 			},
 			/* 填写地址 */
 			editAddress(){

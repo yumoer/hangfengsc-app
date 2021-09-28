@@ -12,7 +12,7 @@
         },
         /* 5+App特有相关 */
         "usingComponents" : true,
-		// 设置 启动界面
+        // 设置 启动界面
         "splashscreen" : {
             "alwaysShowBeforeRender" : false,
             "waiting" : false,

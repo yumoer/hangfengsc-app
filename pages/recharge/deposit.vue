@@ -1,15 +1,25 @@
 <template>
 	<view class="content">
-		<view>
-			<text style="font-size: 20px;font-weight: bold;">余额充值</text>
+		<view class="d-card">
+			<view class="d-wrap">
+				<text class="d-title">可用余额</text>
+				<text class="d-money">￥{{balance}}</text>
+				<text class="d-ka">充值卡</text>
+				<text class="d-num">HFYT-20080001</text>
+			</view>
 		</view>
-		<view class="text-area">
-			<text class="title">请在下方输入框内输入充值卡号,请注意最多二十位</text>
+		<view class="d-content">
+			<view class="d-name">
+				<text style="font-size: 20px;">充值卡号</text>
+			</view>
+			<view class="d-input">
+				<input class="input" type="text" v-model="recharge" placeholder="请输入充值卡号" placeholder-class="placeholder" maxlength="20"/>
+			</view>
+			<view class="d-red">
+				<text class="d-text">温馨提示：最多可输入20位数字</text>
+			</view>
+			<button type="default" class="d-btn" @click="shareInfo">立即充值</button>
 		</view>
-		<view style="text-align: center;margin-top: 50px;">
-			<input class="input" type="text" v-model="recharge" placeholder="点击输入充值卡号" placeholder-class="placeholder" maxlength="20"/>
-		</view>
-		<button type="default" style="background-color: #fa436a;color: #fff;margin-top: 30px;width: 100%;" @click="shareInfo">立即充值</button>
 	</view>
 	
 	</view>
@@ -22,6 +32,7 @@
 		data(){
 			return {
 				recharge:'',
+				balance:'',
 				query:{
 					page:1,
 					page_size:100
@@ -32,27 +43,29 @@
 		},
 		comments:{xwEmpty},
 		onLoad(options){
-			
+			this.balance = options.balance
 		},
 		methods:{
 			async shareInfo(){
 				console.log(this.recharge)
-				const response = await uniRequest({
+				await uniRequest({
 					url:'/user/balance/top_up/?pk='+this.recharge,
 					method:'get',
 					headers:{
 						Authorization:'JWT '+uni.getStorageSync('userInfo').token
 					},
-				}).then(response=>{
-					if(response.status === 200){
-						console.log(response.data)
-						this.$api.msg(response.data.message)
+				}).then(res=>{
+					console.log(res)
+					if(res.status === 200){
+						console.log(res.data)
+						this.$api.msg(res.data.message)
 						setTimeout(()=>{
 							uni.navigateBack()
 						},1000)
-					}else if(response.status === 400){
-						this.$api.msg(response.data.message)
-					}else if(response.status === 500){
+					}else if(res.status === 400){
+						this.$api.msg(res.data.message)
+						this.recharge = ''
+					}else if(res.status === 500){
 						this.$api.msg('服务器错误')
 					}
 				}).catch(error=>{
@@ -74,20 +87,92 @@
 </script>
 
 <style lang="scss">
+	page{
+		width: 100%;
+		height: 100%;
+		background-color: #fff;
+	}
+	
 	.content{
 		display: flex;
 		flex-direction: column;
 		align-items: left;
 		justify-content: left;
-		padding: 20px 20px 0 20px;
 	}
-	.text-area {
-		display: flex;
-		justify-content: left;
+	
+	.d-card{
+		width: 100%;
+		height:460upx;
+		padding:50upx 30upx;
+		background-color: $page-color-base;
+		.d-wrap{
+			width:100%;
+			height: 360upx;
+			background: url('../../static/index/czka.png');
+			background-size: 100% 360upx;
+			color: #fff;
+			position: relative;
+			.d-title{
+				position: absolute;
+				top: 96upx;
+				right: 40upx;
+				font-size: 12px;
+			}
+			.d-money{
+				position: absolute;
+				top: 140upx;
+				right: 40upx;
+				font-size: 30px;
+			}
+			.d-ka{
+				position: absolute;
+				bottom: 40upx;
+				left: 40upx;
+			}
+			.d-num{
+				position: absolute;
+				bottom: 40upx;
+				right: 40upx;
+			}
+		}
 	}
-	.title {
-		font-size: 34upx;
-		color: #8f8f94;
-		margin-top: 10px;
+	
+	.d-content{
+		width: 100%;
+		height: 300px;
+		background-color: #fff;
+		.d-name{
+			margin-top: 100upx;
+			text-align: center;
+		}
+		.d-input{
+			text-align: center;
+			margin-top: 53px;
+			.input{
+				height: 60upx;
+				width: 80%;
+				margin: 0 10%;
+				border-bottom: 2upx solid #ddd;
+				font-size: 14px;
+			}
+		}
+		.d-red{
+			text-align: center;
+			margin-top: 20upx;
+			.d-text{
+				color: #F1654E;
+				font-size: 12px;
+				margin-top: 20px;
+			}
+		}
+		.d-btn{
+			background: linear-gradient(to right,#EE1D23,#F04023);
+			color: #fff;
+			margin-top: 30px;
+			width: 590upx;
+			height: 80upx;
+			border-radius: 40upx;
+			margin-top: 250px;
+		}
 	}
 </style>

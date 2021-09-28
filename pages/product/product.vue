@@ -1,7 +1,7 @@
 <template>
 	<view class="container">
 		<view class="carousel">
-			<swiper indicator-dots circular=true duration="400">
+			<swiper circular=true duration="400" @change="swiperChange">
 				<swiper-item class="swiper-item" v-for="(item,index) in detailsArr.images" :key="index" v-if="item !== null">
 					<view class="image-wrapper">
 						<image
@@ -12,17 +12,49 @@
 					</view>
 				</swiper-item>
 			</swiper>
+			<!-- 自定义swiper指示器 -->
+			<view class="swiper-dots">
+				<text class="num">{{swiperCurrent+1}}</text>
+				<text class="sign">/</text>
+				<text class="num">{{swiperLength}}</text>
+			</view>
 		</view>
 		
+		<!-- 名称 -->
 		<view class="introduce-section">
 			<text class="title">{{detailsArr.name}}</text>
 			<view class="price-box" style="display: block;">
 				<text class="price-tip">¥</text>
 				<text class="price">{{detailsArr.price}}</text>
 				<text class="m-price">¥{{detailsArr.market_price}}</text>
-				<text class="coupon-tip">{{tip}}</text>
-				<!-- <text style="display: inline-block;float: right;color: #909399;">库存: {{detailsArr.stock}}</text> -->
+				<!-- <text class="coupon-tip">{{tip}}</text> -->
+				<text style="display: inline-block;float: right;color: #909399;">销量: {{detailsArr.sales}}</text>
 			</view>
+			<!--  分享 -->
+			<!-- #ifdef APP-PLUS -->
+			<view class="share-section"> <!-- @click="share"-->
+				<view>
+					<image style="width: 9px;height: 12.5px;" src="../../static/index/quan.png" mode=""></image>
+					<text style="font-size: 13px;color: #EE1D23;margin-left: 10px;">分享抢券</text>
+				</view>
+				<text class="tit">分享商品得满49减10红包</text>
+				<view class="share-btn"  @tap="shareInfo">
+					<text class="yticon icon-fenxiang2"></text>
+				</view>
+			</view>
+			<!-- #endif -->
+			<!-- #ifdef H5 -->
+			<view class="share-section" @click="share">
+				<view>
+					<image style="width: 9px;height: 12.5px;" src="../../static/index/quan.png" mode=""></image>
+					<text style="font-size: 13px;color: #EE1D23;margin-left: 10px;">分享抢券</text>
+				</view>
+				<text class="tit">分享商品得满49减10红包</text>
+				<view class="share-btn">
+					<text class="yticon icon-fenxiang2"></text>
+				</view>
+			</view>
+			<!-- #endif -->
 		</view>
 		
 		<view class="introduce-section" v-if="specs.length > 0">
@@ -30,62 +62,62 @@
 			<view v-for="(spec,index) in specs[0].data" :key="index" style="display: inline-block;padding: 5px;margin-left: 15px;" v-bind:class="{'back':spec.sku === Number(sku_id)}" @click="getPages(spec.sku)">
 				<text>{{spec.value}}</text>
 			</view>
+			
 		</view>
 		
-		<!--  分享 -->
-		<!-- #ifdef APP-PLUS -->
-		<view class="share-section"> <!-- @click="share"-->
-			<view class="share-icon">
-				<text class="yticon icon-xingxing"></text>
-				 返
-			</view>
-			<text class="tit">该商品分享可领49减10红包</text>
-			<text class="yticon icon-bangzhu1"></text>
-			<view class="share-btn" @tap="shareInfo">
-				立即分享
-				<text class="yticon icon-you"></text>
-			</view>
-		</view>
-		<!-- #endif -->
-		<!-- #ifdef H5 -->
-		<view class="share-section" @click="share">
-			<view class="share-icon">
-				<text class="yticon icon-xingxing"></text>
-				 返
-			</view>
-			<text class="tit">分享给好友</text>
-			<text class="yticon icon-bangzhu1"></text>
-			<view class="share-btn">
-				立即分享
-				<text class="yticon icon-you"></text>
-			</view>
-		</view>
-		<!-- #endif -->
+		
 		
 		<view class="c-list">
-			<view class="c-row b-b" @click="join">
-				<text class="tit">购买类型</text>
+			<view class="c-row" @click="join">
+				<text class="tit">已选</text>
 				<view class="con">
-					<text class="selected-text" v-for="(sItem, sIndex) in specSelected" :key="sIndex">
+					<text class="selected-text">
+						裸粉带镜款
+					</text>
+				</view>
+				<text class="yticon icon-shengluehao2"></text>
+			</view>
+			<!-- <view class="c-row b-b">
+				<text class="tit">促销活动</text>
+				<view class="con-list">
+					<text>新人首单送20元无门槛代金券</text>
+					<text>订单满50减10</text>
+					<text>订单满100减30</text>
+					<text>单笔购买满99免邮费</text>
+				</view>
+			</view> -->
+			<view class="c-row">
+				<text class="tit">服务</text>
+				<view class="bz-list con">
+					<text>假一赔十·退货运费险·上门取退·极速退款</text>
+				</view>
+				<text class="yticon icon-you"></text>
+			</view>
+			<view class="c-row" @click="join">
+				<text class="tit">参数</text>
+				<view class="con">
+					<!-- <text class="selected-text" v-for="(sItem, sIndex) in specSelected" :key="sIndex">
 						{{sItem.name}}
+					</text> -->
+					<text class="selected-text">
+						<text style="margin-right: 20px;">品牌</text>
+						<text>材质</text>
 					</text>
 				</view>
 				<text class="yticon icon-you"></text>
 			</view>
-			<view class="c-row b-b">
-				<text class="tit">促销活动</text>
-				<view class="con-list">
-					<!-- <text>新人首单送20元无门槛代金券</text> -->
-					<!-- <text>订单满50减10</text> -->
-					<!-- <text>订单满100减30</text> -->
-					<text>单笔购买满99免邮费</text>
+			<view class="share-section" style="margin: 10upx 30upx;padding: 20upx 0;"> <!-- @click="share"-->
+				<view style="margin-right: 50upx;">
+					<image style="width: 11px;height: 11px;" src="../../static/index/duigou.png" mode=""></image>
+					<text style="font-size: 12px;margin-left: 6upx;">假一赔十</text>
 				</view>
-			</view>
-			<view class="c-row b-b">
-				<text class="tit">服务</text>
-				<view class="bz-list con">
-					<text>7天无理由退换货 ·</text>
-					<text>假一赔十 ·</text>
+				<view style="margin-right: 50upx;">
+					<image style="width: 11px;height: 11px;" src="../../static/index/duigou.png" mode=""></image>
+					<text style="font-size: 12px;margin-left: 6upx;">七日退货</text>
+				</view>
+				<view style="margin-right: 50upx;">
+					<image style="width: 11px;height: 11px;" src="../../static/index/duigou.png" mode=""></image>
+					<text style="font-size: 12px;margin-left: 6upx;">单笔满 100 包邮</text>
 				</view>
 			</view>
 		</view>
@@ -93,30 +125,32 @@
 		<!-- 评价 -->
 		<view class="eva-section" v-if="counts > 0">
 			<view class="e-header">
-				<text class="tit">评价</text>
-				<text>({{counts}})条</text>
-				<text class="tip">好评率<text style="color:#fa436a;margin-left: 20upx;">{{score}}</text></text>
+				<text class="tit">商品评价 ({{counts}})</text>
+				<text class="tip">查看全部</text>
 				<text class="yticon icon-you"></text>
 			</view> 
-			<view class="eva-box" v-if="index < comment" v-for="(result,index) in results" :key="index">
-				<image class="portrait" :src="result.is_anonymous === false ? headPicValue : '../../static/missing-face.png'"></image>
+			<view class="eva-box" v-for="(result,index) in results" :key="index" v-if="index < comment">
+				<image class="portrait" :src="result.is_anonymous ? '../../static/missing-face.png': headPicValue"></image>
 				<view class="right">
-					<text class="name" style="display: inline-block;">{{result.is_anonymous === false ? result.user : '********'}}
+					<text class="name" style="color:#666;">
+						{{result.is_anonymous ? '****' : result.user}}
 						<view class="bot" style="float: right;">
-							<text class="time">{{result.create_time.split('T')[0]+' '}}{{result.create_time.split('T')[1].split('.')[0]}}</text>
+							<text class="time">{{result.create_time}}</text>
 						</view>
 					</text>
+					<text >
+						<uni-rate :size="16" :value="result.score" style="margin-left: -2px;" color="#ee1d23" active-color="#ee1d23" />
+					</text>
 					<text class="con">{{result.comment}}</text>
-					
 				</view>
 			</view>
-		    <el-button type="primary" icon="el-icon-search" style="text-align: center;" circle @click="lookAll">{{lookBtn}}</el-button>
+		    <!-- <el-button type="primary" icon="el-icon-search" style="text-align: center;" circle @click="lookAll">{{lookBtn}}</el-button> -->
 			<!-- <button type="text" @click="lookAll">{{lookBtn}}</button> -->
 		</view>
 		
 		<view class="detail-desc">
 			<view class="d-header">
-				<text>图文详情</text>
+				<text>商品详情</text>
 			</view>
 			<!-- #ifdef APP-PLUS -->
 			<rich-text v-if="detailsArr.goods !== undefined" class="b-header" :nodes="detailsArr.goods.desc_detail || formatRichText">
@@ -133,18 +167,14 @@
 		<!-- 底部操作菜单 -->
 		<view class="page-bottom">
 			<navigator url="/pages/index/index" open-type="switchTab" class="p-b-btn">
-				<text class="yticon icon-xiatubiao--copy"></text>
+				<text class="yticon icon-home-wei"></text>
 				<text>首页</text>
 			</navigator>
 			<navigator url="/pages/cart/cart" open-type="switchTab" class="p-b-btn">
-				<text class="yticon icon-gouwuche"></text>
+				<text class="yticon icon-gwc-wei"></text>
 				<min-badge :count="num" style="position: absolute;margin-left: 40upx;top: 20upx;"></min-badge>
 				<text>购物车</text>
 			</navigator>
-			<!-- <view v-if="username" @click="toCart" open-type="switchTab" class="p-b-btn">
-				<text class="yticon icon-pinglun-copy"></text>
-				<text>客服</text>
-			</view> -->
 			<view class="p-b-btn" :class="{active: favorite}" @click="toFavorite">
 				<text class="yticon icon-shoucang"></text>
 				<text>收藏</text>
@@ -167,17 +197,18 @@
 			class="popup spec" 
 			:class="specClass"
 			@touchmove.stop.prevent="stopPrevent"
-			@click="toggleSpec"
+			
 			catchtouchmove="false"
 			maskClick="false"
 		>
 			<!-- 遮罩层 -->
 			<view class="mask"></view>
-			<view class="layer attr-content" @click.stop="stopPrevent">
-				<view class="a-t" style="padding: 20px 0;">
+			<view class="layer attr-content" @click.stop="stopPrevent" >
+				<view class="yticon icon-fork" @click="toggleSpec" style="position: absolute;right: 5px;top: 5px;color: #666;"></view>
+				<view class="a-t" style="padding: 15px 0;">
 					<image style="margin-top: 0px;" :src="detailsArr.default_image_url"></image>
 					<view class="right" style="width: 100%;">
-						<text class="stock" style="font-size: 14px;text-overflow: ellipsis;overflow: hidden;display: -webkit-box;-webkit-box-orient: vertical;-webkit-line-clamp: 2;">{{detailsArr.name}}</text>
+						<text class="stock" style="font-size: 14px;text-overflow: ellipsis;overflow: hidden;display: -webkit-box;-webkit-box-orient: vertical;-webkit-line-clamp: 2;color: #333;">{{detailsArr.name}}</text>
 						<text style="display: inline-block;margin-top: 20px;">
 							<text class="price" style="color: red;float: left;">¥{{detailsArr.price}}</text>
 							<view class="selected" style="float: right;">
@@ -206,13 +237,16 @@
 					</view>
 				</view>
 				<view style="padding: 10px 0;">
-					<text style="font-size: 16px;">购买数量</text>
-					<view class="right" style="display: inline-block;float: right;margin-right: -10px;">
-						<view >
-							<view>
-								<uni-number-box @change="bindChange" :min="1" :value="count"></uni-number-box>
-							</view>
-						</view>
+					<text style="font-size: 14px;color: #333333;">购买数量</text>
+					<text style="font-size: 12px;color: #999;margin-left: 20px;">库存：{{detailsArr.stock}}</text>
+					<view class="right" style="display: inline-block;float: right;margin-right: -25px;">
+						<uni-number-box
+							class="step"
+							:min="1" 
+							:value="count"
+							:isMin="count===1"
+							@change="bindChange"
+						></uni-number-box>
 					</view>
 				</view>
 				<button class="btn" v-if="subText === '加入购物车'" @click="toggleJoin">{{subText}}</button>
@@ -251,6 +285,8 @@
 				specClass: 'none',
 				specSelected:[],
 				detailsArr:{},
+				swiperCurrent:0,
+				swiperLength:0,
 				favorite: false,
 				shareList: [],
 				imgList: [],
@@ -360,6 +396,7 @@
 					method: 'get',
 				}).then(async res => {
 					this.detailsArr = res.data.success
+					this.swiperLength = this.detailsArr.images.length
 					uniRequest({
 						url: '/goods/'+id+'/specs/',
 						method: 'POST',
@@ -449,6 +486,7 @@
 					},
 				}).then(res=>{
 					if(res.status === 200){
+						console.log(res.data)
 						this.results = res.data.results
 						this.counts = res.data.count
 						var score = 0
@@ -468,9 +506,14 @@
 				})
 			},
 			
+			swiperChange(e) {
+				const index = e.detail.current;
+				this.swiperCurrent = index;
+				this.titleNViewBackground = this.carouselList[index].color;
+			},
+			
 			bindChange(res) {
 				this.count = Number(res)
-				console.log('返回数据',res);
 			},
 			
 			getPages(skuId){
@@ -818,16 +861,6 @@
 					this.shareObj.shareMenu.show();
 				})
 			},
-			/* //收藏
-			toFavorite(){
-				// #ifdef H5
-				location.href = "http://wpa.qq.com/msgrd?V=1&amp;uin=3145517362&amp;Site=行丰银拓办公用品商城&amp;Menu=yes'"
-				// #endif
-				// #ifdef APP-PLUS
-				plus.runtime.openURL("http://wpa.qq.com/msgrd?V=1&amp;uin=3145517362&amp;Site=行丰银拓办公用品商城&amp;Menu=yes'")
-				// #endif
-				
-			}, */
 			toCart(){
 				uni.navigateTo({
 					url:'/pages/chat/chat', 
@@ -851,18 +884,18 @@
 </script>
 
 <style lang='scss'>
-	image{
-		width: 100%;
+	/deep/ .min-badge-count{
+		background-color: #EE1D23;
 	}
 	page{
 		background: $page-color-base;
 		padding-bottom: 160upx;
 	}
-	
 	.icon-you{
 		font-size: $font-base + 2upx;
 		color: #888;
 	}
+	
 	.carousel {
 		height: 722upx;
 		position:relative;
@@ -919,10 +952,42 @@
 	  pointer-events: none;
 	}
 	
+	.swiper-dots {
+		display: flex;
+		position: absolute;
+		right: 60upx;
+		bottom: 15upx;
+		width: 72upx;
+		height: 36upx;
+		background-image: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAMgAAABkCAYAAADDhn8LAAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAAAyZpVFh0WE1MOmNvbS5hZG9iZS54bXAAAAAAADw/eHBhY2tldCBiZWdpbj0i77u/IiBpZD0iVzVNME1wQ2VoaUh6cmVTek5UY3prYzlkIj8+IDx4OnhtcG1ldGEgeG1sbnM6eD0iYWRvYmU6bnM6bWV0YS8iIHg6eG1wdGs9IkFkb2JlIFhNUCBDb3JlIDUuNi1jMTMyIDc5LjE1OTI4NCwgMjAxNi8wNC8xOS0xMzoxMzo0MCAgICAgICAgIj4gPHJkZjpSREYgeG1sbnM6cmRmPSJodHRwOi8vd3d3LnczLm9yZy8xOTk5LzAyLzIyLXJkZi1zeW50YXgtbnMjIj4gPHJkZjpEZXNjcmlwdGlvbiByZGY6YWJvdXQ9IiIgeG1sbnM6eG1wTU09Imh0dHA6Ly9ucy5hZG9iZS5jb20veGFwLzEuMC9tbS8iIHhtbG5zOnN0UmVmPSJodHRwOi8vbnMuYWRvYmUuY29tL3hhcC8xLjAvc1R5cGUvUmVzb3VyY2VSZWYjIiB4bWxuczp4bXA9Imh0dHA6Ly9ucy5hZG9iZS5jb20veGFwLzEuMC8iIHhtcE1NOkRvY3VtZW50SUQ9InhtcC5kaWQ6OTk4MzlBNjE0NjU1MTFFOUExNjRFQ0I3RTQ0NEExQjMiIHhtcE1NOkluc3RhbmNlSUQ9InhtcC5paWQ6OTk4MzlBNjA0NjU1MTFFOUExNjRFQ0I3RTQ0NEExQjMiIHhtcDpDcmVhdG9yVG9vbD0iQWRvYmUgUGhvdG9zaG9wIENDIDIwMTcgKFdpbmRvd3MpIj4gPHhtcE1NOkRlcml2ZWRGcm9tIHN0UmVmOmluc3RhbmNlSUQ9InhtcC5paWQ6Q0E3RUNERkE0NjExMTFFOTg5NzI4MTM2Rjg0OUQwOEUiIHN0UmVmOmRvY3VtZW50SUQ9InhtcC5kaWQ6Q0E3RUNERkI0NjExMTFFOTg5NzI4MTM2Rjg0OUQwOEUiLz4gPC9yZGY6RGVzY3JpcHRpb24+IDwvcmRmOlJERj4gPC94OnhtcG1ldGE+IDw/eHBhY2tldCBlbmQ9InIiPz4Gh5BPAAACTUlEQVR42uzcQW7jQAwFUdN306l1uWwNww5kqdsmm6/2MwtVCp8CosQtP9vg/2+/gY+DRAMBgqnjIp2PaCxCLLldpPARRIiFj1yBbMV+cHZh9PURRLQNhY8kgWyL/WDtwujjI8hoE8rKLqb5CDJaRMJHokC6yKgSCR9JAukmokIknCQJpLOIrJFwMsBJELFcKHwM9BFkLBMKFxNcBCHlQ+FhoocgpVwwnv0Xn30QBJGMC0QcaBVJiAMiec/dcwKuL4j1QMsVCXFAJE4s4NQA3K/8Y6DzO4g40P7UcmIBJxbEesCKWBDg8wWxHrAiFgT4fEGsB/CwIhYE+AeBAAdPLOcV8HRmWRDAiQVcO7GcV8CLM8uCAE4sQCDAlHcQ7x+ABQEEAggEEAggEEAggEAAgQACASAQQCCAQACBAAIBBAIIBBAIIBBAIABe4e9iAe/xd7EAJxYgEGDeO4j3EODp/cOCAE4sYMyJ5cwCHs4rCwI4sYBxJ5YzC84rCwKcXxArAuthQYDzC2JF0H49LAhwYUGsCFqvx5EF2T07dMaJBetx4cRyaqFtHJ8EIhK0i8OJBQxcECuCVutxJhCRoE0cZwMRyRcFefa/ffZBVPogePihhyCnbBhcfMFFEFM+DD4m+ghSlgmDkwlOgpAl4+BkkJMgZdk4+EgaSCcpVX7bmY9kgXQQU+1TgE0c+QJZUUz1b2T4SBbIKmJW+3iMj2SBVBWz+leVfCQLpIqYbp8b85EskIxyfIOfK5Sf+wiCRJEsllQ+oqEkQfBxmD8BBgA5hVjXyrBNUQAAAABJRU5ErkJggg==);
+		background-size: 100% 100%;
+	
+		.num {
+			width: 36upx;
+			height: 36upx;
+			border-radius: 50px;
+			font-size: 24upx;
+			color: #fff;
+			text-align: center;
+			line-height: 36upx;
+		}
+	
+		.sign {
+			position: absolute;
+			top: 0;
+			left: 50%;
+			line-height: 36upx;
+			font-size: 12upx;
+			color: #fff;
+			transform: translateX(-50%);
+		}
+	}
+	
 	/* 标题简介 */
 	.introduce-section{
 		background: #fff;
 		padding: 20upx 30upx;
+		margin: 20upx;
 		
 		.back{
 			background-color: #fa436a;
@@ -930,9 +995,10 @@
 		}
 		
 		.title{
-			font-size: 32upx;
-			color: $font-color-dark;
+			font-size: 28upx;
+			color: $font-color-text3;
 			height: 50upx;
+			font-weight: bold;
 			line-height: 50upx;
 		}
 		.price-box{
@@ -941,10 +1007,11 @@
 			height: 64upx;
 			padding: 10upx 0;
 			font-size: 26upx;
-			color:$uni-color-primary;
+			color:$uni-color-hangfeng;
 		}
 		.price{
 			font-size: $font-lg + 2upx;
+			font-weight: bold;
 		}
 		.m-price{
 			margin:0 12upx;
@@ -954,7 +1021,7 @@
 		.coupon-tip{
 			align-items: center;
 			padding: 4upx 10upx;
-			background: $uni-color-primary;
+			background: $uni-color-hangfeng;
 			font-size: $font-sm;
 			color: #fff;
 			border-radius: 6upx;
@@ -978,20 +1045,20 @@
 		display:flex;
 		align-items:center;
 		color: $font-color-base;
-		background: linear-gradient(left, #fdf5f6, #fbebf6);
-		padding: 12upx 30upx;
+		padding: 12upx 0;
+		border-top: 1px solid #ddd;
 		.share-icon{
 			display:flex;
 			align-items:center;
 			width: 70upx;
 			height: 30upx;
 			line-height: 1;
-			border: 1px solid $uni-color-primary;
+			border: 1px solid $uni-color-hangfeng;
 			border-radius: 4upx;
 			position:relative;
 			overflow: hidden;
 			font-size: 22upx;
-			color: $uni-color-primary;
+			color: $uni-color-hangfeng;
 			&:after{
 				content: '';
 				width: 50upx;
@@ -1000,7 +1067,7 @@
 				left: -20upx;
 				top: -12upx;
 				position:absolute;
-				background: $uni-color-primary;
+				background: $uni-color-hangfeng;
 			}
 		}
 		.icon-xingxing{
@@ -1013,8 +1080,8 @@
 			line-height: 1;
 		}
 		.tit{
-			font-size: $font-base;
-			margin-left:10upx;
+			font-size: $font-base - 4upx;
+			margin-left:40upx;
 		}
 		.icon-bangzhu1{
 			padding: 10upx;
@@ -1025,19 +1092,21 @@
 			flex: 1;
 			text-align:right;
 			font-size: $font-sm;
-			color: $uni-color-primary;
+			/* color: $uni-color-hangfeng; */
 		}
 		.icon-you{
 			font-size: $font-sm;
 			margin-left: 4upx;
-			color: $uni-color-primary;
+			color: $uni-color-hangfeng;
 		}
 	}
 	
+	/* 详情 */
 	.c-list{
 		font-size: $font-sm + 2upx;
 		color: $font-color-base;
 		background: #fff;
+		margin: 20upx;
 		.c-row{
 			display:flex;
 			align-items:center;
@@ -1045,11 +1114,12 @@
 			position:relative;
 		}
 		.tit{
-			width: 140upx;
+			width: 128upx;
+			color: #111111;
 		}
 		.con{
 			flex: 1;
-			color: $font-color-dark;
+			color: $font-color-text6;
 			.selected-text{
 				margin-right: 10upx;
 			}
@@ -1057,7 +1127,7 @@
 		.bz-list{
 			height: 40upx;
 			font-size: $font-sm+2upx;
-			color: $font-color-dark;
+			color: font-color-text6;
 			text{
 				display: inline-block;
 				margin-right: 30upx;
@@ -1067,11 +1137,11 @@
 			flex: 1;
 			display:flex;
 			flex-direction: column;
-			color: $font-color-dark;
+			color: $font-color-text6;
 			line-height: 40upx;
 		}
 		.red{
-			color: $uni-color-primary;
+			color: $uni-color-hangfeng;
 		}
 	}
 	
@@ -1081,7 +1151,7 @@
 		flex-direction: column;
 		padding: 20upx 30upx;
 		background: #fff;
-		margin-top: 16upx;
+		margin: 20upx;
 		.e-header{
 			display: flex;
 			align-items: center;
@@ -1089,13 +1159,14 @@
 			font-size: $font-sm + 2upx;
 			color: $font-color-light;
 			.tit{
-				font-size: $font-base + 2upx;
-				color: $font-color-dark;
+				font-size: $font-base;
+				color: #111;
 				margin-right: 4upx;
 			}
 			.tip{
 				flex: 1;
 				text-align: right;
+				color: $font-color-text6;
 			}
 			.icon-you{
 				margin-left: 10upx;
@@ -1107,8 +1178,8 @@
 		padding: 20upx 0;
 		.portrait{
 			flex-shrink: 0;
-			width: 80upx;
-			height: 80upx;
+			width: 100upx;
+			height: 100upx;
 			border-radius: 100px;
 		}
 		.right{
@@ -1120,7 +1191,7 @@
 			padding-left: 26upx;
 			.con{
 				font-size: $font-base;
-				color: $font-color-dark;
+				color: #666;
 				padding: 20upx 0;
 			}
 			.bot{
@@ -1133,7 +1204,7 @@
 	}
 	/*  详情 */
 	.detail-desc{
-		background: #fff;
+		background: #F5F5F5;
 		margin-top: 16upx;
 		width: 100%;
 		
@@ -1142,13 +1213,12 @@
 			justify-content: center;
 			align-items: center;
 			height: 80upx;
-			font-size: $font-base + 2upx;
+			font-size: $font-base;
 			color: $font-color-dark;
 			position: relative;
-				
 			text{
 				padding: 0 20upx;
-				background: #fff;
+				background: #F5F5F5;
 				position: relative;
 				z-index: 1;
 			}
@@ -1157,7 +1227,7 @@
 				left: 50%;
 				top: 50%;
 				transform: translateX(-50%);
-				width: 300upx;
+				width: 400upx;
 				height: 0;
 				content: '';
 				border-bottom: 1px solid #ccc; 
@@ -1198,7 +1268,7 @@
 				line-height: 42upx;
 				.price{
 					font-size: $font-lg;
-					color: $uni-color-primary;
+					color: $uni-color-hangfeng;
 					margin-bottom: 10upx;
 				}
 				.selected-text{
@@ -1234,7 +1304,7 @@
 			}
 			.selected{
 				background: #fbebee;
-				color: $uni-color-primary;
+				color: $uni-color-hangfeng;
 			}
 		}
 	}
@@ -1284,10 +1354,11 @@
 			border-radius: 10upx 10upx 0 0;
 			background-color: #fff;
 			.btn{
+				width: 80%;
 				height: 76upx;
 				line-height: 76upx;
 				border-radius: 100upx;
-				background: $uni-color-primary;
+				background: linear-gradient(to right, #EE1D23,#EE1D23,#EE841D);
 				font-size: $font-base + 2upx;
 				color: #fff;
 				margin: 30upx auto 20upx;
@@ -1330,13 +1401,13 @@
 	/* 底部操作菜单 */
 	.page-bottom{
 		position:fixed;
-		left: 30upx;
-		bottom:30upx;
+		left: 0;
+		bottom:0;
 		z-index: 95;
 		display: flex;
 		justify-content: center;
 		align-items: center;
-		width: 690upx;
+		width: 100%;
 		height: 100upx;
 		background: rgba(255,255,255,.9);
 		box-shadow: 0 0 20upx 0 rgba(0,0,0,.5);
@@ -1357,7 +1428,7 @@
 				color: $font-color-light;
 			}
 			&.active, &.active .yticon{
-				color: $uni-color-primary;
+				color: $uni-color-hangfeng;
 			}
 			.icon-fenxiang2{
 				font-size: 42upx;
@@ -1374,8 +1445,8 @@
 			overflow: hidden;
 			box-shadow: 0 20upx 40upx -16upx #fa436a;
 			box-shadow: 1px 2px 5px rgba(219, 63, 96, 0.4);
-			background: linear-gradient(to right, #ffac30,#fa436a,#F56C6C);
-			margin-left: 20upx;
+			background: linear-gradient(to right, #F04023,#EE1D23,#EE671D,#EE841D);
+			margin-right: 10upx;
 			position:relative;
 			&:after{
 				content: '';

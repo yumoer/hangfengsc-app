@@ -11,22 +11,29 @@
 				人气高低
 			</view>
 		</view>
-		<view class="goods-list">
-			<view 
-				v-for="(item, index) in goodsList" :key="index"
-				class="goods-item"
-				@click="navToDetailPage(item)"
-			>
-				<view class="image-wrapper">
-					<image :src="item.detail_image" mode="aspectFill"></image>
-				</view>
-				<text class="title clamp">{{item.name}}</text>
-				<view class="price-box">
-					<text class="price">{{item.price}}</text>
-					<!-- <text>库存 {{item.stock}}</text> -->
+		
+		<view class="goods">
+			<view class="guess-section">
+				<view 
+					v-for="(item, index) in goodsList" :key="index"
+					class="guess-item"
+					@click="navToDetailPage(item)"
+				>
+					<view class="image-wrapper" >
+						<image :src="item.detail_image" mode="aspectFill"></image>
+					</view>
+					<view class="info">
+						<text class="title">{{item.name}}</text>
+						<text style="">
+							<text class="price">{{item.price}}</text>
+							<text class="sales">{{item.sales}}人付款</text>
+						</text>
+					</view>
+					
 				</view>
 			</view>
 		</view>
+		
 		<uni-load-more :status="loadingType"></uni-load-more>
 		
 		<view class="cate-mask" :class="cateMaskState===0 ? 'none' : cateMaskState===1 ? 'show' : ''" @click="toggleCateMask">
@@ -233,7 +240,7 @@
 			color: $font-color-dark;
 			position: relative;
 			&.current{
-				color: $base-color;
+				color: $uni-color-hangfeng;
 				&:after{
 					content: '';
 					position: absolute;
@@ -242,7 +249,7 @@
 					transform: translateX(-50%);
 					width: 120upx;
 					height: 0;
-					border-bottom: 4upx solid $base-color;
+					border-bottom: 4upx solid $uni-color-hangfeng;
 				}
 			}
 		}
@@ -260,7 +267,7 @@
 				font-size: 26upx;
 				color: #888;
 				&.active{
-					color: $base-color;
+					color: $uni-color-hangfeng;
 				}
 			}
 			.xia{
@@ -343,17 +350,33 @@
 	}
 
 	/* 商品列表 */
-	.goods-list{
+	.goods{
+		width: 100%;
+		padding-top: 80upx;
+	}
+	.info{
+		padding: 10px;
+		position: relative;
+	}
+	.sales{
+		color: rgb(144, 147, 153);
+	    line-height:60upx;
+		font-size: 28upx;
+		position: absolute;
+		right: 32upx;
+	}
+	.guess-section{
 		display:flex;
 		flex-wrap:wrap;
-		padding: 0 30upx;
-		background: #fff;
-		margin-top: 88upx;
-		.goods-item{
+		padding: 20upx 30upx;
+		background-color: #f7f7f7;
+		.guess-item{
 			display:flex;
 			flex-direction: column;
 			width: 48%;
-			padding-bottom: 40upx;
+			border-radius: 0 0 10px 10px;
+			margin-bottom: 40upx;
+			background-color: #fff;
 			&:nth-child(2n+1){
 				margin-right: 4%;
 			}
@@ -361,7 +384,7 @@
 		.image-wrapper{
 			width: 100%;
 			height: 330upx;
-			border-radius: 3px;
+			border-radius: 0;
 			overflow: hidden;
 			image{
 				width: 100%;
@@ -370,25 +393,24 @@
 			}
 		}
 		.title{
-			font-size: $font-lg;
+			font-size: $font-base;
 			color: $font-color-dark;
-			line-height: 80upx;
-		}
-		.price-box{
-			display: flex;
-			align-items: center;
-			justify-content: space-between;
-			padding-right: 10upx;
-			font-size: 24upx;
-			color: $font-color-light;
+			overflow: hidden;
+			text-overflow: ellipsis;
+			display: -webkit-box;
+			-webkit-box-orient:vertical;
+			-webkit-line-clamp: 2;
 		}
 		.price{
-			font-size: $font-lg;
-			color: $uni-color-primary;
-			line-height: 1;
+			font-size: 30upx;
+			color: $uni-color-hangfeng;
+			line-height: 60upx;
+			margin-left: -10upx;
+			font-weight: bold;
 			&:before{
 				content: '￥';
-				font-size: 26upx;
+				font-size: $font-sm;
+				margin: 0 2upx 0 8upx;
 			}
 		}
 	}

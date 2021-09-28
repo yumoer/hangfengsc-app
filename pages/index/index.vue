@@ -5,7 +5,7 @@
 			<!-- 标题栏和状态栏占位符 -->
 			<view class="titleNview-placing"></view>
 			<!-- 背景色区域 -->
-			<view class="titleNview-background" :style="{backgroundColor:titleNViewBackground}"></view>
+			<view class="titleNview-background"></view>
 			<swiper class="carousel" circular autoplay @change="swiperChange">
 				<swiper-item v-for="(item, index) in carouselList" :key="index" class="carousel-item" @click="goToPage(item.url)">
 					<image :src="item.image"/>
@@ -27,7 +27,33 @@
 			</view>
 		</view>
 		
-		
+		<!-- 功能页	-->
+		<view class="func-wrapper" style="">
+			<view class="func-content" style="">
+				<swiper :indicator-dots="true" :autoplay="true" :interval="3000" :duration="1000" style="height: 285px;">
+					<swiper-item>
+						<view class="swiper-item">
+							<text class="swiper-text" style="">今日爆款</text>
+							<image class="swiper-image" src="../../static/index/jrbk.png" mode=""></image>
+						</view>
+					</swiper-item>
+					<swiper-item>
+						<view class="swiper-item">
+							<text class="swiper-text">今日爆款</text>
+							<image class="swiper-image" src="../../static/index/jrbk.png" mode=""></image>
+						</view>
+					</swiper-item>
+				</swiper>
+			</view>
+			<view class="func-right">
+				<view class="func-xpsf">
+					<image class="func-image" style="" src="../../static/index/xpsf.png" mode=""></image>
+				</view>
+				<view class="func-lqzx">
+					<image class="func-image" src="../../static/index/lqzx.png" mode=""></image>
+				</view>
+			</view>
+		</view>
 		
 		<!-- 秒杀楼层 -->
 		<view class="seckill-section m-t" v-if="goodList.length > 0">
@@ -61,110 +87,12 @@
 			</scroll-view>
 		</view>
 		
-		<!-- 团购楼层 -->
-		<!-- <view class="f-header m-t">
-			<image src="/static/temp/h1.png"></image>
-			<view class="tit-box">
-				<text class="tit">精品团购</text>
-				<text class="tit2">Boutique Group Buying</text>
-			</view>
-			<text class="yticon icon-you"></text>
-		</view>
-		<view class="group-section">
-			<swiper class="g-swiper" :duration="500">
-				<swiper-item
-					class="g-swiper-item"
-					v-for="(item, index) in goodsList" :key="index"
-					v-if="index%2 === 0"
-					@click="navToDetailPage(item)"
-				>
-					<view class="g-item left">
-						<image :src="item.image" mode="aspectFill"></image>
-						<view class="t-box">
-							<text class="title clamp">{{item.title}}</text>
-							<view class="price-box">
-								<text class="price">￥{{item.price}}</text> 
-								<text class="m-price">￥188</text> 
-							</view>
-							
-							<view class="pro-box">
-							  	<view class="progress-box">
-							  		<progress percent="72" activeColor="#fa436a" active stroke-width="6" />
-							  	</view>
-								<text>6人成团</text>
-							</view>
-						</view>
-						            
-					</view>
-					<view class="g-item right">
-						<image :src="goodsList[index+1].image" mode="aspectFill"></image>
-						<view class="t-box">
-							<text class="title clamp">{{goodsList[index+1].title}}</text>
-							<view class="price-box">
-								<text class="price">￥{{goodsList[index+1].price}}</text> 
-								<text class="m-price">￥188</text> 
-							</view>
-							<view class="pro-box">
-							  	<view class="progress-box">
-							  		<progress percent="72" activeColor="#fa436a" active stroke-width="6" />
-							  	</view>
-								<text>10人成团</text>
-							</view>
-						</view>
-					</view>
-				</swiper-item>
-
-			</swiper>
-		</view> -->
-		
-		
-		
-		
-		<!-- 分类推荐楼层 -->
-		<view class="f-header m-t" @click="toCategory">
-			<image src="/static/temp/h1.png"></image>
-			<view class="tit-box">
-				<text class="tit">分类精选</text>
-				<text class="tit2">Classified selection</text>
-			</view>
-			<text class="yticon icon-you"></text>
-		</view>
-		<view class="hot-floor">
-			<view class="floor-img-box">
-				<image class="floor-img" src="/static/index/classBack.jpg" mode="scaleToFill"></image>
-			</view>
-			<scroll-view class="floor-list" scroll-x>
-				<view class="scoll-wrapper">
-					<view 
-						v-for="(item, index) in goodsList" :key="index"
-						v-if="index < 10"
-						class="floor-item"
-						@click="navToDetailPage(item)"
-					>
-						<image v-if="item.detail_image !== null" :src="item.detail_image" mode="aspectFill"></image>
-						<!-- #ifdef H5 -->
-						<text style="text-align: center;" class="title clamp">{{item.name}}</text>
-						<!-- #endif -->
-						<!-- #ifdef APP-PLUS -->
-						<text style="text-align: center;font-size: 30upx;color: #000;" class="title clamp">{{item.name}}</text>
-						<!-- #endif -->
-						<text class="price">￥{{item.price}}</text>
-					</view>
-					<view class="more" @click="toCategory">
-						<text>查看全部</text>
-						<text>More+</text>
-					</view>
-				</view>
-			</scroll-view>
-		</view>
-		 
-
 		<!-- 猜你喜欢 -->
 		<view class="f-header m-t">
 			<image src="/static/temp/h1.png"></image>
 			<view class="tit-box">
-				<text class="tit">猜你喜欢</text>
-				<text class="tit2">Guess You Like It</text>
+				<text class="tit">为你推荐</text>
+				<text class="tit2">Recommend For You</text>
 			</view>
 			<text class="yticon icon-you"></text>
 		</view>
@@ -182,7 +110,7 @@
 				<text class="title clamp">{{item._source.name}}</text>
 				<text style="display: inline-block;">
 					<text class="price">￥{{item._source.price}}</text>
-					<!-- <text style="float:right;color: rgb(144, 147, 153); line-height:60upx;font-size: 28upx;" >库存: {{item.object.stock}}</text> -->
+					<text style="float:right;color: rgb(144, 147, 153); line-height:60upx;font-size: 28upx;" >销量: {{item._source.sales}}</text>
 				</text>
 				
 			</view>
@@ -237,27 +165,32 @@
 				titleNViewBackground: '',
 				swiperCurrent: 0,
 				swiperLength: 0,
-				carouselList: [],
+				carouselList: [], // 轮播图
+				goodsShopList:[
+					{image:'../../static/index/jrbk.png'},
+					{image:'../../static/index/jrbk.png'},
+					{image:'../../static/index/jrbk.png'},
+					{image:'../../static/index/jrbk.png'}
+				], // 今日爆款
 				goodsList: [],
-				goodList:[],
+				goodList: [],
 				homePageList:[],
 				skuData:[],
 				loadingType: 'more', //加载更多状态
-				hour:0,
-				minute:0,
-				second:0,
+				hour:0, //年
+				minute:0, //月
+				second:0, // 日
 				load:false,
-				version:'',
-				wgtver:"",
-				appver:"",
-				iconRootPath:"_www/static/static",
+				version:'', //app版本
+				wgtver:"", // wgt把那本
+				appver:"", // apk版本
+				iconRootPath:"_www/static/static", //
 				page:1,
 				page_size:10,
 				ordering:'-create_time',
 				img:'../../static/app.png',
 				visible:true,
-				
-				backTop: {
+				backTop: { // 返回顶部
 					src: '../../static/back-top/top.png',
 					scrollTop: 0
 				},
@@ -270,12 +203,35 @@
 		onLoad(){
 			this.loadData();
 			this.getDate();
-			
 			// #ifdef APP-PLUS
 			this.getVersion()
-			
 			// #endif
 		},
+		
+		/* // 标题栏input搜索框点击
+		onNavigationBarSearchInputClicked: async function(e) {
+			this.$api.msg('点击了搜索框');
+		},
+		//点击导航栏 buttons 时触发
+		onNavigationBarButtonTap(e) {
+			const index = e.index;
+			console.log(index)
+			if (index === 0) {
+				this.$api.msg('点击了扫描');
+			} else if (index === 1) {
+				// #ifdef APP-PLUS
+				const pages = getCurrentPages();
+				const page = pages[pages.length - 1];
+				const currentWebview = page.$getAppWebview();
+				currentWebview.hideTitleNViewButtonRedDot({
+					index
+				});
+				// #endif
+				uni.navigateTo({
+					url: '/pages/notice/notice'
+				})
+			}
+		}, */
 		
 		//加载更多
 		onReachBottom(){
@@ -458,7 +414,7 @@
 			
 			// 标题栏input搜索框点击
 			onNavigationBarSearchInputClicked(e) {
-				uni.switchTab({
+				uni.navigateTo({
 					url: '/pages/search/search'
 				})
 			},
@@ -698,55 +654,8 @@
 </script>
 
 <style lang="scss">
-	/* #ifdef MP */
-	.mp-search-box{
-		position:absolute;
-		left: 0;
-		top: 30upx;
-		z-index: 9999;
-		width: 100%;
-		padding: 0 80upx;
-		.ser-input{
-			flex:1;
-			height: 56upx;
-			line-height: 56upx;
-			text-align: center;
-			font-size: 28upx;
-			color:$font-color-base;
-			border-radius: 20px;
-			background: rgba(255,255,255,.6);
-		}
-	}
-	page{
-		position:relative;
-		.cate-section{
-			position:relative;
-			z-index:4;
-			border-radius:16upx 16upx 0 0;
-			margin-top:-20upx;
-		}
-		.carousel-section{
-			padding: 0;
-			.titleNview-placing {
-				padding-top: 0;
-				height: 0;
-			}
-			.carousel{
-				.carousel-item{
-					padding: 0;
-				}
-			}
-			.swiper-dots{
-				left:40upx;
-				bottom:40upx;
-			}
-		}
-	}
-	/* #endif */
-	
-	
 	page {
-		background: #f5f5f5;
+		background: #fff;
 	}
 	.m-t{
 		margin-top: 16upx;
@@ -763,29 +672,38 @@
 		}
 
 		.titleNview-background {
-			position: absolute;
-			top: 0;
 			left: 0;
-			width: 100%;
-			height: 426upx;
 			transition: .4s;
+			position: absolute;
+			/* #ifdef APP-PLUS */
+			top: -165px;
+			height: 700upx;
+			/* #endif */
+			/* #ifdef H5 */
+			top: -180px;
+			height: 700upx;
+			/* #endif */
+			right: 0;
+			transform: scale(1);
+			background: url(../../static/index/homeBack.png);
+			background-size: cover;
+			background-position: 50%;
 		}
 	}
 	.carousel {
 		width: 100%;
-		height: 350upx;
-
+		height: 300upx;
+		margin-top: 20px;
 		.carousel-item {
 			width: 100%;
 			height: 100%;
 			padding: 0 28upx;
 			overflow: hidden;
-		}
-
-		image {
-			width: 100%;
-			height: 100%;
-			border-radius: 10upx;
+			image {
+				width: 100%;
+				height: 100%;
+				border-radius: 10upx;
+			}
 		}
 	}
 	.swiper-dots {
@@ -836,12 +754,12 @@
 		}
 		/* 原图标颜色太深,不想改图了,所以加了透明度 */
 		image {
-			width: 120upx;
-			height: 120upx;
+			width: 125upx;
+			height: 125upx;
 			margin-bottom: 14upx;
 			border-radius: 50%;
 			opacity: .7;
-			box-shadow: 4upx 4upx 20upx rgba(250, 67, 106, 0.3);
+			// box-shadow: 2upx 2upx 2upx rgba(250, 67, 106, 0.3);
 		}
 	}
 	.ad-1{
@@ -854,6 +772,56 @@
 			height: 100%; 
 		}
 	}
+	/* 功能专区 */
+	.func-wrapper{
+		width: 100%;
+		height: 285px;
+		background-color: #fff;
+		padding: 0 28rpx;
+		margin: 40rpx 0;
+		.func-content{
+			width: 48%;
+			height: 285px;
+			float: left;
+			.swiper-item{
+				.swiper-text{
+					position: absolute;
+					color: #fff;
+					left: 30%;
+					top: 20px;
+					z-index: 1;
+					font-size: 18px;
+				}
+				.swiper-image{
+					width: 100%;
+					height: 285px;
+				}
+			}
+		}
+		.func-right{
+			width: 48%;
+			height: 100%;
+			float: right;
+			.func-xpsf{
+				width: 100%;
+				height: 48%;
+				.func-image{
+					width: 100%;
+					height: 100%;
+				}
+			}
+			.func-lqzx{
+				width: 100%;
+				height: 48%;
+				margin-top: 26rpx;
+				.func-image{
+					width: 100%;
+					height: 100%;
+				}
+			}
+		}
+	}
+	
 	/* 秒杀专区 */
 	.seckill-section{
 		padding: 4upx 30upx 24upx;
@@ -1125,59 +1093,7 @@
 		.price{
 			font-size: $font-lg;
 			color: $uni-color-primary;
-			line-height: 1;
+			line-height: 60upx;
 		}
 	}
-	
-
 </style>
-
-
-
-<!-- <template>
-	<view class="content">
-		<view class="list">
-			11111111
-		</view>
-		<backTop :src="backTop.src"  :scrollTop="backTop.scrollTop"></backTop>
-	</view>
-</template>
-
-<script>
-	import backTop from '@/components/back-top/back-top.vue';
-	export default {
-		data() {
-			return {
-				backTop: {
-					src: '../../static/back-top/top.png',
-					scrollTop: 0
-				},
-				scrollTop: 0
-			}
-		},
-		components: {
-			backTop
-		},
-		onPageScroll(e) {
-			this.backTop.scrollTop = e.scrollTop;
-		},
-		onLoad() {
-
-		},
-		methods: {
-
-		}
-	}
-</script>
-
-<style>
-	.content {
-		display: flex;
-		flex-direction: column;
-		align-items: center;
-		justify-content: center;
-	}
-	.list{
-		height: 3000upx;
-	}
-</style> -->

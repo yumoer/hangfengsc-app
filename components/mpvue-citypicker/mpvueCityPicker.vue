@@ -72,17 +72,17 @@ export default {
       }, 0);
     },
 	async getAreaList(){
-		const response = await uniRequest({
+		await uniRequest({
 			url: '/mobile/get/carts/name/all/',
 			method: 'get',
 			headers: {
 				Authorization: 'JWT ' + uni.getStorageSync('userInfo').token
 			},
-		}).then(response => {
+		}).then(res => {
 			var _that = this
-			if(response.data !== undefined){
-				_that.provinceData = response.data
-				response.data.map(function(e) {
+			if(res.data !== undefined){
+				_that.provinceData = res.data
+				res.data.map(function(e) {
 					if(e.subs !== undefined){
 						_that.cityData.push(e.subs);
 						_that.cityData.map(function(a) {
@@ -94,7 +94,7 @@ export default {
 					}
 				})
 			}
-			console.log(_that.provinceData,_that.cityData,_that.areaData)
+			/* console.log(_that.provinceData,_that.cityData,_that.areaData) */
 			this.provinceDataList = _that.provinceData;
 			this.cityDataList = _that.cityData[this.pickerValueDefault[0]];
 			this.areaDataList = _that.areaData[this.pickerValueDefault[0]][this.pickerValueDefault[1]];

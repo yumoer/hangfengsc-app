@@ -1,11 +1,11 @@
 <template>
 	<view class="container">
 		<!-- 空白页 -->
-		<view v-if="empty===true" class="empty">
+		<view v-if="!hasLogin || empty===true" class="empty">
 			<image src="/static/emptyCart.jpg" mode="aspectFit"></image>
 			<view v-if="hasLogin" class="empty-tips">
 				空空如也
-				<view class="navigator" @click="navTo('/pages/index/index')" open-type="switchTab">随便逛逛></view>
+				<navigator class="navigator" v-if="hasLogin" url="../index/index" open-type="switchTab">随便逛逛></navigator>
 			</view>
 			<view v-else class="empty-tips">
 				空空如也
@@ -24,44 +24,31 @@
 							<image :src="item.default_image_url" 
 								:class="[item.loaded]"
 								mode="aspectFill" 
-								lazy-load
+								lazy-load 
 								@click="gotoPath(item.id)" 
 								@load="onImageLoad('cartList', index)" 
 								@error="onImageError('cartList', index)"
 							></image>
 							<view 
-								class="yticon icon-xuanzhong2 checkbox"
+								class="yticon icon-xuanzhong checkbox"
 								:class="{checked: item.selected}"
 								@click="check('item', index)"
 							></view>
 						</view>
 						<view class="item-right">
-							<text class="clamp title">{{item.name}}</text>
-							<text class="attr"></text>
-							<text class="price">¥{{item.price}}</text>
-							<!-- #ifdef APP-PLUS -->
+							<text class="clamp title">{{item.title}}</text>
+							<text class="attr">黑色 升级款</text>
+							<text class="price">¥ <text style="font-size: 16px;">{{item.price}}</text></text>
 							<uni-number-box
 								class="step"
 								:min="1" 
 								:value="item.count"
-								:isMin="item.count===1"
+								:isMin="item.count==1"
 								:index="index"
-								@eventChange="numberChange"
+								@change="numberChange(item.count,index)"
 							></uni-number-box>
-							<!-- #endif -->
-							<!-- #ifdef H5 -->
-							<uni-number-box
-								class="step"
-								:min="1" 
-								:value="item.count"
-								:isMin="item.count===1"
-								:index="index"
-								@change="numberChanges($event,Number(index))"
-							></uni-number-box>
-							<!-- #endif -->
-							
 						</view>
-						<text class="del-btn yticon icon-fork" @click="deleteCartItem(index)"></text>
+						<!-- <text class="del-btn yticon icon-fork" @click="deleteCartItem(index)"></text> -->
 					</view>
 				</block>
 			</view>
@@ -69,21 +56,26 @@
 			<view class="action-section">
 				<view class="checkbox">
 					<image 
-						:src="allChecked?'/static/selected.png':'/static/select.png'" 
+						:src="allChecked?'/static/selected2.png':'/static/select2.png'" 
 						mode="aspectFit"
 						@click="check('all')"
 					></image>
-					<view class="clear-btn" :class="{show: allChecked}" @click="clearCart">
+					<text class="allText">全部</text>
+					<!-- <view class="clear-btn" :class="{show: allChecked}" @click="clearCart">
 						清空
-					</view>
+					</view> -->
 				</view>
 				<view class="total-box">
-					<text class="price">¥{{total}}</text>
+					<text class="price">
+						<text style="color: #666;">合计：</text>
+						<text style="font-size: 10px;color:#EE1D23;">¥</text>
+						<text style="font-size:16px;color:#EE1D23;font-weight: bold;">{{total}}</text>
+					</text>
 					<!-- <text class="coupon">
 						已优惠<text>0.00</text>元
 					</text> -->
 				</view>
-				<button type="primary" class="no-border confirm-btn" @click="createOrder">去结算</button>
+				<button type="primary" class="no-border confirm-btn" @click="createOrder">结算 ({{selected.length}})</button>
 			</view>
 		</view>
 	</view>
@@ -93,8 +85,7 @@
 	import {
 		mapState
 	} from 'vuex';
-	// import {getHomeOrderAnalysis} from '../../common/api.js'
-	import uniNumberBox from '@/components/uni-number-box.vue'
+	import uniNumberBox from '@/components/uni-number-box/uni-number-box.vue'
 	import uniRequest from 'uni-request'
 	export default {
 		components: {
@@ -103,19 +94,14 @@
 		data() {
 			return {
 				total: 0, //总价格
-				disTotal:0,
 				allChecked: false, //全选状态  true|false
 				empty: false, //空白页现实  true|false
 				cartList: [],
-				token:'',
+				selected:[], //选中的个数
 			};
 		},
-		onLoad(){
-			/* getHomeOrderAnalysis().then(res=>{
-				console.log(res)
-			}) */
-		},
 		onShow(){
+			document.getElementsByClassName('uni-page-head')[0].style = 'padding-right:10px;background:#fff;color:#000'
 			this.loadData();
 		},
 		watch:{
@@ -128,7 +114,7 @@
 			}
 		},
 		computed:{
-			...mapState(['hasLogin','login'])
+			...mapState(['hasLogin'])
 		},
 		methods: {
 			//请求数据
@@ -139,14 +125,11 @@
 					headers:{
 						Authorization:'JWT '+uni.getStorageSync('userInfo').token
 					},
-					crossDomain: true,
-					xhrFields: {
-						withCredentials: true
-					},
 				}).then(res=>{
 					console.log(res.status)
 					if(res.status === 200 || res.status === 201){
-						let cartList = res.data.map(item=>{
+						let cartList = res.data.map((item,index)=>{
+							this.$set(item, 'loaded', 'loaded');
 							return item;
 						});
 						this.cartList = cartList;
@@ -159,8 +142,8 @@
 				}).catch(error=>{
 					console.log('222',error)
 				})
-				
 			},
+			
 			//监听image加载完成
 			onImageLoad(key, index) {
 				this.$set(this[key][index], 'loaded', 'loaded');
@@ -186,8 +169,9 @@
 			},
 			 //选中状态处理
 			async check(type, index){
+				// 单选
 				if(type === 'item'){
-					const response = await uniRequest({
+					await uniRequest({
 						url:'/carts/cart_sku/',
 						method:'put',
 						data:{
@@ -198,9 +182,10 @@
 						headers:{
 							Authorization:'JWT '+uni.getStorageSync('userInfo').token
 						},
+					}).then(res=>{
+						this.cartList[index].selected = !this.cartList[index].selected;
 					})
-					this.cartList[index].selected = !this.cartList[index].selected;
-				}else{
+				}else{ // 全选
 					const selected = !this.allChecked
 					await uniRequest({
 						url:'/carts/cart_skus/',
@@ -211,10 +196,11 @@
 						},
 					}).then(res=>{
 						console.log(res)
-						if(res.status === 400){
-							this.$api.msg(res.data.message)
+						if(res.status === 200){
+							this.loadData()
 						}else{
-							this.loadData();
+							this.$api.msg(res.data.message)
+							
 						}
 					}).catch(err=>{
 						console.log(err)
@@ -223,23 +209,11 @@
 				this.calcTotal(type);
 			},
 			//数量
-			// #ifdef APP-PLUS
-			numberChange(data){
-				console.log('111')
-				console.log(data)
-				this.cartList[data.index].count = data.number;
+			numberChange(data,index){
+				// this.cartList[index].count += Number(data+1);
+				console.log(data,index)
 				this.calcTotal();
 			},
-			// #endif
-			// #ifdef H5
-			numberChanges(changeNumber,index){
-				console.log('222')
-				console.log(index,changeNumber)
-				this.cartList[index].count = changeNumber;
-				this.calcTotal();
-			},
-			// #endif
-			
 			//删除
 			deleteCartItem(index){
 				let list = this.cartList;
@@ -258,7 +232,7 @@
 								},
 							}).then(res=>{
 								this.cartList.splice(index, 1);
-								this.$api.msg(`删除 `+row.title+`成功`);
+								this.$api.msg(`删除成功`);
 								this.calcTotal();
 								uni.hideLoading();
 							})
@@ -295,13 +269,16 @@
 				}
 				let total = 0;
 				let selected = true;
+				let selectArr = [];
 				list.forEach(item=>{
 					if(item.selected === true){
+						selectArr.push(item.selected)
 						total += item.price * item.count;
 					}else if(selected === true){
 						selected = false;
 					}
 				})
+				this.selected = selectArr;
 				this.allChecked = selected;
 				this.total = Number(total+'').toFixed(2);
 			},
@@ -327,7 +304,18 @@
 </script>
 
 <style lang='scss'>
+	page{
+		background-color: #F8F8F8;
+	}
 	
+	/deep/ .uni-numbox{
+		background-color: #fff;
+		left: 115px;
+		position: relative;
+	} 
+	/deep/ .cart-item .checkbox{
+		border-radius: none;
+	}
 	.container{
 		padding-bottom: 134upx;
 		/* 空白页 */
@@ -363,21 +351,24 @@
 	.cart-item{
 		display:flex;
 		position:relative;
-		padding:30upx 40upx;
+		margin:20upx 20upx;
+		padding: 20upx 20upx 20upx 40upx;
+		background-color: #fff;
+		border-radius: 10px;
 		.image-wrapper{
-			width: 230upx;
-			height: 230upx;
+			width: 200upx;
+			height: 200upx;
 			flex-shrink: 0;
 			position:relative;
+			margin-left: 10px;
 			image{
-				will-change: transform;
 				border-radius:8upx;
 			}
 		}
 		.checkbox{
 			position:absolute;
-			left:-16upx;
-			top: -16upx;
+			left:-54upx;
+			top: 80upx;
 			z-index: 8;
 			font-size: 44upx;
 			line-height: 1;
@@ -393,22 +384,27 @@
 			overflow: hidden;
 			position:relative;
 			padding-left: 30upx;
-			.title,.price{
+			.title{
 				font-size:$font-base + 2upx;
 				color: $font-color-dark;
-				height: 40upx;
-				line-height: 40upx;
+				height: 80upx;
+				line-height: 80upx;
+			}
+			.price{
+				font-size:$font-base + 2upx;
+				color: $font-color-dark;
+				height: 50upx;
+				line-height: 50upx;
+				position: absolute;
+				bottom: 5px;
+				color:#EE1D23;
+				font-weight: 600;
 			}
 			.attr{
 				font-size: $font-sm + 2upx;
 				color: $font-color-light;
 				height: 50upx;
 				line-height: 50upx;
-			}
-			.price{
-				height: 50upx;
-				line-height:50upx;
-				color: red;
 			}
 		}
 		.del-btn{
@@ -421,29 +417,38 @@
 	/* 底部栏 */
 	.action-section{
 		/* #ifdef H5 */
-		margin-bottom:100upx;
+		margin-bottom:80upx;
 		/* #endif */
 		position:fixed;
-		left: 30upx;
 		bottom:30upx;
 		z-index: 95;
 		display: flex;
 		align-items: center;
-		width: 690upx;
+		width: 100%;
 		height: 100upx;
-		padding: 0 30upx;
+		padding-left: 30upx;
 		background: rgba(255,255,255,.9);
-		box-shadow: 0 0 20upx 0 rgba(0,0,0,.5);
-		border-radius: 16upx;
+		box-shadow: 0 0 2px 0 rgba(0,0,0,.5);
 		.checkbox{
 			height:52upx;
 			position:relative;
 			image{
-				width: 52upx;
+				width: 45upx;
 				height: 100%;
 				position:relative;
 				z-index: 5;
 			}
+		}
+		.allText{
+			position:absolute;
+			left: 80upx;
+			top: 0;
+			z-index: 4;
+			width: 80upx;
+			height: 52upx;
+			line-height: 52upx;
+			font-size: 16px;
+			color: #666;
 		}
 		.clear-btn{
 			position:absolute;
@@ -474,7 +479,6 @@
 			.price{
 				font-size: $font-lg;
 				color: $font-color-dark;
-				color: red;
 			}
 			.coupon{
 				font-size: $font-sm;
@@ -486,18 +490,18 @@
 		}
 		.confirm-btn{
 			padding: 0 38upx;
-			margin: 0;
-			border-radius: 100px;
-			height: 76upx;
-			line-height: 76upx;
+			height: 100upx;
+			line-height: 100upx;
 			font-size: $font-base + 2upx;
-			background: $uni-color-primary;
+			background: $uni-color-hangfeng;
+			border-radius: 0;
 			box-shadow: 1px 2px 5px rgba(217, 60, 93, 0.72)
 		}
 	}
 	/* 复选框选中状态 */
 	.action-section .checkbox.checked,
 	.cart-item .checkbox.checked{
-		color: $uni-color-primary;
+		color: $uni-color-hangfeng;
+		font-size: 20px;
 	}
 </style>

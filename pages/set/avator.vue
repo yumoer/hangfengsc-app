@@ -3,7 +3,7 @@
 		<view class="u-avatar-wrap">
 			<image class="u-avatar-demo" :src="avatar" mode="aspectFill"></image>
 		</view>
-		<u-button @tap="chooseAvatar">选择图片</u-button>
+		<u-button class="changeBtn" @tap="chooseAvatar">选择图片</u-button>
 	</view>
 </template>
 
@@ -74,15 +74,24 @@
 	}
 
 	.u-avatar-wrap {
-		margin-top: 80rpx;
+		margin-top: 130upx;
 		overflow: hidden;
-		margin-bottom: 80rpx;
+		margin-bottom: 180upx;
 		text-align: center;
 	}
 
 	.u-avatar-demo {
-		width: 150rpx;
-		height: 150rpx;
-		border-radius: 100rpx;
+		width: 300upx;
+		height: 300upx;
+		border: 6upx solid #fff;
+		border-radius: 50%;
+	}
+	
+	.changeBtn{
+		width: 590upx;
+		height: 80upx;
+		color: #fff;
+		border-radius: 40upx;
+		background: linear-gradient(to right,#EE1D23,#F04023);
 	}
 </style>

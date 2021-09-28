@@ -70,22 +70,22 @@ const homePageList = [
 		index:5,
 	},
 	{
-		src: "/static/index/gyhf.png",
-		text: "关于行丰",
+		src: "/static/index/jypx.png",
+		text: "教育培训",
 		index:6,
 	},
 	{
-		src: "/static/index/zprc.png",
-		text: "招聘人才",
+		src: "/static/index/ylqx.png",
+		text: "医疗器械",
 		index:7,
 	},
 	{
-		src: "/static/index/bghc.png",
-		text: "教育培训", /* 办公耗材*/
+		src: "/static/index/cqtg.png",
+		text: "传奇团购", /* 办公耗材*/
 		index:8,
 	},
 	{
-		src: "/static/index/bgsb.png",
+		src: "/static/index/flzx.png",
 		text: "法律咨询",
 		index:9,
 	}

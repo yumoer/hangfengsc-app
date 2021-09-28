@@ -1,133 +1,103 @@
 <template>  
     <view class="container">  
 		<view class="user-section">
-			<image class="bg" src="/static/user-bg.jpg"></image>
-			<view class="user-info-box" @click="navTo('/pages/set/set')">  <!--  @tap="chooseAvatar" -->
+			<image class="bg" src="/static/user-bg.png"></image>
+			<view class="user-info-box">  <!--  @tap="chooseAvatar" -->
 				<view class="portrait-box">
-					<image class="portrait" :src="userInfo.portrait || '/static/missing-face.png'" mode="aspectFill"></image>
+					<image class="portrait" v-if="userInfo.portrait" :src="userInfo.portrait" mode="aspectFill" @click="navTo('/pages/set/avator')"></image>
+					<image class="portrait" v-else :src="'/static/missing-face.png'" mode="aspectFill" @click="navTo('/pages/public/login')"></image>
 				</view>
 				<view class="info-box">
-					<text class="username">{{userInfo.username || '游客'}}</text>
+					<text class="username">{{userInfo.username || '游客'}}</text><br>
+					<text class="welcome" v-if="userInfo.username">Hi~ , 欢迎来到行丰商城！</text>
+					<text class="welcome" v-else  @click="navTo('/pages/public/login')">Hi~ , 点击登录！</text>
 				</view>
-				
-				<!-- <view style="position: absolute;right: 0;">
-					<uni-icons type="arrowright" size="30"></uni-icons>
-				</view> -->
-			</view>
-			<view class="vip-card-box">
-				<image class="card-bg" src="/static/vip-card-bg.png" mode=""></image>
-				<!-- <view class="b-btn">
-					立即开通
-				</view> -->
-				<view class="tit">
-					<text class="yticon icon-iLinkapp-"></text>
-					{{code}}
+				<view class="info-vip">
+					<view class="info-btn">
+						<text class="info-text" @click="openVip">开通VIP</text>
+					</view>
 				</view>
-				<!-- <text class="e-m">会员功能暂未上线</text> -->
-				<text class="e-b" style="margin-top: 20px;">会员功能暂未上线</text>
 			</view>
 		</view>
-		
+		<view class="tj-sction">
+			<view class="tj-item" @click="navTo('/pages/recharge/recharge')">
+				<text style="margin-bottom: 20upx;">￥<text class="num">{{balance}}</text></text>
+				<text>余额</text>
+			</view>
+			<view class="tj-item" @click="navTo('/pages/coupon/exchange')">
+				<text class="num">{{coupon}}</text>
+				<text>优惠券</text>
+			</view>
+			<view class="tj-item">
+				<text class="num">0</text>
+				<text>积分</text>
+			</view>
+			<view class="tj-item">
+				<text class="num">{{histories.length}}</text>
+				<text>足迹</text>
+			</view>
+		</view>
+		<!-- :style="[{ transform: coverTransform,transition: coverTransition}]"-->
 		<view 
 			class="cover-container"
-			:style="[{
-				transform: coverTransform,
-				transition: coverTransition
-			}]"
 			@touchstart="coverTouchstart"
 			@touchmove="coverTouchmove"
 			@touchend="coverTouchend"
+			
 		>
-			<image class="arc" src="/static/arc.png"></image>
-			<view class="tj-sction">
-				<view class="tj-item" @click="navTo('/pages/recharge/recharge')">
-					<text class="num">￥{{balance}}</text>
-					<text>余额</text>
-				</view>
-				<view class="tj-item" @click="navTo('/pages/coupon/exchange')">
-					<text class="num">{{coupon}}</text>
-					<text>优惠券</text>
-				</view>
-				<view class="tj-item">
-					<text class="num">0</text>
-					<text>积分</text>
-				</view>
-			</view>
 			<!-- 订单 -->
 			<view class="history-section icon">
-				<list-cell icon="icon-shouye" @eventClick="navTo('/pages/order/order?state=0')" iconColor="#e07472" title="我的订单" tips="全部订单"></list-cell>
+				<list-cell icon="icon-shouye" @eventClick="navTo('/pages/order/order?state=0')" iconColor="#ee1d23" title="我的订单" tips="全部订单"></list-cell>
 				<scroll-view scroll-x class="h-list">
 					<view class="scoll-wrapper">
 						<view class="order-section">
 							<view class="order-item" @click="navTo('/pages/order/order?state=1')"  hover-class="common-hover" :hover-stay-time="50">
-								<text class="yticon icon-daifukuan"></text>
-								<min-badge :count="count1" style="top: -30px;right:-10px"></min-badge>
+								<image style="width: 66upx;height: 58upx;" src="../../static/orderState/daifukuan.png" mode=""></image>
+								<min-badge class="badge" :count="count1"></min-badge>
 								<text>待付款</text>
 							</view>
 							<view class="order-item" @click="navTo('/pages/order/order?state=2')"  hover-class="common-hover" :hover-stay-time="50">
-								<text class="yticon icon-daifahuo"  style="font-size: 18px;font-weight: bold;margin-top: 4px;padding: 1px 0;"></text>
-								<min-badge :count="count2" style="top: -30px;right:-10px"></min-badge>
+								<image style="width: 66upx;height: 58upx;" src="../../static/orderState/daifahuo.png" mode=""></image>
+								<min-badge class="badge" :count="count2"></min-badge>
 								<text>待发货</text>
 							</view>
 							<view class="order-item" @click="navTo('/pages/order/order?state=3')" hover-class="common-hover"  :hover-stay-time="50">
-								<text class="yticon icon-yishouhuo"></text>
-								<min-badge :count="count3" style="top: -30px;right:-10px"></min-badge>
+								<image style="width: 66upx;height: 58upx;" src="../../static/orderState/daishouhuo.png" mode=""></image>
+								<min-badge class="badge" :count="count3"></min-badge>
 								<text>待收货</text>
 							</view>
 							<view class="order-item" @click="navTo('/pages/order/order?state=4')" hover-class="common-hover"  :hover-stay-time="50">
-								<text class="yticon icon-daipingjia" style="width: 22px;"></text>
-								<min-badge :count="count4" style="top: -30px;right:-10px"></min-badge>
+								<image style="width: 66upx;height: 58upx;" src="../../static/orderState/daipingjia.png" mode=""></image>
+								<min-badge class="badge" :count="count4"></min-badge>
 								<text>待评价</text>
 							</view>
 							<view class="order-item" @click="navTo('/pages/order/postSale/postSale')" hover-class="common-hover"  :hover-stay-time="50">
-								<text class="yticon icon-shouhoutuikuan"></text>
-								<min-badge :count="count5" style="top: -30px;right:-10px"></min-badge> 
-								<text>退款/售后</text>
+								<image style="width: 66upx;height: 58upx;" src="../../static/orderState/shouhou.png" mode=""></image>
+								<min-badge class="badge" :count="count5"></min-badge> 
+								<text>退款售后</text>
 							</view>
 						</view>
 					</view>
 				</scroll-view>
 				
 			</view>
-			
-			<!-- 浏览历史 -->
-			<view class="history-section icon" v-if="histories.length > 0">
-				<list-cell icon="yticon icon-lishijilu" style="font-size:22px;" iconColor="#5EBA8F" title="浏览历史"></list-cell>
-				<scroll-view scroll-x class="h-list">
-					<view class="scoll-wrapper">
-						<view 
-							v-for="(history, index) in histories" :key="index"
-							class="floor-item"
-							@click="navTo('/pages/product/product?id='+history.id)"
-						>
-							<image :src="history.default_image_url" mode="aspectFill"></image>
-							<text style="text-align: center;" class="title clamp">{{history.name}}</text>
-							<text class="price">￥{{history.price}}</text>
-						</view>
-					</view>
-				</scroll-view>
-			</view>
 			<view class="history-section icon">
-				<list-cell icon="icon-dizhi" iconColor="#5fcda2" title="收货地址" @eventClick="navTo('/pages/address/address')" tips="完善收货地址"></list-cell>
-				<list-cell icon="icon-shopsIdea" iconColor="#f088a2" title="我的评价" @eventClick="navTo('/pages/allAssess/allAssess')" tips="查看所有商品评价"></list-cell>
-				<!-- <list-cell icon="icon-youhuiquan" @eventClick="navTo('/pages/coupon/exchange')" iconColor="#e07472" title="我的优惠券" tips="兑换码兑换"></list-cell> -->
-				<!-- <list-cell icon="icon-xiaoxi" iconColor="#54b4ef" title="我的客服" @eventClick="navTo('/pages/chat/chat')" tips="查看客服消息"></list-cell> -->
-				<list-cell icon="icon-fapiao" iconColor="#5cba22" title="发票信息" @eventClick="navTo('/pages/invoice/invoice')" tips="添加普票/增票/电子票"></list-cell>
-				<list-cell icon="icon-gerenziliao" iconColor="#ee663b" title="个人资料" @eventClick="navTo('/pages/set/userInfo')" tips="修改个人资料"></list-cell>
-				<list-cell icon="icon-mima" iconColor="#22ee3b" title="修改密码" @eventClick="navTo('/pages/set/editPass')"></list-cell>
-				<list-cell icon="icon-fankui" iconColor="#e68841" title="意见反馈" @eventClick="navTo('/pages/coupon/voucher')" tips="提交意见反馈"></list-cell>
-				<list-cell icon="icon-shoucang_xuanzhongzhuangtai" iconColor="#54b4ef" title="我的收藏" @eventClick="navTo('/pages/coupon/reduction')"></list-cell>
+				<list-cell icon="icon-user-dizhi" iconColor="#ee1d23" title="收货地址" @eventClick="navTo('/pages/address/address')" tips="完善收货地址"></list-cell>
+				<list-cell icon="icon-user-pingjia" iconColor="#ee1d23" title="我的评价" @eventClick="navTo('/pages/allAssess/allAssess')" tips="查看所有商品评价"></list-cell>
+				<list-cell icon="icon-user-shoucang" iconColor="#ee1d23" title="我的收藏" @eventClick="navTo('/pages/coupon/reduction')"></list-cell>
+				<list-cell icon="icon-user-geren" iconColor="#ee1d23" title="个人资料" @eventClick="navTo('/pages/set/userInfo')" tips="修改个人资料"></list-cell>
+				<list-cell icon="icon-user-editpwd" iconColor="#ee1d23" title="修改密码" @eventClick="navTo('/pages/set/editPass')"></list-cell>
+				<list-cell icon="icon-user-fapiao" iconColor="#ee1d23" title="发票信息" @eventClick="navTo('/pages/invoice/invoice')" tips="添加普票/增票/电子票"></list-cell>
+				<list-cell icon="icon-user-fankui" iconColor="#ee1d23" title="意见反馈" @eventClick="navTo('/pages/coupon/voucher')" tips="提交意见反馈"></list-cell>
+				<list-cell icon="icon-user-share" @eventClick="navTo('/pages/share/share')" iconColor="#ee1d23" title="分享" tips="分享给好友"></list-cell>
 				<!-- #ifdef APP-PLUS -->
-				<list-cell icon="icon-share" @eventClick="navTo('/pages/share/share')" iconColor="#9789f7" title="分享" tips="分享app给好友"></list-cell>
+				<list-cell icon="icon-user-share" @eventClick="navTo('/pages/share/share')" iconColor="#ee1d23" title="分享" tips="分享app给好友"></list-cell>
 				<!-- #endif --> 
 				<!-- #ifdef H5 -->
-				<list-cell icon="icon-xiazai" @eventClick="navTo('/pages/appDown/appDown')" iconColor="#9789f7" title="下载中心" tips="下载app最新版本"></list-cell>
+				<list-cell icon="icon-user-xiazai" @eventClick="navTo('/pages/appDown/appDown')" iconColor="#ee1d23" title="下载中心" tips="下载app最新版本"></list-cell>
 				<!-- #endif -->
-				<list-cell icon="icon-shezhi1" iconColor="#e07472" title="设置" border="" @eventClick="navTo('/pages/set/set')"></list-cell>
 			</view>
 		</view>
-			
-		
     </view>  
 </template>  
 <script>  
@@ -271,6 +241,11 @@
 				})
 			},
 			
+			// 开通vip
+			openVip(){
+				this.$api.msg('vip功能未开放')
+			},
+			
 			// 兑换码兑换
 			exchange(){
 				uni.navigateTo({
@@ -356,7 +331,7 @@
 					}else if(res.status === 401){
 						this.logout();
 						this.histories = []
-						this.$api.msg('登录过期,请重新登录')
+						this.$api.msg('请重新登录')
 					}
 				}).catch(error=>{
 					this.histories = []
@@ -406,6 +381,9 @@
     }  
 </script>  
 <style lang='scss'>
+	/deep/ .min-badge-count{
+		background-color: $uni-color-hangfeng;
+	}
 	%flex-center {
 	 display:flex;
 	 flex-direction: column;
@@ -421,7 +399,7 @@
 	}
 
 	.user-section{
-		height: 520upx;
+		height: 416upx;
 		padding: 100upx 30upx 0;
 		position:relative;
 		.bg{
@@ -430,8 +408,6 @@
 			top: 0;
 			width: 100%;
 			height: 100%;
-			filter: blur(1px);
-			opacity: .7;
 		}
 	}
 	.user-info-box{
@@ -440,6 +416,7 @@
 		align-items:center;
 		position:relative;
 		z-index: 1;
+		line-height: 60upx;
 		.portrait{
 			width: 130upx;
 			height: 130upx;
@@ -447,11 +424,38 @@
 			border-radius: 50%;
 		}
 		.username{
-			font-size: $font-lg + 6upx;
-			color: $font-color-dark;
+			font-size: 40upx;
+			color: #fff;
 			margin-left: 20upx;
 		}
+		.welcome{
+			margin-left: 20upx;
+			font-size: 28upx;
+			color: #fff;
+		}
+		
+		.info-vip{
+			position: absolute;
+			right: 0;
+		}
+		
+		.info-btn{
+			width: 147upx;
+			height: 50upx;
+			background-color: rgba(0,0,0,.2);
+			text-align: center;
+			line-height: 45upx;
+			border-radius: 26upx;
+		}
+		
+		.info-text{
+			font-size: 26upx;
+			color: #fefefe;
+		}
+		
 	}
+	
+	
 
 	.vip-card-box{
 		display:flex;
@@ -500,12 +504,10 @@
 		}
 	}
 	.cover-container{
-		background: $page-color-base;
-		margin-top: -150upx;
 		padding: 0 30upx;
 		position:relative;
-		background: #f5f5f5;
 		padding-bottom: 20upx;
+		margin-top: -45px;
 		.arc{
 			position:absolute;
 			left: 0;
@@ -516,10 +518,15 @@
 	}
 	.tj-sction{
 		@extend %section;
+		background-color: #fff;
+		position: relative;
+		top: -50px;
+		margin: 0 30px;
+		box-shadow: 2px 2px 4px rgba(0,0,0,.3);
 		.tj-item{
 			@extend %flex-center;
 			flex-direction: column;
-			height: 140upx;
+			height: 200upx;
 			font-size: $font-sm;
 			color: #75787d;
 		}
@@ -527,6 +534,8 @@
 			font-size: $font-lg;
 			color: $font-color-dark;
 			margin-bottom: 8upx;
+			font-weight: bold;
+			margin-bottom: 20upx;
 		}
 	}
 	.order-section{
@@ -538,14 +547,28 @@
 			border-radius: 10upx;
 			font-size: $font-sm;
 			color: $font-color-dark;
+			text-align: center;
+		}
+		image{
+			width: 66upx;
+			height: 58upx;
+			margin: 0 auto;
+		}
+		.badge{
+			top: -50upx;
+			right:-36upx
+		}
+		text{
+			margin-top: 16upx;
+			margin-left: 16upx;
 		}
 		.yticon{
 			font-size: 48upx;
 			margin-bottom: 18upx;
 			color: #fa436a;
 		}
-		.icon-shouhoutuikuan{
-			font-size:44upx;
+		.icon-user-editpwd{
+			font-size: 28px;
 		}
 	}
 	.history-section{
