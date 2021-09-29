@@ -2,14 +2,18 @@
 	<view class="container">
 		<!-- 空白页 -->
 		<view v-if="!hasLogin || empty===true" class="empty">
-			<image src="/static/emptyCart.jpg" mode="aspectFit"></image>
-			<view v-if="hasLogin" class="empty-tips">
-				空空如也
-				<navigator class="navigator" v-if="hasLogin" url="../index/index" open-type="switchTab">随便逛逛></navigator>
+			<image src="/static/emptyCart.png" mode="aspectFit"></image>
+			<view class="" v-if="hasLogin">
+				<view class="empty-tips">
+					您的购物车还是空的
+				</view>
+				<button class="add-btn" @click="navTo('/pages/index/index')">去逛逛</button>
 			</view>
-			<view v-else class="empty-tips">
-				空空如也
-				<view class="navigator" @click="navToLogin">去登陆></view>
+			<view class="" v-else>
+				<view class="empty-tips">
+					您的购物车还是空的
+				</view>
+				<button class="add-btn" @click="navToLogin">去登陆</button>
 			</view>
 		</view>
 		<view v-else>
@@ -82,9 +86,7 @@
 </template>
 
 <script>
-	import {
-		mapState
-	} from 'vuex';
+	import {mapState} from 'vuex';
 	import uniNumberBox from '@/components/uni-number-box/uni-number-box.vue'
 	import uniRequest from 'uni-request'
 	export default {
@@ -332,8 +334,8 @@
 			align-items:center;
 			background: #fff;
 			image{
-				width: 240upx;
-				height: 160upx;
+				width: 517.7upx;
+				height: 360.425upx;
 				margin-bottom:30upx;
 			}
 			.empty-tips{
@@ -344,6 +346,17 @@
 					color: $uni-color-primary;
 					margin-left: 16upx;
 				}
+			}
+			.add-btn{
+				margin-top: 40upx;
+				font-size: 32upx;
+				color: #EE1D23;
+				background-color: $base-color;
+				border-radius: 50upx;
+				background: #fff;
+				/* border: 1px solid #EE1D23; */
+				box-shadow: 1px 2px 5px rgba(219, 63, 96, 0.4);	
+				letter-spacing: 6upx;
 			}
 		}
 	}

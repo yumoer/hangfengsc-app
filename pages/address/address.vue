@@ -1,6 +1,6 @@
 <template>
 	<view class="content b-t">
-		<view class="list b-b" v-for="(item, index) in addressList" :key="index" @click="checkAddress(item)">
+		<view class="list" v-for="(item, index) in addressList" :key="index" @click="checkAddress(item)">
 			<view class="wrapper">
 				<view class="u-box">
 					<text class="name">{{item.receiver}}</text>
@@ -22,8 +22,7 @@
 		</view>
 		<button class="add-btn" @click="addAddress('add')">添加新地址</button>
 		<view v-if="addressList.length === 0" style = "position: relative;">
-			<image style="width: 200px;height: 200px;position: absolute;left: 0;right: 0;top: 120px;margin: auto;" src="../../static/img/icon.png" mode=""></image>
-			<text style="position: absolute;left: 0;right: 0;top: 330px;margin: 0px auto;text-align: center;font-size: 16px;">暂无地址</text>
+			<xw-empty :isShow="isEmpty" img="/static/empty/emptyAddress.png" text="您暂时还没有添加地址" textColor="#C0C4CC"></xw-empty>
 			<button class="add-btn" @click="addAddress('add')">添加新地址</button>
 		</view>
 		<show-modal></show-modal>
@@ -32,13 +31,16 @@
 
 <script>
 	import uniRequest from 'uni-request'
+	import xwEmpty from '@/components/xw-empty/xw-empty';
 	export default {
 		data() {
 			return {
 				source: 0,
 				addressList: [],
+				isEmpty:false,
 			}
 		},
+		components:{xwEmpty},
 		onLoad(option){
 			this.source = option.source;
 		},
@@ -52,6 +54,16 @@
 				uni.navigateTo({
 					url: `/pages/address/addressManage?type=add&data=undefined`
 				})
+			}
+		},
+		watch:{
+			//显示空白页
+			addressList(e){
+				let empty = e.length === 0 ? true: false;
+				console.log(this.isEmpty,empty)
+				if(this.isEmpty !== empty){
+					this.isEmpty = empty;
+				}
 			}
 		},
 		methods: {

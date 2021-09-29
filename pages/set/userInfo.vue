@@ -9,7 +9,7 @@
 				<text class="tit">手机号</text>
 				<input class="input" type="number" v-model="userInfo.mobile" placeholder="请输入手机号码" placeholder-class="placeholder" />
 			</view>
-			<view class="row b-b">
+			<view class="row">
 				<text class="tit">电子邮件</text>
 				<input class="input" type="text" v-model="userInfo.email" placeholder="请输入电子邮件" placeholder-class="placeholder" />
 				<button class="del-btn" v-if="!userInfo.email_active" @click="toTest">{{emailText}}</button>
@@ -200,5 +200,9 @@
 		font-size: $font-lg;
 		border-radius: 10upx;
 		box-shadow: 1px 2px 5px rgba(219, 63, 96, 0.4);
+	}
+	
+	.u-default-hover{
+		color: rgba($color: #fff, $alpha: 0.6) !important;
 	}
 </style>

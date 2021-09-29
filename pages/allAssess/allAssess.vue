@@ -36,15 +36,15 @@
 			</view>
 			 
 		</view>
-		<view v-else style = "position: relative;">
-			<image style="width: 200px;height: 200px;position: absolute;left: 0;right: 0;top: 120px;margin: auto;" src="../../static/img/icon.png" mode=""></image>
-			<text style="position: absolute;left: 0;right: 0;top: 330px;margin: 0px auto;text-align: center;font-size: 16px;">暂无评价,评价后查看评价</text>
+		<view v-else>
+			<xw-empty :isShow="isEmpty" img="/static/empty/emptyAssess.png" path="" btnText="" text="您还没有评价内容" textColor="#C0C4CC"></xw-empty>
 		</view>
 	</view>
 </template>
 
 <script>
 	import uniRequest from 'uni-request';
+	import xwEmpty from '@/components/xw-empty/xw-empty';
 	export default {
 		data() {
 			return {
@@ -54,10 +54,22 @@
 				sku:null,
 				headPicValue:'',
 				username:uni.getStorageSync('userInfo').username,
+				isEmpty:false,
 			}
 		},
+		components:{xwEmpty},
 		onLoad(options){
 			this.getData()
+		},
+		watch:{
+			//显示空白页
+			results(e){
+				let empty = e.length === 0 ? true: false;
+				console.log(this.isEmpty,empty)
+				if(this.isEmpty !== empty){
+					this.isEmpty = empty;
+				}
+			}
 		},
 		methods: {
 			async getData(){

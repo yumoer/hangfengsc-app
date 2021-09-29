@@ -136,9 +136,9 @@
 	}
 	
 	.m-wrap{
-		bottom: 80upx;
+		bottom: 300upx;
 		margin: 0 auto;
-		width: 89%;
+		width: 600upx;
 		position: absolute;
 		.m-btn{
 			background: linear-gradient(to right,#EE1D23,#F04023);

@@ -79,6 +79,10 @@
 		margin-bottom: 180upx;
 		text-align: center;
 	}
+	
+	.u-default-hover{
+		color: rgba($color: #fff, $alpha: 0.6) !important;
+	}
 
 	.u-avatar-demo {
 		width: 300upx;

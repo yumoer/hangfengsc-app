@@ -15,9 +15,9 @@
 				</view>
 			</view>
 		</view>
-		<view v-if="couponList.length === 0" style = "position: relative;">
-			<image style="width: 200px;height: 200px;position: absolute;left: 0;right: 0;top: 120px;margin: auto;" src="../../static/img/icon.png" mode=""></image>
-			<text style="position: absolute;left: 0;right: 0;top: 330px;margin: 0px auto;text-align: center;font-size: 16px;">暂无发票,点击右上方添加发票</text>
+		<view v-if="couponList.length === 0">
+			<xw-empty :isShow="isEmpty" img="/static/empty/emptyTicket.png" path="/pages/coupon/coupon" btnText="新增发票" text="您暂时还没有添加发票" textColor="#C0C4CC"></xw-empty>
+			<!-- <text style="position: absolute;left: 0;right: 0;top: 330px;margin: 0px auto;text-align: center;font-size: 16px;">暂无发票,点击右上方添加发票</text> -->
 		</view>
 		
 		<!-- <uni-popup ref="popup">
@@ -28,14 +28,17 @@
 </template>
 
 <script>
-	import uniRequest from 'uni-request'
+	import uniRequest from 'uni-request';
+	import xwEmpty from '@/components/xw-empty/xw-empty';
 	export default {
 		data() {
 			return {
 				source: 0,
 				couponList: [],
+				isEmpty:false
 			}
 		},
+		components:{xwEmpty},
 		onShow(){
 			if(this.$refs.popup !== undefined){
 				this.$refs.popup.close()
@@ -51,6 +54,16 @@
 			console.log(index)
 			if(index === 0){
 				this.addInvoIce('add',2)
+			}
+		},
+		watch:{
+			//显示空白页
+			couponList(e){
+				let empty = e.length === 0 ? true: false;
+				console.log(this.isEmpty,empty)
+				if(this.isEmpty !== empty){
+					this.isEmpty = empty;
+				}
 			}
 		},
 		methods: {

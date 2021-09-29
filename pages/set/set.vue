@@ -36,11 +36,13 @@
 			<text class="cell-tit">清除缓存</text>
 			<text class="cell-more yticon icon-you"></text>
 		</view>
-		<view class="list-cell b-b" @click="logouts" hover-class="cell-hover" :hover-stay-time="50">
+		
+		<!-- #ifdef 'H5' -->
+		<view class="list-cell" @click="logouts" hover-class="cell-hover" :hover-stay-time="50">
 			<text class="cell-tit">注销账户</text>
 			<text class="cell-more yticon icon-you"></text>
 		</view>
-		
+		<!-- #endif -->
 		
 		<!-- #ifdef APP-PLUS -->
 		<view class="list-cell" @click="lookVersion">
@@ -269,8 +271,9 @@
 	.loginBtn{
 		width: 70%;
 		margin: 0 auto;
-		position: relative;
-		bottom: -280px;
+		position: absolute;
+		left: 15%;
+		bottom: 30px;
 		.confirm-btn{
 			width: 100%;
 			height: 80upx;

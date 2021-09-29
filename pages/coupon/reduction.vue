@@ -16,30 +16,39 @@
 			
 		</view>
 		<view v-if="goodsList.length === 0">
-			<view style = "position: relative;">
-				<image style="width: 200px;height: 200px;position: absolute;left: 0;right: 0;top: 120px;margin: auto;" src="../../static/img/icon.png" mode=""></image>
-				<text style="position: absolute;left: 0;right: 0;top: 330px;margin: 0px auto;text-align: center;font-size: 16px;">暂无收藏,请进入商品添加收藏</text>
-			</view>
+			<xw-empty :isShow="isEmpty" img="/static/empty/emptyCollect.png" path="/pages/index/index" btnText="去逛逛" text="您还没有添加收藏" textColor="#C0C4CC"></xw-empty>
 		</view>
 	</view>
 </template>
 
 <script>
 	import uniRequest from 'uni-request';
+	import xwEmpty from '@/components/xw-empty/xw-empty';
 	export default {
 		data() {
 			return {
 				goodsList: [],
 				couponId:0,
-				favorite:true
+				favorite:true,
+				isEmpty:false
 			};
 		},
-		
+		components:{xwEmpty},
 		onLoad(options){
 			this.ifFavorite()
 		},
 		activated(){
 			this.ifFavorite()
+		},
+		watch:{
+			//显示空白页
+			goodsList(e){
+				let empty = e.length === 0 ? true: false;
+				console.log(this.isEmpty,empty)
+				if(this.isEmpty !== empty){
+					this.isEmpty = empty;
+				}
+			}
 		},
 		methods: {
 			//详情

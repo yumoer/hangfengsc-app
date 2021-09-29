@@ -8,8 +8,8 @@
 					<image class="portrait" v-else :src="'/static/missing-face.png'" mode="aspectFill" @click="navTo('/pages/public/login')"></image>
 				</view>
 				<view class="info-box">
-					<text class="username">{{userInfo.username || '游客'}}</text><br>
-					<text class="welcome" v-if="userInfo.username">Hi~ , 欢迎来到行丰商城！</text>
+					<view class="username">{{userInfo.username || '游客'}}</view><br>
+					<text class="welcome" v-if="userInfo.username">Hi~ ，欢迎来到行丰商城！</text>
 					<text class="welcome" v-else  @click="navTo('/pages/public/login')">Hi~ , 点击登录！</text>
 				</view>
 				<view class="info-vip">
@@ -416,7 +416,7 @@
 		align-items:center;
 		position:relative;
 		z-index: 1;
-		line-height: 60upx;
+		line-height: 26upx;
 		.portrait{
 			width: 130upx;
 			height: 130upx;
@@ -424,14 +424,19 @@
 			border-radius: 50%;
 		}
 		.username{
-			font-size: 40upx;
+			font-size: 32upx;
 			color: #fff;
 			margin-left: 20upx;
+			width: 240upx;
+			overflow:hidden;
+			text-overflow:ellipsis;
+			white-space:nowrap;
+			height: 40upx;
 		}
 		.welcome{
 			margin-left: 20upx;
-			font-size: 28upx;
-			color: #fff;
+			font-size: 24upx;
+			color: rgba(255,255,255,.85);
 		}
 		
 		.info-vip{
@@ -442,7 +447,7 @@
 		.info-btn{
 			width: 147upx;
 			height: 50upx;
-			background-color: rgba(0,0,0,.2);
+			background-color: rgba(0,0,0,.1);
 			text-align: center;
 			line-height: 45upx;
 			border-radius: 26upx;

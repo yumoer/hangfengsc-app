@@ -5,58 +5,49 @@
 				v-for="(item, index) in goodsList" :key="index"
 				class="goods-item"
 				@click="navToDetailPage(item)"
-				
 			>
 				<view class="image-wrapper">
 					<image :src="item.default_image_url" mode="aspectFill"></image>
 				</view>
-				<text class="title clamp">{{item.name}}</text>
+				<text class="title">{{item.title}}</text>
 				<view class="price-box">
 					<text class="price">{{item.price}}</text>
-					<!-- <text>库存 {{item.stock}}</text> -->
+					<text>销量 {{item.sales}}</text>
 				</view>
 			</view>
 			
 		</view>
-		<view v-if="goodsList.length === 0">
-			<view style="text-align: center;margin-top: 10upx;">暂无数据</view>
+		<view v-else>
+			<xw-empty :isShow="isEmpty" img="/static/empty/emptyContent.png" path="/pages/index/index" btnText="去逛逛" text="暂无商品" textColor="#C0C4CC"></xw-empty>
 		</view>
 	</view>
 </template>
 
 <script>
 	import uniRequest from 'uni-request';
+	import xwEmpty from '@/components/xw-empty/xw-empty';
 	export default {
 		data() {
 			return {
 				goodsList: [],
 				couponId:0,
+				isEmpty:false,
 			};
 		},
-		
+		components:{xwEmpty},
 		onLoad(options){
-			this.couponId = JSON.parse(options.couponId)
-			uniRequest({
-				url: '/coupons/sku/'+this.couponId+'/',
-				method: 'GET',
-				headers: {
-					Authorization: 'JWT ' + uni.getStorageSync('userInfo').token
-				},
-			}).then(res => {
-				console.log(res,res.data.results)
-				uni.setStorage({
-					key: 'couponShops',
-					data: JSON.stringify(res.data.results)
-				});
-				if(res.status === 200){
-					this.goodsList = res.data.results
-					if(goodsList.length === 0){
-						
-					}
+			this.goodsList = JSON.parse(options.skus)
+			console.log(this.goodsList)
+		},
+		watch:{
+			//显示空白页
+			goodsList(e){
+				let empty = e.length === 0 ? true: false;
+				console.log(this.isEmpty,empty)
+				if(this.isEmpty !== empty){
+					this.isEmpty = empty;
 				}
-			}).catch(error => {
-				console.log(error);
-			})
+			}
 		},
 		methods: {
 			//详情
@@ -213,11 +204,11 @@
 	.goods-list{
 		display:flex;
 		flex-wrap:wrap;
-		background: #fff;
 		padding: 30upx;
 		margin-top: -8upx;
 		.goods-item{
 			display:flex;
+			background: #fff;
 			flex-direction: column;
 			width: 48%;
 			padding-bottom: 40upx;
@@ -237,9 +228,15 @@
 			}
 		}
 		.title{
-			font-size: $font-lg;
-			color: $font-color-dark;
-			line-height: 80upx;
+			font-size: $font-base;
+			color: $font-color-text3;
+			line-height: 50upx;
+			padding: 0 10px;
+			overflow:hidden;
+			text-overflow:ellipsis;
+			display:-webkit-box;
+			-webkit-box-orient:vertical;
+			-webkit-line-clamp:2;
 		}
 		.price-box{
 			display: flex;
@@ -247,6 +244,7 @@
 			justify-content: space-between;
 			padding-right: 10upx;
 			font-size: 24upx;
+			padding: 10px;
 			color: $font-color-light;
 		}
 		.price{

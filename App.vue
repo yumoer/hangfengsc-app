@@ -61,7 +61,7 @@
    @import "static/iconfont/icon.css";
    /*每个页面公共css */
    page{
-   	background: #ddd;
+   	background: $all_bgcolor-fff777;
 	font-family: 'PingFang-SC-Heavy';
    }
    .defaultFontSize{

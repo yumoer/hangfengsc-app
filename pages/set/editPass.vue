@@ -9,7 +9,7 @@
 				<text class="tit">新密码</text>
 				<input class="input" type="password" maxlength="16" v-model="userInfo.newPwd" placeholder="请填写新密码" placeholder-class="placeholder" />
 			</view>
-			<view class="row b-b">
+			<view class="row">
 				<text class="tit">确认密码</text>
 				<input class="input" type="password" maxlength="16" v-model="userInfo.confirmPwd" placeholder="请填写确认密码" placeholder-class="placeholder" />
 			</view>

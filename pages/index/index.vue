@@ -49,7 +49,7 @@
 				<view class="func-xpsf">
 					<image class="func-image" style="" src="../../static/index/xpsf.png" mode=""></image>
 				</view>
-				<view class="func-lqzx">
+				<view class="func-lqzx" @click="navToPage('/pages/coupon/coupon')">
 					<image class="func-image" src="../../static/index/lqzx.png" mode=""></image>
 				</view>
 			</view>
@@ -630,6 +630,12 @@
 						url:'/pages/index/subject/bgsb/bgsb'
 					})
 				}
+			},
+			
+			navToPage(url){
+				uni.navigateTo({
+					url
+				})
 			},
 			
 			// 跳转详情页

@@ -48,8 +48,8 @@ Vue.component('QSPics',QSPics);
 Vue.component('QSInfinitePics',QSInfinitePics);
 Vue.component('QSwitch',QSwitch);
 
-uniRequest.defaults.baseURL = 'http://api.hfyt365.com';
-// uniRequest.defaults.baseURL = 'http://192.168.1.31:8001'
+// uniRequest.defaults.baseURL = 'http://api.hfyt365.com';
+uniRequest.defaults.baseURL = 'http://api.行丰银拓.com'
 uniRequest.defaults.headers.post['Content-Type'] = 'application/json';
 
 uniRequest.interceptors.response.use(async function(response) {
