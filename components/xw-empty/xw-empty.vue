@@ -38,9 +38,9 @@ export default {
 	methods: {
 		navTo(url){
 			console.log(url)
-			// uni.switchTab({
-			// 	url: url
-			// })
+			uni.switchTab({
+				url: url
+			})
 			uni.navigateTo({
 				url: url
 			})

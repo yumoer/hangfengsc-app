@@ -43,6 +43,7 @@
 		methods: {
 			...mapMutations(['logout']),
 			async getDate() {
+				uni.showLoading({mask:true})
 				await uniRequest({
 					url: '/user/detail/',
 					method: 'get',
@@ -52,6 +53,7 @@
 				}).then(res => {
 					console.log(res)
 					this.userInfo = res.data
+					uni.hideLoading()
 				}).catch(error => {
 					console.log(error);
 				})

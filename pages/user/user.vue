@@ -140,6 +140,7 @@
 			console.log(this.hasLogin)
 			if(this.hasLogin === true){
 				this.code = '普通用户'
+				console.log(uni.getStorageSync('userInfo').avatar)
 				if(uni.getStorageSync('avatar') !== ''){
 					this.userInfo.portrait = uni.getStorageSync('avatar')
 				}else if(uni.getStorageSync('userInfo').avatar !== ''){

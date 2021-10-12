@@ -69,9 +69,7 @@
 		methods: {
 			// 获取收货地址
 			async getAddress(data,type){
-				uni.showLoading({
-					title:'数据加载中...'
-				})
+				uni.showLoading()
 				await uniRequest({
 					url:'/user/addresses/',
 					method:'get',

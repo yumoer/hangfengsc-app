@@ -130,7 +130,7 @@
 				<text class="yticon icon-you"></text>
 			</view> 
 			<view class="eva-box" v-for="(result,index) in results" :key="index" v-if="index < comment">
-				<image class="portrait" :src="result.is_anonymous ? '../../static/missing-face.png': headPicValue"></image>
+				<image class="portrait" :src="result.is_anonymous ? '../../static/missing-face.png': 'http://47.94.106.106:8888/'+result.avatar"></image>
 				<view class="right">
 					<text class="name" style="color:#666;">
 						{{result.is_anonymous ? '****' : result.user}}
@@ -182,7 +182,6 @@
 			
 			
 			<view class="action-btn-group" v-if="value !== 'time'">
-				
 				<button type="primary" class=" action-btn no-border add-cart-btn" @click="join">加入购物车</button>
 				<button type="primary" class=" action-btn no-border buy-now-btn" @click="buy">立即购买</button>
 			</view>

@@ -63,6 +63,7 @@
 				})
 			},
 			ifFavorite(){
+				uni.showLoading()
 				uniRequest({
 					url: '/carts/collection/',
 					method: 'GET',
@@ -73,6 +74,7 @@
 				}).then(res => {
 					console.log(res,res.data.results)
 					if(res.status === 200){
+						uni.hideLoading()
 						this.goodsList = res.data.results
 					}
 				}).catch(error => {

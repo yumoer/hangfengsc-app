@@ -28,7 +28,7 @@
 				this.avatar = path;
 				// 可以在此上传到服务端
 				uni.uploadFile({
-					url: 'http://47.94.106.106:8000/user/avatar/',
+					url: 'http://api.hfyt365.com/user/avatar/',
 					filePath: path,
 					header: {
 						'Authorization': 'JWT ' + uni.getStorageSync('userInfo').token
@@ -46,6 +46,7 @@
 					}
 				});
 			})
+			
 		},
 		methods: {
 			chooseAvatar() {

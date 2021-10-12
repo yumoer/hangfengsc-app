@@ -73,6 +73,7 @@
 		},
 		methods: {
 			async getData(){
+				uni.showLoading()
 				await uniRequest({
 					url:'/goods/user/comment/',
 					method:'get',
@@ -83,6 +84,7 @@
 				}).then(res=>{
 					console.log(res)
 					if(res.status === 200){
+						uni.hideLoading()
 						this.results = res.data.results
 						var score = 0
 						var sku = 0
