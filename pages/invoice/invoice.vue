@@ -1,29 +1,40 @@
 <template>
-	<view class="content b-t">
-		<view class="" v-if="couponList.length > 0" v-for="(item, index) in couponList" :key="index" @click="checkInvoice(item)">
+	<view class="content">
+		<view class="coupon-wrap" v-if="couponList.length > 0" v-for="(item, index) in couponList" :key="index" @click="checkInvoice(item)">
 			<view class="coupon-item">
 				<view class="con">
+					<!-- <checkbox style="margin-right: 20px;transform:scale(0.7)" value="cb" checked="true" /> -->
+					<u-checkbox-group v-if="isCheck">
+						<u-checkbox @change="checkboxChange" style="transform:scale(1.2)" :name="item.id" v-model="item.checked" active-color="red"></u-checkbox>
+					</u-checkbox-group>
 					<view class="left">
 						<text class="title">{{item.invoice_title}}</text>
 						<text class="time">{{item.invoice_org_code}}</text>
+						<text class="time" v-if="item.register_address">{{item.register_address}}</text>
+						<text class="time" v-if="item.invoice_phone">{{item.invoice_phone}}</text>
+						<text class="time" v-if="item.invoice_bank_code">{{item.invoice_bank_code}}</text>
+						<text class="time" v-if="item.invoice_bank">{{item.invoice_bank}}</text>
 					</view>
-					<view class="right">
-						<text class="price" v-if="item.invoice_bank === '' || item.invoice_bank_code === '' || item.invoice_phone === '' || item.register_address === '' ">普票/电子票</text>
-						<text class="price" v-else>增值税发票</text>
-					</view>
-					<text class="yticon icon-bianji" @click.stop="addInvoIce('edit', item)"></text>
+					<text v-if="!isCheck" class="yticon icon-user-fankui" @click.stop="addInvoIce('edit', item)"></text>
 				</view>
 			</view>
 		</view>
 		<view v-if="couponList.length === 0">
-			<xw-empty :isShow="isEmpty" img="/static/empty/emptyTicket.png" path="/pages/coupon/coupon" btnText="新增发票" text="您暂时还没有添加发票" textColor="#C0C4CC"></xw-empty>
-			<!-- <text style="position: absolute;left: 0;right: 0;top: 330px;margin: 0px auto;text-align: center;font-size: 16px;">暂无发票,点击右上方添加发票</text> -->
+			<xw-empty :isShow="isEmpty" img="/static/empty/emptyTicket.png" path="" btnText="" text="您暂时还没有添加发票" textColor="#C0C4CC"></xw-empty>
 		</view>
 		
-		<!-- <uni-popup ref="popup">
-			<button class="add-btn" @click="addInvoIce('add',2)">新增增值税发票</button>
-			<button class="add-btns" @click="addInvoIce('add',1)">新增普票/电子票</button>
-		</uni-popup> -->
+		<button class="add-btn" v-if="!isCheck" @click="addInvoIce('add')">新增发票</button>
+		
+		<!-- 底部菜单栏 -->
+		<view class="action-section" v-else>
+			<u-checkbox-group class="checkbox">
+				<u-checkbox @change="checkedAll" v-model="checked" active-color="red">全选</u-checkbox>
+			</u-checkbox-group>
+			<view class="total-box" @click="toBack">取消删除</view>
+			<button type="primary" class="no-border confirm-btn" @click="condelete(selected)">删除 ({{selected.length}})</button>
+		</view>
+		
+		<show-modal></show-modal>
 	</view>
 </template>
 
@@ -35,14 +46,16 @@
 			return {
 				source: 0,
 				couponList: [],
-				isEmpty:false
+				isEmpty:false,
+				checked:false,
+				isCheck:false,
+				allChecked:'',
+				selected:[]
 			}
 		},
 		components:{xwEmpty},
 		onShow(){
-			if(this.$refs.popup !== undefined){
-				this.$refs.popup.close()
-			}
+			this.getInvoice()
 		},
 		onLoad(option){
 			console.log(option.source);
@@ -51,16 +64,16 @@
 		},
 		onNavigationBarButtonTap(e) {
 			const index = e.index;
-			console.log(index)
-			if(index === 0){
-				this.addInvoIce('add',2)
+			if(index === 0 && this.couponList.length > 0){
+				this.isCheck = true
+			}else{
+				this.$api.msg('没有数据暂不能删除')
 			}
 		},
 		watch:{
 			//显示空白页
 			couponList(e){
 				let empty = e.length === 0 ? true: false;
-				console.log(this.isEmpty,empty)
 				if(this.isEmpty !== empty){
 					this.isEmpty = empty;
 				}
@@ -75,6 +88,10 @@
 					uni.navigateBack()
 				}
 			},  
+			
+			toBack(){
+				this.isCheck = false
+			},
 		    
 			async getInvoice(data,type) {
 				const res = await uniRequest({
@@ -85,7 +102,14 @@
 					},
 				}).then(res => {
 					console.log(res)
-					this.couponList = res.data
+					res.data.map(val => {
+						val.checked = false;
+					})
+					this.couponList = res.data;
+					if(this.couponList.length < 1){
+						this.selected = []
+						this.isCheck = false;
+					}
 					if(type === "add"){
 						this.couponList.push(data);
 					}else if(type === "edit"){
@@ -102,7 +126,6 @@
 							}
 						})
 					}
-					this.$refs.popup.close()
 					/* this.couponList.forEach(ele=>{
 						if(ele.invoice_bank !== null){
 							ele.checked = false
@@ -124,11 +147,74 @@
 						// this.invoice = '选择发票'
 					}
 				}).catch(error => {
-			
+					console.log(error)
 				})
 			},
 			
+			// 选中任一checkbox时，由checkbox-group触发
+			checkboxGroupChange(e) {
+				console.log(e);
+			},
 			
+			// 选中某个复选框时，由checkbox时触发
+			checkboxChange(e) {
+				if(e.value === true){
+					this.selected.push(e)
+				}else{
+					this.checked = false
+					this.selected.shift(e,1)
+				}
+				console.log(this.selected)
+				e.value = !e.value
+			},
+			
+			// 全选
+			checkedAll() {
+				// this.checked = !this.checked
+				let selected = []
+				this.couponList.forEach(ele=>{
+					if(this.checked === true){
+						ele.checked = true
+					}else{
+						ele.checked = false
+					}
+					selected.push({value:ele.checked,name:ele.id})
+				})
+				this.selected = selected
+			},
+			
+			// 删除
+			async condelete(data){
+				this.$showModal({
+					title:'提示',
+				    content: '是否确认删除?',
+					cancelText:"取消",
+					confirmText:"确认",
+				    success: (e) =>{
+				    	if(e.confirm){
+							uni.showLoading()
+							data.forEach(ele=>{
+								const response = uniRequest({
+									url: '/orders/invoice/' + ele.name + '/',
+									method: 'delete',
+									headers: {
+										Authorization: 'JWT ' + uni.getStorageSync('userInfo').token
+									},
+								}).then(response => {
+									console.log(response.data)
+									uni.hideLoading()
+									this.$api.msg('发票删除成功')
+									
+									this.getInvoice()
+								}).catch(error => {
+									console.log(error)
+								})
+							})
+				    	}
+				    }
+				});
+				
+			},
 			
 			addInvoIce(type, item){
 				console.log(item,type)
@@ -166,12 +252,21 @@
 </script>
 
 <style lang='scss'>
-	page{
-		/* padding-bottom: 120upx; */
-		height: 0%;
+	/deep/ .uni-checkbox:not([disabled]) .uni-checkbox-input:hover{
+		border-color:red!important;
+	}
+	/deep/ .uni-checkbox .uni-checkbox-input{
+		 background: red!important;
+		 color: #fff!important;
+	}
+	/deep/ .uni-checkbox .uni-checkbox-input.uni-checkbox-input-checked{
+		 background: red!important;
+		 color: #fff!important;
 	}
 	.content{
 		position: relative;
+		padding: 30upx;
+		margin-bottom: 100upx;
 	}
 	.list{
 		display: flex;
@@ -180,19 +275,20 @@
 		background: #6b6b6b;
 		position: relative;
 	}
+	.coupon-wrap{
+		margin-bottom: 20upx;
+	}
 	.coupon-item {
 		display: flex;
 		flex-direction: column;
-		/* margin: 20upx 24upx; */
 		background: #fff;
-	
+		border-radius: 20upx;
 		.con {
 			display: flex;
 			align-items: center;
 			position: relative;
-			height: 120upx;
+			min-height: 140upx;
 			padding: 0 30upx;
-	
 			&:after {
 				position: absolute;
 				left: 0;
@@ -211,18 +307,20 @@
 			justify-content: center;
 			flex: 1;
 			overflow: hidden;
-			height: 100upx;
+			height: auto;
+			padding: 30upx 0;
 		}
 	
 		.title {
 			font-size: 32upx;
-			color: $font-color-dark;
-			margin-bottom: 10upx;
+			color: #111111;
+			font-weight: bold;
+			margin-bottom: 15upx;
 		}
 	
 		.time {
-			font-size: 24upx;
-			color: $font-color-light;
+			font-size: 28upx;
+			color: #666666;
 		}
 	
 		.right {
@@ -312,35 +410,106 @@
 		position: fixed;
 		left: 30upx;
 		right: 30upx;
-		bottom: 16upx;
+		bottom: 40upx;
 		z-index: 95;
 		display: flex;
 		align-items: center;
 		justify-content: center;
-		width: 690upx;
+		width: 590upx;
 		height: 80upx;
 		font-size: 32upx;
 		color: #fff;
-		background-color: $base-color;
-		border-radius: 10upx;
+		background-image: linear-gradient(to right,#EE1D23, #F04023);
+		border-radius: 40upx;
 		box-shadow: 1px 2px 5px rgba(219, 63, 96, 0.4);		
 	}
 	
-	.add-btns{
-		position: fixed;
-		left: 30upx;
-		right: 30upx;
-		bottom: 120upx;
+	/* 底部栏 */
+	.action-section{
+		position:fixed;
+		bottom:30upx;
+		margin-left: -15px;
 		z-index: 95;
 		display: flex;
 		align-items: center;
-		justify-content: center;
-		width: 690upx;
-		height: 80upx;
-		font-size: 32upx;
-		color: #fff;
-		background-color: $base-color;
-		border-radius: 10upx;
-		box-shadow: 1px 2px 5px rgba(219, 63, 96, 0.4);		
+		width: 100%;
+		height: 100upx;
+		padding-left: 30upx;
+		background: rgba(255,255,255,.9);
+		box-shadow: 0 0 2px 0 rgba(0,0,0,.5);
+		.checkbox{
+			height:52upx;
+			position:relative;
+			image{
+				width: 45upx;
+				height: 100%;
+				position:relative;
+				z-index: 5;
+			}
+		}
+		.allText{
+			position:absolute;
+			left: 80upx;
+			top: 0;
+			z-index: 4;
+			width: 80upx;
+			height: 52upx;
+			line-height: 52upx;
+			font-size: 16px;
+			color: #666;
+		}
+		.clear-btn{
+			position:absolute;
+			left: 26upx;
+			top: 0;
+			z-index: 4;
+			width: 0;
+			height: 52upx;
+			line-height: 52upx;
+			padding-left: 38upx;
+			font-size: $font-base;
+			color: #fff;
+			background: $font-color-disabled;
+			border-radius:0 50px 50px 0;
+			opacity: 0;
+			transition: .2s;
+			&.show{
+				opacity: 1;
+				width: 120upx;
+			}
+		}
+		.total-box{
+			flex: 1;
+			display:flex;
+			flex-direction: column;
+			text-align:right;
+			padding-right: 40upx;
+			.price{
+				font-size: $font-lg;
+				color: $font-color-dark;
+			}
+			.coupon{
+				font-size: $font-sm;
+				color: $font-color-light;
+				text{
+					color: $font-color-dark;
+				}
+			}
+		}
+		.confirm-btn{
+			padding: 0 38upx;
+			height: 100upx;
+			line-height: 100upx;
+			font-size: $font-base + 2upx;
+			background: $uni-color-hangfeng;
+			border-radius: 0;
+			box-shadow: 1px 2px 5px rgba(217, 60, 93, 0.72)
+		}
+	}
+	/* 复选框选中状态 */
+	.action-section .checkbox.checked,
+	.cart-item .checkbox.checked{
+		color: $uni-color-hangfeng;
+		font-size: 20px;
 	}
 </style>

@@ -53,9 +53,7 @@
 	*/
    /*每个页面公共css */
    
-   /* @import "colorui/main.css";
-   @import "colorui/icon.css"; */
-   /* @import "uview-ui/index.scss"; */
+   @import "uview-ui/index.scss";
    @import "static/css/index-app.css";
    @import "static/iconfont/font.scss";
    @import "static/iconfont/icon.css";

@@ -3,6 +3,8 @@
 		font-weight: normal;
 		font-style: normal;
 		src: url('https://at.alicdn.com/t/font_924083_zwzqdm342nq.ttf?t=1627885392058') format('truetype');
+		/* https://at.alicdn.com/t/font_924083_zwzqdm342nq.ttf?t=1627885392058 */
+		
 	}
 
 	.yticon {
@@ -11,6 +13,11 @@
 		font-style: normal;
 		-webkit-font-smoothing: antialiased;
 		-moz-osx-font-smoothing: grayscale;
+	}
+	
+	/* 发票编辑 */
+	.icon-invoice-edit:before {
+		content: "\e66d";
 	}
 	
 	/* 分类筛选 */

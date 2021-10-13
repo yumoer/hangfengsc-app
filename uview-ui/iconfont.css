@@ -14,12 +14,12 @@
 /* #ifdef MP-ALIPAY || MP-BAIDU || MP-TOUTIAO || H5 || MP-QQ */
 @font-face {
 	font-family: "uicon-iconfont";
-	src: url('//at.alicdn.com/t/font_1529455_cuj7cnyazoa.eot');
-	src: url('//at.alicdn.com/t/font_1529455_cuj7cnyazoa.eot?#iefix') format('embedded-opentype'),
-		url('//at.alicdn.com/t/font_1529455_cuj7cnyazoa.woff2') format('woff2'),
-		url('//at.alicdn.com/t/font_1529455_cuj7cnyazoa.woff') format('woff'),
-		url('//at.alicdn.com/t/font_1529455_cuj7cnyazoa.ttf') format('truetype'),
-		url('//at.alicdn.com/t/font_1529455_cuj7cnyazoa.svg#iconfont') format('svg');
+	src: url('https://at.alicdn.com/t/font_1529455_cuj7cnyazoa.eot');
+	src: url('https://at.alicdn.com/t/font_1529455_cuj7cnyazoa.eot?#iefix') format('embedded-opentype'),
+		url('https://at.alicdn.com/t/font_1529455_cuj7cnyazoa.woff2') format('woff2'),
+		url('https://at.alicdn.com/t/font_1529455_cuj7cnyazoa.woff') format('woff'),
+		url('https://at.alicdn.com/t/font_924083_zwzqdm342nq.ttf?t=1627885392058') format('truetype'),
+		url('https://at.alicdn.com/t/font_1529455_cuj7cnyazoa.svg#iconfont') format('svg');
 }
 
 /* #endif  */

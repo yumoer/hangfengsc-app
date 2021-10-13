@@ -393,16 +393,16 @@
 		}, {
 			"path": "pages/invoice/invoice",
 			"style": {
-				"navigationBarTitleText": "发票管理",
+				"navigationBarTitleText": "发票信息",
 				"app-plus": {
 					"bounce": "none",
 					"titleNView": {
 						"buttons": [
 							{
 								"fontSrc": "/static/yticon.ttf",
-								"text": "\ue61c",
-								"fontSize": "22",
-								"color": "#303133",
+								"text": "\ue619",
+								"fontSize": "20",
+								"color": "#666666",
 								"background": "rgba(0,0,0,0)"
 							}
 						]
