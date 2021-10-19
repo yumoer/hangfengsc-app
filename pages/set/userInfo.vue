@@ -37,13 +37,13 @@
 				},
 			}
 		},
-		onLoad() {
+		created() {
 			this.getDate()
 		},
 		methods: {
 			...mapMutations(['logout']),
 			async getDate() {
-				uni.showLoading({mask:true})
+				uni.showLoading()
 				await uniRequest({
 					url: '/user/detail/',
 					method: 'get',
@@ -189,18 +189,20 @@
 		letter-spacing: 6upx;
 		border-radius: 40upx;
 		color: #fff;
-		background: linear-gradient(to right,#EE1D23,#F04023);
+		background: linear-gradient(to right,#EE1D23 0%,#F04023 100%);
 		box-shadow: 1px 0 5px rgba(238, 29, 35, 0.3);
 	}
 	.del-btn {
 		display: flex;
 		align-items: center;
 		justify-content: center;
+		margin-left: 20upx;
 		width: 160upx;
 		height: 80upx;
-		margin: 60upx auto;
+		border-radius: 40upx;
+		background: linear-gradient(to right,#EE1D23 0%,#F04023 100%);
+		color: #fff;
 		font-size: $font-lg;
-		border-radius: 10upx;
 		box-shadow: 1px 2px 5px rgba(219, 63, 96, 0.4);
 	}
 	

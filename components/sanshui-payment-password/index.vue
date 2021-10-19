@@ -72,7 +72,7 @@
 
 <script>
 	//依赖的弹窗模块
-	import sanshuiModal from '@/components/sanshui-modal'
+	import sanshuiModal from '@/components/sanshui-modal/index.vue'
 	export default {
 		components: {
 			sanshuiModal

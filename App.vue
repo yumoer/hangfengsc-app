@@ -53,7 +53,7 @@
 	*/
    /*每个页面公共css */
    
-   @import "uview-ui/index.scss";
+   /* @import "uview-ui/iconfont.scss"; */
    @import "static/css/index-app.css";
    @import "static/iconfont/font.scss";
    @import "static/iconfont/icon.css";
@@ -132,12 +132,21 @@
 			}
 		}
 	}
-
+	
 	.clamp {
 		overflow: hidden;
 		text-overflow: ellipsis;
 		white-space: nowrap;
 		display: block;
+		
+	}
+	
+	.clamp2{
+		overflow:hidden;
+		text-overflow:ellipsis;
+		display:-webkit-box;
+		-webkit-box-orient:vertical;
+		-webkit-line-clamp:2;
 	}
 
 	.common-hover {

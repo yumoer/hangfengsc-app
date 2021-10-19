@@ -2,16 +2,17 @@
 	<form>
 		<view class="page_box">
 			<view class="head_box"></view>
-			<view class="content_box pad" style="padding: 0 30upx;">
+			<view class="content_box pad">
 				<view class="form-item">
 					<label>
-						<view class="inp-title">意见反馈(必填)</view>
+						<view class="inp-title">问题和意见</view>
 						<view class="area-box">
 							<textarea
 								class="inp-area"
 								v-model="content"
 								name="message"
-								placeholder="客官~您对我们的应用还满意吗，请给予我们你的意见我们将做的更好~"
+								maxlength="100"
+								placeholder="简要描述您要反馈的意见和建议"
 								placeholder-class="pl-style"
 							/>
 							<view class="img-box">
@@ -19,22 +20,22 @@
 									<image class="preview-img" :src="item.path" @click="into(index)" mode="aspectFill"></image>
 									<text class="cuIcon-close" @tap="DelImg(index)"></text>
 								</view>
-								<view class="choose-img x-c" @tap="onChooseImg" v-if="imgList.length < 1"><text class="cuIcon-cameraadd"></text></view>
+								<view class="choose-img x-c" @tap="onChooseImg" v-if="imgList.length < 1"><text class="yticon icon-jia2"></text></view>
 							</view>
 						</view>
 					</label>
 				</view>
 				<view class="form-item">
 					<label>
-						<view class="inp-title">联系方式(非必填)</view>
-						<input class="inp" v-model="email" name="email" placeholder="请输入您的邮箱/QQ/手机号" placeholder-class="pl-style" />
+						<view class="inp-title">联系方式</view>
+						<input class="inp" v-model="email" name="email" placeholder="留下您的邮箱/QQ/手机号，方便我们后续与您联系" placeholder-class="pl-style" />
 					</label>
 				</view>
 			</view>
-			<view class="foot_box x-bc pad" style="display: flex;padding: 0 30upx;">
-				<button class="cu-btn post-btn" style="margin: 20px 0;" @tap="addFeedback">提交</button>
-				<button class="cu-btn contact-btn" v-if="false">联系客服</button>
-			</view>
+		</view>
+		<view class="foot_box x-bc pad">
+			<button class="cu-btn post-btn" @tap="addFeedback">提交</button>
+			<button class="cu-btn contact-btn" v-if="false">联系客服</button>
 		</view>
 	</form>
 </template>
@@ -78,9 +79,9 @@
 						  success: function (uploadFileRes) {
 						   console.log(uploadFileRes);
 						   if(uploadFileRes.statusCode === 201){
-							   that.$api.msg('提交成功')
+							   uni.navigateBack()
 							   setTimeout(function(){
-							   	uni.navigateBack()
+							   	that.$api.msg('意见提交成功')
 							   },500)
 						   }
 						  }
@@ -130,31 +131,39 @@
 
 <style lang="less">
 page{
-	background: #fff;
 	padding: 0px;
 }
 .page_box {
-	background: #fff;
+	padding: 30upx;
+}
+.icon-jia2{
+	font-size: 60upx;
+	display: flex;
+	justify-content: center;
+	line-height: 140upx;
+	color: #999;
 }
 .form-item {
+	background-color: #fff;
+	border-radius: 20upx;
+	padding: 28upx;
+	margin-bottom: 20upx;
 	.inp-title {
-		font-size: 30rpx;
-		font-family: PingFang SC;
+		font-size: 32rpx;
+		font-family: PingFang-SC-Bold;
 		font-weight: bold;
-		color: rgba(51, 51, 51, 1);
-		margin-bottom: 30rpx;
+		color: #333;
+		padding-bottom: 20upx;
 	}
-	.inp {
-		width: 690rpx;
+	.inp { 
 		height: 84rpx;
-		background: rgba(249, 250, 251, 1);
-		border-radius: 20rpx;
-		padding: 0 30rpx;
-		font-size: 26rpx;
+		background: #fff;
+		border-bottom: 1px solid #ddd;
+		padding: 0 20rpx;
+		font-size: 24rpx;
 		font-family: PingFang SC;
 		font-weight: 500;
 		color: #333;
-		margin-bottom: 38rpx;
 	}
 	.inp-house {
 		font-size: 26rpx;
@@ -172,12 +181,10 @@ page{
 		color: rgba(177, 179, 199, 1);
 	}
 }
+
 .area-box {
-	width: 690rpx;
 	min-height: 306rpx;
-	background: rgba(249, 250, 251, 1);
 	border-radius: 20rpx;
-	padding: 28rpx;
 	.pl-style {
 		font-size: 26rpx;
 		font-family: PingFang SC;
@@ -197,15 +204,12 @@ page{
 		display: flex;
 		align-items: center;
 		flex-wrap: wrap;
-		margin-top: 20rpx;
 		.choose-img,
 		.preview-box {
-			width: 108rpx;
-			height: 108rpx;
-			background: rgba(249, 250, 251, 1);
+			width: 140rpx;
+			height: 140rpx;
+			background: #fff;
 			border: 1rpx solid rgba(223, 223, 223, 1);
-			margin-right: 25rpx;
-			margin-bottom: 25rpx;
 			position: relative;
 			&:nth-child(5n) {
 				margin-right: 0;
@@ -233,12 +237,15 @@ page{
 	}
 }
 .foot_box {
-	border-top: 1rpx solid #eeeeee;
-	height: 100rpx;
+	display: flex;
+	height: 80rpx;
+	width: 100%;
+	position: absolute;
+	bottom: 60upx;
 	.contact-btn {
 		flex: 1;
 		height: 70rpx;
-		background: linear-gradient(90deg, rgba(103, 104, 105, 1), rgba(82, 82, 82, 1));
+		background-image:linear-gradient(to right,#EE1D23 0%,#F04023 100%) ;
 		box-shadow: 0px 2rpx 5rpx 0px rgba(102, 103, 104, 0.46);
 		border-radius: 35rpx;
 		font-size: 28rpx;
@@ -247,9 +254,9 @@ page{
 		color: rgba(255, 255, 255, 1);
 	}
 	.post-btn {
-		flex: 1;
-		height: 74rpx;
-		background: #fa436a;
+		height: 80rpx;
+		width: 590upx;
+		background-image:linear-gradient(to right,#EE1D23 0%,#F04023 100%) ;
 		box-shadow: 0px 7rpx 6rpx 0rpx rgba(229, 138, 0, 0.22);
 		border-radius: 37rpx;
 		font-size: 28rpx;

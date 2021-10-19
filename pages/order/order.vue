@@ -35,7 +35,7 @@
 								<view class="right"> <!-- clamp-->
 									<text class="title">{{goodsItem.title}}</text>
 									<view class="" style="margin-top: 10px;">
-										<text class="spec" style="float: left;">黑色款</text>
+										<text class="spec" style="float: left;">无规格</text>
 										<text class="attr-box" style="float: right;margin-top: -2px;">  x {{goodsItem.count}}</text>
 									</view>
 								</view>

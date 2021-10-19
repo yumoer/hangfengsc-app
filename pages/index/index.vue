@@ -34,23 +34,23 @@
 					<swiper-item>
 						<view class="swiper-item">
 							<text class="swiper-text" style="">今日爆款</text>
-							<image class="swiper-image" src="../../static/index/jrbk.png" mode=""></image>
+							<image class="swiper-image" src="/static/index/jrbk.png" mode=""></image>
 						</view>
 					</swiper-item>
 					<swiper-item>
 						<view class="swiper-item">
 							<text class="swiper-text">今日爆款</text>
-							<image class="swiper-image" src="../../static/index/jrbk.png" mode=""></image>
+							<image class="swiper-image" src="/static/index/jrbk.png" mode=""></image>
 						</view>
 					</swiper-item>
 				</swiper>
 			</view>
 			<view class="func-right">
 				<view class="func-xpsf">
-					<image class="func-image" style="" src="../../static/index/xpsf.png" mode=""></image>
+					<image class="func-image" style="" src="/static/index/xpsf.png" mode=""></image>
 				</view>
 				<view class="func-lqzx" @click="navToPage('/pages/coupon/coupon')">
-					<image class="func-image" src="../../static/index/lqzx.png" mode=""></image>
+					<image class="func-image" src="/static/index/lqzx.png" mode=""></image>
 				</view>
 			</view>
 		</view>

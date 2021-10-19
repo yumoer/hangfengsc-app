@@ -2,116 +2,135 @@
 	<view class="container">
 		<!-- 空白页 -->
 		<view v-if="!hasLogin || empty===true" class="empty">
-			<image src="/static/emptyCart.png" mode="aspectFit"></image>
-			<view class="" v-if="hasLogin">
-				<view class="empty-tips">
-					您的购物车还是空的
-				</view>
-				<button class="add-btn" @click="navTo('/pages/index/index')">去逛逛</button>
-			</view>
-			<view class="" v-else>
-				<view class="empty-tips">
-					您的购物车还是空的
-				</view>
-				<button class="add-btn" @click="navToLogin">去登陆</button>
-			</view>
+			<xw-empty v-if="hasLogin" :isShow="isEmpty" img="/static/empty/emptyCart.png" path="/pages/index/index" btnText="去逛逛" text="您暂时还没有添加商品" textColor="#C0C4CC"></xw-empty>
+			<xw-empty v-else :isShow="isEmpty" img="/static/empty/emptyCart.png" path="/pages/public/login" btnText="去登录" text="您暂时还没有添加商品" textColor="#C0C4CC"></xw-empty>
 		</view>
-		<view v-else>
-			<!-- 列表 -->
-			<view class="cart-list">
-				<block v-for="(item, index) in cartList" :key="item.id">
-					<view
-						class="cart-item" 
-						:class="{'b-b': index!==cartList.length-1}"
-					>
-						<view class="image-wrapper">
-							<image :src="item.default_image_url" 
-								:class="[item.loaded]"
-								mode="aspectFill" 
-								lazy-load 
-								@click="gotoPath(item.id)" 
-								@load="onImageLoad('cartList', index)" 
-								@error="onImageError('cartList', index)"
-							></image>
-							<view 
-								class="yticon icon-xuanzhong checkbox"
-								:class="{checked: item.selected}"
-								@click="check('item', index)"
-							></view>
-						</view>
-						<view class="item-right">
-							<text class="clamp title">{{item.title}}</text>
-							<text class="attr">黑色 升级款</text>
-							<text class="price">¥ <text style="font-size: 16px;">{{item.price}}</text></text>
-							<uni-number-box
-								class="step"
-								:min="1" 
-								:value="item.count"
-								:isMin="item.count==1"
-								:index="index"
-								@change="numberChange(item.count,index)"
-							></uni-number-box>
-						</view>
-						<!-- <text class="del-btn yticon icon-fork" @click="deleteCartItem(index)"></text> -->
+		<!-- 列表 -->
+		<view class="cart-list">
+			<block v-for="(item, index) in cartList" :key="item.id" v-if="cartList.length > 0">
+				<view class="cart-item">
+					<view class="image-wrapper">
+						<image :src="item.default_image_url" 
+							:class="[item.loaded]"
+							mode="aspectFill" 
+							lazy-load 
+							@click="gotoPath(item.id)" 
+							@load="onImageLoad('cartList', index)" 
+							@error="onImageError('cartList', index)"
+						></image>
+						<view 
+							class="yticon icon-xuanzhong checkbox"
+							:class="{checked: item.selected}"
+							style="transform: scale(0.8);"
+							@click="check('item', index)"
+						></view>
 					</view>
-				</block>
-			</view>
-			<!-- 底部菜单栏 -->
-			<view class="action-section">
-				<view class="checkbox">
-					<image 
-						:src="allChecked?'/static/selected2.png':'/static/select2.png'" 
-						mode="aspectFit"
-						@click="check('all')"
-					></image>
-					<text class="allText">全部</text>
-					<!-- <view class="clear-btn" :class="{show: allChecked}" @click="clearCart">
-						清空
-					</view> -->
+					<view class="item-right">
+						<text class="clamp title">{{item.title}}</text>
+						<text class="attr">无规格</text>
+						<text class="price">¥ <text style="font-size: 16px;">{{item.price}}</text></text>
+						<uni-number-box
+							class="step"
+							:min="1" 
+							v-model="item.count"
+							:index="index"
+							@change="numberChange($event,item,index)"
+						></uni-number-box>
+					</view>
+					<!-- <text class="del-btn yticon icon-fork" @click="deleteCartItem(index)"></text> -->
 				</view>
-				<view class="total-box">
-					<text class="price">
-						<text style="color: #666;">合计：</text>
-						<text style="font-size: 10px;color:#EE1D23;">¥</text>
-						<text style="font-size:16px;color:#EE1D23;font-weight: bold;">{{total}}</text>
-					</text>
-					<!-- <text class="coupon">
-						已优惠<text>0.00</text>元
-					</text> -->
-				</view>
-				<button type="primary" class="no-border confirm-btn" @click="createOrder">结算 ({{selected.length}})</button>
+			</block>
+			<show-modal></show-modal>
+		</view>
+		<!-- 底部菜单栏 -->
+		<view class="action-section" v-if="!isCheck && cartList.length !== 0">
+			<view class="checkbox">
+				<image 
+					:src="allChecked?'/static/selected2.png':'/static/select2.png'" 
+					mode="aspectFit"
+					style="transform: scale(0.8);"
+					@click="check('all')"
+				></image>
+				<text class="allText">全选</text>
 			</view>
+			<view class="total-box">
+				<text class="price">
+					<text style="color: #666;">合计：</text>
+					<text style="font-size: 10px;color:#EE1D23;">¥</text>
+					<text style="font-size:16px;color:#EE1D23;font-weight: bold;">{{total}}</text>
+				</text>
+				<text class="coupon" v-if="(100 - total) > 0">
+					差<text style="color: #EE1D23;">￥{{(100 - total).toFixed(2)}}</text>元可包邮
+				</text>
+				<text class="coupon" v-else>
+					包邮
+				</text>
+			</view>
+			<button type="primary" class="no-border confirm-btn" @click="createOrder">结算 ({{selected.length}})</button>
+		</view>
+		
+		<view class="action-section" v-if="isCheck && cartList.length !== 0">
+			<view class="checkbox">
+				<image 
+					:src="allChecked?'/static/selected2.png':'/static/select2.png'" 
+					mode="aspectFit"
+					style="transform: scale(0.8);"
+					@click="check('all')"
+				></image>
+				<text class="allText">全选</text>
+			</view>
+			<view class="total-box clear" @click="clearCart">清空购物车</view>
+			<button class="no-border delete-btn" @click="joinCollect">移入收藏</button>
+			<button class="no-border delete-btn" @click="deleteGoods">删除</button>
 		</view>
 	</view>
 </template>
 
 <script>
 	import {mapState} from 'vuex';
-	import uniNumberBox from '@/components/uni-number-box/uni-number-box.vue'
-	import uniRequest from 'uni-request'
+	import uniNumberBox from '@/components/uni-number-box/uni-number-box.vue';
+	import uniRequest from 'uni-request';
+	import xwEmpty from '@/components/xw-empty/xw-empty';
 	export default {
 		components: {
-			uniNumberBox
+			uniNumberBox,xwEmpty
 		},
 		data() {
 			return {
 				total: 0, //总价格
 				allChecked: false, //全选状态  true|false
-				empty: false, //空白页现实  true|false
+				isEmpty: false, //空白页现实  true|false
+				empty:false,
 				cartList: [],
 				selected:[], //选中的个数
+				isCheck:false,
 			};
 		},
 		onShow(){
-			document.getElementsByClassName('uni-page-head')[0].style = 'padding-right:10px;background:#fff;color:#000'
 			this.loadData();
+		},
+		activated() {
+			this.loadData();
+		},
+		onNavigationBarButtonTap(e) {
+			const index = e.index;
+			if(index === 0 && this.cartList.length > 0){
+				if(this.isCheck === true){
+					document.getElementsByClassName('uni-btn-icon')[1].innerText = '编辑';
+				}else{
+					document.getElementsByClassName('uni-btn-icon')[1].innerText = '完成';
+				}
+				this.isCheck = !this.isCheck
+			}else{
+				this.$api.msg('没有数据暂不能编辑')
+			}
 		},
 		watch:{
 			//显示空白页
 			cartList(e){
 				let empty = e.length === 0 ? true: false;
-				if(this.empty !== empty){
-					this.empty = empty;
+				if(this.isEmpty !== empty){
+					this.isEmpty = empty;
 				}
 			}
 		},
@@ -128,7 +147,6 @@
 						Authorization:'JWT '+uni.getStorageSync('userInfo').token
 					},
 				}).then(res=>{
-					console.log(res.status)
 					if(res.status === 200 || res.status === 201){
 						let cartList = res.data.map((item,index)=>{
 							this.$set(item, 'loaded', 'loaded');
@@ -136,6 +154,11 @@
 						});
 						this.cartList = cartList;
 						this.calcTotal();  //计算总价
+						if(this.isCheck = false){
+							document.getElementsByClassName('uni-btn-icon')[1].innerText = '完成';
+						}else{
+							document.getElementsByClassName('uni-btn-icon')[1].innerText = '编辑';
+						}
 					}else{
 						if(res.status === 500){
 							this.$api.msg('服务器错误，请稍后重试')
@@ -157,16 +180,6 @@
 			gotoPath(id){
 				uni.navigateTo({
 					url: '/pages/product/product?id='+id
-				})
-			},
-			navTo(url){
-				uni.switchTab({
-					url: url
-				})
-			},
-			navToLogin(){
-				uni.navigateTo({
-					url: '/pages/public/login'
 				})
 			},
 			 //选中状态处理
@@ -211,10 +224,24 @@
 				this.calcTotal(type);
 			},
 			//数量
-			numberChange(data,index){
-				// this.cartList[index].count += Number(data+1);
-				console.log(data,index)
-				this.calcTotal();
+			numberChange(value,e,index){
+				if(value==e.count){ //防止重复传送  
+					return false;  
+				}
+				uniRequest({
+					url:'/carts/cart_sku/',
+					method:'put',
+					data:{
+						sku_id: this.cartList[index].id,
+						count: value,
+						selected: e.selected
+					},
+					headers:{
+						Authorization:'JWT '+uni.getStorageSync('userInfo').token
+					},
+				}).then(res=>{
+					this.loadData()
+				})
 			},
 			//删除
 			deleteCartItem(index){
@@ -244,19 +271,24 @@
 			},
 			//清空
 			clearCart(){
-				uni.showModal({
-					content: '清空购物车？',
-					success:async (e)=>{
+				this.$showModal({
+					title:'提示',
+					content: '确认清空购物车?',
+					cancelText:"取消",
+					confirmText:"确认",
+					success: async(e) =>{
 						if(e.confirm){
 							await uniRequest({
-								url:'/cart/select/',
-								method:'delete',
+								url:'/carts/clear/',
+								method:'POST',
 								headers:{
 									Authorization:'JWT '+uni.getStorageSync('userInfo').token
 								},
 							}).then(res=>{
 								this.cartList = [];
-								this.$api.msg(`全部商品删除成功`);
+								this.$api.msg(`购物车已清空`);
+								document.getElementsByClassName('uni-btn-icon')[1].innerText = '编辑';
+								this.loadData()
 							})
 						}
 					}
@@ -284,7 +316,7 @@
 				this.allChecked = selected;
 				this.total = Number(total+'').toFixed(2);
 			},
-			//创建订单
+			//提交订单
 			createOrder(){
 				let list = this.cartList;
 				let goodsData = [];
@@ -300,6 +332,87 @@
 				}else{
 					this.$api.msg('购买商品不能为空')
 				}
+			},
+			// 删除
+			deleteGoods(){
+				console.log(this.selected,this.cartList)
+				let checkList = []
+				this.cartList.forEach(ele=>{
+					if(ele.selected === true){
+						checkList.push(ele.id)
+					}
+				})
+				this.$showModal({
+					title:'提示',
+				    content: '确认删除选择商品?',
+					cancelText:"取消",
+					confirmText:"确认",
+				    success: (e) =>{
+				    	if(e.confirm){
+							uni.showLoading()
+							uniRequest({
+								url:'/carts/list/cart/',
+								method:'PUT',
+								data:{
+									skus:checkList
+								},
+								headers:{
+									Authorization:'JWT '+uni.getStorageSync('userInfo').token,
+									'Content-Type': 'application/json' //自定义请求头信息
+								},
+							}).then(res=>{
+								this.calcTotal();
+								this.loadData();
+								uni.hideLoading();
+								setTimeout(()=>{
+									this.$api.msg(`删除成功`);
+								})
+							})
+						}
+					}
+				})
+			},
+			
+			// 移入收藏
+			joinCollect(){
+				console.log(this.selected,this.cartList)
+				let checkList = []
+				this.cartList.forEach(ele=>{
+					if(ele.selected === true){
+						checkList.push(ele.id)
+					}
+				})
+				this.$showModal({
+					title:'提示',
+				    content: '确认收藏商品?',
+					cancelText:"取消",
+					confirmText:"确认",
+				    success: (e) =>{
+				    	if(e.confirm){
+							uni.showLoading()
+							uniRequest({
+								url:'/carts/list/collection/',
+								method:'POST',
+								data:{
+									skus:checkList
+								},
+								headers:{
+									Authorization:'JWT '+uni.getStorageSync('userInfo').token
+								},
+							}).then(res=>{
+								console.log(res.data)
+								if(res.data === '添加成功'){
+									uni.hideLoading();
+									setTimeout(()=>{
+										this.$api.msg(`移入收藏成功`);
+									})
+								}else{
+									this.$api.msg(`400 错误`);
+								}
+							})
+						}
+					}
+				})
 			}
 		}
 	}
@@ -312,14 +425,14 @@
 	
 	/deep/ .uni-numbox{
 		background-color: #fff;
-		left: 115px;
+		left: 200upx;
 		position: relative;
 	} 
 	/deep/ .cart-item .checkbox{
 		border-radius: none;
 	}
 	.container{
-		padding-bottom: 134upx;
+		padding-bottom: 100upx;
 		/* 空白页 */
 		.empty{
 			position:fixed;
@@ -364,8 +477,8 @@
 	.cart-item{
 		display:flex;
 		position:relative;
-		margin:20upx 20upx;
-		padding: 20upx 20upx 20upx 40upx;
+		margin:30upx;
+		padding: 20upx 20upx 20upx 50upx;
 		background-color: #fff;
 		border-radius: 10px;
 		.image-wrapper{
@@ -380,10 +493,10 @@
 		}
 		.checkbox{
 			position:absolute;
-			left:-54upx;
+			left:-60upx;
 			top: 80upx;
 			z-index: 8;
-			font-size: 44upx;
+			font-size: 40upx;
 			line-height: 1;
 			padding: 4upx;
 			color: $font-color-disabled;
@@ -396,7 +509,7 @@
 			flex: 1;
 			overflow: hidden;
 			position:relative;
-			padding-left: 30upx;
+			padding-left: 20upx;
 			.title{
 				font-size:$font-base + 2upx;
 				color: $font-color-dark;
@@ -433,20 +546,20 @@
 		margin-bottom:80upx;
 		/* #endif */
 		position:fixed;
-		bottom:30upx;
+		bottom:18upx;
 		z-index: 95;
 		display: flex;
 		align-items: center;
 		width: 100%;
 		height: 100upx;
-		padding-left: 30upx;
-		background: rgba(255,255,255,.9);
-		box-shadow: 0 0 2px 0 rgba(0,0,0,.5);
+		padding-left: 42upx;
+		background: rgba(255,255,255,1);
+		box-shadow: 0 0 1px 0 rgba(0,0,0,.5);
 		.checkbox{
 			height:52upx;
 			position:relative;
 			image{
-				width: 45upx;
+				width: 40upx;
 				height: 100%;
 				position:relative;
 				z-index: 5;
@@ -454,13 +567,13 @@
 		}
 		.allText{
 			position:absolute;
-			left: 80upx;
+			left: 60upx;
 			top: 0;
 			z-index: 4;
 			width: 80upx;
 			height: 52upx;
 			line-height: 52upx;
-			font-size: 16px;
+			font-size: 24upx;
 			color: #666;
 		}
 		.clear-btn{
@@ -483,12 +596,17 @@
 				width: 120upx;
 			}
 		}
+		.clear{
+			font-size: 28upx;
+			color: $uni-color-hangfeng;
+			margin-left: 140upx!important;
+		}
 		.total-box{
 			flex: 1;
 			display:flex;
 			flex-direction: column;
-			text-align:right;
-			padding-right: 40upx;
+			text-align:left;
+			margin-left: 120upx;
 			.price{
 				font-size: $font-lg;
 				color: $font-color-dark;
@@ -496,19 +614,34 @@
 			.coupon{
 				font-size: $font-sm;
 				color: $font-color-light;
+				margin-right: 112upx;
+				font-size: 20upx;
 				text{
 					color: $font-color-dark;
 				}
 			}
 		}
 		.confirm-btn{
-			padding: 0 38upx;
-			height: 100upx;
-			line-height: 100upx;
+			padding: 0 40upx;
+			height: 80upx;
+			line-height: 80upx;
+			margin-right: 30upx;
 			font-size: $font-base + 2upx;
 			background: $uni-color-hangfeng;
-			border-radius: 0;
+			border-radius: 60upx;
 			box-shadow: 1px 2px 5px rgba(217, 60, 93, 0.72)
+		}
+		
+		.delete-btn{
+			padding: 0 40upx;
+			height: 70upx;
+			line-height: 70upx;
+			margin-right: 30upx;
+			font-size: $font-base + 2upx;
+			border-radius: 60upx;
+			font-size: 24upx;
+			background-color: #fff;
+			border: 1px solid #ddd;
 		}
 	}
 	/* 复选框选中状态 */

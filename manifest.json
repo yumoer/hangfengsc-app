@@ -201,7 +201,7 @@
         "publicPath" : "./",
         "router" : {
             "mode" : "hash",
-            "base" : ""
+            "base" : "./"
         },
         "devServer" : {
             "port" : 8000,

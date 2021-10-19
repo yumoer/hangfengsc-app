@@ -190,8 +190,11 @@
 					"titleNView": {
 						"buttons": [
 							{
+								"fontSrc": "/static/yticon.ttf",
 								"text": "编辑",
-								"fontSize":"16px"
+								"fontSize": "16",
+								"color": "#303133",
+								"background": "rgba(0,0,0,0)"
 							}
 						]
 					}
@@ -326,7 +329,21 @@
 		},{
 			"path": "pages/coupon/reduction",
 			"style": {
-				"navigationBarTitleText": "我的收藏"
+				"navigationBarTitleText": "我的收藏",
+				"app-plus": {
+					"bounce": "none",
+					"titleNView": {
+						"buttons": [
+							{
+								"fontSrc": "/static/yticon.ttf",
+								"text": "编辑",
+								"fontSize": "16",
+								"color": "#303133",
+								"background": "rgba(0,0,0,0)"
+							}
+						]
+					}
+				}
 			}
 		},{
 			"path": "pages/coupon/couponShop",

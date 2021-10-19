@@ -4,7 +4,7 @@
 			<lgd-tab :tabValue="tabValue" @getIndex ="getIndex"/>
 		</view>
 		<view class="row" v-if="!isEmpty">
-			<view v-for="(item,index) in tikets" :key="index" v-if="Index === 0" :class="'back_wrap'+item.coupons.type" :style="{background:item.type === 0 ? '../../static/index/djj.png' : item.type === 1 ? '../../static/index/zkj.png' : '../../static/index/mjj.png'}">
+			<view v-for="(item,index) in tikets" @click="lookPrice(item)" :key="index" v-if="Index === 0" :class="'back_wrap'+item.coupons.type" :style="{background:item.type === 0 ? '../../static/index/djj.png' : item.type === 1 ? '../../static/index/zkj.png' : '../../static/index/mjj.png'}">
 				<view class="wrap_left">
 					￥<text class="wrap_price">{{Math.round(item.coupons.reduction)}}</text>
 					<text class="wrap_type" v-if="item.coupons.type === 0">代金券</text>
@@ -14,10 +14,10 @@
 				<view class="wrap_center">
 					<view class="wrap_name">{{item.coupons.cat_name}}专用</view>
 					<view class="wrap_full">满 {{item.coupons.full}} 使用</view>
-					<view class="wrap_time">{{item.coupons.start_time.split('T')[0]}}~{{item.coupons.end_time.split('T')[0]}}</view>
+					<view class="wrap_time">有效期至{{item.coupons.end_time.split('T')[0]}}</view>
 					
 				</view>
-				<view class="wrap_right">
+				<view class="wrap_right" v-if="source !== 1">
 					<button class="wrap_btn" type="default" @click="naToPage(item)">使用</button>
 				</view>
 			</view>
@@ -92,13 +92,19 @@
 		},
 		onLoad(option){
 			console.log(option);
-			this.source = option.source;
+			this.source = +option.source;
+			console.log(this.source)
+			if(this.source === 1){
+				this.tabValue = ['已兑换']
+				this.tikets = uni.getStorage('couponList')
+			}else{
+				this.getIndex()
+			}
+			
 		},
 		
 		methods: {
 			getIndex(index) { 
-				console.log("当前下标:" + index) 
-				
 				this.Index = index
 				if(index === 0){
 					this.useTiket(1)
@@ -122,7 +128,6 @@
 					console.log(res)
 					if(res.status === 200){
 						this.tikets = res.data.results
-						
 					}else if(res.status === 401){
 						this.$api.msg('用户过期或未登录')
 					}else if(res.status === 500){

@@ -8,17 +8,21 @@
 						<u-checkbox @change="checkboxChange" style="transform:scale(1.2)" :name="item.id" v-model="item.checked" active-color="red"></u-checkbox>
 					</u-checkbox-group>
 					<view class="left">
-						<text class="title">{{item.invoice_title}}</text>
-						<text class="time">{{item.invoice_org_code}}</text>
-						<text class="time" v-if="item.register_address">{{item.register_address}}</text>
-						<text class="time" v-if="item.invoice_phone">{{item.invoice_phone}}</text>
-						<text class="time" v-if="item.invoice_bank_code">{{item.invoice_bank_code}}</text>
-						<text class="time" v-if="item.invoice_bank">{{item.invoice_bank}}</text>
+						<text class="title" v-if="item.invoice_title === '不开发票'">{{item.invoice_title}}</text>
+						<text class="title" v-else>发票抬头：{{item.invoice_title}}</text>
+						<text class="time" v-if="item.invoice_org_code">纳税人识别号：{{item.invoice_org_code}}</text>
+						<text class="time" v-if="item.register_address">注册地址：{{item.register_address}}</text>
+						<text class="time" v-if="item.invoice_phone">注册电话：{{item.invoice_phone}}</text>
+						<text class="time" v-if="item.invoice_bank_code">开户银行账号：{{item.invoice_bank_code}}</text>
+						<text class="time" v-if="item.invoice_bank">开户银行：{{item.invoice_bank}}</text>
 					</view>
-					<text v-if="!isCheck" class="yticon icon-user-fankui" @click.stop="addInvoIce('edit', item)"></text>
+					<text v-if="!isCheck && item.id !== 0" class="yticon icon-user-fankui" @click.stop="addInvoIce('edit', item)"></text>
 				</view>
 			</view>
 		</view>
+		
+		
+		
 		<view v-if="couponList.length === 0">
 			<xw-empty :isShow="isEmpty" img="/static/empty/emptyTicket.png" path="" btnText="" text="您暂时还没有添加发票" textColor="#C0C4CC"></xw-empty>
 		</view>
@@ -65,7 +69,7 @@
 		onNavigationBarButtonTap(e) {
 			const index = e.index;
 			if(index === 0 && this.couponList.length > 0){
-				this.isCheck = true
+				this.isCheck = !this.isCheck
 			}else{
 				this.$api.msg('没有数据暂不能删除')
 			}
@@ -82,6 +86,7 @@
 		methods: {
 			//选择发票
 			checkInvoice(item){
+				console.log(item)
 				if(this.source == 1){
 					//this.$api.prePage()获取上一页实例，在App.vue定义
 					this.$api.prePage().couponList = item;
@@ -106,6 +111,9 @@
 						val.checked = false;
 					})
 					this.couponList = res.data;
+					if(this.source === '1'){
+						this.couponList.unshift({invoice_title:'不开发票',invoice_org_code:'',id:0})
+					}
 					if(this.couponList.length < 1){
 						this.selected = []
 						this.isCheck = false;
@@ -125,26 +133,6 @@
 								}
 							}
 						})
-					}
-					/* this.couponList.forEach(ele=>{
-						if(ele.invoice_bank !== null){
-							ele.checked = false
-							// this.checked.push(ele.checked)
-							this.increaseTicket.push(ele)
-						}else{
-							ele.checked = false
-							this.checked.push(ele.checked)
-							this.generalVote.push(ele)
-						}
-						console.log(this.checked)
-					}) */
-					if (this.couponList.length === 0) {
-						// this.invoice = '新增发票'
-						/* uni.redirectTo({
-							url: '/pages/invoice/invoice'
-						}) */
-					} else {
-						// this.invoice = '选择发票'
 					}
 				}).catch(error => {
 					console.log(error)

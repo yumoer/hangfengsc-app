@@ -1,36 +1,35 @@
 <template>
 	<view class="content" style="width: 100%;">
-		
 		<view class="eva-section" v-if="results.length > 0">
 			<view class="">
-				 <view class="e-header" style="border-bottom:1px soild #ddd">
-				 	<text class="tit">评价</text>
-				 	<text>({{results.length}})条</text>
-				 	<text class="tip">好评率：<text style="color:#fa436a;">{{score}}</text></text>
-				 	<text class="yticon icon-you"></text>
-				 </view>
-				<view v-for="(result,index) in results" :key="index"  style="margin-top: 16upx;background: #fff;">
+				<view v-for="(result,index) in results" :key="index"  style="margin-top: 20upx;background: #fff;">
 					<view class="eva-box" >
 						<image class="portrait" :src="headPicValue"></image>
 						<view class="right">
-							<text class="name" style="display: inline-block;">{{username}}
+							<text class="name" style="">{{username}}
 								<text class="bot" style="float: right;">
-									<text class="time">{{result.create_time}}</text>
+									<text class="time"><i class="yticon icon-iconfontshanchu1"></i></text>
 								</text>
 							</text>
-							<text class="con">{{result.comment}}</text>
+							<text class="con">{{result.create_time}}</text>
 						</view>
+					</view>
+					<view class="assess-goods" style="">
+						{{result.comment}}
 					</view>
 					<view class="order-item" @click="goTo(result.sku.id)">
 						<view class="goods-box-single">
 							<image class="goods-img" :src="result.sku.default_image_url" mode="aspectFill"></image>
 							<view class="right">
-								<text class="title clamp">{{result.sku.title}}</text>
+								<text class="title">{{result.sku.title}}</text>
 								<text class="price" style="float: left;">{{result.sku.price}} 
-									<!-- <text class="attr-box" style="float: right;">  x {{result.sku.sales}}</text> -->
 								</text>
 							</view>
 						</view>
+					</view>
+					<view class="assess-look">
+						<span>浏览 0次 </span>
+						<span style="margin-left: 40upx;">评论 0次 </span>
 					</view>
 				</view>
 			</view>
@@ -127,11 +126,14 @@
 		height: 36upx;
 	}
 	
+	.icon-iconfontshanchu1{
+		font-size: 36upx;
+	}
+	
 	/* 评价 */
 	.eva-section{
 		display: flex;
 		flex-direction: column;
-		padding: 20upx;
 		// background: #fff;
 		.e-header{
 			display: flex;
@@ -159,8 +161,8 @@
 		padding: 20upx;
 		.portrait{
 			flex-shrink: 0;
-			width: 80upx;
-			height: 80upx;
+			width: 120upx;
+			height: 120upx;
 			border-radius: 100px;
 		}
 		.right{
@@ -171,9 +173,8 @@
 			color: $font-color-base;
 			padding-left: 26upx;
 			.con{
-				font-size: $font-base;
-				color: $font-color-dark;
-				padding: 20upx 0;
+				font-size: 24upx;
+				color: #999;
 			}
 			.bot{
 				display: flex;
@@ -181,6 +182,12 @@
 				font-size: $font-sm;
 				color:$font-color-light;
 			}
+		}
+		.name{
+			display: inline-block;
+			color: #666;
+			font-size: 32upx;
+			padding: 10px 0;
 		}
 	}
 	
@@ -239,15 +246,16 @@
 				padding-left: 10upx;
 			}
 		}
+		
 		/* 单条商品 */
 		.goods-box-single{
 			display: flex;
 			padding: 20upx;
-			background: #f8f8f8;
+			background: #F7F7F7;
 			.goods-img{
 				display: block;
-				width: 120upx;
-				height: 120upx;
+				width: 174upx;
+				height: 174upx;
 			}
 			.right{
 				flex: 1;
@@ -256,9 +264,11 @@
 				padding: 0 30upx 0 24upx;
 				overflow: hidden;
 				.title{
-					font-size: $font-base + 2upx;
-					color: $font-color-dark;
-					line-height: 1;
+					font-size: 24upx;
+					font-weight: bold;
+					color: #666666;
+					line-height: 2;
+					height: 96upx;
 				}
 				.attr-box{
 					font-size: $font-sm + 2upx;
@@ -267,17 +277,14 @@
 				}
 				.price{
 					font-size: $font-base + 2upx;
-					color: red;
 					margin-top: 20px;
 					&:before{
 						content: '￥';
 						font-size: $font-sm;
-						margin: 0 2upx 0 8upx;
 					}
 				}
 			}
 		}
-		
 		.price-box{
 			display: flex;
 			justify-content: flex-end;
@@ -330,6 +337,21 @@
 				}
 			}
 		}
+		
+	}
+	
+	.assess-goods{
+		padding: 0 20upx;
+		color: #333;
+		font-size: 28upx;
+		font-weight: bold;
+		font-family: 'PingFang-SC-Medium';
+	}
+	
+	.assess-look{
+		padding: 20upx;
+		color: #666666;
+		font-size: 24upx;
 	}
 	
 	textarea{

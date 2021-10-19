@@ -8,11 +8,10 @@
 	 margin-right: 10px;
  }
 .status_bar-nobg {
-	     height: var(--status-bar-height);
-	     width: 100%;
+	 height: var(--status-bar-height);
+	 width: 100%;
 
-	 }
-	 
+}
 
 /* 转圈动画 */
 .turn-load{

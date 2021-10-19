@@ -12,6 +12,7 @@
 				<view
 					style="display: inline-block;"
 					class="yticon icon-xuanzhong checkbox"
+					v-if="source !== '1'"
 					:class="{checked: item.default_address_id}"
 				>
 					<text style="color: #666;margin-left: 10upx;" @click="check(item)">设为默认</text>
@@ -211,13 +212,13 @@
 	}
 	.checkbox{
 		width: 100%;
-		margin-top: 20upx;
 		z-index: 8;
 		font-size: 28upx;
-		line-height: 1;
+		height: 30px;
+		line-height: 30px;
 		padding: 4upx;
 		color: $font-color-disabled;
-		border-radius: 50px;
+		border-top: 2upx solid #ddd;
 	}
 	/* 复选框选中状态 */
 	.checked{
@@ -241,7 +242,7 @@
 		display: flex;
 		align-items: center;
 		padding-bottom: 24upx;
-		border-bottom: 1upx solid #ddd;
+		
 		width: 100%;
 		.tag{
 			font-size: 24upx;
