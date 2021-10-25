@@ -90,20 +90,6 @@
 		},
 		methods: {
 			async getDate(){
-				/* await uniRequest({
-					url:'mobile/order/list/return/goods/user/',
-					method:'get',
-					headers:{
-						Authorization:'JWT '+uni.getStorageSync('userInfo').token
-					},
-				}).then(res=>{
-					console.log(res)
-					this.navList = res.data
-					console.log(this.navList)
-				}).catch(error=>{
-					console.log(error)
-				}) */
-				
 				await uniRequest({
 					url:'/wxapp/order/info/',
 					method:'get',
