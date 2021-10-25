@@ -35,7 +35,6 @@
 				</view>
 			</view>
 		</view>
-		
 		<view class="order-item" v-for="(goodItem,goodIndex) in goodsItem.goods" :key="goodIndex">
 			<view class="goods-box-single">
 				<image class="goods-img" :src="goodItem.image" mode="aspectFill"></image>
