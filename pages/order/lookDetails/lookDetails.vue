@@ -6,7 +6,6 @@
 				<view class="info-time">订单号: {{goodsItem.order_id}}</view>
 			</view>
 		</view>
-		
 		<view class="c-list">
 			<view class="c-row b-b">
 				<text class="tit">订单编号</text>
