@@ -112,7 +112,7 @@
 					})
 					this.couponList = res.data;
 					if(this.source === '1'){
-						this.couponList.unshift({invoice_title:'不开发票',invoice_org_code:'',id:0})
+						this.couponList.unshift({invoice_title:'不开发票',invoice_org_code:''})
 					}
 					if(this.couponList.length < 1){
 						this.selected = []

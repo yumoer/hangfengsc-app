@@ -2,8 +2,8 @@
 	<view class="uni-countdown">
 		<text v-if="showDay" :style="{ borderColor: borderColor, color: color, backgroundColor: backgroundColor }" class="uni-countdown__number">{{ d }}</text>
 		<text v-if="showDay" :style="{ color: splitorColor }" class="uni-countdown__splitor">天</text>
-		<text :style="{ borderColor: borderColor, color: color, backgroundColor: backgroundColor }" class="uni-countdown__number">{{ h }}</text>
-		<text :style="{ color: splitorColor }" class="uni-countdown__splitor">{{ showColon ? ':' : '时' }}</text>
+		<text v-if="showHour" :style="{ borderColor: borderColor, color: color, backgroundColor: backgroundColor }" class="uni-countdown__number">{{ h }}</text>
+		<text v-if="showHour" :style="{ color: splitorColor }" class="uni-countdown__splitor">{{ showColon ? ':' : '时' }}</text>
 		<text :style="{ borderColor: borderColor, color: color, backgroundColor: backgroundColor }" class="uni-countdown__number">{{ i }}</text>
 		<text :style="{ color: splitorColor }" class="uni-countdown__splitor">{{ showColon ? ':' : '分' }}</text>
 		<text :style="{ borderColor: borderColor, color: color, backgroundColor: backgroundColor }" class="uni-countdown__number">{{ s }}</text>
@@ -15,6 +15,10 @@
 		name: 'UniCountdown',
 		props: {
 			showDay: {
+				type: Boolean,
+				default: true
+			},
+			showHour: {
 				type: Boolean,
 				default: true
 			},

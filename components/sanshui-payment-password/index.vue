@@ -235,6 +235,7 @@
 			},
 			cancel () {
 				this.$emit('cancel');
+				console.log('111')
 			},
 			close () {
 				let tips = '';

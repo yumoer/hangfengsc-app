@@ -617,9 +617,9 @@
 			}
 		}
 		,{
-			"path" : "pages/index/subject/gyhf/gyhf",
+			"path" : "pages/index/subject/gywm/gywm",
 			"style" : {
-				"navigationBarTitleText": "关于行丰"
+				"navigationBarTitleText": "关于我们"
 			}
 		}
 		,{
@@ -629,13 +629,13 @@
 			}
 		}
 		,{
-			"path" : "pages/index/subject/bghc/bghc",
+			"path" : "pages/index/subject/jypx/jypx",
 			"style" : {
 				"navigationBarTitleText": "教育培训" 
 			}
 		}
 		,{
-			"path" : "pages/index/subject/bgsb/bgsb",
+			"path" : "pages/index/subject/flzx/flzx",
 			"style" : {
 				"navigationBarTitleText": "法律咨询" 
 			}

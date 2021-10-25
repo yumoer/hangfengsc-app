@@ -73,8 +73,8 @@
 				</view>
 				
 				<view class="yt-list-cell">
-					<text class="cell-tit clamp">支付类型</text>
-					<text class="cell-tip">在线支付</text>
+					<text class="cell-tit clamp">支付方式</text>
+					<text class="cell-tip active" style="margin-right: 5px;">在线支付</text>
 				</view>
 				
 				<view class="" style="height: 40px;line-height: 40px;">
@@ -116,12 +116,12 @@
 				count: 1,
 				maskState: 0, //优惠券面板显示状态
 				desc: '', //备注
-				payType: 1, //1微信 2支付宝
+				payType: 8, //1微信 2支付宝
 				price: 0, // 价格
 				allPrice:0, // 总价
 				postPrice: 13, // 运费
 				disPrice:0, // 优惠价
-				invoice: '选择发票',
+				invoice: '不开发票',
 				coupon:'选择优惠券',
 				goods_id:'',
 				couponList: {},  // 发票
@@ -136,7 +136,7 @@
 					address: this.addressData === undefined ? null : this.addressData.id,
 					pay_method: null, // 1
 					remark: '', // 备注
-					invoice: '', //发票id
+					invoice: 0, //发票id
 					invoice_type: '0', //发票类型  //"0"
 					send_invoice_address:'' // 发票邮寄地址
 				}
@@ -146,10 +146,8 @@
 			uniNumberBox
 		},
 		onShow(){
-			this.couponList.id !== 0 ? this.info.invoice = this.couponList.id : this.info.invoice = ''
+			console.log(this.couponList.id)
 			if(this.couponList.id === undefined){
-				this.invoice = '选择发票'
-			}else if(this.couponList.id === 0 && this.couponList.invoice_org_code === ''){
 				this.invoice = '不开发票'
 			}else if(this.couponList.invoice_bank !== '' && this.couponList.invoice_bank_code !== '' && this.couponList.invoice_phone !== '' && this.couponList.register_address !== ''){
 				this.invoice = '增值税发票'
@@ -179,10 +177,8 @@
 					console.log(error);
 				})
 			}
-			
 		},
 		onLoad(option) {
-			
 			//商品数据
 			let data = JSON.parse(decodeURIComponent(option.data))
 			console.log(data)
@@ -363,30 +359,80 @@
 					return
 				}
 				
-				if(this.couponList.id === undefined){
+				if(this.info.invoice === undefined){
 					this.$api.msg('请选择发票')
 					return
+				}else{
+					this.info.invoice = this.couponList.id
 				}
 				
-				if(this.couponList.id === 0){
-					this.info.invoice_type = '0'
+				if(this.couponList.id === undefined){
+					this.info.invoice_type = 0
 				}else if(this.couponList.invoice_bank !== '' && this.couponList.invoice_bank_code !== '' && this.couponList.invoice_phone !== '' && this.couponList.register_address !== ''){
-					this.info.invoice_type = '2'
+					this.info.invoice_type = 2
 				}else{
-					this.info.invoice_type = '1'
+					this.info.invoice_type = 1
 				}
 				
 				this.info.remark = this.desc
-				if(this.type === 1){ // 直接购买
-					uni.redirectTo({
-						url: '/pages/money/pay?info=' + JSON.stringify(this.info) + '&price='+ Number(this.allPrice - this.reduction)  + '&goods_id='+ this.datas[0].sku_spec.skuId + '&count='+this.count + '&couponId='+this.tiket.id
+				this.info.pay_method = this.payType
+				
+				this.createOrder()
+			},
+			
+			async createOrder(){
+				// this.orderInfo.pay_method = this.payType
+				console.log(this.info)
+				if (this.type !== 1) { // 购物车购买
+					const res = await uniRequest({   
+						url: '/orders/commit/',
+						method: 'post',
+						data: this.info,
+						headers: {
+							Authorization: 'JWT ' + uni.getStorageSync('userInfo').token
+						},
+					}).then(res => {
+						console.log(res)
+						if (res.status === 201) {
+							this.orderId = res.data.order_id
+							uni.redirectTo({
+								url: '/pages/money/pay?orderId=' + res.data.order_id
+							})
+						} else {
+							this.$api.msg(res.data.message || res.data[0])
+						}
+					}).catch(error => {
+						console.log(error.data)
 					})
-				}else{
-					uni.redirectTo({  // 购物车购买
-						url: '/pages/money/pay?info=' + JSON.stringify(this.info) + '&price='+ Number(this.allPrice - this.reduction)
+				} else {
+					console.log(this.info)
+					this.info.count = this.count;
+					this.info.sku_id = this.sku_ids[0];
+					const res = await uniRequest({ // 直接购买
+						url: '/orders/directly/create/',
+						method: 'post',
+						data: this.info,
+						headers: {
+							Authorization: 'JWT ' + uni.getStorageSync('userInfo').token
+						},
+					}).then(res => {
+						console.log(res)
+						if (res.status === 201 || res.status === 200) {
+							uni.redirectTo({
+								url: '/pages/money/pay?orderId=' + res.data.order_id
+							})
+						} else {
+							if (res.status === 400) {
+								this.$api.msg(res.data.non_field_errors[0])
+							} else {
+								this.$api.msg(res.data.message)
+							}
+						}
+				
+					}).catch(error => {
+						console.log(error.data)
 					})
 				}
-				
 			},
 		}
 	}

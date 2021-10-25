@@ -612,22 +612,22 @@
 				}else if(value.index === 6){
 					// this.$api.msg('暂未开发')
 					uni.navigateTo({
-						url:'/pages/index/subject/gyhf/gyhf'
+						url:'/pages/index/subject/jypx/jypx'
 					})
 				}else if(value.index === 7){
 					// this.$api.msg('暂未开发')
 					uni.navigateTo({
-						url:'/pages/index/subject/zprc/zprc'
+						url:'/pages/index/subject/cqtg/cqtg'
 					})
 				}else if(value.index === 8){
 					// this.$api.msg('暂未开发')
 					uni.navigateTo({
-						url:'/pages/index/subject/bghc/bghc'
+						url:'/pages/index/subject/flzx/flzx'
 					})
 				}else if(value.index === 9){
 					// this.$api.msg('暂未开发')
 					uni.navigateTo({
-						url:'/pages/index/subject/bgsb/bgsb'
+						url:'/pages/index/subject/gywm/gywm'
 					})
 				}
 			},
