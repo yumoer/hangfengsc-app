@@ -81,8 +81,8 @@
 				success: async (e) => {
 					console.log(e)
 					if (e.confirm) {
-						uni.switchTab({
-							url: '/pages/order/order'
+						uni.redirectTo({
+							url: '/pages/order/order?state=0'
 						})
 					}
 				}
@@ -163,13 +163,26 @@
 			},
 			
 			// 倒计时
-			timeChange(e) {
-				uni.showToast({
-					title: '订单已取消',
-					icon:'error'
-				})
-				uni.switchTab({
-					url: '/pages/cart/cart'
+			async timeChange(e) {
+				await uniRequest({
+					url:'/orders/cancel/',
+					method:'get',
+					params:{
+						id:this.orderId
+					},
+					headers:{
+						Authorization:'JWT '+uni.getStorageSync('userInfo').token
+					},
+				}).then(res=>{
+					uni.showToast({
+						title: '订单已取消',
+						icon:'error'
+					})
+					uni.switchTab({
+						url: '/pages/cart/cart'
+					})
+				}).catch(error=>{
+					console.log(error)
 				})
 			},
 			

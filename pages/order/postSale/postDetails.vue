@@ -1,59 +1,49 @@
 <template>
-	<view class="content" v-if="goodsItem !== undefined">
+	<view class="contents">
 		<view class="order-title">
 			<view class="title-info">
-				<view class="info-money">{{title}}</view>
-				<view class="info-time">订单号: {{goodsItem.order_id}}</view>
+				<u-image width="80upx" height="80upx" style="display: inline-block;float: left;" src="../../../static/order/tksuccess.png"></u-image>
+				<text class="info-money">{{title}}</text>
 			</view>
 		</view>
+		<view class="post-item">
+			<view class="goods-box-single">
+				<u-cell-group>
+					<u-cell-item title="退款总额"  :arrow="false" :value="'￥'+goodItem.price.toFixed(2)"></u-cell-item>
+					<u-cell-item title="协商记录"></u-cell-item>
+				</u-cell-group>
+			</view>
+		</view>
+		
 		<view class="order-item">
 			<view class="i-top b-b">
-				<text class="time">{{(goodsItem.update_time).split('T')[0]}} {{(goodsItem.update_time).split('T')[1].split('.')[0]}}</text>
-				<text class="state" :style="{color: goodsItem.stateTipColor}">{{goodsItem.stateTip}}</text>
+				<text class="time">退款详情</text>
+				<text class="state" :style="{color: goodItem.stateTipColor}">{{goodItem.stateTip}}</text>
 			</view>
 			
-			<view 
-				class="goods-box-single"
-			>
-				<image class="goods-img" :src="goodsItem.sku_image" mode="aspectFill"></image>
+			<view class="goods-box-single">
+				<image class="goods-img" :src="goodItem.sku_image" mode="aspectFill"></image>
 				<view class="right">
-					<text class="title clamp">{{goodsItem.sku_name}}</text>
-					<text class="price" style="float: left;">{{goodsItem.price}} 
-						<text class="attr-box" style="float: right;">  x {{goodsItem.count}}</text>
+					<text class="title clamp2">{{goodItem.sku_name}}</text>
+					<text class="price" style="float: left;">{{goodItem.price}} 
+						<text class="attr-box" style="float: right;">  x {{goodItem.count}}</text>
 					</text>
 				</view>
 			</view>
-			
-			<view class="price-box" >
-				已退款
-				<text class="price">{{(goodsItem.price * goodsItem.count).toFixed(2)}}</text>
+			<view class="list-cell">
+				<list-cell title="订单编号" :tips="goodItem.order_id"></list-cell>
+				<list-cell title="数量" :tips="goodItem.count+''"></list-cell>
+				<list-cell title="售后原因" :tips="goodItem.cause"></list-cell>
+				<list-cell title="售后类型" :tips="goodItem.service_type === 1 ? '退货' : '换货'" ></list-cell>
+				<list-cell title="服务步骤" v-if="goodItem.service_step === 1" tips="用户提交"></list-cell>
+				<list-cell title="服务步骤" v-if="goodItem.service_step === 2" tips="后台审核中"></list-cell>
+				<list-cell title="服务步骤" v-if="goodItem.service_step === 3" tips="审核通过"></list-cell>
+				<list-cell title="服务步骤" v-if="goodItem.service_step === 4" tips="退款中"></list-cell>
+				<list-cell title="服务步骤" v-if="goodItem.service_step === 5" tips="退款完成"></list-cell>
+				<list-cell title="提交时间" :tips="(goodItem.create_time || '').split('T')[0] + ' ' + goodItem.create_time.split('T')[1].split('.')[0]"></list-cell>
+				<list-cell title="更新时间" :tips="goodItem.update_time.split('T')[0] + ' ' + goodItem.update_time.split('T')[1].split('.')[0]"></list-cell>
+				<list-cell title="拒绝理由" :tips="goodItem.close_cause"></list-cell>
 			</view>
-		</view>
-		<view class="history-section icon">
-			
-			
-			<list-cell title="订单编号" :tips="goodsItem.order_id"></list-cell>
-			<!-- <list-cell style="background: #fff;" title="商品名称" :tips="goodsItem.goods_name"></list-cell> -->
-			<list-cell title="数量" :tips="goodsItem.count+''"></list-cell>
-			<list-cell title="售后原因" :tips="goodsItem.cause"></list-cell>
-			<view style="background: #fff;" >
-				<view class="sec-header" v-if="goodsItem.images.length > 0">
-					<text>图片凭证</text>
-				</view>
-				<scroll-view scroll-x class="h-list" v-if="goodsItem.images.length > 0">
-					<image style="border: solid 1px #ddd;"  v-for="(img,index) in goodsItem.images" :key="index" :src="img" mode="aspectFill"></image>
-				</scroll-view>
-			</view>
-			
-			<list-cell title="售后类型" :tips="goodsItem.service_type === 1 ? '退货' : '换货'" ></list-cell>
-			<list-cell title="服务步骤" v-if="goodsItem.service_step === 1" tips="用户提交"></list-cell>
-			<list-cell title="服务步骤" v-if="goodsItem.service_step === 2" tips="后台审核中"></list-cell>
-			<list-cell title="服务步骤" v-if="goodsItem.service_step === 3" tips="审核通过"></list-cell>
-			<list-cell title="服务步骤" v-if="goodsItem.service_step === 4" tips="退款中"></list-cell>
-			<list-cell title="服务步骤" v-if="goodsItem.service_step === 5" tips="退款完成"></list-cell>
-			<list-cell title="提交时间" :tips="goodsItem.create_time.split('T')[0] + ' ' + goodsItem.create_time.split('T')[1].split('.')[0]"></list-cell>
-			<list-cell title="更新时间" :tips="goodsItem.update_time.split('T')[0] + ' ' + goodsItem.update_time.split('T')[1].split('.')[0]"></list-cell>
-			<list-cell title="拒绝理由" :tips="goodsItem.close_cause"></list-cell>
 		</view>
 	</view>
 </template> 
@@ -65,83 +55,76 @@
 		components:{listCell},
 		data() {
 			return {
-				goodsItem: {},
-				title:'退款成功',
+				subId: '',
+				goodItem:{},
+				title:'',
 			};
 		},
 		
 		onLoad(options){
-			this.goodsItem = JSON.parse(options.item)
+			this.subId = options.sub_id
 		},
 	    onShow(){
-			 this.getDate(this.goodsItem)
+			 this.getDate()
 		},
 		methods: {
-			async getDate(item){
+			async getDate(){
 				await uniRequest({
-					url:'mobile/order/list/return/goods/user/',
+					url:'/mobile/order/list/return/goods/user/',
 					method:'get',
+					params:{sub_id:this.subId},
 					headers:{
 						Authorization:'JWT '+uni.getStorageSync('userInfo').token
 					},
 				}).then(res=>{
 					console.log(res)
 					res.data.forEach(ele=>{
-						if(ele.sku_id === item.sku){
-							this.goodsItem = ele
-						}
+						this.goodItem = res.data[0]
+						console.log(this.goodItem)
 					})
-					if(this.goodsItem.service_step === 1){
+					if(this.goodItem.service_step === 1){
 						this.title = '用户提交'
-					}else if(this.goodsItem.service_step === 2){
+					}else if(this.goodItem.service_step === 2){
 						this.title = '后台审核中'
-					}else if(this.goodsItem.service_step === 3){
+					}else if(this.goodItem.service_step === 3){
 						this.title = '审核通过'
-					}else if(this.goodsItem.service_step === 4){
+					}else if(this.goodItem.service_step === 4){
 						this.title = '退款中'
-					}else if(this.goodsItem.service_step === 5){
+					}else if(this.goodItem.service_step === 5){
 						this.title = '退款完成'
 					}else{
 						this.title = '审核不通过'
 					}
-					
 				}).catch(error=>{
 					console.log(error)
 				})
 			},
-			//订单状态文字和颜色
-			orderStateExp(state){
-				let stateTip = '',
-					stateTipColor = '#fa436a';
-				switch(+state){
-					case 1:
-						stateTip = '待付款'; break;
-					case 2:
-						stateTip = '待发货'; break;
-					case 3:
-						stateTip = '待收货'; break;
-					case 4:
-						stateTip = '待评价'; break;
-					case 5:
-						stateTip = '已完成'; break;
-					case 9:
-						stateTip = '订单已关闭'; 
-						stateTipColor = '#909399';
-						break;
-						
-					//更多自定义
-				}
-				return {stateTip, stateTipColor};
-			}
 		},
 		
 	}
 </script>
 
 <style lang="scss">
-	page, .content{
+	/deep/ .u-cell__value{
+		color: #EE1D23;
+		font-size: 32upx;
+	}
+	/deep/ .u-border-top:after{
+		border-top-width:0!important;
+	}
+	/deep/ .u-border-bottom:after{
+		border-bottom-width:0!important;
+	}
+	/deep/ .b-b:after, .b-t:after{
+		border-bottom: 0;
+	}
+	/deep/ .mix-list-cell .cell-more{
+		display: none;
+	}
+	.contents{
 		background: $page-color-base;
 		height: 100%;
+		padding: 30upx;
 	}
 	.cell-tip{
 		width: 60%;
@@ -156,14 +139,24 @@
 	
 	.order-title{
 		width: 100%;
-		height: 220upx;
-		background: #fa436a;
+		height: 200upx;
+		background: #fff;
+		border-radius: 20upx;
+		display: flex;
+		justify-content: center;
+		align-items: center;
 		.title-info{
 			font-size: 32upx;
-			color: #fff;
-			padding: 60upx 100upx;
+			color: #000;
 			.info-time{
 				margin-top: 20upx;
+			}
+			.info-money{
+				height: 80upx;
+				line-height: 80upx;
+				margin-left: 20upx;
+				color: #333333;
+				font-size: 38upx;
 			}
 		}
 	}
@@ -262,22 +255,71 @@
 	.uni-swiper-item{
 		height: auto;
 	}
+	
+	.post-item{
+		display: flex;
+		flex-direction: column;
+		background: #fff;
+		margin-top: 30upx;
+		border-radius: 20upx;
+		.goods-box-single{
+			display: flex;
+			padding: 20upx 0;
+			border-radius: 20upx;
+			.goods-img{
+				display: block;
+				width: 120upx;
+				height: 120upx;
+			}
+			.right{
+				flex: 1;
+				display: flex;
+				flex-direction: column;
+				padding: 0 30upx 0 24upx;
+				overflow: hidden;
+				.title{
+					font-size: $font-base + 2upx;
+					color: $font-color-dark;
+					line-height: 1;
+				}
+				.attr-box{
+					font-size: $font-sm + 2upx;
+					color: $font-color-light;
+					padding: 10upx 12upx;
+				}
+				.price{
+					font-size: $font-base + 2upx;
+					color: red;
+					margin-top: 20px;
+					&:before{
+						content: '￥';
+						font-size: $font-sm;
+						margin: 0 2upx 0 8upx;
+					}
+				}
+			}
+		}
+	}
+	
 	.order-item{
 		display: flex;
 		flex-direction: column;
-		padding-left: 30upx;
 		background: #fff;
-		margin-top: 16upx;
+		margin-top: 30upx;
+		
+		border-radius: 20upx;
 		.i-top{
 			display: flex;
 			align-items: center;
 			height: 80upx;
-			padding-right:30upx;
+			padding:0 30upx;
 			font-size: $font-base;
 			color: $font-color-dark;
 			position: relative;
 			.time{
 				flex: 1;
+				color: #333333;
+				font-size: 32upx;
 			}
 			.state{
 				color: $base-color;
@@ -305,8 +347,8 @@
 			padding: 20upx 0;
 			white-space: nowrap;
 			.goods-item{
-				width: 120upx;
-				height: 120upx;
+				width: 170upx;
+				height: 170upx;
 				display: inline-block;
 				margin-right: 24upx;
 			}
@@ -320,21 +362,23 @@
 		.goods-box-single{
 			display: flex;
 			padding: 20upx 0;
+			border-radius: 20upx;
+			padding: 30upx;
 			.goods-img{
 				display: block;
-				width: 120upx;
-				height: 120upx;
+				width: 170upx;
+				height: 170upx;
 			}
 			.right{
 				flex: 1;
 				display: flex;
 				flex-direction: column;
-				padding: 0 30upx 0 24upx;
+				padding-left: 24upx;
 				overflow: hidden;
 				.title{
 					font-size: $font-base + 2upx;
 					color: $font-color-dark;
-					line-height: 1;
+					line-height: 50upx;
 				}
 				.attr-box{
 					font-size: $font-sm + 2upx;
@@ -344,7 +388,7 @@
 				.price{
 					font-size: $font-base + 2upx;
 					color: red;
-					margin-top: 20px;
+					margin-top: 20upx;
 					&:before{
 						content: '￥';
 						font-size: $font-sm;

@@ -54,6 +54,7 @@
    /*每个页面公共css */
    
    /* @import "uview-ui/iconfont.scss"; */
+   @import "uview-ui/index.scss";
    @import "static/css/index-app.css";
    @import "static/iconfont/font.scss";
    @import "static/iconfont/icon.css";
@@ -138,7 +139,6 @@
 		text-overflow: ellipsis;
 		white-space: nowrap;
 		display: block;
-		
 	}
 	
 	.clamp2{

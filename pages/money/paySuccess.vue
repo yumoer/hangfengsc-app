@@ -1,22 +1,21 @@
 <template>
 	<view class="content">
-		<view class="" style="width: 100%;background: url(../../static/index/paybg.png);background-size: 100% 100%;background-repeat: no-repeat;">
-			<view class="" style="margin: 0 auto;margin-top: 80upx;text-align: center;">
-				<image style="width: 92upx;height: 92upx;margin-bottom: 10px;" src="../../static/index/paysuccess.png" mode=""></image><br/>
-				<text style="font-size: 36upx;color: #fff;font-weight: bold;">支付成功</text>
+		<view class="pay_wrap">
+			<view class="pay_success">
+				<image class="pay_icon" src="../../static/index/paysuccess.png" mode=""></image><br/>
+				<text class="pay_text">支付成功</text>
 			</view>
-			<view class="" style="width: 92%;height: 170upx;background-color: #fff;margin: 0 30upx;border-radius: 10px;margin-top: 40upx;">
-				<view class="" style="text-align: center;padding: 44upx;display: flex;flex-direction: row;justify-content: space-between;">
-					
+			<view class="pay_slider">
+				<view class="pay_btn">
 					<navigator @click="navToPage('/pages/index/index')" class="action-btn">返回首页</navigator>
 					<navigator url="/pages/order/order?state=0" class="action-btn recom">查看订单</navigator>
 				</view>
 			</view>
 		</view>
 		
-		<view class="" style="width: 100%;height: 500px;margin-top: 30px;">
-			<view class="" style="width: 100%;text-align: center;height: 120upx;line-height: 120upx;">
-				<image style="width: 480upx;height: 37upx;" src="../../static/index/cainixihuan.png" mode=""></image>
+		<view class="pay_item" style="">
+			<view class="pay_body" style="">
+				<image class="pay_image" src="../../static/index/cainixihuan.png" mode=""></image>
 			</view>
 			<view class="guess-section">
 				<view 
@@ -28,11 +27,11 @@
 					<view class="image-wrapper" >
 						<image :src="item._source.detail_image" mode="aspectFill"></image>
 					</view>
-					<view class="" style="padding: 10px;position: relative;">
+					<view class="pay_allow">
 						<text class="title">{{item._source.name}}</text>
-						<text style="display: inline-block;">
+						<text class="pay_inline">
 							<text class="price">{{item._source.price}}</text>
-							<text style="color: rgb(144, 147, 153); line-height:60upx;font-size: 28upx;position: absolute;right: 16px;" >{{item._source.sales}}人付款</text>
+							<text class="pay_price">{{item._source.sales}}人付款</text>
 						</text>
 					</view>
 					
@@ -99,6 +98,80 @@
 		justify-content: center;
 		align-items: center;
 	}
+	.pay_wrap{
+		width: 100%;
+		background: url(../../static/index/paybg.png);background-size: 100% 100%;
+		background-repeat: no-repeat;
+	}
+	.pay_success{
+		margin: 0 auto;
+		margin-top: 80upx;
+		text-align: center;
+	}
+	.pay_icon{
+		width: 92upx;
+		height: 92upx;
+		margin-bottom: 10px;
+		
+	}
+	.pay_text{
+		font-size: 36upx;
+		color: #fff;
+		font-weight: bold;
+	}
+	
+	.pay_slider{
+		width: 92%;
+		height: 170upx;
+		background-color: #fff;
+		margin: 0 30upx;
+		border-radius: 10px;
+		margin-top: 40upx;
+	}
+	
+	.pay_btn{
+		text-align: center;
+		padding: 44upx;
+		display: flex;
+		flex-direction: row;
+		justify-content: space-between;
+	}
+	
+	.pay_item{
+		width: 100%;
+		height: 500px;
+		margin-top: 30px;
+	}
+	
+	.pay_body{
+		width: 100%;
+		text-align: center;
+		height: 120upx;
+		line-height: 120upx;
+	}
+	
+	.pay_image{
+		width: 480upx;
+		height: 37upx;
+	}
+	
+	.pay_allow{
+		padding: 10px;
+		position: relative;
+	}
+	
+	.pay_inline{
+		display: inline-block;
+	}
+	
+	.pay_price{
+		color: rgb(144, 147, 153);
+	    line-height:60upx;
+		font-size: 28upx;
+		position: absolute;
+		right: 16px;
+	}
+	
 	.success-icon{
 		font-size: 160upx;
 		color: #fa436a;

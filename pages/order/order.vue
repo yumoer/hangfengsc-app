@@ -35,62 +35,80 @@
 								<view class="right"> <!-- clamp-->
 									<text class="title">{{goodsItem.title}}</text>
 									<view class="" style="margin-top: 10px;">
-										<text class="spec" style="float: left;">无规格</text>
+										<text class="price" style="float: left;">{{goodsItem.price}}</text>
 										<text class="attr-box" style="float: right;margin-top: -2px;">  x {{goodsItem.count}}</text>
 									</view>
 								</view>
 							</view>
 							
-							<view class="price-box" >
-								<text>
-									总价:<text class="method">￥29.80</text>
+							<view class="price-box">
+								<text style="margin-right: 80px;">
+									运费:<text class="price">13.00</text>
 								</text>
-								<!-- <text>
-									优惠:<text class="method">￥29.80</text>
-								</text> -->
-								<text style="font-size: 16px;color: #333;">
-									<text>需付款:</text>
-									<text class="price">{{item.total_amount}}</text>
+								<text>
+									优惠:<text class="price">0.00</text>
 								</text>
 							</view>
 							
-							<view class="action-box b-t" v-if="item.state === 1">
-								<view class="more">更多</view>
-								<button class="action-btn" @click="editAddress(item)">修改地址</button>
-								<button class="action-btn recom" @click="payOrder(item)" v-if="item.pay_status === 0">去支付</button>
+							<view class="price-box">
+								<text style="font-size: 16px;">
+									<text>需付款:</text>
+									<text class="price" style="color: #EE1D23;">{{item.total_amount}}</text>
+								</text>
 							</view>
-							<view class="action-box b-t" v-if="item.state === 3">
-								<text class="more">更多</text>
+							
+							<!-- 待付款 -->
+							<view class="action-box b-t" v-if="item.pay_status === 0 && item.order_status === 0">
+								<u-dropdown ref="uDropdown" @open="open(index,item)" @close="close">
+									<u-dropdown-item title="更多" :options="options" @change="changeOptions($event,item)"></u-dropdown-item>
+								</u-dropdown>
+								<button class="action-btn" @click="editAddress(item)">修改地址</button>
+								<button class="action-btn recom" @click="payOrder(item)">去支付</button>
+							</view>
+							<!-- 待发货 -->
+							<view class="action-box b-t" v-if="item.pay_status === 1 && item.order_status < 2">
+								<u-dropdown ref="uDropdown" @open="open(index,item)" @close="close">
+									<u-dropdown-item title="更多" :options="options" @change="changeOptions($event,item)"></u-dropdown-item>
+								</u-dropdown>
+								<button class="action-btn" @click="editAddress(item)">修改地址</button>
+								<button class="action-btn recom" @click="lookViewOrder(item,item.order_id)">查看物流</button>
+							</view>
+							<!-- 待收货 -->
+							<view class="action-box b-t" v-if="item.order_status === 3">
+								<u-dropdown>
+									<u-dropdown-item title="更多" :options="options1" @change="changeOption1($event,item)"></u-dropdown-item>
+								</u-dropdown>
 								<button class="action-btn" @click="lookViewOrder(item,item.order_id)">查看物流</button>
 								<button class="action-btn recom" @click="confirmOrder(item)">确认收货</button>
 							</view>
-							<view class="action-box b-t" v-if="item.state === 4 && !item.goods[0].comment">
-								<text class="more">更多</text>
+							<!-- 待评价 -->
+							<view class="action-box b-t" v-if="item.order_status === 4 && !item.goods[0].comment">
+								<u-dropdown>
+									<u-dropdown-item title="更多" :options="options2" @change="changeOptions2($event,item,index)"></u-dropdown-item>
+								</u-dropdown>
 								<button class="action-btn" @click="lookViewOrder(item,item.order_id)">查看物流</button>
-								<button class="action-btn recom" @click="accessOrder(item)">评价</button>
+								<button class="action-btn recom" @click="accessOrder(item)">去评价</button>
 							</view>
 							
-							<view class="action-box b-t" v-if="item.state === 4 && item.goods[0].comment">
-								<text class="more">更多</text>
-								<button class="action-btn" @click="cancelOrder(item,item.order_id)">取消订单</button>
-								<button class="action-btn" @click="goBuyAgain(item,item.order_id)">申请发票</button>
+							<!-- 交易成功 -->
+							<view class="action-box b-t" v-if="item.order_status === 4 && item.goods[0].comment">
 								<button class="action-btn recom" @click="goBuyAgain(item,item.order_id)">再次购买</button>
 							</view>
-							
-							<view class="action-box b-t" v-if="item.state === 5">
-								<text class="more">更多</text>
-								<button class="action-btn" @click="cancelOrder(item,item.order_id)">取消订单</button>
+							<!-- 交易关闭 -->
+							<view class="action-box b-t" v-if="item.order_status === 5">
+								<button class="action-btn recom" @click="goBuyAgain(item,item.order_id)">再次购买</button>
+							</view>
+							<!-- 退换 -->
+							<view class="action-box b-t" v-if="item.order_status === 6">
 								<button class="action-btn recom" @click="goBuyAgain(item,item.order_id)">再次购买</button>
 							</view>
 						</view>
 					</view>
-					
 					<uni-load-more :status="tabItem.loadingType"></uni-load-more>
 				</scroll-view>
 			</swiper-item>
 		</swiper>
 		
-		<ssPaymentPassword ref="paymentPassword" :mode="mode" :value="pay_password" @submit="submitHandle" />
 		<u-mask :show="show" @click="show = false">
 			<view class="warp">
 				<view class="rect" @tap.stop>
@@ -108,20 +126,13 @@
 	import empty from "@/components/empty";
 	import uniRequest from 'uni-request';
 	import Json from '@/Json';
-	import ssPaymentPassword from '@/components/sanshui-payment-password'
-	import jsencrypt from '@/components/jsencrypt/jsencrypt.vue';
-	import jsrsasign from '@/node_modules/jsrsasign/lib/jsrsasign.js' 
-	import {
-	    mapState 
-	} from 'vuex';  
-	import unikModal from '@/components/unik-modal/unik-modal.vue'
+	import {mapState} from 'vuex';  
 	export default {
 		components: {
 			uniLoadMore,
 			empty,
 			minBadge,
 			uniSection,
-			ssPaymentPassword
 		},
 		data() {
 			return {
@@ -129,11 +140,20 @@
 				tabCurrentIndex: 0,
 				orderList:[],
 				orderId:null,
-				pay_password:'',
 				mode:0,
 				show:false,
 				page_size:10,
 				currentPage:1,
+				value: 1,
+				options: [{
+						label: '加入购物车',
+						value: 1,
+					},
+					{
+						label: '取消订单',
+						value: 2,
+					}
+				],
 				private:'', //签名
 				public:'', //加密
 				navList: [{
@@ -177,7 +197,6 @@
 			 * 修复app端点击除全部订单外的按钮进入时不加载数据的问题
 			 * 替换onLoad下代码即可
 			 */
-			document.getElementsByClassName('uni-page-head')[0].style = 'padding-right:10px;background:#fff;color:#000'
 			if(options.state){
 				this.tabCurrentIndex = Number(options.state);
 			}
@@ -234,7 +253,7 @@
 									break;
 								// 已退款
 								case 2:
-									item.state = 6
+									item.state = 7
 									break;
 							}
 							switch (item.order_status){
@@ -289,144 +308,74 @@
 				this.loadData('tabChange',this.tabCurrentIndex)
 			},
 			
+			open(index,item) {
+				console.log(index,item)
+				this.$refs.uDropdown[index].highlight()
+				// this.$refs.uDropdown.highlight();
+				// 展开某个下来菜单时，先关闭原来的其他菜单的高亮
+				// 同时内部会自动给当前展开项进行高亮
+			},
+			close(index) {
+				console.log(index)
+				// 关闭的时候，给当前项加上高亮
+				// 当然，您也可以通过监听dropdown-item的@change事件进行处理
+			},
+			
+			// 更多选择
+			changeOptions(e,item){
+				console.log(e,item)
+				if( e === 1){
+					this.$api.msg('加入购物车')
+					this.joinCart(item)
+				}else if(e === 2){
+					this.$api.msg('取消订单')
+					this.cancelOrder(item)
+				}
+			},
+			
+			changeOption1(){
+				console.log(e,item)
+				if( e === 1){
+					this.$api.msg('加入购物车')
+					this.joinCart(item)
+				}else if(e === 2){
+					this.$api.msg('取消订单')
+					this.cancelOrder(item)
+				}
+			},
+			
 			//顶部tab点击
 			tabClick(index){
 				this.tabCurrentIndex = index;
 			},
 			
-			//立即支付
-			async payOrder(item){
-				console.log(item.pay_method)
-				this.orderId = item.order_id
-				var ua = navigator.userAgent.toLowerCase();
-				var isWeixin = ua.indexOf('micromessenger') != -1;
-				if (isWeixin) {
-					this.show = true
-					return
-				}
-				if(item.pay_method === 2){ // 支付宝支付
-					 // #ifdef APP-PLUS
-					 await uniRequest({
-					 	url: '/payment/ali/app/orders/'+this.orderId+'/',
-					 	method: 'get',
-					 	headers: {
-					 		Authorization: 'JWT ' + uni.getStorageSync('userInfo').token
-					 	},
-					 }).then(res => {
-					 	console.log(res.data)
-					 	// plus.runtime.openURL(res.data.alipay_url)
-					 	const orderInfo = res.data.message
-					 	console.log(orderInfo)
-					 	uni.requestPayment({
-					 		provider: 'alipay',  // wxpay
-					 		orderInfo:orderInfo,
-					 		success: function(ress) {
-					 			uni.showToast({
-					 				title: "支付成功"
-					 			})
-								uni.switchTab({
-									url:'/pages/user/user'
-								})
-					 		},
-					 		fail: function(err) {
-					 			console.log(err,err.errMsg)
-					 			uni.showModal({
-					 				// content: "支付失败,原因为: " + err.errMsg,
-					 				content: '抱歉，您的支付不成功',
-					 				showCancel: false
-					 			})
-					 		}
-					 	});
-					 }).catch(error => {
-					 	console.log(error.data)
-					 });
-					 // #endif
-					 // #ifdef H5
-					 const res = await uniRequest({
-					 	url: '/payment/ali/orders/'+this.orderId+'/?mobile=1',
-					 	method: 'get',
-					 	headers: {
-					 		Authorization: 'JWT ' + uni.getStorageSync('userInfo').token
-					 	},
-					 }).then(res => {
-					 	console.log(res.data.alipay_url)
-						location.href =  'https://openapi.alipay.com/gateway.do?'+res.data.alipay_url
-					 })
-				     // #endif
-				}else if(item.pay_method === 8){  // 微信支付
-					// #ifdef APP-PLUS
-					console.log(uni.getStorageSync('userInfo').token)
+			// 加入购物车
+			joinCart(item){
+				item.goods.forEach(async ele=>{
 					await uniRequest({
-						url: '/payment/wechat/app/orders/'+this.orderId+'/',
-						method: 'get',
+						url: '/carts/cart_sku/',
+						method: 'POST',
+						data:{
+							sku_id:ele.id,
+							count:1
+						},
 						headers: {
 							Authorization: 'JWT ' + uni.getStorageSync('userInfo').token
 						},
 					}).then(res => {
-						console.log(res.data)
-						// 第一种写法，传对象
-						const orderInfo = {
-							"appid": res.data.appid,
-							"noncestr": res.data.noncestr,
-							"package": res.data.package,
-							"partnerid": res.data.partnerid,
-							"prepayid": res.data.prepayid,
-							"timestamp": res.data.timestamp,
-							"sign": res.data.sign
-						}
-						// 第二种写法，传对象字符串
-						console.log(JSON.stringify(orderInfo))
-						uni.getProvider({
-							service: 'payment',
-							success: function (re) {
-								console.log(re.provider)
-								if (~re.provider.indexOf('wxpay')) {
-									uni.requestPayment({
-										provider: 'wxpay',  // wxpay
-										orderInfo:JSON.stringify(orderInfo),
-										success: function(ress) {
-											uni.showToast({
-												title: '支付成功'
-											})
-											uni.switchTab({
-												url:'/pages/user/user'
-											})
-										},
-										fail: function(err) {
-											console.log(err,err.errMsg)
-											uni.showModal({
-												// content: "支付失败,原因为: " + err.errMsg,
-												content: '抱歉，您的支付不成功',
-												showCancel: false
-											})
-										}
-									});
-								}
-							}
-						});
-					}).catch(error => {
-						console.log(error.data)
-					});
-					// #endif
-					// #ifdef H5
-					uniRequest({
-						url: '/payment/wechat/h5/orders/'+this.orderId+'/',
-						method: 'get',
-						headers: {
-							Authorization: 'JWT ' + uni.getStorageSync('userInfo').token
-						},
-					}).then(res => {
-						console.log(res.data)
-						location.href = res.data.mweb_url
+						this.$api.msg('已加入购物车')
 					}).catch(error => {
 						console.log(error.data)
 					})
-					// #endif
-				}else if(item.pay_method === 9){
-					this.mode = 1;
-					this.getSecretKey();
-					this.$refs.paymentPassword.modalFun('show');
-				}
+				})
+			},
+			
+			//立即支付
+			payOrder(item){
+				console.log(item)
+				uni.navigateTo({
+					url:'/pages/money/pay?orderId='+item.order_id
+				})
 			},
 			
 			//删除订单
@@ -465,9 +414,10 @@
 			
 			// 修改地址
 			editAddress(item){
-				this.$api.msg('修改地址')
+				console.log(item)
+				// this.$api.msg('修改地址')
 				uni.navigateTo({
-					url:'/pages/order/editAdress/editAdress?item='+JSON.stringify(item)
+					url:'/pages/order/editAdress/editAdress?orderId='+item.order_id
 				})
 			},
 			
@@ -512,7 +462,7 @@
 						console.log(res)
 						if(res.data.order_id === item.order_id){
 							setTimeout(()=>{
-								let {stateTip, stateTipColor} = this.orderStateExp(4);
+								let {stateTip, stateTipColor} = this.orderStateExp(5);
 								item = Object.assign(item, {
 									state: 4,
 									stateTip, 
@@ -555,7 +505,7 @@
 					this.$api.msg(res.data.massage)
 					uni.hideLoading();
 					this.getDate(this.tabCurrentIndex)
-					let {stateTip, stateTipColor} = this.orderStateExp(5);
+					let {stateTip, stateTipColor} = this.orderStateExp(6);
 					item = Object.assign(item, {
 						state: 5,
 						stateTip, 
@@ -586,130 +536,17 @@
 					case 3:
 						stateTip = '待收货'; break;
 					case 4:
-						stateTip = '待评价'; break;
+						stateTip = '交易完成'; break;
 					case 5:
-						stateTip = '交易失败';break;
+						stateTip = '交易关闭'; break;
 					case 6:
-						stateTip = '已退换'; break;
+						stateTip = '已退货';break;
+					// case 7:
+					// 	stateTip = '已退换'; break;
 					//更多自定义
 				}
 				return {stateTip, stateTipColor};
-			},
-		
-			// 加密
-			async getSecretKey(){
-				await uniRequest({
-					url:'/payment/secret/key/',
-					method:'GET',
-					headers:{
-						Authorization:'JWT '+uni.getStorageSync('userInfo').token
-					},
-				}).then(response=>{
-					if(response.status === 200){
-						this.private = response.data.private
-						this.public = response.data.public
-					}else if(response.status === 400){
-						this.$api.msg(response.data.message)
-					}else if(response.status === 500){
-						this.$api.msg('服务器错误')
-					}
-				}).catch(error=>{
-					console.log(error)
-				})
-			},
-			
-			//公共方法挂载
-			getCode(publiukey,data){
-			     //此处操作与后端约定参数
-			     // 创建RSAKey对象
-			     var rsa = new jsrsasign.RSAKey();
-			     //因为后端提供的是pck#8的密钥对，所以这里使用 KEYUTIL.getKey来解析密钥
-			     var k = publiukey
-			     // 将密钥转码
-			     rsa = jsrsasign.KEYUTIL.getKey(k); 
-			     // 创建Signature对象，设置签名编码算法
-			     var sig = new jsrsasign.KJUR.crypto.Signature({"alg": "SHA256withRSA",prvkeypem:publiukey});
-			     // 初始化
-			     sig.init(rsa)
-			     // 传入待加密字符串
-			     sig.updateString(data)
-			     // 生成密文
-			     var sign = jsrsasign.hextob64(sig.sign());
-			     return sign
-			},
-			
-			jsencrypt(data){
-				//公钥.
-				
-				var publiukey=this.public;
-				
-				//限制117字符加密 (超过117字节会加载失败 中文或其他字符超过41个字符会加密失败)
-				
-				var pubblicData=jsencrypt.setEncrypt(publiukey,data);
-				
-				console.log(pubblicData);
-				
-				return pubblicData
-			},
-			
-			jsencryptRsa(data){
-				//公钥.
-				var privatekey=this.private;
-				
-				//限制117字符加密 (超过117字节会加载失败 中文或其他字符超过41个字符会加密失败)
-				
-				var ArrayData=this.getCode(privatekey,data);
-				
-				console.log(ArrayData)
-				
-				return ArrayData
-			},
-			
-			async submitHandle(e){
-				console.log(e);
-				this.pay_password = e.value
-				console.log(this.pay_password)
-				this.pay_password = this.jsencrypt(this.pay_password)
-				const orderData = {
-					order_id:this.orderId,
-					pwd:this.pay_password,
-					time:Date.parse(new Date())
-				}
-				console.log(JSON.stringify(orderData))
-				const sign = this.jsencryptRsa(JSON.stringify(orderData))
-				console.log(sign)
-				const response = await uniRequest({
-					url:'/payment/balance/',
-					method:'POST',
-					headers:{
-						Authorization:'JWT '+uni.getStorageSync('userInfo').token
-					},
-					data:{
-						order_id:this.orderId,
-						pwd:this.pay_password,
-						time:Date.parse(new Date()),
-						sign:sign,
-					}
-				}).then(response=>{
-					if(response.status === 200){
-						console.log(response.data)
-						uni.showToast({
-							title: "支付成功"
-						})
-						setTimeout(()=>{
-							uni.switchTab({
-								url:'/pages/user/user'
-							})
-						},500)
-					}else if(response.status === 400){
-						this.$api.msg(response.data.message)
-					}else if(response.status === 500){
-						this.$api.msg('服务器错误')
-					}
-				}).catch(error=>{
-					console.log(error)
-				})
-			},
+			}
 		},
 	}
 </script>
@@ -718,6 +555,21 @@
 	page, .content{
 		background: $page-color-base;
 		height: 100%;
+	}
+	/deep/ .u-dropdown__content__mask{
+		background:none;
+	}
+	/deep/ .u-dropdown__content{
+		transition: opacity 0s linear 0s!important;
+	}
+	/deep/ .u-dropdown__menu__item{
+		justify-content: left;
+	}
+	/deep/ .u-dropdown__menu__item__text{
+		color: red;
+	}
+	/deep/ .u-icon__icon .uicon-arrow-down .u-iconfont{
+		color: red;
 	}
 	.swiper-box{
 		height: calc(100% - 40px);

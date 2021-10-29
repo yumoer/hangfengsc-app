@@ -1,71 +1,238 @@
 <template>
-	<view class="content" style="width: 100%;">
-		<view class="order-title">
+	<view class="content">
+		<!-- 待付款 -->
+		<view class="order-title" v-if="goodsItem.pay_status === 0 && goodsItem.order_status === 0">
 			<view class="title-info">
-				<view class="info-money">{{title}}</view>
-				<view class="info-time">订单号: {{goodsItem.order_id}}</view>
+				<view class="info-money">待买家付款</view>
+				<view class="info-time">剩余时间： 
+					<uni-countdown color="#fff" background-color="#EE1D23" border-color="#00B26A" :show-day="false"
+						:showHour="false" :showColon="false" :minute="minute" :second="second" @timeup="timeChange">
+					</uni-countdown>
+				</view>
+			</view>
+			<view class="title-info-right">
+				<i class="yticon icon-time" style="font-size: 64upx;"></i>
 			</view>
 		</view>
-		<view class="c-list">
-			<view class="c-row b-b">
-				<text class="tit">订单编号</text>
-				<view class="con-list">
-					<text>{{goodsItem.order_id}}</text>
-				</view>
+		<!-- 待发货 -->
+		<view class="order-title" v-if="goodsItem.pay_status === 1 && goodsItem.order_status < 2">
+			<view class="title-info">
+				<view class="info-money">待发货</view>
+				<view class="info-time">您的商品正在加急发货中</view>
 			</view>
-			<view class="c-row b-b">
-				<text class="tit">订单状态</text>
-				<view class="con-list">
-					<text>订单{{goodsItem.state === 5?'已完成':''}}</text>
-				</view>
-			</view>
-			<view class="c-row b-b">
-				<text class="tit">订单总额</text>
-				<view class="bz-list con">
-					<text><!-- ￥ -->{{goodsItem.total_amount}}元</text>
-				</view>
-			</view>
-			<view class="c-row b-b">
-				<text class="tit">支付方式</text>
-				<view class="bz-list con">
-					<text v-if="goodsItem.pay_method === 1">货到付款</text>
-					<text v-if="goodsItem.pay_method === 2">支付宝支付</text>
-					<text v-if="goodsItem.pay_method === 8">微信支付</text>
-					<text v-if="goodsItem.pay_method === 9">余额支付</text>
-				</view>
+			<view class="title-info-right">
+				<image style="width: 40px;height: 40px;" src="../../../static/order/daifahuo.png" mode=""></image>
 			</view>
 		</view>
-		<view class="order-item" v-for="(goodItem,goodIndex) in goodsItem.goods" :key="goodIndex">
-			<view class="goods-box-single">
-				<image class="goods-img" :src="goodItem.image" mode="aspectFill"></image>
-				<view class="right">
-					<text class="title clamp">{{goodItem.title}}</text>
-					<text class="price" style="float: left;">{{goodItem.price}} 
-						<text class="attr-box" style="float: right;">  x {{goodItem.count}}</text>
-					</text>
+		<!-- 待收货 -->
+		<view class="order-title" v-if="goodsItem.order_status === 3">
+			<view class="title-info">
+				<view class="info-money">运输中</view>
+				<view class="info-time">快件已从北京市发出，正在发往石家庄接驳点</view>
+			</view>
+			<view class="title-info-right">
+				<image style="width: 40px;height: 40px;" src="../../../static/order/daishouhuo.png" mode=""></image>
+			</view>
+		</view>
+		<!-- 交易完成 待评价-->
+		<view class="order-title" v-if="goodsItem.order_status === 4 && !goodsItem.goods[0].comment">
+			<view class="title-info">
+				<view class="info-money">交易成功</view>
+				<view class="info-time">快来发表你的评价吧</view>
+			</view>
+			<view class="title-info-right">
+				<image style="width: 40px;height: 40px;" src="../../../static/order/jiaoyiwancheng.png" mode=""></image>
+			</view>
+		</view>
+		<!-- 交易完成 已评价 -->
+		<view class="order-title" v-if="goodsItem.order_status === 4 && goodsItem.goods[0].comment">
+			<view class="title-info">
+				<view class="info-money">交易成功</view>
+				<view class="info-time">感谢你完成本次交易</view>
+			</view>
+			<view class="title-info-right">
+				<image style="width: 40px;height: 40px;" src="../../../static/order/jiaoyiwancheng.png" mode=""></image>
+			</view>
+		</view>
+		<!-- 交易关闭 -->
+		<view class="order-title" v-if="goodsItem.order_status === 5">
+			<view class="title-info">
+				<view class="info-money">交易关闭</view>
+				<view class="info-time">该订单已取消，交易关闭</view>
+			</view>
+			<view class="title-info-right">
+				<image style="width: 40px;height: 40px;" src="../../../static/order/jiaoyiguanbi.png" mode=""></image>
+			</view>
+		</view>
+		<!-- 已退货 -->
+		<view class="order-title" v-if="goodsItem.order_status === 6">
+			<view class="title-info">
+				<view class="info-money">商品已退货</view>
+				<view class="info-time">该订单已退货，交易关闭</view>
+			</view>
+			<view class="title-info-right">
+				<image style="width: 40px;height: 40px;" src="../../../static/order/jiaoyiguanbi.png" mode=""></image>
+			</view>
+		</view>
+		
+		<view class="wrap-info">
+			<view class="address_info">
+				<view class="address">
+					<view class="add-left">
+						<i class="yticon icon-shouhuodizhi"></i>
+					</view>
+					<view class="add-center">
+						<view class="add-title">
+							<text class="add-name">{{goodsAddress.receiver}}</text>
+							<text class="add-tel">{{goodsAddress.mobile}}</text>
+						</view>
+						<view class="add-address">
+							<text>{{goodsAddress.province}}{{goodsAddress.city}}{{goodsAddress.district}}{{goodsAddress.place}}</text>
+						</view>
+					</view>
+					<!-- <view class="add-right">
+						<i class="yticon icon-you"></i>
+					</view> -->
 				</view>
+				
 			</view>
 			
-			<view class="price-box" >
+			<view class="order-item">
+				<view class="goods-box-single" v-for="(goodItem,goodIndex) in goodsItem.goods" :key="goodIndex">
+					<image class="goods-img" :src="goodItem.image" mode="aspectFill"></image>
+					<view class="right">
+						<text class="title clamp2">{{goodItem.title}}</text>
+						<view class="info">
+							<!-- <text class="spec">
+								黑色款
+							</text> -->
+							<text class="price">
+								{{goodItem.price}}
+							</text>
+							<text class="num">
+								x{{goodItem.count}}
+							</text>
+						</view>
+						<!-- 交易完成待评价 -->
+						<view class="setBtn" v-if="goodsItem.order_status === 4 && !goodItem.comment">
+							<button class="action-btn" type="default" @click="replaceGoods(goodItem)">申请售后</button>
+							<button class="action-btn recom" type="default" @click="accessOrder(goodsItem,goodItem)">立即评价</button>
+						</view>
+						<!-- 交易完成已评价 -->
+						<view class="setBtn" v-if="goodsItem.order_status === 4 && goodItem.comment">
+							<button class="action-btn recom" type="default" @click="replaceDetails(goodsItem)">申请售后</button>
+						</view>
+					</view>
+				</view>
+				
+				
+				<view class="price-info">
+					<view class="price-item">
+						<text class="allPrice">总价：</text>
+						<text class="price">{{price.toFixed(2)}}</text>
+					</view>
+					<view class="price-item">
+						<text class="allPrice">运费：</text>
+						<text class="price" v-if="price < 100">13.00</text>
+						<text class="price" v-else>0.00</text>
+					</view>
+				</view>
+				
+				<view class="price-box" >
+					实付款
+					<text class="price">{{allPrice.toFixed(2)}}</text>
+				</view>
+				
+				<!-- <view>
+					<view class="action-box b-t" v-if="goodsItem.order_status === 1">
+						<button class="action-btn recom" @click="editAddress(goodsItem)">修改地址</button>
+					</view>
+					<view class="action-box b-t" v-if="goodsItem.order_status === 3">
+						<button class="action-btn recom" @click="lookViewOrder(goodsItem)">查看物流</button>
+					</view>
+					<view class="action-box b-t" v-if="goodsItem.order_status === 4">
+						<button class="action-btn" @click="replaceGoods(goodItem)">退换</button>
+						<button class="action-btn recom" v-if="!goodItem.comment" @click="accessOrder(goodItem,goodsItem)">立即评价</button>
+					</view>
+					<view class="action-box b-t" v-if="goodsItem.order_status === 6">
+						<button class="action-btn recom" @click="replaceDetails(goodsItem)">退换详情</button>
+					</view>
+				</view> -->
+			</view>
+			
+			<view class="c-list">
+				<view class="c-row" style="font-weight: bold;">
+					订单信息
+				</view>
+				<view class="c-row">
+					<text class="tit">订单编号</text>
+					<view class="con-list">
+						<text>{{goodsItem.order_id}}</text>
+					</view>
+				</view>
+				<view class="c-row">
+					<text class="tit">支付方式</text>
+					<view class="con-list">
+						<text v-if="goodsItem.pay_method === 2">支付宝支付</text>
+						<text v-if="goodsItem.pay_method === 8">微信支付</text>
+						<text v-if="goodsItem.pay_method === 9">余额支付</text>
+					</view>
+				</view>
+				<view class="c-row">
+					<text class="tit">支付状态</text>
+					<view class="con-list">
+						<text v-if="goodsItem.pay_status === 0">未支付</text>
+						<text v-if="goodsItem.pay_status === 1">已支付</text>
+						<text v-if="goodsItem.pay_status === 2">已退款</text>
+					</view>
+				</view>
+				<view class="c-row">
+					<text class="tit">配送方式</text>
+					<view class="con-list">
+						<text>{{goodsItem.track_com}}</text>
+					</view>
+				</view>
+				<view class="c-row">
+					<text class="tit">物流状态</text>
+					<view class="con-list">
+						<text v-if="goodsItem.track_state === 0">新建</text>
+						<text v-if="goodsItem.track_state === 1">妥投完成</text>
+						<text v-if="goodsItem.track_state === -1">拒收</text>
+						<text v-if="goodsItem.track_state === 4">退换货中</text>
+					</view>
+				</view>
+				<view class="c-row">
+					<text class="tit">下单时间</text>
+					<view class="con-list">
+						<text>{{goodsItem.create_time}}</text>
+					</view>
+				</view>
+			</view>
+		</view>
+		<!-- 待付款 -->
+		<view class="btn-bottom" v-if="goodsItem.pay_status === 0 && goodsItem.order_status === 0">
+			<text class="btn-more">更多</text>
+			<text class="price-box" >
 				实付款
-				<text class="price">{{goodsItem.total_amount}}</text>
-			</view>
-			
-			<view>
-				<view class="action-box b-t" v-if="goodsItem.order_status === 1">
-					<button class="action-btn recom" @click="editAddress(goodsItem)">修改地址</button>
-				</view>
-				<view class="action-box b-t" v-if="goodsItem.order_status === 3">
-					<button class="action-btn recom" @click="lookViewOrder(goodsItem)">查看物流</button>
-				</view>
-				<view class="action-box b-t" v-if="goodsItem.order_status === 4">
-					<button class="action-btn" @click="replaceGoods(goodItem)">退换</button>
-					<button class="action-btn recom" v-if="!goodItem.comment" @click="accessOrder(goodItem,goodsItem)">立即评价</button>
-				</view>
-				<view class="action-box b-t" v-if="goodsItem.order_status === 6">
-					<button class="action-btn recom" @click="replaceDetails(goodsItem)">退换详情</button>
-				</view>
-			</view>
+				<text class="price">{{allPrice.toFixed(2)}}</text>
+			</text>
+			<button class="action-btn recom" type="default" @click="payBtn(goodsItem)">立即支付</button>
+		</view>
+		<!-- 待发货 -->
+		<view class="btn-bottom" v-if="goodsItem.pay_status === 1 && goodsItem.order_status < 2">
+			<button class="action-btn recom" type="default" @click="lookViewOrder(goodsItem)">查看物流</button>
+			<button class="action-btn" type="default" @click="payBtn">修改地址</button>
+		</view>
+		<!-- 待收货 -->
+		<view class="btn-bottom" v-if="goodsItem.order_status === 3">
+			<text class="btn-more">更多</text>
+			<button class="action-btn" type="default" @click="payBtn">查看物流</button>
+			<button class="action-btn recom" type="default" @click="payBtn">确认收货</button>
+		</view>
+		
+		<!-- 交易关闭 -->
+		<view class="btn-bottom" v-if="goodsItem.order_status === 5">
+			<button class="action-btn recom" type="default" @click="goBuyAgain(goodsItem,goodsItem.order_id)">再次购买</button>
 		</view>
 	</view>
 </template>
@@ -79,14 +246,32 @@
 			return {
 				goodsItem:[],
 				orderId:'',
+				price:0,
+				allPrice:0,
+				goodsAddress:{},
 				title:'订单已生成',
-				navList:[]
+				navList:[],
+				minute:0,
+				second:0,
+				timer:'',
 			}
+		},
+		created() {
+			this.timer = setInterval(()=>{
+				this.initTime()
+			},1000)
 		},
 		onLoad(options){
 			console.log(options)
 			this.orderId = options.order_id
+		},
+		onShow(){
 			this.getDate()
+		},
+		destroyed() {
+			if (this.timer) { // 注意在vue实例销毁前，清除我们的定时器
+			   clearInterval(this.timer);
+			}
 		},
 		methods: {
 			async getDate(){
@@ -102,6 +287,65 @@
 				}).then(res=>{
 					this.goodsItem = res.data
 					this.goodsItem.state = this.navList.state
+					this.goodsAddress = res.data.address
+					this.getTime(res.data.create_time)
+					this.goodsItem.goods.forEach(ele=>{
+						this.price += Number(ele.price)*ele.count
+						if(this.price < 100){
+							this.allPrice = this.price + 13
+						}else{
+							this.allPrice = this.price
+						}
+					})
+				}).catch(error=>{
+					console.log(error)
+				})
+			},
+			getTime(time){
+				var date = new Date(time)
+				var min = date.getMinutes();  //2. 获取当前分钟
+				date.setMinutes(min+20);  //3. 设置当前时间+10分钟：把当前分钟数+10后的值重新设置为date对象的分钟数
+				var y = date.getFullYear();
+				var m = (date.getMonth() + 1) < 10 ? ("0" + (date.getMonth() + 1)) : (date.getMonth() + 1);
+				var d = date.getDate() < 10 ? ("0" + date.getDate()) : date.getDate();
+				var h = date.getHours() < 10 ? ('0' + date.getHours()) : date.getHours()
+				var f = date.getMinutes() < 10 ? ('0' + date.getMinutes()) : date.getMinutes()
+				var s = date.getSeconds() < 10 ? ('0' + date.getSeconds()) : date.getSeconds()
+				var star = y+'-'+m+'-'+d + " " + h + ":" + f + ":" + s;
+				this.nowTime = star;
+			},
+			initTime() {
+				var date = new Date(); //1. js获取当前时间
+				var now = date.getTime(); //获得当前时间与1970年1月1日时间相差的毫秒数
+				var star = this.nowTime;
+				var endDate = new Date(star);
+				var end = endDate.getTime(); //结束时间与1970年1月1日时间相差的毫秒数
+				var leftTime = (end - now); //计算两日期之间相差的毫秒数
+				if (leftTime >= 0) {
+					this.minute = Math.floor(leftTime / 1000 / 60 % 60);
+					this.second = Math.floor(leftTime / 1000 % 60);
+					this.time = this.minute + '分' + this.second + '秒';
+				}
+			},
+			// 倒计时
+			async timeChange(e) {
+				await uniRequest({
+					url:'/orders/cancel/',
+					method:'get',
+					params:{
+						id:this.orderId
+					},
+					headers:{
+						Authorization:'JWT '+uni.getStorageSync('userInfo').token
+					},
+				}).then(res=>{
+					uni.showToast({
+						title: '订单已取消',
+						icon:'error'
+					})
+					uni.switchTab({
+						url: '/pages/cart/cart'
+					})
 				}).catch(error=>{
 					console.log(error)
 				})
@@ -117,6 +361,29 @@
 			// 修改地址
 			editAddress(item){
 				this.$api.msg('修改地址')
+			},
+			
+			// 再次购买
+			async goBuyAgain(item){
+				await uniRequest({
+					url:'/orders/repeat/',
+					method:'post',
+					data:{
+						id:item.sub_order_id
+					},
+					headers:{
+						Authorization:'JWT '+uni.getStorageSync('userInfo').token
+					},
+				}).then(res=>{
+					console.log(res.status)
+					if(res.status === 200){
+						uni.switchTab({
+							url:'/pages/cart/cart'
+						})
+					}
+				}).catch(err=>{
+					console.log(err)
+				})
 			},
 			
 			// 物流信息
@@ -145,7 +412,14 @@
 			// 评价订单
 			accessOrder(item,data){
 				uni.navigateTo({
-					url:'/pages/order/assess/assess?item='+encodeURIComponent(JSON.stringify(item))+'&order_id='+data.order_id+'&sub_order_id='+data.sub_order_id
+					url:'/pages/order/assess/assess?item='+encodeURIComponent(JSON.stringify(data))+'&order_id='+item.order_id+'&sub_order_id='+item.sub_order_id
+				})
+			},
+			
+			payBtn(item){
+				console.log(item)
+				uni.navigateTo({
+					url:'/pages/money/pay?orderId='+item.order_id
 				})
 			},
 			
@@ -155,9 +429,17 @@
 </script>
 
 <style lang="scss">
+	/deep/ .uni-countdown__splitor{
+		color: #fff!important;
+	}
+	/deep/ .uni-countdown{
+		margin-top: -5px;
+	}
 	page, .content{
 		background: $page-color-base;
 		height: 100%;
+		width: 100%;
+		margin-bottom: 80px;
 	}
 	
 	uni-radio .uni-radio-input{
@@ -168,13 +450,95 @@
 	.order-title{
 		width: 100%;
 		height: 220upx;
-		background: #fa436a;
+		background: linear-gradient(to right,#EE1D23,#F04023);
 		.title-info{
 			font-size: 32upx;
 			color: #fff;
-			padding: 60upx 100upx;
+			float: left;
+			height: 100%;
+			padding: 40upx 100upx;
+			.info-money{
+				font-size: 36upx;
+				font-weight: bold;
+				
+			}
 			.info-time{
 				margin-top: 10upx;
+				font-size: 28upx;
+				display: flex;
+				text{
+					font-size: 32upx;
+				}
+			}
+		}
+		.title-info-right{
+			float: right;
+			color: #fff;
+			height: 100%;
+			padding: 50upx 80upx;
+		}
+	}
+	
+	.wrap-info{
+		padding: 0 30upx;
+		margin-top: -60upx;
+		padding-bottom: 130upx;
+		.address_info{
+			width: 100%;
+			height: 230upx;
+			background-color: #fff;
+			border-radius: 20upx;
+			padding: 30upx;
+			.address{
+				height: 100%;
+				.add-left{
+					width: 10%;
+					height: 100%;
+					float: left;
+					margin-top: -30upx;
+					.icon-shouhuodizhi{
+						font-size: 56upx;
+						color: #333;
+						line-height: 180upx;
+					}
+				}
+				
+				.add-center{
+					width: 80%;
+					height: 100%;
+					float: left;
+					margin-top: -30upx;
+					margin-left: 20upx;
+					.add-title{
+						height: 80upx;
+						line-height: 80upx;
+						.add-name{
+							font-size: 32upx;
+							font-size: #333333;
+						}
+						.add-tel{
+							font-size: 28upx;
+							color: #666666;
+							margin-left: 40upx;
+						}
+					}
+					.add-address{
+						font-size: 28upx;
+						color: #999999;
+					}
+				}
+				
+				.add-right{
+					height: 100%;
+					float: left;
+					margin-top: -30upx;
+					.icon-you{
+						float: right;
+						font-size: 36upx;
+						color: #333;
+						line-height: 180upx;
+					}
+				}
 			}
 		}
 	}
@@ -183,7 +547,8 @@
 		font-size: $font-sm + 6upx;
 		color: $font-color-base;
 		background: #fff;
-		margin-top: 16upx;
+		margin-top: 30upx;
+		border-radius: 20upx;
 		.c-row{
 			display:flex;
 			align-items:center;
@@ -192,6 +557,8 @@
 		}
 		.tit{
 			width: 140upx;
+			color: #666666;
+			font-size: 28upx;
 		}
 		.con{
 			flex: 1;
@@ -213,8 +580,10 @@
 			flex: 1;
 			display:flex;
 			flex-direction: column;
-			color: $font-color-dark;
 			line-height: 40upx;
+			font-weight: bold;
+			color: #333333;
+			margin-left: 40upx;
 		}
 		.red{
 			color: $uni-color-primary;
@@ -224,9 +593,9 @@
 	.order-item{
 		display: flex;
 		flex-direction: column;
-		padding-left: 30upx;
 		background: #fff;
-		margin-top: 16upx;
+		margin-top: 30upx;
+		border-radius: 20upx;
 		.item-info{
 			font-size: 36upx;
 			padding: 20upx 0;
@@ -276,6 +645,7 @@
 				height: 120upx;
 				display: inline-block;
 				margin-right: 24upx;
+				border-radius: 20upx;
 			}
 			.goods-img{
 				display: block;
@@ -286,37 +656,110 @@
 		/* 单条商品 */
 		.goods-box-single{
 			display: flex;
-			padding: 20upx 0;
+			padding: 30upx 30upx 0 30upx;
 			.goods-img{
 				display: block;
-				width: 120upx;
-				height: 120upx;
+				width: 190upx;
+				height: 190upx;
+				border-radius: 20upx;
 			}
 			.right{
 				flex: 1;
 				display: flex;
 				flex-direction: column;
-				padding: 0 30upx 0 24upx;
+				padding: 0 20upx 0 30upx;
 				overflow: hidden;
+				
+				
 				.title{
-					font-size: $font-base + 2upx;
+					font-size: 28upx;
+					color: #333333;
 					color: $font-color-dark;
-					line-height: 1;
+					line-height: 50upx;
 				}
+				
 				.attr-box{
 					font-size: $font-sm + 2upx;
 					color: $font-color-light;
 					padding: 10upx 12upx;
 				}
-				.price{
-					font-size: $font-base + 2upx;
-					color: red;
-					margin-top: 20px;
-					&:before{
-						content: '￥';
-						font-size: $font-sm;
-						margin: 0 2upx 0 8upx;
+				
+				.info{
+					margin-top: 40upx;
+					.spec{
+						background: #F7F7F7;
+						padding: 20upx;
+						display: inline-block;
+						float: left;
+						font-size: 24upx;
+						color: #999999;
+						border-radius: 10upx;
 					}
+					.price{
+						font-size: 28upx;
+						color: #EE1D23;
+						&:before{
+							content: '￥';
+							font-size: $font-sm;
+							margin: 0 2upx 0 8upx;
+						}
+					}
+					.num{
+						float: right;
+						color: #999999;
+						font-size: 24upx;
+					}
+				}
+				.setBtn{
+					display: flex;
+					.action-btn{
+						width: 200upx;
+						height: 70upx;
+						margin-top: 16upx;
+						margin-left: 24upx;
+						padding: 0;
+						float: right;
+						text-align: center;
+						line-height: 65upx;
+						font-size: $font-sm + 2upx;
+						color: #ee1d23;
+						border: 1px solid #ee1d23;
+						border-radius: 100px;
+						&:after{
+							border-radius: 100px;
+						}
+						&.recom{
+							background: linear-gradient(to right,#EE1D23 0%,#F04023 100%);
+							color: #fff;
+							&:after{
+								border-color: #ee1d23;
+							}
+						}
+					}
+				}
+			}
+			
+		}
+		
+		.price-info{
+			padding: 30upx 50upx 0 250upx;
+			.price-item{
+				height: 60upx;
+				line-height: 60upx;
+			}
+			.allPrice{
+				color: #333;
+				font-size: 28upx;
+				font-weight: bold;
+			}
+			.price{
+				font-size: 24upx;
+				color: #999999;
+				float: right;
+				&:before{
+					content: '￥';
+					font-size: $font-sm;
+					margin: 0 2upx 0 8upx;
 				}
 			}
 		}
@@ -325,8 +768,8 @@
 			display: flex;
 			justify-content: flex-end;
 			align-items: baseline;
-			padding: 20upx 30upx;
-			font-size: $font-sm + 2upx;
+			padding: 20upx 45upx;
+			font-size: 28upx;
 			color: $font-color-light;
 			.num{
 				margin: 0 8upx;
@@ -370,6 +813,76 @@
 				color: $base-color;
 				&:after{
 					border-color: #f7bcc8;
+				}
+			}
+		}
+	}
+	
+	.btn-bottom{
+		position: fixed;
+		bottom: 0;
+		width: 100%;
+		height: 100upx;
+		background-color: #fff;
+		line-height: 100upx;
+		padding: 0 40upx;
+		.btn-more{
+			color: #666;
+			font-size: 32upx;
+			height: 100%;
+			display: inline-block;
+		}
+		.price-box{
+			padding-left: 160upx;
+			font-size: 28upx;
+			height: 100%;
+			color: #333333;
+			.num{
+				margin: 0 8upx;
+				color: $font-color-dark;
+			}
+			.price{
+				font-size: $font-lg;
+				color: red;
+				&:before{
+					content: '￥';
+					font-size: $font-sm;
+					margin: 0 2upx 0 8upx;
+				}
+			}
+		}
+		.payBtn{
+			display: inline-flex;
+			background: linear-gradient(to right,#EE1D23 0%,#F04023 100%);
+			width: 200upx;
+			height: 70upx;
+			line-height: 70upx;
+			color: #fff;
+			float: right;
+			margin-top: 16upx;
+			border-radius: 40upx;
+		}
+		.action-btn{
+			width: 200upx;
+			height: 70upx;
+			margin-top: 16upx;
+			margin-left: 24upx;
+			padding: 0;
+			float: right;
+			text-align: center;
+			line-height: 65upx;
+			font-size: $font-sm + 2upx;
+			color: #ee1d23;
+			border: 1px solid #ee1d23;
+			border-radius: 100px;
+			&:after{
+				border-radius: 100px;
+			}
+			&.recom{
+				background: linear-gradient(to right,#EE1D23 0%,#F04023 100%);
+				color: #fff;
+				&:after{
+					border-color: #ee1d23;
 				}
 			}
 		}

@@ -28,11 +28,11 @@
 				<text class="num">{{coupon}}</text>
 				<text>优惠券</text>
 			</view>
-			<view class="tj-item">
+			<!-- <view class="tj-item">
 				<text class="num">0</text>
 				<text>积分</text>
-			</view>
-			<view class="tj-item">
+			</view> -->
+			<view class="tj-item" @click="navTo('/pages/user/histories/histories')">
 				<text class="num">{{histories.length}}</text>
 				<text>足迹</text>
 			</view>
@@ -155,6 +155,7 @@
 				this.getDate1()
 				this.getBanlace()
 				this.browseHistories()
+				this.getCouponList()
 			}else{
 				this.code = '未登录用户'
 				this.getDate(2)
@@ -164,6 +165,7 @@
 				this.getDate1()
 				this.getBanlace()
 				this.browseHistories()
+				this.getCouponList()
 			}
 			
 		},
@@ -245,6 +247,23 @@
 			// 开通vip
 			openVip(){
 				this.$api.msg('vip功能未开放')
+			},
+			
+			getCouponList(){
+				uniRequest({
+					url: '/user/coupons/user/1/',
+					method: 'GET',
+					params:{
+						page:1,page_size:10,ordering:'-create_time',
+					},
+					headers: {
+						Authorization: 'JWT ' + uni.getStorageSync('userInfo').token
+					},
+				}).then(res => {
+					this.coupon = res.data.count
+				}).catch(error => {
+					console.log(error);
+				})
 			},
 			
 			// 兑换码兑换

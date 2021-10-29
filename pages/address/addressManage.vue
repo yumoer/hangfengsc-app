@@ -32,7 +32,7 @@
 				<textarea class="textarea" placeholder="粘贴整段地址，自动识别姓名，电话和地址，例如：小李，16888886888，广东省广州市天河区某某街道某某大厦某某号" :value="text" @blur="onBlur" placeholder-class="placeholder" />
 			</view>
 			<view class="shibie">
-				<button class="shibieBtn" @click="distinguish" >识别</button>
+				<button class="shibieBtn" @click="distinguish">识别</button>
 			</view>
 			<view style="padding-bottom: 20upx;" v-if="manageType === 'edit' && addressData.default_address_id === false">
 				<text>设置为默认地址</text>
@@ -161,27 +161,31 @@
 			// 识别
 			distinguish(){
 				console.log(this.text)
-				const parseResult = AddressParse(this.text, 0)
-				console.log(parseResult)
-				this.addressData.receiver = parseResult.name
-				this.addressData.mobile = parseResult.phone
-				this.addressData.addressName = parseResult.province + ' ' + parseResult.city + ' ' + parseResult.area
-				this.addressData.place = parseResult.detail
-				this.allAddData.forEach(item=>{
-					if(item.name === parseResult.province){
-						this.addressData.province_id = item.id
-						item.subs.forEach(ite=>{
-							if(ite.name === parseResult.city){
-								this.addressData.city_id = ite.id
-								ite.subs.forEach(it=>{
-									if(it.name === parseResult.area){
-										this.addressData.district_id = it.id
-									}
-								})
-							}
-						})
-					}
-				})
+				if(this.text){
+					const parseResult = AddressParse(this.text, 0)
+					console.log(parseResult)
+					this.addressData.receiver = parseResult.name
+					this.addressData.mobile = parseResult.phone
+					this.addressData.addressName = parseResult.province + ' ' + parseResult.city + ' ' + parseResult.area
+					this.addressData.place = parseResult.detail
+					this.allAddData.forEach(item=>{
+						if(item.name === parseResult.province){
+							this.addressData.province_id = item.id
+							item.subs.forEach(ite=>{
+								if(ite.name === parseResult.city){
+									this.addressData.city_id = ite.id
+									ite.subs.forEach(it=>{
+										if(it.name === parseResult.area){
+											this.addressData.district_id = it.id
+										}
+									})
+								}
+							})
+						}
+					})
+				}else{
+					this.$api.msg('未识别到地址内容')
+				}
 			},
 			
 			//地图选择地址
@@ -297,9 +301,6 @@
 					console.log(res)
 					if(res.status === 200 || res.status === 201){
 						this.$api.msg('地址新增成功')
-						//this.$api.prePage()获取上一页实例，可直接调用上页所有数据和方法，在App.vue定义
-						this.$api.prePage().refreshList(this.addressData, this.manageType);
-						this.$api.msg(`地址${this.manageType=='edit' ? '修改': '添加'}成功`);
 						setTimeout(() => {
 							uni.navigateBack()
 						}, 800)

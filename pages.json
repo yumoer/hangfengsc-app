@@ -439,7 +439,7 @@
 		}, {
 			"path": "pages/money/pay",
 			"style": {
-				"navigationBarTitleText": "支付方式"
+				"navigationBarTitleText": "立即支付"
 			}
 		},
 		{
@@ -546,6 +546,11 @@
 				"navigationBarTitleText": "立即评价"
 			}
 		},{
+			"path" : "pages/order/editAdress/editAdress",
+			"style" : {
+				"navigationBarTitleText": "修改地址"
+			}
+		},{
 			"path" : "pages/order/trackInfo/trackInfo",
 			"style" : {
 				"navigationBarTitleText": "物流信息"
@@ -560,7 +565,7 @@
 		,{
 			"path" : "pages/order/lookDetails/concalShops",
 			"style" : {
-				"navigationBarTitleText": "退/换货"
+				"navigationBarTitleText": "申请售后"
 			}
 		}
 		,{
@@ -572,12 +577,12 @@
 		,{
 			"path" : "pages/order/postSale/postSale",
 			"style" : {
-				"navigationBarTitleText": "退换/售后"
+				"navigationBarTitleText": "退款售后"
 			}
 		},{
 			"path" : "pages/order/postSale/postDetails",
 			"style" : {
-				"navigationBarTitleText": "退换/售后详情"
+				"navigationBarTitleText": "退款详情"
 			}
 		}
 		,{
@@ -725,7 +730,25 @@
 			}
 			
 		}
-	],
+        ,{
+            "path" : "pages/order/lookDetails/afterSalesDetails",
+            "style" :                                                                                    
+            {
+                "navigationBarTitleText": "",
+                "enablePullDownRefresh": false
+            }
+            
+        }
+        ,{
+            "path" : "pages/user/histories/histories",
+            "style" :                                                                                    
+            {
+                "navigationBarTitleText": "我的足迹",
+                "enablePullDownRefresh": false
+            }
+            
+        }
+    ],
 	
 	"globalStyle": {
 		"navigationBarTextStyle": "black",

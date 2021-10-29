@@ -1,9 +1,14 @@
 <template>
 	<view class="content">
 		<view class="order-item" v-for="(goodsItem, goodsIndex) in navList" :key="goodsIndex">
-			<view class="i-top b-b">
-				<text class="time">{{goodsItem.update_time.split('T')[0]}} {{goodsItem.update_time.split('T')[1].split('.')[0]}}</text>
-				<text class="state" :style="{color: goodsItem.stateTipColor}">{{goodsItem.stateTip}}</text>
+			<view class="i-top">
+				<text class="time">订单编号：{{goodsItem.order_id}}</text>
+				<text class="state" v-if="goodsItem.service_step === 1">用户提交</text>
+				<text class="state" v-if="goodsItem.service_step === 2">审核中</text>
+				<text class="state" v-if="goodsItem.service_step === 3">等待收货</text>
+				<text class="state" v-if="goodsItem.service_step === 4">退款中</text>
+				<text class="state" v-if="goodsItem.service_step === 5">退款完成</text>
+				<text class="state" v-if="goodsItem.service_step === 6">审核不通过</text>
 			</view>
 			
 			<view 
@@ -11,21 +16,23 @@
 			>
 				<image class="goods-img" :src="goodsItem.sku_image" mode="aspectFill"></image>
 				<view class="right">
-					<text class="title clamp">{{goodsItem.sku_name}}</text>
-					<text class="price" style="float: left;">{{goodsItem.price}} 
+					<text class="title clamp2">{{goodsItem.sku_name}}</text>
+					<text class="price" style="float: left;">{{goodsItem.price.toFixed(2)}} 
 						<text class="attr-box" style="float: right;">  x {{goodsItem.count}}</text>
 					</text>
 				</view>
 			</view>
 			
-			<view class="price-box" >
-				实付款
+			<view class="price-box">
+				实付款:
+				<text class="price" style="margin-right: 20upx;color: #333;">{{price}}</text>
+				退款金额:
 				<text class="price">{{price}}</text>
 			</view>
 			
-			<view class="action-box b-t">
+			<view class="action-box">
 				<!-- <button class="action-btn" @click="replaceGoods(item.goods[goodsIndex])">退货/换货</button> -->
-				<button class="action-btn recom" @click="lookDetails(goodsItem)">查看详情</button>
+				<button class="action-btn recom" @click="lookDetails(goodsItem)">售后详情</button>
 			</view>
 			
 		</view>
@@ -72,11 +79,11 @@
 					},
 				}).then(res=>{
 					console.log(res)
-					this.navList = res.data
-					this.navList.forEach(ele=>{
+					res.data.forEach(ele=>{
 						this.price += ele.price * ele.count
 					})
 					this.price = this.price.toFixed(2)
+					this.navList = res.data
 				}).catch(error=>{
 					console.log(error)
 				})
@@ -84,42 +91,17 @@
 			lookDetails(item){
 				console.log(item)
 				uni.navigateTo({
-					url:'/pages/order/postSale/postDetails?item='+JSON.stringify(item)
+					url:'/pages/order/postSale/postDetails?sub_id='+item.sub_order_id
 				})
-			},
-			//订单状态文字和颜色
-			orderStateExp(state){
-				let stateTip = '',
-					stateTipColor = '#fa436a';
-				switch(+state){
-					case 1:
-						stateTip = '待付款'; break;
-					case 2:
-						stateTip = '待发货'; break;
-					case 3:
-						stateTip = '待收货'; break;
-					case 4:
-						stateTip = '待评价'; break;
-					case 5:
-						stateTip = '已完成'; break;
-					case 9:
-						stateTip = '订单已关闭'; 
-						stateTipColor = '#909399';
-						break;
-						
-					//更多自定义
-				}
-				return {stateTip, stateTipColor};
 			}
-		},
-		
+		}
 	}
 </script>
 
 <style lang="scss">
-	page, .content{
-		background: $page-color-base;
+	.content{
 		height: 100%;
+		padding: 30upx;
 	}
 	
 	.swiper-box{
@@ -128,8 +110,6 @@
 	.list-scroll-content{
 		height: 100%;
 	}
-	
-	
 	
 	.navbar{
 		display: flex;
@@ -170,22 +150,24 @@
 	.order-item{
 		display: flex;
 		flex-direction: column;
-		padding-left: 30upx;
+		padding: 30upx;
 		background: #fff;
-		margin-top: 16upx;
+		border-radius: 20upx;
 		.i-top{
 			display: flex;
 			align-items: center;
 			height: 80upx;
-			padding-right:30upx;
 			font-size: $font-base;
 			color: $font-color-dark;
 			position: relative;
 			.time{
 				flex: 1;
+				color: #666666;
+				font-size: 14px;
 			}
 			.state{
-				color: $base-color;
+				color: #EE1D23;
+				font-size: 28upx;
 			}
 			.del-btn{
 				padding: 10upx 0 10upx 36upx;
@@ -227,19 +209,19 @@
 			padding: 20upx 0;
 			.goods-img{
 				display: block;
-				width: 120upx;
-				height: 120upx;
+				width: 170upx;
+				height: 170upx;
 			}
 			.right{
 				flex: 1;
 				display: flex;
 				flex-direction: column;
-				padding: 0 30upx 0 24upx;
+				padding-left: 24upx;
 				overflow: hidden;
 				.title{
 					font-size: $font-base + 2upx;
 					color: $font-color-dark;
-					line-height: 1;
+					line-height: 48upx;
 				}
 				.attr-box{
 					font-size: $font-sm + 2upx;
@@ -248,8 +230,8 @@
 				}
 				.price{
 					font-size: $font-base + 2upx;
-					color: red;
-					margin-top: 20px;
+					color: #EE1D23;
+					margin-top: 10px;
 					&:before{
 						content: '￥';
 						font-size: $font-sm;
@@ -263,9 +245,8 @@
 			display: flex;
 			justify-content: flex-end;
 			align-items: baseline;
-			padding: 20upx 30upx;
-			font-size: $font-sm + 2upx;
-			color: $font-color-light;
+			font-size: 28upx;
+			color: #333333;
 			.num{
 				margin: 0 8upx;
 				color: $font-color-dark;
@@ -284,30 +265,28 @@
 			display: flex;
 			justify-content: flex-end;
 			align-items: center;
-			height: 100upx;
+			height: 120upx;
 			position: relative;
-			padding-right: 30upx;
 		}
 		.action-btn{
-			width: 160upx;
-			height: 60upx;
+			width: 190upx;
+			height: 70upx;
 			margin: 0;
-			margin-left: 24upx;
-			padding: 0;
+			margin-top: 20upx;
 			text-align: center;
-			line-height: 60upx;
-			font-size: $font-sm + 2upx;
+			line-height: 70upx;
+			font-size: 28upx;
 			color: $font-color-dark;
 			background: #fff;
-			border-radius: 100px;
 			&:after{
 				border-radius: 100px;
+				border-width: 4upx;
 			}
 			&.recom{
-				background: #fff9f9;
-				color: $base-color;
+				background: #FFFFFF;
+				color: #EE1D23;
 				&:after{
-					border-color: #f7bcc8;
+					border-color: #EE1D23;
 				}
 			}
 		}
