@@ -15,7 +15,7 @@
 			<swiper-item class="tab-content" v-for="(tabItem,tabIndex) in navList" :key="tabIndex">
 				<scroll-view class="list-scroll-content" scroll-y @scrolltolower="getAddData">
 					<!-- 空白页 -->
-					<empty v-if="tabItem.loaded === true && tabItem.orderList.length === 0"></empty>
+					<xw-empty :isShow="tabItem.loaded === true && tabItem.orderList.length === 0" img="/static/images/empty/emptyContent.png" text="您暂时还没有添加地址" textColor="#C0C4CC"></xw-empty>
 					<!-- 订单列表 -->
 					<view
 						v-for="(item,index) in tabItem.orderList" :key="index"
@@ -59,33 +59,33 @@
 							
 							<!-- 待付款 -->
 							<view class="action-box b-t" v-if="item.pay_status === 0 && item.order_status === 0">
-								<u-dropdown ref="uDropdown" @open="open(index,item)" @close="close">
-									<u-dropdown-item title="更多" :options="options" @change="changeOptions($event,item)"></u-dropdown-item>
+								<u-dropdown ref="uDropdown" active-color='#EE1023' @open="open(index)" @close="close(index)">
+									<u-dropdown-item v-model="value" title="更多" :options="options"></u-dropdown-item>
 								</u-dropdown>
 								<button class="action-btn" @click="editAddress(item)">修改地址</button>
 								<button class="action-btn recom" @click="payOrder(item)">去支付</button>
 							</view>
 							<!-- 待发货 -->
 							<view class="action-box b-t" v-if="item.pay_status === 1 && item.order_status < 2">
-								<u-dropdown ref="uDropdown" @open="open(index,item)" @close="close">
+								<!-- <u-dropdown ref="uDropdown" @open="open(index,item)" @close="close">
 									<u-dropdown-item title="更多" :options="options" @change="changeOptions($event,item)"></u-dropdown-item>
-								</u-dropdown>
+								</u-dropdown> -->
 								<button class="action-btn" @click="editAddress(item)">修改地址</button>
 								<button class="action-btn recom" @click="lookViewOrder(item,item.order_id)">查看物流</button>
 							</view>
 							<!-- 待收货 -->
 							<view class="action-box b-t" v-if="item.order_status === 3">
-								<u-dropdown>
+								<!-- <u-dropdown>
 									<u-dropdown-item title="更多" :options="options1" @change="changeOption1($event,item)"></u-dropdown-item>
-								</u-dropdown>
+								</u-dropdown> -->
 								<button class="action-btn" @click="lookViewOrder(item,item.order_id)">查看物流</button>
 								<button class="action-btn recom" @click="confirmOrder(item)">确认收货</button>
 							</view>
 							<!-- 待评价 -->
 							<view class="action-box b-t" v-if="item.order_status === 4 && !item.goods[0].comment">
-								<u-dropdown>
+								<!-- <u-dropdown>
 									<u-dropdown-item title="更多" :options="options2" @change="changeOptions2($event,item,index)"></u-dropdown-item>
-								</u-dropdown>
+								</u-dropdown> -->
 								<button class="action-btn" @click="lookViewOrder(item,item.order_id)">查看物流</button>
 								<button class="action-btn recom" @click="accessOrder(item)">去评价</button>
 							</view>
@@ -112,7 +112,7 @@
 		<u-mask :show="show" @click="show = false">
 			<view class="warp">
 				<view class="rect" @tap.stop>
-					<image @click="show = false" style="width: 100%;height: 100%;" src="../../static/brow2.png" mode=""></image>
+					<image @click="show = false" style="width: 100%;height: 100%;" src="../../static/img/brow2.png" mode=""></image>
 				</view>
 			</view>
 		</u-mask>
@@ -123,14 +123,14 @@
 	import uniSection from '@/components/uni-section/uni-section.vue';
 	import uniLoadMore from '@/components/uni-load-more/uni-load-more.vue';
 	import minBadge from '@/components/min-badge/min-badge'
-	import empty from "@/components/empty";
+	import xwEmpty from '@/components/xw-empty/xw-empty';
 	import uniRequest from 'uni-request';
 	import Json from '@/Json';
 	import {mapState} from 'vuex';  
 	export default {
 		components: {
 			uniLoadMore,
-			empty,
+			xwEmpty,
 			minBadge,
 			uniSection,
 		},
@@ -308,15 +308,16 @@
 				this.loadData('tabChange',this.tabCurrentIndex)
 			},
 			
-			open(index,item) {
-				console.log(index,item)
-				this.$refs.uDropdown[index].highlight()
+			open(index) {
+				console.log(index)
+				// this.$refs.uDropdown[index].highlight(index)
 				// this.$refs.uDropdown.highlight();
 				// 展开某个下来菜单时，先关闭原来的其他菜单的高亮
 				// 同时内部会自动给当前展开项进行高亮
 			},
 			close(index) {
 				console.log(index)
+				// this.$refs.uDropdown.highlight(index);
 				// 关闭的时候，给当前项加上高亮
 				// 当然，您也可以通过监听dropdown-item的@change事件进行处理
 			},
@@ -333,7 +334,7 @@
 				}
 			},
 			
-			changeOption1(){
+			changeOption1(e,item){
 				console.log(e,item)
 				if( e === 1){
 					this.$api.msg('加入购物车')

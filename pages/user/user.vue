@@ -1,11 +1,11 @@
 <template>  
     <view class="container">  
 		<view class="user-section">
-			<image class="bg" src="/static/user-bg.png"></image>
+			<image class="bg" src="http://47.94.106.106:8888/group1/M00/53/AC/rBHxiGEM6WOAet97AAMVY9-EXjo1115258"></image>
 			<view class="user-info-box">  <!--  @tap="chooseAvatar" -->
 				<view class="portrait-box">
 					<image class="portrait" v-if="userInfo.portrait" :src="userInfo.portrait" mode="aspectFill" @click="navTo('/pages/set/avator')"></image>
-					<image class="portrait" v-else :src="'/static/missing-face.png'" mode="aspectFill" @click="navTo('/pages/public/login')"></image>
+					<image class="portrait" v-else :src="'/static/img/missing-face.png'" mode="aspectFill" @click="navTo('/pages/public/login')"></image>
 				</view>
 				<view class="info-box">
 					<view class="username">{{userInfo.username || '游客'}}</view><br>
@@ -21,11 +21,11 @@
 		</view>
 		<view class="tj-sction">
 			<view class="tj-item" @click="navTo('/pages/recharge/recharge')">
-				<text style="margin-bottom: 20upx;">￥<text class="num">{{balance}}</text></text>
+				<text style="margin-bottom: 20upx;">￥<text class="num">{{balance || 0}}</text></text>
 				<text>余额</text>
 			</view>
 			<view class="tj-item" @click="navTo('/pages/coupon/exchange')">
-				<text class="num">{{coupon}}</text>
+				<text class="num">{{coupon || 0}}</text>
 				<text>优惠券</text>
 			</view>
 			<!-- <view class="tj-item">
@@ -33,7 +33,7 @@
 				<text>积分</text>
 			</view> -->
 			<view class="tj-item" @click="navTo('/pages/user/histories/histories')">
-				<text class="num">{{histories.length}}</text>
+				<text class="num">{{histories.length || 0}}</text>
 				<text>足迹</text>
 			</view>
 		</view>
@@ -52,27 +52,27 @@
 					<view class="scoll-wrapper">
 						<view class="order-section">
 							<view class="order-item" @click="navTo('/pages/order/order?state=1')"  hover-class="common-hover" :hover-stay-time="50">
-								<image style="width: 66upx;height: 58upx;" src="../../static/orderState/daifukuan.png" mode=""></image>
+								<image style="width: 66upx;height: 58upx;" src="http://47.94.106.106:8888/group1/M00/54/38/rBHxiGETbXqAJ41CAAAIaUlH-9g8641577" mode=""></image>
 								<min-badge class="badge" :count="count1"></min-badge>
 								<text>待付款</text>
 							</view>
 							<view class="order-item" @click="navTo('/pages/order/order?state=2')"  hover-class="common-hover" :hover-stay-time="50">
-								<image style="width: 66upx;height: 58upx;" src="../../static/orderState/daifahuo.png" mode=""></image>
+								<image style="width: 66upx;height: 58upx;" src="http://47.94.106.106:8888/group1/M00/54/38/rBHxiGETbXWAHrJuAAAIekhIRO09913132" mode=""></image>
 								<min-badge class="badge" :count="count2"></min-badge>
 								<text>待发货</text>
 							</view>
 							<view class="order-item" @click="navTo('/pages/order/order?state=3')" hover-class="common-hover"  :hover-stay-time="50">
-								<image style="width: 66upx;height: 58upx;" src="../../static/orderState/daishouhuo.png" mode=""></image>
+								<image style="width: 66upx;height: 58upx;" src="http://47.94.106.106:8888/group1/M00/54/38/rBHxiGETbXqAT8l5AAAItlQQ-yU0339251" mode=""></image>
 								<min-badge class="badge" :count="count3"></min-badge>
 								<text>待收货</text>
 							</view>
 							<view class="order-item" @click="navTo('/pages/order/order?state=4')" hover-class="common-hover"  :hover-stay-time="50">
-								<image style="width: 66upx;height: 58upx;" src="../../static/orderState/daipingjia.png" mode=""></image>
+								<image style="width: 66upx;height: 58upx;" src="http://47.94.106.106:8888/group1/M00/54/38/rBHxiGETbXqAAJwQAAAISdlMHnE8185357" mode=""></image>
 								<min-badge class="badge" :count="count4"></min-badge>
 								<text>待评价</text>
 							</view>
 							<view class="order-item" @click="navTo('/pages/order/postSale/postSale')" hover-class="common-hover"  :hover-stay-time="50">
-								<image style="width: 66upx;height: 58upx;" src="../../static/orderState/shouhou.png" mode=""></image>
+								<image style="width: 60upx;height: 58upx;" src="http://47.94.106.106:8888/group1/M00/54/38/rBHxiGETbXqAKMoyAAALD2mRsi80992206" mode=""></image>
 								<min-badge class="badge" :count="count5"></min-badge> 
 								<text>退款售后</text>
 							</view>

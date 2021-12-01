@@ -53,7 +53,7 @@
 			<swiper class="swiper" indicator-dots="true" duration="150">
 				<swiper-item v-for="(page,pid) in emojiList" :key="pid">
 					<view v-for="(em,eid) in page" :key="eid" @tap="addEmoji(em)">
-						<image mode="widthFix" :src="'/static/img/emoji/'+em.url"></image>
+						<image mode="widthFix" :src="'/static/chat/emoji/'+em.url"></image>
 					</view>
 				</swiper-item>
 			</swiper>
@@ -228,10 +228,10 @@
 														ele.time = ele.create_time
 														if(ele.sender !== null){
 															ele.username = uni.getStorageSync('userInfo').username
-															ele.face = '/static/img/face.jpg'
+															ele.face = '/static/chat/face.jpg'
 														}else{
 															ele.username = '售后客服'
-															ele.face = '/static/img/im/face/face_2.jpg'
+															ele.face = '/static/chat/im/face/face_2.jpg'
 														}
 													})
 													that.msgList = list
@@ -245,7 +245,7 @@
 												})
 											})
 										}else{
-											that.msgList.push({id:s.id,username:uni.getStorageSync('userInfo').username,face:"/static/img/face.jpg",time:s.time,type:"str",msg:{content:s.message}});
+											that.msgList.push({id:s.id,username:uni.getStorageSync('userInfo').username,face:"/static/chat/face.jpg",time:s.time,type:"str",msg:{content:s.message}});
 										}
 									});
 								},
@@ -382,7 +382,7 @@
 				let lastid = that.msgList[that.msgList.length-1].id;
 				console.log(lastid)
 				lastid++;
-				let msg = {id:lastid,username:'售后客服',face:"/static/img/im/face/face_2.jpg",time:nowDate.getHours()+":"+nowDate.getMinutes(),type:type,msg:content};
+				let msg = {id:lastid,username:'售后客服',face:"/static/chat/im/face/face_2.jpg",time:nowDate.getHours()+":"+nowDate.getMinutes(),type:type,msg:content};
 				console.log(msg)
 				that.screenMsg(msg);
 				var obj = {
@@ -405,7 +405,7 @@
 									title: ret.message
 								});
 							}else if(ret.type === 'str'){
-								that.msgList.push({id:lastid,username:that.userList.username,face:"/static/img/face.jpg",time:ret.time,type:ret.type,msg:{content:ret.message}})
+								that.msgList.push({id:lastid,username:that.userList.username,face:"/static/chat/face.jpg",time:ret.time,type:ret.type,msg:{content:ret.message}})
 							}
 						});
 					},

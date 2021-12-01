@@ -148,7 +148,7 @@
 				priceOrder: 0, //1 价格从低到高 2价格从高到低
 				cateMaskState: 0, //分类面板展开状态
 				backTop: {
-					src: '../../static/back-top/top.png',
+					src: '../../static/images/back-top/top.png',
 					scrollTop: 0
 				},
 				scrollTop: 0

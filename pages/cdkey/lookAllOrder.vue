@@ -10,7 +10,7 @@
 									<text style="font-size: 13px;">{{cart.order_id}}</text>
 								</view>
 							</a>
-							<view class="shop_details" style="width: 100%;height: 240upx;padding: 10px 20px;background:url(../../static/timg.jpg) no-repeat 100%;" @click="cdShopDetail(cart.exchange.exchange)">
+							<view class="shop_details" style="width: 100%;height: 240upx;padding: 10px 20px;background:url(../../static/cdkey/timg.jpg) no-repeat 100%;" @click="cdShopDetail(cart.exchange.exchange)">
 								<view class="image" style="float: left;">
 									<image style="width: 200upx;height: 200upx;" :src="cart.exchange.exchange.image" mode=""></image>
 								</view>
@@ -37,7 +37,6 @@
 
 <script>
 	import uniRequest from 'uni-request';
-	import empty from "@/components/empty";
 	import xwEmpty from '@/components/xw-empty/xw-empty';
 	export default {
 		data() {
@@ -49,7 +48,7 @@
 				noOrder:false,
 			}
 		},
-		components:{empty,xwEmpty},
+		components:{xwEmpty},
 		onLoad(option) {
 			uniRequest.get('/orders/exchange/list/?user='+option.oid).then(res=>{
 				console.log(res.data)

@@ -56,8 +56,8 @@
    /* @import "uview-ui/iconfont.scss"; */
    @import "uview-ui/index.scss";
    @import "static/css/index-app.css";
-   @import "static/iconfont/font.scss";
-   @import "static/iconfont/icon.css";
+   @import "static/css/iconfont/font.scss";
+   @import "static/css/iconfont/icon.css";
    /*每个页面公共css */
    page{
    	background: $all_bgcolor-fff777;

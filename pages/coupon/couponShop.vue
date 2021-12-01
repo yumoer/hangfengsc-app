@@ -18,7 +18,7 @@
 			
 		</view>
 		<view v-else>
-			<xw-empty :isShow="isEmpty" img="/static/empty/emptyContent.png" path="/pages/index/index" btnText="去逛逛" text="暂无商品" textColor="#C0C4CC"></xw-empty>
+			<xw-empty :isShow="isEmpty" img="/static/images/empty/emptyContent.png" path="/pages/index/index" btnText="去逛逛" text="暂无商品" textColor="#C0C4CC"></xw-empty>
 		</view>
 	</view>
 </template>

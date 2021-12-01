@@ -44,7 +44,6 @@
 <script>
 	import uniSection from '@/components/uni-section/uni-section.vue'
 	import uniRequest from 'uni-request'
-	import myIssue from '@/components/myIssue.vue'
 	export default {
 		data() {
 			return {
@@ -74,7 +73,6 @@
 		},
 		components: {
 			uniSection,
-			myIssue
 		},
 		onLoad(options) {
 			this.goodsItem = JSON.parse(decodeURIComponent(options.item))

@@ -1,7 +1,7 @@
 <template>
 	<view class="content">
 		<view class="title">
-			<image style="" src="../../../static/address/warning.png" mode=""></image>
+			<image style="" src="../../../static/images/address/warning.png" mode=""></image>
 			<text>订单仅支持修改一次地址，请您谅解</text>
 		</view>
 		<view class="oAddress">

@@ -42,7 +42,7 @@
 		<u-mask :show="show" @click="show = false">
 			<view class="warp">
 				<view class="rect" @tap.stop>
-					<image @click="show = false" style="width: 100%;height: 100%;" src="@/static/brow2.png" mode=""></image>
+					<image @click="show = false" style="width: 100%;height: 100%;" src="@/static/img/brow2.png" mode=""></image>
 				</view>
 			</view>
 		</u-mask>

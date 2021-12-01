@@ -4,7 +4,7 @@
 			<lgd-tab :tabValue="tabValue" @getIndex ="getIndex"/>
 		</view>
 		<view class="row" v-if="!isEmpty">
-			<view v-for="(item,index) in tikets" @click="lookPrice(item)" :key="index" v-if="Index === 0" :class="'back_wrap'+item.coupons.type" :style="{background:item.type === 0 ? '../../static/index/djj.png' : item.type === 1 ? '../../static/index/zkj.png' : '../../static/index/mjj.png'}">
+			<view v-for="(item,index) in tikets" @click="lookPrice(item)" :key="index" v-if="Index === 0" :class="'back_wrap'+item.coupons.type" :style="{background:item.type === 0 ? 'http://47.94.106.106:8888/group1/M00/54/9D/rBHxiGEWFyaAe6K6AABXRfeIzWw0112389' : item.type === 1 ? 'http://47.94.106.106:8888/group1/M00/54/9D/rBHxiGEWFyaAcKRzAABBvZjy-aM9721322' : '../../static/index/mjj.png'}">
 				<view class="wrap_left">
 					￥<text class="wrap_price">{{Math.round(item.coupons.reduction)}}</text>
 					<text class="wrap_type" v-if="item.coupons.type === 0">代金券</text>
@@ -52,7 +52,7 @@
 		</view>
 		<!-- 空白页 -->
 		<view v-else>
-			<xw-empty :isShow="isEmpty" img="/static/empty/emptyCoupon.png" path="/pages/coupon/coupon" btnText="去领取" text="您还没有领取优惠券" textColor="#C0C4CC"></xw-empty>
+			<xw-empty :isShow="isEmpty" img="/static/images/empty/emptyCoupon.png" path="/pages/coupon/coupon" btnText="去领取" text="您还没有领取优惠券" textColor="#C0C4CC"></xw-empty>
 		</view>
 	</view>
 </template>

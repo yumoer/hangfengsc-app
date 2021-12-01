@@ -15,7 +15,7 @@
 				</view>
 				<view class="t-list" v-if="index === cateIndex">
 					<view v-for="(titem,inde) in item.subs" :key="titem.id" class="t-item" @click="navToList(titem)" >
-						<image style="width: 140upx; height: 140upx; " mode="aspectFit" :src="titem.image!== ''?titem.image:'/static/errorImage.jpg'"></image>
+						<image style="width: 140upx; height: 140upx; " mode="aspectFit" :src="titem.image!== ''?titem.image:'/static/img/errorImage.jpg'"></image>
 						<text style="text-align:center;">{{titem.name}}</text>
 					</view>
 				</view>

@@ -51,15 +51,15 @@ export default {
   computed: {
     nodeIconUrl () {
       if (this.nodeData.status === 'WATTING_PAY') { // 待付款
-        return this.isNewest ? '/static/images/ic-order-commit.png' : '/static/images/ic-order-commit-G.png'
+        return this.isNewest ? '/static/images/trackNode/ic-order-commit.png' : '/static/images/ic-order-commit-G.png'
       } else if (this.nodeData.status === 'PAYED') { // 待发货
-        return this.isNewest ? '/static/images/ic-paied.png' : '/static/images/ic-paied-G.png'
+        return this.isNewest ? '/static/images/trackNode/ic-paied.png' : '/static/images/trackNode/ic-paied-G.png'
       } else if (this.nodeData.status === 'WATTING_DELIVER') { // 已揽件
-        return this.isNewest ? '/static/images/ic-pacakaging.png' : '/static/images/ic-pacakaging-G.png'
+        return this.isNewest ? '/static/images/trackNode/ic-pacakaging.png' : '/static/images/trackNode/ic-pacakaging-G.png'
       } else if (this.nodeData.status === 'DELIVERING') { // 运输中
-        return this.isNewest ? '/static/images/ic-sending.png' : '/static/images/ic-sending-G.png'
+        return this.isNewest ? '/static/images/trackNode/ic-sending.png' : '/static/images/trackNode/ic-sending-G.png'
       } else if (this.nodeData.status === 'COMPLETE') { // 已完成
-        return this.isNewest ? '/static/images/ic-delivering.png' : '/static/images/ic-delivering-G.png'
+        return this.isNewest ? '/static/images/trackNode/ic-delivering.png' : '/static/images/trackNode/ic-delivering-G.png'
       }
     },
     acceptStationFixed () {

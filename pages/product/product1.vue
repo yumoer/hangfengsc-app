@@ -90,7 +90,7 @@
 				<text class="yticon icon-you"></text>
 			</view> 
 			<view class="eva-box" v-if="index < comment" v-for="(result,index) in results" :key="index">
-				<image class="portrait" :src="result.is_anonymous === false ? headPicValue : '../../static/missing-face.png'"></image>
+				<image class="portrait" :src="result.is_anonymous === false ? headPicValue : '../../static/img/missing-face.png'"></image>
 				<view class="right">
 					<text class="name" style="display: inline-block;">{{result.is_anonymous === false ? result.user : '********'}}
 						<view class="bot" style="float: right;">
@@ -742,27 +742,27 @@
 				};
 				let shareList=[
 					{
-						icon:"/static/sharemenu/wx.png",
+						icon:"/static/images/sharemenu/wx.png",
 						text:"微信好友",
 					},
 					{
-						icon:"/static/sharemenu/pyq.png",
+						icon:"/static/images/sharemenu/pyq.png",
 						text:"朋友圈"
 					},
 					/* {
-						icon:"/static/sharemenu/weibo.png",
+						icon:"/static/images/sharemenu/weibo.png",
 						text:"微博"
 					}, */
 					{
-						icon:"/static/sharemenu/qq.png",
+						icon:"/static/images/sharemenu/qq.png",
 						text:"QQ"
 					},
 					{
-						icon:"/static/sharemenu/copy.png",
+						icon:"/static/images/sharemenu/copy.png",
 						text:"复制"
 					},
 					{
-						icon:"/static/sharemenu/more.png",
+						icon:"/static/images/sharemenu/more.png",
 						text:"更多"
 					},
 				];

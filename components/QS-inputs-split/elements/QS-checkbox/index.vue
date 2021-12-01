@@ -1,25 +1,8 @@
 <template>
-	<QStemplate :title="title" :titleHide="titleHide" :fontSize="fontSize" :width="width" :titleFlex="titleFlex"
-	 :contentFlex="contentFlex" :titleStyle="titleStyle" :contentStyle="contentStyle" :required="required" :requiredSign="requiredSign"
-	 :layout="layout" :titleLayout="titleLayout" :itemDisabled="itemDisabled" :titleColor="titleColor">
-		<view class="flex_row_none_c width100 padding_10rpx_15rpx">
-			<checkbox-group @change="checkboxChange" class="width100 wrap" :class="itemLayout_computed">
-				<label class="fontColor666666 flex_row_none_c marginRight_15rpx padding_10rpx" v-for="(checkboxItem, checkboxIndex) in itemArray||[]"
-				 :key="checkboxIndex">
-					<checkbox :value="checkboxItem.value" :checked="getStatus[checkboxIndex]" :disabled="disabled" :color="checkboxItem.color||color"
-					 :style="'transform: scale(' + (scale||'.8') + ');'" />
-					<view class="flex_row_none_c">{{checkboxItem.name}}</view>
-				</label>
-			</checkbox-group>
-		</view>
-	</QStemplate>
+	
 </template>
 
 <script>
-	import _app from '../../js/app.js';
-	import QStemplate from '../../template/template.vue';
-	import QSInputsMixin from '../../js/QSInputsMixin.js';
-
 	export default {
 		components: {
 			QStemplate

@@ -1,53 +1,161 @@
 <template>
-	<view id="wxfw">
-		<view class="img">
-			<image style="width: 100%;height: 150px;" src="/static/img/weixiu_banner.jpg" mode=""></image>
+	<view class="page">
+		<view class="head">
+			<u-tabs :list="list" active-color='#ee1d23' bar-height="6" bar-width="100" :is-scroll="false" :current="current" @change="change"></u-tabs>
 		</view>
-		<liuyuno-tabs :tabData="tabs" :defaultIndex="defaultIndex" @tabClick='tabClick' />
-		<view class="" v-if="defaultIndex === 0">
-			<QSInput :name="formName" variableName="username" title="姓名" :titleFlex="0.5" required v-model="values.username"></QSInput>
-			<QSInput :name="formName" variableName="mobile" title="手机号" :titleFlex="0.5" required v-model="values.mobile"></QSInput>
-			<QSInput :name="formName" variableName="address " title="维修地址" required v-model="values.address"></QSInput>
-			<QSInput :name="formName" variableName="devicename" title="设备名称" required v-model="values.devicename"></QSInput>
-			<QSInput :name="formName" variableName="model" title="规格型号" required v-model="values.model"></QSInput>
-			
-			<QSPickerCustom ref="pickerCustom1" :name="formName" required variableName="remarks" title="技术服务类型" v-model="values.remarks"/>
-			<QSPickerCustom ref="pickerCustom2" :name="formName" required variableName="brand" title="仪器品牌" v-model="values.brand"/>
-			<QSPickerCustom ref="pickerCustom3" :name="formName" required variableName="fault_describe" title="问题描述" v-model="values.fault_describe"/>
-			<button class="confirm-btn" @click="toOrder">提交订单</button>
-		</view>
-		<view class="" v-if="defaultIndex === 1">
-			<view class="" v-if="ifphone">
-				<QSInput :name="formName" variableName="phone" :titleFlex="0.5" title="手机号" required v-model="values.phone"></QSInput>
-				<button class="confirm-btn" @click="todeviceOrder">查询维修单</button>
+		<view class="" v-if="current === 0">
+			<view class="content">
+				<u-form :model="values" ref="uForm">
+					<u-form-item label="用户名" :label-width="240" prop="user">
+						<u-input v-model="values.username" input-align="right" placeholder="请输入用户名"/>
+					</u-form-item>
+					<u-form-item label="手机号" :label-width="240" prop="user">
+						<u-input maxlength='11' v-model="values.mobile" input-align="right" placeholder="请输入手机号"/>
+					</u-form-item>
+					<u-form-item label="维修地址" :label-width="240" prop="user">
+						<u-input v-model="values.address" input-align="right" placeholder="请输入维修地址"/>
+					</u-form-item>
+					<u-form-item label="设备名称" :label-width="240" prop="user">
+						<u-input v-model="values.devicename" input-align="right" placeholder="请输入设备名称"/>
+					</u-form-item>
+					<u-form-item label="规格型号" :label-width="240" prop="user">
+						<u-input v-model="values.model" input-align="right" placeholder="请输入规格型号"/>
+					</u-form-item>
+					<u-form-item label="技术服务类型" :label-width="240" prop="service_type" borderBottom  ref="item1">
+						<u-input
+							v-model="values.service_type"
+							@click="showOpen1"
+							disabled
+							disabledColor="#ffffff"
+							placeholder="请选择"
+							input-align="right"
+						></u-input>
+						<u-icon
+							slot="right"
+							name="arrow-right"
+						></u-icon>
+					</u-form-item>
+					<u-form-item label="仪器品牌" :label-width="240" prop="brand">
+						<u-input
+							v-model="values.brand"
+							@click="showOpen2"
+							disabled
+							disabledColor="#ffffff"
+							placeholder="请选择"
+							input-align="right"
+						></u-input>
+						<u-icon
+							slot="right"
+							name="arrow-right"
+						></u-icon>
+					</u-form-item>
+					<u-form-item label="问题描述" :label-width="240" prop="fault_describe">
+						<u-input
+							v-model="values.fault_describe"
+							@click="showOpen3"
+							disabled
+							disabledColor="#ffffff"
+							placeholder="请选择"
+							input-align="right"
+						></u-input>
+						<u-icon
+							slot="right"
+							name="arrow-right"
+						></u-icon>
+					</u-form-item>
+					<u-form-item label="备注" :label-width="240" prop="user">
+						<u-input v-model="values.remarks" input-align="right" placeholder="请输入备注"/>
+					</u-form-item>
+				</u-form>
 			</view>
-			<view style="background: #fff;padding:2upx 0;" v-else >
-				<view v-for="(order,index) in lookOrder" :key="index" style="margin: 20upx;background: #ddd;border-radius: 40upx;">
-					<QSInput :name="formName" variableName="id" title="维修号" disabled v-model="order.id"></QSInput>
-					<QSInput :name="formName" variableName="username" title="姓名" disabled v-model="order.username"></QSInput>
-					<QSInput :name="formName" variableName="mobile" maxLength="11" title="手机号" disabled v-model="order.mobile"></QSInput>
-					<QSInput :name="formName" variableName="service_address" title="维修地址" disabled v-model="order.service_address"></QSInput>
-					<QSInput :name="formName" variableName="remarks" title="状态" disabled v-model="order.order_state"></QSInput>
-					<QSInput :name="formName" variableName="fault_describe" title="问题描述" disabled v-model="order.fault_describe" if="order.fault_describe === ''"></QSInput>
-					
-					<QSInput :name="formName" variableName="create_time" title="创建时间" disabled v-model="order.create_time.split('T')[0] + ' ' + order.create_time.split('T')[1].split('.')[0]"></QSInput>
+			<u-button v-if="current === 0" @click="toOrder" class="confirmBtn">提交订单</u-button>
+			<u-picker v-model="show1" mode="selector" title='技术服务类型' :range='actions1' confirm-color="#000" @confirm='confirm1'></u-picker>
+			<u-picker v-model="show2" mode="selector" title='仪器品牌' :range='actions2' confirm-color="#000" @confirm='confirm2'></u-picker>
+			<u-picker v-model="show3" mode="selector" title='问题描述' :range='actions3' confirm-color="#000" @confirm='confirm3'></u-picker>
+		</view>
+		
+		<view v-if="current === 1">
+			<view class="content">
+				<view class="">
+					<u-form :model="values" ref="uForm">
+						<u-form-item label="用户名" :label-width="240" prop="username">
+							<u-input v-model="values.username" input-align="right" placeholder="请输入用户名"/>
+						</u-form-item>
+						<u-form-item label="手机号" maxlength='11' :label-width="240" prop="mobile">
+							<u-input v-model="values.mobile" input-align="right" placeholder="请输入手机号"/>
+						</u-form-item>
+					</u-form>
+					<u-button @click="todeviceOrder"  class="confirmBtn" style="margin: 30upx;">查询维修单</u-button>
+				</view>
+			</view>
+			<view class="content" v-for='(item,index) in orderList' :key='index'>
+				<view class="">
+					<u-form :model="values" ref="uForm" :border='true'>
+						<u-form-item label="用户 :" maxlength='11' :label-width="180" prop="phone">
+							<view class="">{{item.username}}</view>
+						</u-form-item>
+						<u-form-item label="维修号 :" maxlength='11' :label-width="180" prop="phone">
+							<view class="">{{item.id}}</view>
+						</u-form-item>
+						<u-form-item label="维修地址 :" maxlength='11' :label-width="180" prop="phone">
+							<view class="">{{item.server_address}}</view>
+						</u-form-item>
+						<u-form-item label="品牌 :" maxlength='11' :label-width="180" prop="phone">
+							<view class="">{{item.brand}}</view>
+						</u-form-item>
+						<u-form-item label="设备 :" maxlength='11' :label-width="180" prop="phone">
+							<view class="">{{item.equipment}}</view>
+						</u-form-item>
+						<u-form-item label="型号 :" maxlength='11' :label-width="180" prop="phone">
+							<view class="">{{item.equipment_model}}</view>
+						</u-form-item>
+						<u-form-item label="状态 :" maxlength='11' :label-width="180" prop="phone">
+							<view class="">/</view>
+						</u-form-item>
+						<u-form-item label="问题描述 :" maxlength='11' :label-width="180" prop="phone">
+							<view class="">{{item.fault_describe}}</view>
+						</u-form-item>
+						<u-form-item label="备注 :" maxlength='11' :label-width="180" prop="phone">
+							<view class="">{{item.remarks}}</view>
+						</u-form-item>
+					</u-form>
 				</view>
 			</view>
 		</view>
+		
 	</view>
 </template>
 
 <script>
-	import liuyunoTabs from "@/components/liuyuno-tabs/liuyuno-tabs.vue";
 	import uniRequest from 'uni-request'
 	export default {
 		data() {
 			return {
 				formName:'维修服务',
-				tabs: ['申请维修','查询维修记录'],
-				defaultIndex:0,
+				list: [{
+					name: '申请维修'
+				}, {
+					name: '查询维修记录'
+				}],
+				model1: {
+					userInfo: {
+						name: 'uView UI',
+						sex: '',
+						birthday: ''
+					},
+					radiovalue1: '苹果',
+					checkboxValue1: [],
+					intro: '',
+					code: ''
+				},
+				
+				show1:false,
+				show2:false,
+				show3:false,
+				current: 0,
 				ifphone:true,
 				lookOrder:[],
+				orderList:[],
 				values:{
 					username:'', // 用户名
 					mobile:'', // 手机号
@@ -57,39 +165,43 @@
 					address:'', // 维修地址
 					fault_describe:'', // 问题描述
 					brand:'', // 品牌
-					remarks:'' // 技术服务类型
+					service_type:'' // 技术服务类型
 				},
-				actions1: [['打印机维修','一体机维修','绘图仪维修', '晒鼓加粉','日常保养']],
-				actions2: [['得力','惠普','爱普生','兄弟','佳能','理光','联想','东芝','夏普','三星','松下','奔图','得实','富士通','小米','华为','震旦','斯图','六品堂','天文','正彩']],
-				actions3: [['打印机卡纸或不能走纸','打印机输出空白纸','打印纸输出变黑','打印字符不全或字符不清晰','打印时字迹一边清晰而另一边不清晰','打印头移动受阻，停下长鸣或在原处震动','更换新墨盒后“墨尽灯”仍亮','无法打印','其他问题']],
+				actions1: ['打印机维修','一体机维修','绘图仪维修', '晒鼓加粉','日常保养'],
+				actions2: ['得力','惠普','爱普生','兄弟','佳能','理光','联想','东芝','夏普','三星','松下','奔图','得实','富士通','小米','华为','震旦','斯图','六品堂','天文','正彩'],
+				actions3: ['打印机卡纸或不能走纸','打印机输出空白纸','打印纸输出变黑','打印字符不全或字符不清晰','打印时字迹一边清晰而另一边不清晰','打印头移动受阻，停下长鸣或在原处震动','更换新墨盒后“墨尽灯”仍亮','无法打印','其他问题'],
 				
 			};
 		},
 		onReady() {
-			this.setPickerData();
 		},
 		methods:{
-			tabClick(value){
-				console.log(value)
-				this.defaultIndex = value
+			change(index) {
+				this.current = index;
+				this.values = {}
 			},
-			getCode(){
-				this.nCode = QSApp.sendSMS(this.values.phoneNum);
-				console.log('nCode-Type:' + (typeof this.nCode));
-				this.$refs.code.startCode();
+			showOpen1(){
+				this.show1 = true;
 			},
-			setPickerData() {
-				const data1 = this.actions1
-				const data2 = this.actions2
-				const data3 = this.actions3
-				this.setPickerDataFc('pickerCustom1', data1);
-				this.setPickerDataFc('pickerCustom2', data2);
-				this.setPickerDataFc('pickerCustom3', data3);
+			
+			showOpen2(){
+				this.show2 = true;
 			},
-			setPickerDataFc(name, data) {
-				console.log(name, data)
-				console.log('准备 调用setData');
-				this.$refs[name].setData(data)
+			
+			showOpen3(){
+				this.show3 = true;
+			},
+			
+			confirm1(e){
+				this.values.service_type = this.actions1[e[0]]
+			},
+			
+			confirm2(e){
+				this.values.brand = this.actions2[e[0]]
+			},
+			
+			confirm3(e){
+				this.values.fault_describe = this.actions3[e[0]]
 			},
 			
 			async toOrder(){
@@ -104,25 +216,17 @@
 					return
 				}
 				
-				console.log(this.values.remarks)
-				if(this.values.remarks !== ''){
-					this.values.remarks = this.values.remarks.data[0]
-				}else if(this.values.fault_describe !== ''){
-					this.values.fault_describe = this.values.fault_describe.data[0]
-				}else if(this.values.brand !== ''){
-					this.values.brand = this.values.brand.data[0]
-				}
 				const sendData = {
 					'username': this.values.username,
 					'mobile':this.values.mobile,
-					'service_address': this.values.address,
+					'server_address': this.values.address,
 					'fault_describe': this.values.fault_describe,
 					'brand':this.values.brand,
 					'equipment':this.values.devicename,
-					'remarks': this.values.remarks,
+					'service_type': this.values.service_type,
 					'equipment_model':this.values.model,
+					'remarks':this.values.remarks,
 				}
-				console.log(sendData)
 				await uniRequest.post('/service/create_order/',sendData).then(res=>{
 					console.log(res)
 					if(res.status === 201){
@@ -132,7 +236,6 @@
 								url:'/pages/index/subject/wxfw/wxfw'
 							});
 						},500)
-						
 					}
 				})
 				
@@ -140,23 +243,25 @@
 			
 			// 查询维修单
 			async todeviceOrder(){
-				console.log(this.values.phone)
+				console.log(this.values.mobile)
 				const Reg = RegExp(/^1[34578]\d{9}$/)
-				if(this.values.phone === ''){
+				if(this.values.mobile === ''){
 					this.$api.msg('手机号不能为空')
-				}else if(!Reg.test(this.values.phone)){
+				}else if(!Reg.test(this.values.mobile)){
 					this.$api.msg('手机号格式错误')
 				}else{
-					await uniRequest.get('service/get_order/'+this.values.phone,).then(res=>{
+					let query = {username:this.values.username,mobile:this.values.mobile}
+					await uniRequest.get('service/get_order/',{params:query}).then(res=>{
 						console.log(res)
 						if(res.status === 200){
 							this.ifphone = false
+							this.orderList = res.data
 							res.data.forEach(async ele=>{
 								console.log(ele)
-								await uniRequest.get('service/pull_order/'+ele.id,).then(ress=>{
-									console.log(ress)
-									this.lookOrder.push(ress.data)
-								})
+								// await uniRequest.get('service/pull_order/'+ele.id,).then(ress=>{
+								// 	console.log(ress)
+								// 	this.lookOrder.push(ress.data)
+								// })
 							})
 							
 						}
@@ -169,18 +274,25 @@
 </script>
 
 <style lang="scss">
-.confirm-btn{
-		width: 630upx;
-		height: 76upx;
-		line-height: 76upx;
-		border-radius: 50px;
-		margin-top: 70upx;
-		color: #fff;
-		background: rgb(250, 67, 106);
-		font-size: $font-lg;
-		margin-bottom: 40upx;
-		&:after{
-			border-radius: 100px;
+	.page{
+		width: 100%;
+		height: 100%;
+		.head{
+			
+		}
+		.content{
+			height: 100%;
+			background-color: #FFFFFF;
+			margin: 30upx;
+			padding: 0 20upx;
+			border-radius: 20upx;
+		}
+		.confirmBtn{
+			width: 590upx;
+			height: 80upx;
+			background: linear-gradient(to right,#EE1D23 0%,#F04023 100%);
+			color: #FFFFFF;
+			border-radius: 40upx;
 		}
 	}
 </style>

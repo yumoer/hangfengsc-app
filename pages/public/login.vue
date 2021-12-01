@@ -105,7 +105,7 @@
 						<image style="width: 45upx;height: 50upx;" src="../../static/img/qq.png" mode=""></image>
 					</view>
 					<view class="qqLogin" v-if="system >= 13 && platform=='ios'"  @click="appleLogin">
-						<image style="width: 45upx;height: 50upx;" src="../../static/timg.png" mode=""></image>
+						<image style="width: 45upx;height: 50upx;" src="../../static/img/timg.png" mode=""></image>
 					</view>
 				</view>
 			</view>

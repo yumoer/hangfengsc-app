@@ -1,7 +1,7 @@
 <template>
 	<view class="container">
 		<view style="width: 100%;text-align: center;margin: 30upx 0;">
-			<image style="width: 120upx;height: 120upx;border-radius: 30upx;" src="../../static/hfsc.jpg" mode=""></image>
+			<image style="width: 120upx;height: 120upx;border-radius: 30upx;" src="../../static/img/hfsc.jpg" mode=""></image>
 			<view style="font-size: 30upx;text-align: center;">行丰商城 v{{appver}}</view>
 		</view>
 		<!-- @click="navTo('/pages/set/verBody')" -->
@@ -30,7 +30,7 @@
 			return {
 				wgtver:"",
 				appver:"",
-				iconRootPath:"_www/static/static",
+				iconRootPath:"_www/static/images/topIcon",
 			};
 		},
 		onLoad(){

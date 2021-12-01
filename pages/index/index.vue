@@ -31,26 +31,20 @@
 		<view class="func-wrapper" style="">
 			<view class="func-content" style="">
 				<swiper :indicator-dots="true" :autoplay="true" :interval="3000" :duration="1000" style="height: 285px;">
-					<swiper-item>
-						<view class="swiper-item">
+					<swiper-item v-for="(item,index) in goodsShopList" :key="index" v-if="index < 5">
+						<view class="swiper-item" @click="navToPage('/pages/activity/hotProd')">
 							<text class="swiper-text" style="">今日爆款</text>
-							<image class="swiper-image" src="/static/index/jrbk.png" mode=""></image>
-						</view>
-					</swiper-item>
-					<swiper-item>
-						<view class="swiper-item">
-							<text class="swiper-text">今日爆款</text>
-							<image class="swiper-image" src="/static/index/jrbk.png" mode=""></image>
+							<image class="swiper-image" :src="item.image" mode=""></image>
 						</view>
 					</swiper-item>
 				</swiper>
 			</view>
 			<view class="func-right">
-				<view class="func-xpsf">
-					<image class="func-image" style="" src="/static/index/xpsf.png" mode=""></image>
+				<view class="func-xpsf" @click="navToPage('/pages/activity/newProd')">
+					<image class="func-image" src="http://47.94.106.106:8888/group1/M00/52/E4/rBHxiGEDy4yAPoSpAABQXZsaSGs8552342" mode=""></image>
 				</view>
 				<view class="func-lqzx" @click="navToPage('/pages/coupon/coupon')">
-					<image class="func-image" src="/static/index/lqzx.png" mode=""></image>
+					<image class="func-image" src="http://47.94.106.106:8888/group1/M00/59/0A/rBHxiGE5pzOAWiEBAAFSOTPcJrk3148751" mode=""></image>
 				</view>
 			</view>
 		</view>
@@ -59,7 +53,7 @@
 		<view class="seckill-section m-t" v-if="goodList.length > 0">
 			
 			<view class="s-header">
-				<image class="s-img" src="/static/temp/secskill-img.jpg" mode="widthFix"></image>
+				<image class="s-img" src="/static/img/temp/secskill-img.jpg" mode="widthFix"></image>
 				<text class="tip">10点场</text>
 				<uni-countdown color="#000" :show-day="false" :hour="hour" :minute="minute" :second="second"></uni-countdown>
 				<text v-if="!load" style="font-size: 14px;margin-left: 10px;">正在抢购</text>
@@ -89,12 +83,9 @@
 		
 		<!-- 猜你喜欢 -->
 		<view class="f-header m-t">
-			<image src="/static/temp/h1.png"></image>
 			<view class="tit-box">
 				<text class="tit">为你推荐</text>
-				<text class="tit2">Recommend For You</text>
 			</view>
-			<text class="yticon icon-you"></text>
 		</view>
 		
 		<view class="guess-section">
@@ -107,10 +98,10 @@
 				<view class="image-wrapper" >
 					<image style="border: 1px solid #ddd;" :src="item._source.detail_image" mode="aspectFill"></image>
 				</view>
-				<text class="title clamp">{{item._source.name}}</text>
+				<text class="title clamp2">{{item._source.name}}</text>
 				<text style="display: inline-block;">
 					<text class="price">￥{{item._source.price}}</text>
-					<text style="float:right;color: rgb(144, 147, 153); line-height:60upx;font-size: 28upx;" >销量: {{item._source.sales}}</text>
+					<text style="float:right;color: rgb(144, 147, 153); line-height:60upx;font-size: 28upx;margin-right: 15px;" >销量: {{item._source.sales}}</text>
 				</text>
 				
 			</view>
@@ -121,7 +112,7 @@
 		
 		<!-- #ifdef H5 -->
 		<view @click="goToPage('/pages/appDown/appDown')" style="position: fixed;bottom: 160px;right: 10px;width: 100%;height: 60px;z-index: 1;right: -77%;">
-			<image style="width: 100px;height: 60px;" src="/static/tag.png" mode=""></image>
+			<image style="width: 100px;height: 60px;" src="/static/img/tag.png" mode=""></image>
 		</view>
 		<!-- #endif -->
 		
@@ -154,11 +145,10 @@
 	import uniRequest from 'uni-request'
 	import uniLoadMore from '@/components/uni-load-more/uni-load-more.vue'
 	import uniCountdown from "@/components/uni-countdown/uni-countdown.vue"
-	import yomolUpgrade from '@/components/yomol-upgrade/yomol-upgrade.vue'
 	import backTop from '@/components/back-top/back-top.vue'
 	import cmdCurtain from "@/components/cmd-curtain/cmd-curtain.vue"
 	export default {
-		components:{uniCountdown,uniLoadMore,yomolUpgrade,backTop,cmdCurtain},
+		components:{uniCountdown,uniLoadMore,backTop,cmdCurtain},
 		data() {
 			return {
 				show: true,
@@ -166,12 +156,7 @@
 				swiperCurrent: 0,
 				swiperLength: 0,
 				carouselList: [], // 轮播图
-				goodsShopList:[
-					{image:'../../static/index/jrbk.png'},
-					{image:'../../static/index/jrbk.png'},
-					{image:'../../static/index/jrbk.png'},
-					{image:'../../static/index/jrbk.png'}
-				], // 今日爆款
+				goodsShopList:[], // 今日爆款
 				goodsList: [],
 				goodList: [],
 				homePageList:[],
@@ -184,14 +169,14 @@
 				version:'', //app版本
 				wgtver:"", // wgt把那本
 				appver:"", // apk版本
-				iconRootPath:"_www/static/static", //
+				iconRootPath:"_www/static/images/topIcon", //
 				page:1,
 				page_size:10,
 				ordering:'-create_time',
-				img:'../../static/app.png',
+				img:'../../static/img/app.png',
 				visible:true,
 				backTop: { // 返回顶部
-					src: '../../static/back-top/top.png',
+					src: '../../static/images/back-top/top.png',
 					scrollTop: 0
 				},
 				scrollTop: 0
@@ -200,12 +185,16 @@
 		onPageScroll(e) {
 			this.backTop.scrollTop = e.scrollTop;
 		},
-		onLoad(){
+		onShow() {
 			this.loadData();
+			this.getHotGoods()
 			this.getDate();
 			// #ifdef APP-PLUS
 			this.getVersion()
 			// #endif
+		},
+		onLoad(options){
+			console.log(options)
 		},
 		
 		/* // 标题栏input搜索框点击
@@ -244,6 +233,22 @@
 			close(val) {
 				console.log(val)
 				this.visible = val;
+			},
+			
+			async getHotGoods(){
+				await uniRequest({
+					url:'/content/index/floor/',
+					method:'POST',
+					data:{
+						key:'index_hwtj'
+					}
+				})
+				.then(res=>{
+					console.log(res.data)
+					this.goodsShopList = res.data
+				}).catch(error=>{
+					console.log(error)
+				})
 			},
 			
 			getVersion(){
@@ -498,7 +503,7 @@
 					url: '/mobile/banner/',
 					method: 'GET',
 				}).then(res => {
-					console.log(res)
+					console.log(res.data)
 					if(res.data.length > 0){
 						let carouselList = res.data
 						this.titleNViewBackground = carouselList[0].color;
@@ -587,10 +592,10 @@
 						url:'/pages/index/subject/zfcg/zfcg'
 					})
 				}else if(value.index === 1){
-					this.$api.msg('暂未开发')
-					/* uni.navigateTo({
+					// this.$api.msg('暂未开发')
+					uni.navigateTo({
 						url:'/pages/index/subject/jdcg/jdcg'
-					}) */
+					})
 				}else if(value.index === 2){
 					// this.$api.msg('暂未开发')
 					uni.navigateTo({
@@ -610,25 +615,27 @@
 						url:'/pages/index/subject/cjcg/cjcg'
 					})
 				}else if(value.index === 6){
-					// this.$api.msg('暂未开发')
-					uni.navigateTo({
-						url:'/pages/index/subject/jypx/jypx'
-					})
+					this.$api.msg('暂未开发')
+					// uni.navigateTo({
+					// 	url:'/pages/index/subject/jypx/jypx'
+					// })
 				}else if(value.index === 7){
-					// this.$api.msg('暂未开发')
+					this.$api.msg('暂未开发')
+					// uni.navigateTo({
+					// 	url:'/pages/index/subject/ylqx/ylqx'
+					// })
+					
+				}else if(value.index === 8){
+					this.$api.msg('暂未开发')
 					uni.navigateTo({
 						url:'/pages/index/subject/cqtg/cqtg'
 					})
-				}else if(value.index === 8){
-					// this.$api.msg('暂未开发')
-					uni.navigateTo({
-						url:'/pages/index/subject/flzx/flzx'
-					})
+					
 				}else if(value.index === 9){
-					// this.$api.msg('暂未开发')
-					uni.navigateTo({
-						url:'/pages/index/subject/gywm/gywm'
-					})
+					this.$api.msg('暂未开发')
+					// uni.navigateTo({
+					// 	url:'/pages/index/subject/flzx/flzx'
+					// })
 				}
 			},
 			
@@ -661,7 +668,7 @@
 
 <style lang="scss">
 	page {
-		background: #fff;
+		background: #F7F7F7;
 	}
 	.m-t{
 		margin-top: 16upx;
@@ -691,7 +698,7 @@
 			/* #endif */
 			right: 0;
 			transform: scale(1);
-			background: url(../../static/index/homeBack.png);
+			background:linear-gradient(to bottom,#EE1D23 70%,#ffffff 100%);
 			background-size: cover;
 			background-position: 50%;
 		}
@@ -699,7 +706,7 @@
 	.carousel {
 		width: 100%;
 		height: 300upx;
-		margin-top: 20px;
+		margin-top: 10px;
 		.carousel-item {
 			width: 100%;
 			height: 100%;
@@ -749,7 +756,6 @@
 		align-items: center;
 		flex-wrap:wrap;
 		padding: 30upx 22upx 0 22upx; 
-		background: #fff;
 		.cate-item {
 			display: flex;
 			flex-direction: column;
@@ -782,9 +788,8 @@
 	.func-wrapper{
 		width: 100%;
 		height: 285px;
-		background-color: #fff;
 		padding: 0 28rpx;
-		margin: 40rpx 0;
+		margin-top: 40rpx;
 		.func-content{
 			width: 48%;
 			height: 285px;
@@ -793,8 +798,11 @@
 				.swiper-text{
 					position: absolute;
 					color: #fff;
-					left: 30%;
-					top: 20px;
+					width: 100%;
+					height: 100%;
+					background: linear-gradient(-180deg, rgba(3, 0, 0, 0.2), rgba(0, 0, 0, 0));
+					text-align: center;
+					line-height: 54px;
 					z-index: 1;
 					font-size: 18px;
 				}
@@ -831,7 +839,6 @@
 	/* 秒杀专区 */
 	.seckill-section{
 		padding: 4upx 30upx 24upx;
-		background: #fff;
 		.s-header{
 			display:flex;
 			align-items:center;
@@ -898,9 +905,8 @@
 	.f-header{
 		display:flex;
 		align-items:center;
-		height: 140upx;
-		padding: 6upx 30upx 8upx;
-		background: #fff;
+		height: 80upx;
+		margin: 20upx 30upx;
 		image{
 			flex-shrink: 0;
 			width: 80upx;
@@ -913,8 +919,9 @@
 			flex-direction: column;
 		}
 		.tit{
-			font-size: $font-lg +2upx;
-			color: #font-color-dark;
+			font-size: 32upx;
+			color: #333333;
+			font-weight: bold;
 			line-height: 1.3;
 		}
 		.tit2{
@@ -928,7 +935,6 @@
 	}
 	/* 团购楼层 */
 	.group-section{
-		background: #fff;
 		.g-swiper{
 			height: 650upx;
 			padding-bottom: 30upx;
@@ -1070,12 +1076,13 @@
 		display:flex;
 		flex-wrap:wrap;
 		padding: 0 30upx;
-		background: #fff;
 		.guess-item{
 			display:flex;
 			flex-direction: column;
 			width: 48%;
-			padding-bottom: 40upx;
+			
+			margin-bottom: 40upx;
+			background: #FFFFFF;
 			&:nth-child(2n+1){
 				margin-right: 4%;
 			}
@@ -1092,14 +1099,16 @@
 			}
 		}
 		.title{
-			font-size: $font-lg;
-			color: $font-color-dark;
-			line-height: 80upx;
+			font-size: 28upx;
+			color: #333333;
+			padding: 10px;
+			height: 50px;
 		}
 		.price{
 			font-size: $font-lg;
 			color: $uni-color-primary;
 			line-height: 60upx;
+			padding-left: 10px;
 		}
 	}
 </style>

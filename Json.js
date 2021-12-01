@@ -10,90 +10,65 @@ const userInfo = {
 	msg: '提示'
 }
 /* 首页轮播图 */
-const carouselList = [
-	{
-		src: "/static/index/duanwu.jpg",
-		background: "#748D70",
-		index:0,
-	},
-	{ 
-		src: "/static/index/banner0.jpg",
-		background: "#C0E6F1",
-		index:1,
-	},{
-		src: "/static/index/jiaoyu.jpg",
-		background: "#5C0AE8",
-		index:2,
-	},
-	{
-		src: "/static/index/yuxiaoguo.jpg",
-		background: "#F4EDF0",
-		index:3,
-	},
-	{
-		src: "/static/index/banner3.jpg",
-		background: "#2E2A27",
-		index:4,
-	},
-	
-]
+const carouselList = []
 /* 首页主题图 */
 const homePageList = [
 	{
-		src: "/static/index/zfcg.png",
+		src: "http://47.94.106.106:8888/group1/M00/52/CC/rBHxiGEDnYOAKbw9AAAryY1R8hg2610352",
 		text: "政府采购",
 		index:0,
 	},
 	{
-		src: "/static/index/jdcg.png",
+		src: "http://47.94.106.106:8888/group1/M00/52/CC/rBHxiGEDnYOAGf5lAAAsYqUjk6Y3840222",
 		text: "军队采购",
 		index:1,
 	},
 	{
-		src: "/static/index/hzhb.png",
+		src: "http://47.94.106.106:8888/group1/M00/52/CC/rBHxiGEDnYOAU9V8AAAifXYu7Ro3670317",
 		text: "合作伙伴",
 		index:2,
 	},
 	{
-		src: "/static/index/lpdz.png",
+		src: "http://47.94.106.106:8888/group1/M00/52/CC/rBHxiGEDnYOAHmJpAAAf8wJ-ZfM0298330",
 		text: "礼品定制",
 		index:3,
 	},
 	{
-		src: "/static/index/wxfw.png",
+		src: "http://47.94.106.106:8888/group1/M00/52/CC/rBHxiGEDnYOAPJk8AAAieh6myNk7757680",
 		text: "维修服务",
 		index:4,
 	},
 	{
-		src: "/static/index/cjcg.png",
+		src: "http://47.94.106.106:8888/group1/M00/52/CC/rBHxiGEDnYOADB64AAAjOBHisaw3177363",
 		text: "场景采购",
 		index:5,
 	},
 	{
-		src: "/static/index/jypx.png",
+		src: "http://47.94.106.106:8888/group1/M00/52/CC/rBHxiGEDnYOAWnx1AAAi9ZLILUA3920460",
 		text: "教育培训",
 		index:6,
 	},
 	{
-		src: "/static/index/cqtg.png",
-		text: "传奇团购", /* 办公耗材*/
+		src: "http://47.94.106.106:8888/group1/M00/52/CC/rBHxiGEDnYOAa6FmAAAfmKMy7s47327269",
+		text: "医疗器械",
 		index:7,
 	},
 	{
-		src: "/static/index/flzx.png",
-		text: "法律咨询",
+		src: "http://47.94.106.106:8888/group1/M00/52/CC/rBHxiGEDnYOAabldAAAs6zmoaFM8074714",
+		text: "传奇团购", /* 办公耗材*/
 		index:8,
 	},
-	// {
-	// 	src: "/static/index/ylqx.png",
-	// 	text: "医疗器械",
-	// 	index:9,
-	// },
 	{
-		src: "/static/index/ylqx.png",
-		text: "关于我们",
+		src: "http://47.94.106.106:8888/group1/M00/52/CC/rBHxiGEDnYOALDnkAAAuHE324gk2575399",
+		text: "法律咨询",
 		index:9,
 	},
+	
+	// {
+	// 	src: "/static/index/ylqx.png",
+	// 	text: "关于我们",
+	// 	index:9,
+	// },
 ]
 /* 商品列表 */
 const goodsList = []
@@ -104,22 +79,22 @@ const cartList = [];
 const detailData = {}
 const shareList = [{
 		type: 1,
-		icon: '/static/temp/share_wechat.png',
+		icon: '/static/images/temp/share_wechat.png',
 		text: '微信好友'
 	},
 	{
 		type: 2,
-		icon: '/static/temp/share_moment.png',
+		icon: '/static/images/temp/share_moment.png',
 		text: '朋友圈'
 	},
 	{
 		type: 3,
-		icon: '/static/temp/share_qq.png',
+		icon: '/static/images/temp/share_qq.png',
 		text: 'QQ好友'
 	},
 	{
 		type: 4,
-		icon: '/static/temp/share_qqzone.png',
+		icon: '/static/images/temp/share_qqzone.png',
 		text: 'QQ空间'
 	}
 ]

@@ -1,7 +1,7 @@
 <template>
 	<view class="coupon_box">
 		<view class="coupon_wrap">
-			<image class="coupon_image" src="../../static/index/ljzx.png" mode=""></image>
+			<image class="coupon_image" src="http://47.94.106.106:8888/group1/M00/5C/79/rBHxiGFVI3yAKiI8AAKRLNs701w8120705" mode=""></image>
 		</view>
 		<view class="coupon_row">
 			<view class="coupon_content">
@@ -46,7 +46,7 @@
 					</view>
 				</view>
 				<view class="coupon_border" v-else style="text-align: center;padding-bottom: 20vh;">
-					<image style="width: 289px;" src="../../static/empty/emptyCoupon.png" mode=""></image>
+					<image style="width: 289px;" src="../../static/images/empty/emptyCoupon.png" mode=""></image>
 					<view style="margin-top: 20upx;color: #999999;font-size: 16px;">您还没有优惠券</view>
 				</view>
 			</view>

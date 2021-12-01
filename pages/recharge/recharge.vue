@@ -1,7 +1,7 @@
 <template>
 	<view class="content">
 		<view class="m-image">
-			<image src="../../static/index/yue.png" mode=""></image>
+			<image src="http://47.94.106.106:8888/group1/M00/54/71/rBHxiGEUwOaAVRP6AAAI06rhhYo0826213" mode=""></image>
 		</view>
 		<view class="m-title">
 			<text>我的余额</text>

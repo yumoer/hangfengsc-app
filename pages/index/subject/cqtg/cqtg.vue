@@ -104,7 +104,7 @@
 				}else{
 					this.loadingType = 'more'
 				}
-				let sendData = {sku_type:0,page:this.page,page_size:this.page_size}
+				let sendData = {page:this.page,page_size:this.page_size}
 				const res = await uniRequest({
 					url:'/groups/category/goods/',
 					method:'get',

@@ -5,19 +5,19 @@
 		:duration="duration">
 			<swiper-item>
 				<view class="swiper-item">
-					<image src="../../static/guide/yindao1.jpg"></image>
+					<image src="../../static/images/guide/yindao1.jpg"></image>
 				</view>
 				<view class="jump-over" @tap="launchFlag()">{{jumpover}}</view>
 			</swiper-item>
 			<swiper-item>
 				<view class="swiper-item">
-					<image src="../../static/guide/yindao2.jpg"></image>
+					<image src="../../static/images/guide/yindao2.jpg"></image>
 				</view>
 				<view class="jump-over"  @tap="launchFlag()">{{jumpover}}</view>
 			</swiper-item>
 			<swiper-item>
 				<view class="swiper-item">
-					<image src="../../static/guide/yindao3.jpg"></image>
+					<image src="../../static/images/guide/yindao3.jpg"></image>
 				</view>
 				<view class="experience" @tap="launchFlag()">{{experience}}</view>
 			</swiper-item>

@@ -42,14 +42,12 @@
 <script>
 	import uniSection from '@/components/uni-section/uni-section.vue';
 	import uniLoadMore from '@/components/uni-load-more/uni-load-more.vue';
-	import empty from "@/components/empty";
 	import uniRequest from 'uni-request';
 	import Json from '@/Json';
 	import unikModal from '@/components/unik-modal/unik-modal.vue'
 	export default {
 		components: {
 			uniLoadMore,
-			empty,
 			// unikModal,
 			uniSection
 		},

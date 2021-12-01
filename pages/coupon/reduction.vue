@@ -38,7 +38,7 @@
 		</view>
 		
 		<view v-else>
-			<xw-empty :isShow="isEmpty" img="/static/empty/emptyCollect.png" path="" btnText="" text="您还没有添加收藏" textColor="#C0C4CC"></xw-empty>
+			<xw-empty :isShow="isEmpty" img="/static/images/empty/emptyCollect.png" path="" btnText="" text="您还没有添加收藏" textColor="#C0C4CC"></xw-empty>
 			</view>
 		</view>
 		

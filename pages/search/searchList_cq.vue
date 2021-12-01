@@ -55,7 +55,7 @@
 				page:1,
 				page_size:10,
 				backTop: {
-					src: '../../static/back-top/top.png',
+					src: '../../static/images/back-top/top.png',
 					scrollTop: 0
 				},
 				scrollTop: 0

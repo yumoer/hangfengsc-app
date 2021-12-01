@@ -50,31 +50,31 @@
 					href:"http://m.hfyt365.com/#/pages/appdown/appdown",
 					title:"行丰商城App",
 					desc:'行丰商城App,购物高效又轻松！',
-					imgUrl:'../../static/tag.png'
+					imgUrl:'../../static/img/tag.png'
 				};
 				let shareList=[
 					{
-						icon:"/static/sharemenu/wx.png",
+						icon:"/static/images/sharemenu/wx.png",
 						text:"微信好友",
 					},
 					{
-						icon:"/static/sharemenu/pyq.png",
+						icon:"/static/images/sharemenu/pyq.png",
 						text:"朋友圈"
 					},
 					/* {
-						icon:"/static/sharemenu/weibo.png",
+						icon:"/static/images/sharemenu/weibo.png",
 						text:"微博"
 					}, */
 					{
-						icon:"/static/sharemenu/qq.png",
+						icon:"/static/images/sharemenu/qq.png",
 						text:"QQ"
 					},
 					{
-						icon:"/static/sharemenu/copy.png",
+						icon:"/static/images/sharemenu/copy.png",
 						text:"复制"
 					},
 					{
-						icon:"/static/sharemenu/more.png",
+						icon:"/static/images/sharemenu/more.png",
 						text:"更多"
 					},
 				];

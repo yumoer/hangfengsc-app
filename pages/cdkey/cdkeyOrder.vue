@@ -4,7 +4,7 @@
 			<view class="cdkey" style="width: 100%;padding: 0 10px;line-height: 24px;background-color: #fff;height: 100%;">
 				<view style="text-align: center;margin-bottom: 30px;padding: 100px 0;">
 					<view style="display: block;">
-						<image style="width: 80px;height: 80px;" src="../../static/duihuan.png" mode=""></image>
+						<image style="width: 80px;height: 80px;" src="../../static/cdkey/duihuan.png" mode=""></image>
 					</view>
 					<text style="color: #fa436a;font-size: 20px;">兑换成功</text>
 					<view style="padding-top: 30px;">
