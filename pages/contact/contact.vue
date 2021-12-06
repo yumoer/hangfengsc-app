@@ -1,7 +1,7 @@
 <template>
 	<view id="page">
 		<view class="banner">
-			<img style="width: 100%;height: 180px;" src="/static/index/banner.jpg" alt="">
+			<img style="width: 100%;height: 180px;" src="http://47.94.106.106:8888/group1/M00/5D/27/rBHxiGGtrpOAa7ffAAD0IVeyOag3405377" alt="">
 		</view>
 		<!-- #ifdef APP-PLUS -->
 		<view class="content">

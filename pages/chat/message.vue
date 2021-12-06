@@ -29,7 +29,7 @@
 				chatList:[
 					{
 						username:"测试用户",
-						face:"/static/chat/face.jpg",
+						face:"http://47.94.106.106:8888/group1/M00/5D/29/rBHxiGGtv3iAL6TfAAAiiPdJBLU5098017",
 						time:"13:08",
 						userId:226,
 						msg:"亲，20点前下单都是当天送达的",
@@ -37,7 +37,7 @@
 					},
 					{
 						username:"yumoer22",
-						face:"/static/chat/face.jpg",
+						face:"http://47.94.106.106:8888/group1/M00/5D/29/rBHxiGGtv3iAL6TfAAAiiPdJBLU5098017",
 						time:"13:08",
 						userId:227,
 						msg:"亲，20点前下单都是当天送达的",
@@ -105,7 +105,7 @@
 										uni.onSocketMessage(function(res) {
 											var s = JSON.parse(res.data);
 											console.log(s)
-											this.msgList.push({id:s.id,username:"售后客服",face:"/static/chat/im/face/face_2.jpg",time:s.time,type:"str",msg:{content:s.message}});
+											this.msgList.push({id:s.id,username:"售后客服",face:"http://47.94.106.106:8888/group1/M00/5D/29/rBHxiGGtvxqAHy_MAAATQe8aejA9677557",time:s.time,type:"str",msg:{content:s.message}});
 										});
 									},
 									fail: function() {
@@ -142,7 +142,7 @@
 									title: ret.message
 								});
 							}else if(ret.type === 'str'){
-								that.msgList.push({id:lastid,username:"yumoer22",face:"/static/chat/face.jpg",time:ret.time,type:"str",msg:{content:ret.message}})
+								that.msgList.push({id:lastid,username:"yumoer22",face:"http://47.94.106.106:8888/group1/M00/5D/29/rBHxiGGtv3iAL6TfAAAiiPdJBLU5098017",time:ret.time,type:"str",msg:{content:ret.message}})
 							}
 						});
 					},

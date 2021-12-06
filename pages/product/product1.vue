@@ -90,7 +90,7 @@
 				<text class="yticon icon-you"></text>
 			</view> 
 			<view class="eva-box" v-if="index < comment" v-for="(result,index) in results" :key="index">
-				<image class="portrait" :src="result.is_anonymous === false ? headPicValue : '../../static/img/missing-face.png'"></image>
+				<image class="portrait" :src="result.is_anonymous === false ? headPicValue : 'http://47.94.106.106:8888/group1/M00/5D/27/rBHxiGGtskKAYxcrAAARG8W5qpA2059123'"></image>
 				<view class="right">
 					<text class="name" style="display: inline-block;">{{result.is_anonymous === false ? result.user : '********'}}
 						<view class="bot" style="float: right;">
@@ -742,27 +742,27 @@
 				};
 				let shareList=[
 					{
-						icon:"/static/images/sharemenu/wx.png",
+						icon:"http://47.94.106.106:8888/group1/M00/5D/28/rBHxiGGttyCAXHxDAAAH6EWRy5I5649826",
 						text:"微信好友",
 					},
 					{
-						icon:"/static/images/sharemenu/pyq.png",
+						icon:"http://47.94.106.106:8888/group1/M00/5D/28/rBHxiGGttyCAd2rOAAAG3gthfsA0935817",
 						text:"朋友圈"
 					},
 					/* {
-						icon:"/static/images/sharemenu/weibo.png",
+						icon:"http://47.94.106.106:8888/group1/M00/5D/28/rBHxiGGttyCARmO0AAAI4ps3SkU3708486",
 						text:"微博"
 					}, */
 					{
-						icon:"/static/images/sharemenu/qq.png",
+						icon:"http://47.94.106.106:8888/group1/M00/5D/28/rBHxiGGttyCAEJwiAAAGRfm-20g5767976",
 						text:"QQ"
 					},
 					{
-						icon:"/static/images/sharemenu/copy.png",
+						icon:"http://47.94.106.106:8888/group1/M00/5D/28/rBHxiGGttyCAQK4UAAADmFacpaE6053840",
 						text:"复制"
 					},
 					{
-						icon:"/static/images/sharemenu/more.png",
+						icon:"http://47.94.106.106:8888/group1/M00/5D/28/rBHxiGGttyCAS0jVAAAGAjXZLlI2712560",
 						text:"更多"
 					},
 				];

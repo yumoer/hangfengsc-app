@@ -108,7 +108,7 @@
 		.d-wrap{
 			width:100%;
 			height: 360upx;
-			background: url('../../static/index/czka.png');
+			background: url('http://47.94.106.106:8888/group1/M00/5D/27/rBHxiGGtrpOAb-QjAAKLT9IVng03259065');
 			background-size: 100% 360upx;
 			color: #fff;
 			position: relative;

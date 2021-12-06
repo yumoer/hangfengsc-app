@@ -34,11 +34,11 @@
 				swiperLength: 5,
 				exchanges:[],
 				carouselList:[
-					{image:'../../static/cdkey/image1.jpg'},
-					{image:'../../static/cdkey/image2.jpg'},
-					{image:'../../static/cdkey/image3.jpg'},
-					{image:'../../static/cdkey/image4.jpg'},
-					{image:'../../static/cdkey/image5.jpg'},
+					{image:'http://47.94.106.106:8888/group1/M00/5D/26/rBHxiGGtqjmAWcGSAAYqz4oAxas5080497'},
+					{image:'http://47.94.106.106:8888/group1/M00/5D/26/rBHxiGGtqjmAHUBCAAOGS0Uzxvo4616422'},
+					{image:'http://47.94.106.106:8888/group1/M00/5D/26/rBHxiGGtqjmAdJhcAASmoXq7e5E0433727'},
+					{image:'http://47.94.106.106:8888/group1/M00/5D/26/rBHxiGGtqjmAcedPAAbVHhfVK106634684'},
+					{image:'http://47.94.106.106:8888/group1/M00/5D/26/rBHxiGGtqjmAFuc4AATa87U6IDw1212955'},
 				]
 			}
 		},

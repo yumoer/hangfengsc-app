@@ -53,11 +53,11 @@ export default {
       if (this.nodeData.status === 'WATTING_PAY') { // 待付款
         return this.isNewest ? '/static/images/trackNode/ic-order-commit.png' : '/static/images/ic-order-commit-G.png'
       } else if (this.nodeData.status === 'PAYED') { // 待发货
-        return this.isNewest ? '/static/images/trackNode/ic-paied.png' : '/static/images/trackNode/ic-paied-G.png'
+        return this.isNewest ? 'http://47.94.106.106:8888/group1/M00/5D/28/rBHxiGGtuf-AHecgAAAB0knkNio1578468' : 'http://47.94.106.106:8888/group1/M00/5D/28/rBHxiGGtuf-ACKPfAAABsWOTnNc0901031'
       } else if (this.nodeData.status === 'WATTING_DELIVER') { // 已揽件
-        return this.isNewest ? '/static/images/trackNode/ic-pacakaging.png' : '/static/images/trackNode/ic-pacakaging-G.png'
+        return this.isNewest ? 'http://47.94.106.106:8888/group1/M00/5D/28/rBHxiGGtuf-AQT2aAAADLwuLJso7601392' : 'http://47.94.106.106:8888/group1/M00/5D/28/rBHxiGGtuf-AOUQaAAACStt_E6k9584437'
       } else if (this.nodeData.status === 'DELIVERING') { // 运输中
-        return this.isNewest ? '/static/images/trackNode/ic-sending.png' : '/static/images/trackNode/ic-sending-G.png'
+        return this.isNewest ? 'http://47.94.106.106:8888/group1/M00/5D/28/rBHxiGGtuf-AG6KZAAAC4YfJKfM8076429' : 'http://47.94.106.106:8888/group1/M00/5D/28/rBHxiGGtuf-AXI7hAAACPjTk6GA1441757'
       } else if (this.nodeData.status === 'COMPLETE') { // 已完成
         return this.isNewest ? '/static/images/trackNode/ic-delivering.png' : '/static/images/trackNode/ic-delivering-G.png'
       }

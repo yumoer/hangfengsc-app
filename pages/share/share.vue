@@ -4,7 +4,7 @@
 			<text style="color: #fff;font-size: 32upx;font-weight: 100;">行丰商城App,购物高效又轻松！</text>
 		</view>
 		<view style="width: 100%;height: 300px;text-align: center;padding-left: 80upx;">
-			<image style="width: 200px;height: 100%;" src="/static/img/app.png" mode=""></image>
+			<image style="width: 200px;height: 100%;" src="http://47.94.106.106:8888/group1/M00/5D/27/rBHxiGGtskKAXFzEAAHj6am2HcE4375844" mode=""></image>
 		</view>
 		
 		<view style="width: 100%;height: 60px;text-align: center;margin-top: 100upx;">
@@ -48,31 +48,31 @@
 					href:"http://m.hfyt365.com/#/pages/appdown/appdown",
 					title:"行丰商城App",
 					desc:'行丰商城App,购物高效又轻松！',
-					imgUrl:'../../static/img/tag.png'
+					imgUrl:'http://47.94.106.106:8888/group1/M00/5D/27/rBHxiGGtskKAdULcAADI0Ra5ka84065892'
 				};
 				let shareList=[
 					{
-						icon:"/static/images/sharemenu/wx.png",
+						icon:"http://47.94.106.106:8888/group1/M00/5D/28/rBHxiGGttyCAXHxDAAAH6EWRy5I5649826",
 						text:"微信好友",
 					},
 					{
-						icon:"/static/images/sharemenu/pyq.png",
+						icon:"http://47.94.106.106:8888/group1/M00/5D/28/rBHxiGGttyCAd2rOAAAG3gthfsA0935817",
 						text:"朋友圈"
 					},
 					/* {
-						icon:"/static/images/sharemenu/weibo.png",
+						icon:"http://47.94.106.106:8888/group1/M00/5D/28/rBHxiGGttyCARmO0AAAI4ps3SkU3708486",
 						text:"微博"
 					}, */
 					{
-						icon:"/static/images/sharemenu/qq.png",
+						icon:"http://47.94.106.106:8888/group1/M00/5D/28/rBHxiGGttyCAEJwiAAAGRfm-20g5767976",
 						text:"QQ"
 					},
 					{
-						icon:"/static/images/sharemenu/copy.png",
+						icon:"http://47.94.106.106:8888/group1/M00/5D/28/rBHxiGGttyCAQK4UAAADmFacpaE6053840",
 						text:"复制"
 					},
 					{
-						icon:"/static/images/sharemenu/more.png",
+						icon:"http://47.94.106.106:8888/group1/M00/5D/28/rBHxiGGttyCAS0jVAAAGAjXZLlI2712560",
 						text:"更多"
 					},
 				];

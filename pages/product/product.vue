@@ -34,7 +34,7 @@
 			<!-- #ifdef APP-PLUS -->
 			<view class="share-section"> <!-- @click="share"-->
 				<view>
-					<image style="width: 9px;height: 12.5px;" src="../../static/index/quan.png" mode=""></image>
+					<image style="width: 9px;height: 12.5px;" src="http://47.94.106.106:8888/group1/M00/5D/27/rBHxiGGtr9eACWixAAABmR--E5s8530107" mode=""></image>
 					<text style="font-size: 13px;color: #EE1D23;margin-left: 10px;">分享抢券</text>
 				</view>
 				<text class="tit">分享商品得满49减10红包</text>
@@ -46,7 +46,7 @@
 			<!-- #ifdef H5 -->
 			<view class="share-section" @click="share">
 				<view>
-					<image style="width: 9px;height: 12.5px;" src="../../static/index/quan.png" mode=""></image>
+					<image style="width: 9px;height: 12.5px;" src="http://47.94.106.106:8888/group1/M00/5D/27/rBHxiGGtr9eACWixAAABmR--E5s8530107" mode=""></image>
 					<text style="font-size: 13px;color: #EE1D23;margin-left: 10px;">分享抢券</text>
 				</view>
 				<text class="tit">分享商品得满49减10红包</text>
@@ -108,15 +108,15 @@
 			</view>
 			<view class="share-section" style="margin: 10upx 30upx;padding: 20upx 0;"> <!-- @click="share"-->
 				<view style="margin-right: 50upx;">
-					<image style="width: 11px;height: 11px;" src="../../static/index/duigou.png" mode=""></image>
+					<image style="width: 11px;height: 11px;" src="http://47.94.106.106:8888/group1/M00/5D/27/rBHxiGGtrpOAeYTGAAABi1bLa0s2575255" mode=""></image>
 					<text style="font-size: 12px;margin-left: 6upx;">假一赔十</text>
 				</view>
 				<view style="margin-right: 50upx;">
-					<image style="width: 11px;height: 11px;" src="../../static/index/duigou.png" mode=""></image>
+					<image style="width: 11px;height: 11px;" src="http://47.94.106.106:8888/group1/M00/5D/27/rBHxiGGtrpOAeYTGAAABi1bLa0s2575255" mode=""></image>
 					<text style="font-size: 12px;margin-left: 6upx;">七日退货</text>
 				</view>
 				<view style="margin-right: 50upx;">
-					<image style="width: 11px;height: 11px;" src="../../static/index/duigou.png" mode=""></image>
+					<image style="width: 11px;height: 11px;" src="http://47.94.106.106:8888/group1/M00/5D/27/rBHxiGGtrpOAeYTGAAABi1bLa0s2575255" mode=""></image>
 					<text style="font-size: 12px;margin-left: 6upx;">单笔满 100 包邮</text>
 				</view>
 			</view>
@@ -130,7 +130,7 @@
 				<text class="yticon icon-you"></text>
 			</view> 
 			<view class="eva-box" v-for="(result,index) in results" :key="index" v-if="index < comment">
-				<image class="portrait" :src="result.is_anonymous ? '../../static/img/missing-face.png': 'http://47.94.106.106:8888/'+result.avatar"></image>
+				<image class="portrait" :src="result.is_anonymous ? 'http://47.94.106.106:8888/group1/M00/5D/27/rBHxiGGtskKAYxcrAAARG8W5qpA2059123': 'http://47.94.106.106:8888/'+result.avatar"></image>
 				<view class="right">
 					<text class="name" style="color:#666;">
 						{{result.is_anonymous ? '****' : result.user}}
@@ -364,6 +364,17 @@
 				this.headPicValue = uni.getStorageSync('userInfo').avatar
 			}else{
 				this.headPicValue = 'http://img.zcool.cn/community/01786557e4a6fa0000018c1bf080ca.png'
+			}
+		},
+		
+		// 点击导航栏 buttons 时触发
+		onNavigationBarButtonTap(e) {
+			const index = e.index;
+			console.log(index)
+			if(index === 0){
+				
+			}else if(index === 1){
+				
 			}
 		},
 		
@@ -770,27 +781,27 @@
 				};
 				let shareList=[
 					{
-						icon:"/static/images/sharemenu/wx.png",
+						icon:"http://47.94.106.106:8888/group1/M00/5D/28/rBHxiGGttyCAXHxDAAAH6EWRy5I5649826",
 						text:"微信好友",
 					},
 					{
-						icon:"/static/images/sharemenu/pyq.png",
+						icon:"http://47.94.106.106:8888/group1/M00/5D/28/rBHxiGGttyCAd2rOAAAG3gthfsA0935817",
 						text:"朋友圈"
 					},
 					/* {
-						icon:"/static/images/sharemenu/weibo.png",
+						icon:"http://47.94.106.106:8888/group1/M00/5D/28/rBHxiGGttyCARmO0AAAI4ps3SkU3708486",
 						text:"微博"
 					}, */
 					{
-						icon:"/static/images/sharemenu/qq.png",
+						icon:"http://47.94.106.106:8888/group1/M00/5D/28/rBHxiGGttyCAEJwiAAAGRfm-20g5767976",
 						text:"QQ"
 					},
 					{
-						icon:"/static/images/sharemenu/copy.png",
+						icon:"http://47.94.106.106:8888/group1/M00/5D/28/rBHxiGGttyCAQK4UAAADmFacpaE6053840",
 						text:"复制"
 					},
 					{
-						icon:"/static/images/sharemenu/more.png",
+						icon:"http://47.94.106.106:8888/group1/M00/5D/28/rBHxiGGttyCAS0jVAAAGAjXZLlI2712560",
 						text:"更多"
 					},
 				];

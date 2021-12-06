@@ -228,10 +228,10 @@
 														ele.time = ele.create_time
 														if(ele.sender !== null){
 															ele.username = uni.getStorageSync('userInfo').username
-															ele.face = '/static/chat/face.jpg'
+															ele.face = 'http://47.94.106.106:8888/group1/M00/5D/29/rBHxiGGtv3iAL6TfAAAiiPdJBLU5098017'
 														}else{
 															ele.username = '售后客服'
-															ele.face = '/static/chat/im/face/face_2.jpg'
+															ele.face = 'http://47.94.106.106:8888/group1/M00/5D/29/rBHxiGGtvxqAHy_MAAATQe8aejA9677557'
 														}
 													})
 													that.msgList = list
@@ -245,7 +245,7 @@
 												})
 											})
 										}else{
-											that.msgList.push({id:s.id,username:uni.getStorageSync('userInfo').username,face:"/static/chat/face.jpg",time:s.time,type:"str",msg:{content:s.message}});
+											that.msgList.push({id:s.id,username:uni.getStorageSync('userInfo').username,face:"http://47.94.106.106:8888/group1/M00/5D/29/rBHxiGGtv3iAL6TfAAAiiPdJBLU5098017",time:s.time,type:"str",msg:{content:s.message}});
 										}
 									});
 								},
@@ -382,7 +382,7 @@
 				let lastid = that.msgList[that.msgList.length-1].id;
 				console.log(lastid)
 				lastid++;
-				let msg = {id:lastid,username:'售后客服',face:"/static/chat/im/face/face_2.jpg",time:nowDate.getHours()+":"+nowDate.getMinutes(),type:type,msg:content};
+				let msg = {id:lastid,username:'售后客服',face:"http://47.94.106.106:8888/group1/M00/5D/29/rBHxiGGtvxqAHy_MAAATQe8aejA9677557",time:nowDate.getHours()+":"+nowDate.getMinutes(),type:type,msg:content};
 				console.log(msg)
 				that.screenMsg(msg);
 				var obj = {
@@ -405,7 +405,7 @@
 									title: ret.message
 								});
 							}else if(ret.type === 'str'){
-								that.msgList.push({id:lastid,username:that.userList.username,face:"/static/chat/face.jpg",time:ret.time,type:ret.type,msg:{content:ret.message}})
+								that.msgList.push({id:lastid,username:that.userList.username,face:"http://47.94.106.106:8888/group1/M00/5D/29/rBHxiGGtv3iAL6TfAAAiiPdJBLU5098017",time:ret.time,type:ret.type,msg:{content:ret.message}})
 							}
 						});
 					},

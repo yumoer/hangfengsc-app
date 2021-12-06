@@ -46,13 +46,13 @@
 						type:1,
 						value: '退货',
 						info:'需要退还已收到的货物',
-						image:'../../../static/images/order/tuihuo.png',
+						image:'http://47.94.106.106:8888/group1/M00/5D/28/rBHxiGGttauAStdhAAAJfPnJJg04636661',
 					},
 					{
 						type:2,
 						value: '换货',
 						info:'对收到的货物不满意，需要换货',
-						image:'../../../static/images/order/huanhuo.png',
+						image:'http://47.94.106.106:8888/group1/M00/5D/28/rBHxiGGttauALGsIAAAGjSMy7K09593744',
 					}
 				],
 			}

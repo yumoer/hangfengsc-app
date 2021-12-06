@@ -5,19 +5,19 @@
 		:duration="duration">
 			<swiper-item>
 				<view class="swiper-item">
-					<image src="../../static/images/guide/yindao1.jpg"></image>
+					<image src="http://47.94.106.106:8888/group1/M00/5D/28/rBHxiGGttVSAa0IbAAfrguT01pY1316332"></image>
 				</view>
 				<view class="jump-over" @tap="launchFlag()">{{jumpover}}</view>
 			</swiper-item>
 			<swiper-item>
 				<view class="swiper-item">
-					<image src="../../static/images/guide/yindao2.jpg"></image>
+					<image src="http://47.94.106.106:8888/group1/M00/5D/28/rBHxiGGttVSAXGQqAAb8WAXRPEA1444622"></image>
 				</view>
 				<view class="jump-over"  @tap="launchFlag()">{{jumpover}}</view>
 			</swiper-item>
 			<swiper-item>
 				<view class="swiper-item">
-					<image src="../../static/images/guide/yindao3.jpg"></image>
+					<image src="http://47.94.106.106:8888/group1/M00/5D/28/rBHxiGGttVSAbhnVABJqn7EUWZw1130385"></image>
 				</view>
 				<view class="experience" @tap="launchFlag()">{{experience}}</view>
 			</swiper-item>

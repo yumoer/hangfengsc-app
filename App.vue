@@ -2,7 +2,6 @@
 	/**
 	 * vuex管理登陆状态，具体可以参考官方登陆模板示例
 	 */
-	import pageAnimation from './components/page-animation'
 	import uniRequest from 'uni-request'
 	import uniLoadMore from '@/components/uni-load-more/uni-load-more.vue';
 	import {
@@ -14,7 +13,6 @@
 				version:'',
 			}
 		},
-		mixins: [pageAnimation],
 		components:{uniLoadMore},
 		methods: {
 			...mapMutations(['login']),

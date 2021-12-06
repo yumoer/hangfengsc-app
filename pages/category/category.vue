@@ -15,7 +15,7 @@
 				</view>
 				<view class="t-list" v-if="index === cateIndex">
 					<view v-for="(titem,inde) in item.subs" :key="titem.id" class="t-item" @click="navToList(titem)">
-						<image style="width: 140upx; height: 140upx;background-color: #f7f7f7;padding: 20upx;" mode="aspectFit" :src="titem.image!== ''?titem.image:'/static/img/errorImage.jpg'"></image>
+						<image style="width: 140upx; height: 140upx;background-color: #f7f7f7;padding: 20upx;" mode="aspectFit" :src="titem.image!== ''?titem.image:'http://47.94.106.106:8888/group1/M00/5D/27/rBHxiGGtskKAJKE-AAAIN3tX7Zo0727207'"></image>
 						<text style="text-align:center;padding: 20upx;">{{titem.name}}</text>
 					</view>
 				</view>
@@ -43,7 +43,7 @@
 			document.getElementsByClassName('uni-page-head')[0].style = 'padding-right:10px;background:#fff;color:#000'
 			this.loadData();
 		},
-		// µã»÷µ¼º½À¸ buttons Ê±´¥·¢
+		// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ buttons Ê±ï¿½ï¿½ï¿½ï¿½
 		onNavigationBarButtonTap(e) {
 			const index = e.index;
 			console.log(index)
@@ -67,7 +67,7 @@
 					console.log(this.slist)
 				}
 			},
-			//Ò»¼¶·ÖÀàµã»÷
+			//Ò»ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 			tabtap(item){
 				console.log(item)
 				if(!this.sizeCalcState){
@@ -84,7 +84,7 @@
 					this.tabScrollTop = this.slist[index].top;
 				}
 			},
-			//ÓÒ²àÀ¸¹ö¶¯
+			//ï¿½Ò²ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 			asideScroll(e){
 				if(!this.sizeCalcState){
 					this.calcSize();
@@ -95,7 +95,7 @@
 					this.currentId = tabs[0].pid;
 				}
 			},
-			//¼ÆËãÓÒ²àÀ¸Ã¿¸ötabµÄ¸ß¶ÈµÈÐÅÏ¢
+			//ï¿½ï¿½ï¿½ï¿½ï¿½Ò²ï¿½ï¿½ï¿½Ã¿ï¿½ï¿½tabï¿½Ä¸ß¶Èµï¿½ï¿½ï¿½Ï¢
 			calcSize(){
 				let h = 0;
 				this.slist.forEach(item=>{
@@ -115,7 +115,7 @@
 				this.sizeCalcState = true;
 			},
 			
-			// Ìø×ªÉÌÆ·ÁÐ±í
+			// ï¿½ï¿½×ªï¿½ï¿½Æ·ï¿½Ð±ï¿½
 			navToList(item){
 				console.log(item)
 				uni.navigateTo({
@@ -126,7 +126,7 @@
 				}) */
 			},
 			
-			// Èý¼¶·ÖÀàÏÔÊ¾Òþ²Ø
+			// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ê¾ï¿½ï¿½ï¿½ï¿½
 			showHide(index){
 				console.log(index)
 				if(this.cateIndex === index){

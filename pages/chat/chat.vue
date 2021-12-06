@@ -189,7 +189,7 @@
 										console.log(res)
 										var s = JSON.parse(res.data);
 										console.log(s)
-										that.msgList.push({id:that.msgList.length+1,username:"售后客服",face:"/static/chat/im/face/face_2.jpg",time:s.time,type:"str",msg:{content:s.message}});
+										that.msgList.push({id:that.msgList.length+1,username:"售后客服",face:"http://47.94.106.106:8888/group1/M00/5D/29/rBHxiGGtvxqAHy_MAAATQe8aejA9677557",time:s.time,type:"str",msg:{content:s.message}});
 									});
 								},
 								fail: function(error) {
@@ -217,7 +217,7 @@
 							console.log(res)
 							var ret = JSON.parse(res.data);
 							console.log(ret)
-							that.msgList.push({id:ret.id,username:"售后客服",face:"/static/chat/im/face/face_2.jpg",time:ret.time,type:"str",msg:{content:ret.message}})
+							that.msgList.push({id:ret.id,username:"售后客服",face:"http://47.94.106.106:8888/group1/M00/5D/29/rBHxiGGtvxqAHy_MAAATQe8aejA9677557",time:ret.time,type:"str",msg:{content:ret.message}})
 							console.log(that.msgList)
 						});
 					},
@@ -263,10 +263,10 @@
 						ele.time = ele.create_time
 						if(ele.sender !== null){
 							ele.username = ele.sender === uni.getStorageSync('userInfo').user_id ? uni.getStorageSync('userInfo').username:''
-							ele.face = '/static/chat/face.jpg'
+							ele.face = 'http://47.94.106.106:8888/group1/M00/5D/29/rBHxiGGtv3iAL6TfAAAiiPdJBLU5098017'
 						}else{
 							ele.username = ele.receiver === uni.getStorageSync('userInfo').user_id ? '售后客服':''
-							ele.face = '/static/chat/im/face/face_2.jpg'
+							ele.face = 'http://47.94.106.106:8888/group1/M00/5D/29/rBHxiGGtvxqAHy_MAAATQe8aejA9677557'
 						}
 					})
 					this.msgList = list
@@ -393,7 +393,7 @@
 				let lastid = this.msgList[this.msgList.length-1].id;
 				console.log(lastid)
 				lastid++;
-				let msg = {id:lastid,username:uni.getStorageSync('userInfo').username,face:"/static/chat/face.jpg",time:nowDate.getHours()+":"+nowDate.getMinutes(),type:type,msg:content};
+				let msg = {id:lastid,username:uni.getStorageSync('userInfo').username,face:"http://47.94.106.106:8888/group1/M00/5D/29/rBHxiGGtv3iAL6TfAAAiiPdJBLU5098017",time:nowDate.getHours()+":"+nowDate.getMinutes(),type:type,msg:content};
 				console.log(msg)
 				this.screenMsg(msg);
 				this.clickRequest()
@@ -402,7 +402,7 @@
 					// this.clickRequest()
 					lastid = this.msgList[this.msgList.length-1].id;
 					lastid++;
-					msg = {id:lastid,uid:1,username:"售后客服",face:"/static/chat/im/face/face_2.jpg",time:nowDate.getHours()+":"+nowDate.getMinutes(),type:type,msg:content};
+					msg = {id:lastid,uid:1,username:"售后客服",face:"http://47.94.106.106:8888/group1/M00/5D/29/rBHxiGGtvxqAHy_MAAATQe8aejA9677557",time:nowDate.getHours()+":"+nowDate.getMinutes(),type:type,msg:content};
 					this.screenMsg(msg);
 				},3000) */
 			},

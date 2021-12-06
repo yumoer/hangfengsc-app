@@ -37,7 +37,7 @@
 						@input="inputChange"
 					/>
 					<text @click="typeChange" style="position: absolute;right: 20upx;bottom: 15upx;">
-						<image style="width: 20px;height : 20px;" :src="show === true?'../../static/cdkey/yan-off.png':'../../static/cdkey/yan-on.png'" mode=""></image>
+						<image style="width: 20px;height : 20px;" :src="show === true?'http://47.94.106.106:8888/group1/M00/5D/26/rBHxiGGtqjmAFBUKAAAr_vDabs86909478':'http://47.94.106.106:8888/group1/M00/5D/26/rBHxiGGtqjmAWYdlAAAmT_qGwCI2293588'" mode=""></image>
 					</text>
 				</view>
 				

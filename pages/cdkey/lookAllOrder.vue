@@ -10,7 +10,7 @@
 									<text style="font-size: 13px;">{{cart.order_id}}</text>
 								</view>
 							</a>
-							<view class="shop_details" style="width: 100%;height: 240upx;padding: 10px 20px;background:url(../../static/cdkey/timg.jpg) no-repeat 100%;" @click="cdShopDetail(cart.exchange.exchange)">
+							<view class="shop_details" style="width: 100%;height: 240upx;padding: 10px 20px;background:url(http://47.94.106.106:8888/group1/M00/5D/26/rBHxiGGtqjmATx5GAAHV1JTlDSo8241624) no-repeat 100%;" @click="cdShopDetail(cart.exchange.exchange)">
 								<view class="image" style="float: left;">
 									<image style="width: 200upx;height: 200upx;" :src="cart.exchange.exchange.image" mode=""></image>
 								</view>

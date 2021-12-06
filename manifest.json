@@ -14,10 +14,10 @@
         "usingComponents" : true,
         // 设置 启动界面
         "splashscreen" : {
-            "alwaysShowBeforeRender" : false,
-            "waiting" : false,
-            // "autoclose" : true,
-            "autoclose" : false,
+            "alwaysShowBeforeRender" : true,
+            "waiting" : true,
+            "autoclose" : true,
+            // "autoclose" : false,
             "delay" : 0
         },
         "modules" : {
@@ -140,9 +140,9 @@
             },
             "splashscreen" : {
                 "android" : {
-                    "hdpi" : "unpackage/res/qidong.png",
-                    "xhdpi" : "unpackage/res/qidong.png",
-                    "xxhdpi" : "unpackage/res/qidong.png"
+                    "hdpi" : "unpackage/res/启动页.png",
+                    "xhdpi" : "unpackage/res/启动页.png",
+                    "xxhdpi" : "unpackage/res/启动页.png"
                 },
                 "ios" : {
                     "iphone" : {
@@ -161,7 +161,9 @@
                         "retina35" : "unpackage/res/启动页.png"
                     }
                 },
-                "iosStyle" : "default"
+                "iosStyle" : "default",
+                "useOriginalMsgbox" : true,
+                "androidStyle" : "default"
             }
         },
         "nativePlugins" : {

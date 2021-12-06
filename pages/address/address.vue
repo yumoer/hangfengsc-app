@@ -23,7 +23,7 @@
 		</view>
 		<button class="add-btn" @click="addAddress('add')">添加新地址</button>
 		<view v-if="addressList.length === 0" style = "position: relative;">
-			<xw-empty :isShow="isEmpty" img="/static/images/empty/emptyAddress.png" text="您暂时还没有添加地址" textColor="#C0C4CC"></xw-empty>
+			<xw-empty :isShow="isEmpty" img="http://47.94.106.106:8888/group1/M00/5D/28/rBHxiGGttGKAel1PAAHt0EOW0gY8956509" text="您暂时还没有添加地址" textColor="#C0C4CC"></xw-empty>
 			<button class="add-btn" @click="addAddress('add')">添加新地址</button>
 		</view>
 		<show-modal></show-modal>

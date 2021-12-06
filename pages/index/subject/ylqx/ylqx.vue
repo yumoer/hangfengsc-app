@@ -8,7 +8,7 @@
 				<swiper class="swiper" style="height: 100%;">
 					<swiper-item>
 						<view class="image">
-							<image style="width: 100%;height: 600upx;" src="../../../../static/images/sharemenu/copy.png" mode=""></image>
+							<image style="width: 100%;height: 600upx;" src="http://47.94.106.106:8888/group1/M00/5D/28/rBHxiGGttyCAQK4UAAADmFacpaE6053840" mode=""></image>
 						</view>
 						<view class="name">
 							维达一次性医用口罩
@@ -19,7 +19,7 @@
 					</swiper-item>
 					<swiper-item>
 						<view class="image">
-							<image style="width: 100%;height: 600upx;" src="../../../../static/images/sharemenu/copy.png" mode=""></image>
+							<image style="width: 100%;height: 600upx;" src="http://47.94.106.106:8888/group1/M00/5D/28/rBHxiGGttyCAQK4UAAADmFacpaE6053840" mode=""></image>
 						</view>
 						<view class="name">
 							维达一次性医用口罩
@@ -30,7 +30,7 @@
 					</swiper-item>
 					<swiper-item>
 						<view class="image">
-							<image style="width: 100%;height: 600upx;" src="../../../../static/images/sharemenu/copy.png" mode=""></image>
+							<image style="width: 100%;height: 600upx;" src="http://47.94.106.106:8888/group1/M00/5D/28/rBHxiGGttyCAQK4UAAADmFacpaE6053840" mode=""></image>
 						</view>
 						<view class="name">
 							维达一次性医用口罩
@@ -41,7 +41,7 @@
 					</swiper-item>
 					<swiper-item>
 						<view class="image">
-							<image style="width: 100%;height: 600upx;" src="../../../../static/images/sharemenu/copy.png" mode=""></image>
+							<image style="width: 100%;height: 600upx;" src="http://47.94.106.106:8888/group1/M00/5D/28/rBHxiGGttyCAQK4UAAADmFacpaE6053840" mode=""></image>
 						</view>
 						<view class="name">
 							维达一次性医用口罩
@@ -52,7 +52,7 @@
 					</swiper-item>
 					<swiper-item>
 						<view class="image">
-							<image style="width: 100%;height: 600upx;" src="../../../../static/images/sharemenu/copy.png" mode=""></image>
+							<image style="width: 100%;height: 600upx;" src="http://47.94.106.106:8888/group1/M00/5D/28/rBHxiGGttyCAQK4UAAADmFacpaE6053840" mode=""></image>
 						</view>
 						<view class="name">
 							维达一次性医用口罩
@@ -69,7 +69,7 @@
 				<swiper class="swiper" style="height: 100%;">
 					<swiper-item>
 						<view class="image">
-							<image style="width: 100%;height: 600upx;" src="../../../../static/images/sharemenu/copy.png" mode=""></image>
+							<image style="width: 100%;height: 600upx;" src="http://47.94.106.106:8888/group1/M00/5D/28/rBHxiGGttyCAQK4UAAADmFacpaE6053840" mode=""></image>
 						</view>
 						<view class="name">
 							维达一次性医用口罩
@@ -80,7 +80,7 @@
 					</swiper-item>
 					<swiper-item>
 						<view class="image">
-							<image style="width: 100%;height: 600upx;" src="../../../../static/images/sharemenu/copy.png" mode=""></image>
+							<image style="width: 100%;height: 600upx;" src="http://47.94.106.106:8888/group1/M00/5D/28/rBHxiGGttyCAQK4UAAADmFacpaE6053840" mode=""></image>
 						</view>
 						<view class="name">
 							维达一次性医用口罩
@@ -91,7 +91,7 @@
 					</swiper-item>
 					<swiper-item>
 						<view class="image">
-							<image style="width: 100%;height: 600upx;" src="../../../../static/images/sharemenu/copy.png" mode=""></image>
+							<image style="width: 100%;height: 600upx;" src="http://47.94.106.106:8888/group1/M00/5D/28/rBHxiGGttyCAQK4UAAADmFacpaE6053840" mode=""></image>
 						</view>
 						<view class="name">
 							维达一次性医用口罩
@@ -102,7 +102,7 @@
 					</swiper-item>
 					<swiper-item>
 						<view class="image">
-							<image style="width: 100%;height: 600upx;" src="../../../../static/images/sharemenu/copy.png" mode=""></image>
+							<image style="width: 100%;height: 600upx;" src="http://47.94.106.106:8888/group1/M00/5D/28/rBHxiGGttyCAQK4UAAADmFacpaE6053840" mode=""></image>
 						</view>
 						<view class="name">
 							维达一次性医用口罩
@@ -113,7 +113,7 @@
 					</swiper-item>
 					<swiper-item>
 						<view class="image">
-							<image style="width: 100%;height: 600upx;" src="../../../../static/images/sharemenu/copy.png" mode=""></image>
+							<image style="width: 100%;height: 600upx;" src="http://47.94.106.106:8888/group1/M00/5D/28/rBHxiGGttyCAQK4UAAADmFacpaE6053840" mode=""></image>
 						</view>
 						<view class="name">
 							维达一次性医用口罩

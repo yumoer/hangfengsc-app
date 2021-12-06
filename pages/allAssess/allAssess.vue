@@ -36,7 +36,7 @@
 			 
 		</view>
 		<view v-else>
-			<xw-empty :isShow="isEmpty" img="/static/images/empty/emptyAssess.png" path="" btnText="" text="您还没有评价内容" textColor="#C0C4CC"></xw-empty>
+			<xw-empty :isShow="isEmpty" img="http://47.94.106.106:8888/group1/M00/5D/28/rBHxiGGttGKAF3e_AAGO0pJ-sIs6197168" path="" btnText="" text="您还没有评价内容" textColor="#C0C4CC"></xw-empty>
 		</view>
 	</view>
 </template>

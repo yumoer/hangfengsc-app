@@ -24,7 +24,7 @@
 		
 		
 		<view v-if="couponList.length === 0">
-			<xw-empty :isShow="isEmpty" img="/static/images/empty/emptyTicket.png" path="" btnText="" text="您暂时还没有添加发票" textColor="#C0C4CC"></xw-empty>
+			<xw-empty :isShow="isEmpty" img="http://47.94.106.106:8888/group1/M00/5D/28/rBHxiGGttGKAQ85UAAHS1uzZYE40632776" path="" btnText="" text="您暂时还没有添加发票" textColor="#C0C4CC"></xw-empty>
 		</view>
 		
 		<button class="add-btn" v-if="!isCheck" @click="addInvoIce('add')">新增发票</button>

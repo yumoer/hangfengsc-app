@@ -1,7 +1,7 @@
 <template>
 	<view class="container">
 		<view style="width: 100%;text-align: center;margin: 30upx 0;">
-			<image style="width: 120upx;height: 120upx;border-radius: 30upx;" src="../../static/img/hfsc.jpg" mode=""></image>
+			<image style="width: 120upx;height: 120upx;border-radius: 30upx;" src="http://47.94.106.106:8888/group1/M00/5D/27/rBHxiGGtskKAevEJAAAhcJPC-HI2020514" mode=""></image>
 			<view style="font-size: 30upx;text-align: center;">行丰商城 v{{appver}}</view>
 		</view>
 		<!-- @click="navTo('/pages/set/verBody')" -->

@@ -17,12 +17,8 @@
 </template>
 
 <script>
-	import uniIcons from "../uni-icons/uni-icons.vue";
 	export default {
 		name: "UniRate",
-		components: {
-			uniIcons
-		},
 		props: {
 			isFill: {
 				// 星星的类型，是否镂空

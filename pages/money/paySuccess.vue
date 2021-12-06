@@ -2,7 +2,7 @@
 	<view class="content">
 		<view class="pay_wrap">
 			<view class="pay_success">
-				<image class="pay_icon" src="../../static/index/paysuccess.png" mode=""></image><br/>
+				<image class="pay_icon" src="http://47.94.106.106:8888/group1/M00/5D/27/rBHxiGGtsXOAO7pVAAAHkL1TNx46590621" mode=""></image><br/>
 				<text class="pay_text">支付成功</text>
 			</view>
 			<view class="pay_slider">
@@ -15,7 +15,7 @@
 		
 		<view class="pay_item" style="">
 			<view class="pay_body" style="">
-				<image class="pay_image" src="../../static/index/cainixihuan.png" mode=""></image>
+				<image class="pay_image" src="http://47.94.106.106:8888/group1/M00/5D/27/rBHxiGGtrpOAfmzEAAALL1sp0DA8327802" mode=""></image>
 			</view>
 			<view class="guess-section">
 				<view 
@@ -42,7 +42,7 @@
 		<u-mask :show="show" @click="show = false">
 			<view class="warp">
 				<view class="rect" @tap.stop>
-					<image @click="show = false" style="width: 100%;height: 100%;" src="@/static/img/brow2.png" mode=""></image>
+					<image @click="show = false" style="width: 100%;height: 100%;" src="http://47.94.106.106:8888/group1/M00/5D/27/rBHxiGGtskKATBmrAAKfLOVEhMc9770746" mode=""></image>
 				</view>
 			</view>
 		</u-mask>
@@ -100,7 +100,7 @@
 	}
 	.pay_wrap{
 		width: 100%;
-		background: url(../../static/index/paybg.png);background-size: 100% 100%;
+		background: url('http://47.94.106.106:8888/group1/M00/5D/27/rBHxiGGtr9eAQVwQAALoqGdr7Z84268458');background-size: 100% 100%;
 		background-repeat: no-repeat;
 	}
 	.pay_success{

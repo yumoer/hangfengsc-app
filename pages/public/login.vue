@@ -99,13 +99,13 @@
 				<view class="otherLoginTitle">其他方式登录</view>
 				<view class="otherLogin">
 					<view class="weiixnLogin" @click="wx_login">
-						<image style="width: 60upx;height: 50upx;" src="../../static/img/weixin.png" mode=""></image>
+						<image style="width: 60upx;height: 50upx;" src="http://47.94.106.106:8888/group1/M00/5D/27/rBHxiGGts5-ARb9cAAAFyaS9Bh84992368" mode=""></image>
 					</view>
 					<view class="qqLogin" @click="QQ_login">
-						<image style="width: 45upx;height: 50upx;" src="../../static/img/qq.png" mode=""></image>
+						<image style="width: 45upx;height: 50upx;" src="http://47.94.106.106:8888/group1/M00/5D/27/rBHxiGGtskKAUipZAAADkkRJA542224955" mode=""></image>
 					</view>
 					<view class="qqLogin" v-if="system >= 13 && platform=='ios'"  @click="appleLogin">
-						<image style="width: 45upx;height: 50upx;" src="../../static/img/timg.png" mode=""></image>
+						<image style="width: 45upx;height: 50upx;" src="http://47.94.106.106:8888/group1/M00/5D/27/rBHxiGGtskKAPrjjAAB8Ujjhkfo8180173" mode=""></image>
 					</view>
 				</view>
 			</view>
@@ -123,8 +123,7 @@
 	import {  
         mapMutations  
     } from 'vuex';
-	import uniGrid from "@/components/uni-grid/uni-grid.vue"
-	import uniGridItem from "@/components/uni-grid-item/uni-grid-item.vue"
+	
 	import uniRequest from 'uni-request';
 	export default{
 		data(){
@@ -144,7 +143,6 @@
 				time:60, 
 			}
 		},
-		components: {uniGrid,uniGridItem},
 		onLoad(){
 			uni.getSystemInfo({
 				success: (res) => {

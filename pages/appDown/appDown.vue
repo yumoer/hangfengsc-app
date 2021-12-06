@@ -4,7 +4,7 @@
 			<text style="color: #fff;font-size: 32upx;font-weight: 100;">行丰商城App,购物高效又轻松！</text>
 		</view>
 		<view style="width: 100%;height: 300px;text-align: center;padding-left: 80upx;">
-			<image style="width: 200px;height: 100%;" src="/static/img/app.png" mode=""></image>
+			<image style="width: 200px;height: 100%;" src="http://47.94.106.106:8888/group1/M00/5D/27/rBHxiGGtskKAXFzEAAHj6am2HcE4375844" mode=""></image>
 		</view>
 		<view style="width: 100%;height: 60px;text-align: center;margin-top: 20upx;">
 			<button type="default" plain="true" style="width: 200px;color: #fff;border-color: #fff;border-radius: 30px;" @click="downAndroid">

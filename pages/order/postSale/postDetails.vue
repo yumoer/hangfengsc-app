@@ -2,7 +2,7 @@
 	<view class="contents">
 		<view class="order-title">
 			<view class="title-info">
-				<u-image width="80upx" height="80upx" style="display: inline-block;float: left;" src="../../../static/images/order/tksuccess.png"></u-image>
+				<u-image width="80upx" height="80upx" style="display: inline-block;float: left;" src="http://47.94.106.106:8888/group1/M00/5D/28/rBHxiGGttauAOqGqAAAOA8Zk9q86075440"></u-image>
 				<text class="info-money">{{title}}</text>
 			</view>
 		</view>

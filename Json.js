@@ -63,12 +63,6 @@ const homePageList = [
 		text: "法律咨询",
 		index:9,
 	},
-	
-	// {
-	// 	src: "/static/index/ylqx.png",
-	// 	text: "关于我们",
-	// 	index:9,
-	// },
 ]
 /* 商品列表 */
 const goodsList = []
@@ -79,22 +73,22 @@ const cartList = [];
 const detailData = {}
 const shareList = [{
 		type: 1,
-		icon: '/static/images/temp/share_wechat.png',
+		icon: 'http://47.94.106.106:8888/group1/M00/5D/28/rBHxiGGtuauAUV_jAAAseUsucSA8157771',
 		text: '微信好友'
 	},
 	{
 		type: 2,
-		icon: '/static/images/temp/share_moment.png',
+		icon: 'http://47.94.106.106:8888/group1/M00/5D/28/rBHxiGGtuauAKS8XAAAwwKOHpgc5985234',
 		text: '朋友圈'
 	},
 	{
 		type: 3,
-		icon: '/static/images/temp/share_qq.png',
+		icon: 'http://47.94.106.106:8888/group1/M00/5D/28/rBHxiGGtuauAQhhsAAAl74dBRHo7003065',
 		text: 'QQ好友'
 	},
 	{
 		type: 4,
-		icon: '/static/images/temp/share_qqzone.png',
+		icon: 'http://47.94.106.106:8888/group1/M00/5D/28/rBHxiGGtuauAAUNrAAAomENua2U8556523',
 		text: 'QQ空间'
 	}
 ]

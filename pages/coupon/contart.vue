@@ -2,7 +2,7 @@
 	<form>
 		<view class="page_box">
 			<view class="banner">
-				<img style="width: 100%;height: 180px;border-radius: 20upx;margin-bottom: 20upx;" src="/static/index/banner.jpg" alt="">
+				<img style="width: 100%;height: 180px;border-radius: 20upx;margin-bottom: 20upx;" src="http://47.94.106.106:8888/group1/M00/5D/27/rBHxiGGtrpOAa7ffAAD0IVeyOag3405377" alt="">
 			</view>
 			<view class="content_box pad">
 				<view class="form-item">

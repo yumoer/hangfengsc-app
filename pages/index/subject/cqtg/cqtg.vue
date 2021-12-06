@@ -2,7 +2,7 @@
 	<view id="page">
 		<view class="main">
 			<view class="banner">
-				<image src="/static/cqtg/banner.png" mode=""></image>
+				<image src="http://47.94.106.106:8888/group1/M00/5D/27/rBHxiGGtq6KAfUqRAAEKnchUiVA5622215" mode=""></image>
 			</view>
 			<view class="server">
 				<view class="head">
@@ -12,18 +12,18 @@
 				<view class="content">
 					<view class="wrap">
 						<view class="left" @click="goTo('/pages/index/subject/wxfw/wxfw')">
-							<image src="/static/cqtg/wxfw.png" mode=""></image>
+							<image src="http://47.94.106.106:8888/group1/M00/5D/27/rBHxiGGtrNmAa7fkAAKBBJDUvNo3562808" mode=""></image>
 						</view>
 						<view class="right">
 							<view class="top" @click="goTo('/pages/product/list?tid=807')">
-								<image src="/static/cqtg/pxsj.png" mode=""></image>
+								<image src="http://47.94.106.106:8888/group1/M00/5D/27/rBHxiGGtrKeAdcFCAAGWldbxTNs1880021" mode=""></image>
 							</view>
 							<view class="bottom">
 								<view class="b_left" @click="goTo('/pages/index/subject/bgsb/bgsb')">
 									<image src="/static/cqtg/flzx.png" mode=""></image>
 								</view>
 								<view class="b_right" @click="goTo('/pages/index/subject/bghc/bghc')">
-									<image src="/static/cqtg/jypx.png" mode=""></image>
+									<image src="http://47.94.106.106:8888/group1/M00/5D/27/rBHxiGGtrGyAbFBpAACu5BHM_6c0483365" mode=""></image>
 								</view>
 							</view>
 						</view>
@@ -63,10 +63,10 @@
 			return {
 				commodityList:[],
 				imageList:[
-					{image:'/static/cqtg/wxfw.jpg',path:'/pages/index/subject/wxfw/wxfw'},
-					{image:'/static/cqtg/jypx.jpg',path:'/pages/index/subject/bghc/bghc'},
-					{image:'/static/cqtg/flzx.jpg',path:'/pages/index/subject/bgsb/bgsb'},
-					{image:'/static/cqtg/pxsj.jpg',path:'/pages/product/list?tid=807'}
+					{image:'http://47.94.106.106:8888/group1/M00/5D/27/rBHxiGGtrP-AMQtfAADrQAKzErc8096990',path:'/pages/index/subject/wxfw/wxfw'},
+					{image:'http://47.94.106.106:8888/group1/M00/5D/27/rBHxiGGtrRGASOgfAAE8ti-ee2I7165168',path:'/pages/index/subject/bghc/bghc'},
+					{image:'http://47.94.106.106:8888/group1/M00/5D/27/rBHxiGGtrBeAR4fLAACXenOniRY9433325',path:'/pages/index/subject/bgsb/bgsb'},
+					{image:'http://47.94.106.106:8888/group1/M00/5D/27/rBHxiGGtrSaAYlJSAAHZWOvi0605881071',path:'/pages/product/list?tid=807'}
 				],
 				loadingType: 'more', //加载更多状态
 				page:1,
@@ -104,20 +104,20 @@
 				}else{
 					this.loadingType = 'more'
 				}
-				let sendData = {page:this.page,page_size:this.page_size}
-				const res = await uniRequest({
-					url:'/groups/category/goods/',
-					method:'get',
-					params:sendData,
-				}).then(res=>{
-					// console.log(res.data)
-					this.commodityList = res.data.results
-					if(this.commodityList.length === 0){
-						this.loadingType = 'nomore';
-					}
-				}).catch(error=>{
-					console.log(error)
-				})
+				// let sendData = {page:this.page,page_size:this.page_size}
+				// const res = await uniRequest({
+				// 	url:'/groups/category/goods/',
+				// 	method:'get',
+				// 	params:sendData,
+				// }).then(res=>{
+				// 	// console.log(res.data)
+				// 	this.commodityList = res.data.results
+				// 	if(this.commodityList.length === 0){
+				// 		this.loadingType = 'nomore';
+				// 	}
+				// }).catch(error=>{
+				// 	console.log(error)
+				// })
 			},
 			goTo(path){
 				uni.navigateTo({

@@ -713,7 +713,7 @@
 			width: 100%;
 			height: 250upx;
 			margin-bottom: 30upx;
-			background: url('../../static/index/djj.png');
+			background: url('http://47.94.106.106:8888/group1/M00/5D/27/rBHxiGGtrpOAKSgiAABXjvLqBuM9139677');
 			background-size: 100% 100%;
 			position: relative;
 			.wrap_left{
@@ -786,7 +786,7 @@
 			width: 100%;
 			height: 250upx;
 			margin-bottom: 30upx;
-			background: url('../../static/index/zkj.png');
+			background: url('http://47.94.106.106:8888/group1/M00/5D/27/rBHxiGGtr9eAFLXXAABB99Qspx42625673');
 			background-size: 100% 100%;
 			position: relative;
 			.wrap_left{
@@ -859,7 +859,7 @@
 			width: 100%;
 			height: 250upx;
 			margin-bottom: 30upx;
-			background: url('../../static/index/mjj.png');
+			background: url('http://47.94.106.106:8888/group1/M00/5D/27/rBHxiGGtrpOAXBMPAACrmwCBofk2980719');
 			background-size: 100% 100%;
 			.wrap_left{
 				width: 32%;

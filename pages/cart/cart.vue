@@ -2,8 +2,8 @@
 	<view class="container">
 		<!-- 空白页 -->
 		<view v-if="!hasLogin || empty===true" class="empty">
-			<xw-empty v-if="hasLogin" :isShow="isEmpty" img="/static/images/empty/emptyCart.png" path="/pages/index/index" btnText="去逛逛" text="您暂时还没有添加商品" textColor="#C0C4CC"></xw-empty>
-			<xw-empty v-else :isShow="isEmpty" img="/static/images/empty/emptyCart.png" path="/pages/public/login" btnText="去登录" text="您暂时还没有添加商品" textColor="#C0C4CC"></xw-empty>
+			<xw-empty v-if="hasLogin" :isShow="isEmpty" img="http://47.94.106.106:8888/group1/M00/5D/28/rBHxiGGttGKAEKLQAAHV7g2M0t08616105" path="/pages/index/index" btnText="去逛逛" text="您暂时还没有添加商品" textColor="#C0C4CC"></xw-empty>
+			<xw-empty v-else :isShow="isEmpty" img="http://47.94.106.106:8888/group1/M00/5D/28/rBHxiGGttGKAEKLQAAHV7g2M0t08616105" path="/pages/public/login" btnText="去登录" text="您暂时还没有添加商品" textColor="#C0C4CC"></xw-empty>
 		</view>
 		<!-- 列表 -->
 		<view class="cart-list">
@@ -46,7 +46,7 @@
 		<view class="action-section" v-if="!isCheck && cartList.length !== 0">
 			<view class="checkbox">
 				<image 
-					:src="allChecked?'/static/img/selected2.png':'/static/img/select2.png'" 
+					:src="allChecked?'http://47.94.106.106:8888/group1/M00/5D/27/rBHxiGGtskKAFaC5AAAWUKVmO9c7369764':'http://47.94.106.106:8888/group1/M00/5D/27/rBHxiGGtskKAWg4rAAAWK3u5TB05910823'" 
 					mode="aspectFit"
 					style="transform: scale(0.8);"
 					@click="check('all')"
@@ -72,7 +72,7 @@
 		<view class="action-section" v-if="isCheck && cartList.length !== 0">
 			<view class="checkbox">
 				<image 
-					:src="allChecked?'/static/img/selected2.png':'/static/img/select2.png'" 
+					:src="allChecked?'http://47.94.106.106:8888/group1/M00/5D/27/rBHxiGGtskKAFaC5AAAWUKVmO9c7369764':'http://47.94.106.106:8888/group1/M00/5D/27/rBHxiGGtskKAWg4rAAAWK3u5TB05910823'" 
 					mode="aspectFit"
 					style="transform: scale(0.8);"
 					@click="check('all')"
@@ -175,7 +175,7 @@
 			},
 			//监听image加载失败
 			onImageError(key, index) {
-				this[key][index].image = '/static/img/errorImage.jpg';
+				this[key][index].image = 'http://47.94.106.106:8888/group1/M00/5D/27/rBHxiGGtskKAJKE-AAAIN3tX7Zo0727207';
 			},
 			gotoPath(id){
 				uni.navigateTo({

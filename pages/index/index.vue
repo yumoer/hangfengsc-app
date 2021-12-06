@@ -53,7 +53,7 @@
 		<view class="seckill-section m-t" v-if="goodList.length > 0">
 			
 			<view class="s-header">
-				<image class="s-img" src="/static/img/temp/secskill-img.jpg" mode="widthFix"></image>
+				<image class="s-img" src="http://47.94.106.106:8888/group1/M00/5D/27/rBHxiGGtskKACVDgAAAQ4uuUSmc6218269" mode="widthFix"></image>
 				<text class="tip">10点场</text>
 				<uni-countdown color="#000" :show-day="false" :hour="hour" :minute="minute" :second="second"></uni-countdown>
 				<text v-if="!load" style="font-size: 14px;margin-left: 10px;">正在抢购</text>
@@ -112,19 +112,19 @@
 		
 		<!-- #ifdef H5 -->
 		<view @click="goToPage('/pages/appDown/appDown')" style="position: fixed;bottom: 160px;right: 10px;width: 100%;height: 60px;z-index: 1;right: -77%;">
-			<image style="width: 100px;height: 60px;" src="/static/img/tag.png" mode=""></image>
+			<image style="width: 100px;height: 60px;" src="http://47.94.106.106:8888/group1/M00/5D/27/rBHxiGGtskKAdULcAADI0Ra5ka84065892" mode=""></image>
 		</view>
 		<!-- #endif -->
 		
 		<view @click="goToPage('/pages/contact/contact')" style="position: fixed;bottom: 112px;z-index: 1;right:20px">
-			<image style="width: 40px;height: 40px;" src="/static/index/lianxi.jpg" mode=""></image>
+			<image style="width: 40px;height: 40px;" src="http://47.94.106.106:8888/group1/M00/5D/27/rBHxiGGtsTeASQe2AAEOqkRq3hA1341374" mode=""></image>
 		</view>
 		
 		<!-- <view v-if="" @click="navTo('/pages/coupon/coupon')" style="position: fixed;bottom: 95px;right: 5px;width: 100%;height: 60px;z-index: 1;right: -85%;">
 			<image style="width: 40px;height: 40px;" src="/static/index/coupon.png" mode=""></image>
 		</view> -->
 		
-		<view class="">
+		<!-- <view class="">
 			<cmdCurtain :visible="visible" mode="top-right">
 			  <image mode="aspectFit" :src="img"></image>
 			</cmdCurtain>
@@ -134,7 +134,7 @@
 			<cmdCurtain :visible="visible" mode="top">
 			  <image mode="aspectFit" :src="img"></image>
 			</cmdCurtain>
-		</view>
+		</view> -->
 		
 		<backTop :src="backTop.src"  :scrollTop="backTop.scrollTop"></backTop>
 	</view>
@@ -146,9 +146,9 @@
 	import uniLoadMore from '@/components/uni-load-more/uni-load-more.vue'
 	import uniCountdown from "@/components/uni-countdown/uni-countdown.vue"
 	import backTop from '@/components/back-top/back-top.vue'
-	import cmdCurtain from "@/components/cmd-curtain/cmd-curtain.vue"
+	// import cmdCurtain from "@/components/cmd-curtain/cmd-curtain.vue"
 	export default {
-		components:{uniCountdown,uniLoadMore,backTop,cmdCurtain},
+		components:{uniCountdown,uniLoadMore,backTop}, //cmdCurtain
 		data() {
 			return {
 				show: true,
@@ -173,10 +173,10 @@
 				page:1,
 				page_size:10,
 				ordering:'-create_time',
-				img:'../../static/img/app.png',
+				img:'http://47.94.106.106:8888/group1/M00/5D/27/rBHxiGGtskKAXFzEAAHj6am2HcE4375844',
 				visible:true,
 				backTop: { // 返回顶部
-					src: '../../static/images/back-top/top.png',
+					src: 'http://47.94.106.106:8888/group1/M00/5D/28/rBHxiGGttDGAXvXbAAAHgIVNqm88710706',
 					scrollTop: 0
 				},
 				scrollTop: 0
@@ -200,16 +200,48 @@
 			console.log(options)
 		},
 		
-		/* // 标题栏input搜索框点击
-		onNavigationBarSearchInputClicked: async function(e) {
-			this.$api.msg('点击了搜索框');
+		//加载更多
+		onReachBottom(){
+			this.page_size = this.page_size + 10
+			this.getDate(); 
 		},
-		//点击导航栏 buttons 时触发
+		
+		// 标题栏input搜索框点击
+		onNavigationBarSearchInputClicked(e) {
+			uni.navigateTo({
+				url: '/pages/search/search'
+			})
+		},
+		// 点击导航栏 buttons 时触发
 		onNavigationBarButtonTap(e) {
 			const index = e.index;
 			console.log(index)
 			if (index === 0) {
-				this.$api.msg('点击了扫描');
+				// #ifdef APP-PLUS
+				uni.scanCode({
+					success: function (res) {
+						console.log(res)
+						console.log('条码类型：' + res.scanType);
+						console.log('条码内容：' + res.result);
+						if(res.result.split('://')[0] === 'http' || res.result.split('://')[0] === 'https' || res.result.split('://')[0] === 'HTTPS'|| res.result.split('://')[0] === 'wxp' || res.result.split('.')[0] === 'www'){
+							// void plus.runtime.openURL(decodeURIComponent(res.result))
+							void plus.runtime.openWeb(res.result,function(e){
+								// 识别失败代码
+								console.log(res.result)
+							})
+						}else{
+							console.log(res.result)
+							uni.navigateTo({
+								url: '/pages/index/code?value='+res.result
+							})
+						}
+						
+					}
+				})
+				// #endif
+				uni.navigateTo({
+					url: '/pages/notice/notice'
+				})
 			} else if (index === 1) {
 				// #ifdef APP-PLUS
 				const pages = getCurrentPages();
@@ -223,19 +255,14 @@
 					url: '/pages/notice/notice'
 				})
 			}
-		}, */
-		
-		//加载更多
-		onReachBottom(){
-			this.page_size = this.page_size + 10
-			this.getDate(); 
 		},
 		
 		methods: {
-			// 监听显示状态
-			close(val) {
-				console.log(val)
-				this.visible = val;
+			loadData() {
+				this.getBanner()
+				this.gethomePage()
+				this.getLimitTime()
+				this.getCateChange()
 			},
 			
 			async getHotGoods(){
@@ -332,7 +359,7 @@
 								}
 							}
 						}); 
-					}  
+					}
 				}
 			}, 
 			
@@ -421,62 +448,6 @@
 				})
 			},
 			
-			// 标题栏input搜索框点击
-			onNavigationBarSearchInputClicked(e) {
-				uni.navigateTo({
-					url: '/pages/search/search'
-				})
-			},
-			// 点击导航栏 buttons 时触发
-			onNavigationBarButtonTap(e) {
-				const index = e.index;
-				if (index === 0) {
-					/* uni.navigateTo({
-						url: '/pages/notice/notice'
-					}) */
-					// #ifdef APP-PLUS
-					uni.scanCode({
-						success: function (res) {
-							console.log(res)
-							console.log('条码类型：' + res.scanType);
-							console.log('条码内容：' + res.result);
-							if(res.result.split('://')[0] === 'http' || res.result.split('://')[0] === 'https' || res.result.split('://')[0] === 'HTTPS'|| res.result.split('://')[0] === 'wxp' || res.result.split('.')[0] === 'www'){
-								// void plus.runtime.openURL(decodeURIComponent(res.result))
-								void plus.runtime.openWeb(res.result,function(e){
-									// 识别失败代码
-									console.log(res.result)
-								})
-							}else{
-								console.log(res.result)
-								uni.navigateTo({
-									url: '/pages/index/code?value='+res.result
-								})
-							}
-							
-						}
-					})
-					// #endif
-				} else if (index === 1) {
-					// #ifdef APP-PLUS
-					const pages = getCurrentPages();
-					const page = pages[pages.length - 1];
-					const currentWebview = page.$getAppWebview();
-					currentWebview.hideTitleNViewButtonRedDot({
-						index
-					});
-					// #endif
-					uni.navigateTo({
-						url: '/pages/notice/notice'
-					})
-				}
-			},
-			
-			loadData() {
-				this.getBanner()
-				this.gethomePage()
-				this.getLimitTime()
-				this.getCateChange()
-			},
 			
 			// 猜你喜欢
 			async getDate(type='add', loading){

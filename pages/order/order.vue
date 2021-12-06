@@ -15,7 +15,7 @@
 			<swiper-item class="tab-content" v-for="(tabItem,tabIndex) in navList" :key="tabIndex">
 				<scroll-view class="list-scroll-content" scroll-y @scrolltolower="getAddData">
 					<!-- 空白页 -->
-					<xw-empty :isShow="tabItem.loaded === true && tabItem.orderList.length === 0" img="/static/images/empty/emptyContent.png" text="您暂时还没有添加地址" textColor="#C0C4CC"></xw-empty>
+					<xw-empty :isShow="tabItem.loaded === true && tabItem.orderList.length === 0" img="http://47.94.106.106:8888/group1/M00/5D/28/rBHxiGGttGKAR65mAAG2-Oc8GgA1520336" text="您暂时还没有添加地址" textColor="#C0C4CC"></xw-empty>
 					<!-- 订单列表 -->
 					<view
 						v-for="(item,index) in tabItem.orderList" :key="index"
@@ -112,7 +112,7 @@
 		<u-mask :show="show" @click="show = false">
 			<view class="warp">
 				<view class="rect" @tap.stop>
-					<image @click="show = false" style="width: 100%;height: 100%;" src="../../static/img/brow2.png" mode=""></image>
+					<image @click="show = false" style="width: 100%;height: 100%;" src="http://47.94.106.106:8888/group1/M00/5D/27/rBHxiGGtskKATBmrAAKfLOVEhMc9770746" mode=""></image>
 				</view>
 			</view>
 		</u-mask>

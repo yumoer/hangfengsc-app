@@ -1,7 +1,7 @@
 <template>
 	<view class="page_edu">
 		<view class="page_header">
-			<image src="../../../../static/images/jiaoyu/jypx.png" mode=""></image>
+			<image src="http://47.94.106.106:8888/group1/M00/5D/28/rBHxiGGts_6Ae6m_AAQxtb4srSk5329960" mode=""></image>
 		</view>
 		<view class="page_content">
 			<view class="u-demo-block__content" style="color: #333333;font-size: 32upx;">资源建设</view>
@@ -11,7 +11,7 @@
 			>
 				<u-col span="6" style="background-color: #FFFFFF;padding: 20upx;margin-top: 30upx;border-radius: 10upx;align-items: center;justify-content: space-between;margin-left: -5px;margin-right: -5px;">
 					<view class="demo-layout" style="font-size: 12px;">
-						<image style="width: 310upx;height: 168upx;border-radius: 5px;" src="../../../../static/images/sharemenu/copy.png" mode=""></image>
+						<image style="width: 310upx;height: 168upx;border-radius: 5px;" src="http://47.94.106.106:8888/group1/M00/5D/28/rBHxiGGttyCAQK4UAAADmFacpaE6053840" mode=""></image>
 						<view class="" style="margin: 20upx 0;color: #333333;">实践建设</view>
 						<view class="">
 							<text style="float: left;color: #EE1D23;">￥10000</text>
@@ -21,7 +21,7 @@
 				</u-col>
 				<u-col span="6" style="background-color: #FFFFFF;padding: 20upx;margin-top: 30upx;border-radius: 10upx;align-items: center;justify-content: space-between;margin-left: -5px;margin-right: -5px;">
 					<view class="demo-layout" style="font-size: 12px;">
-						<image style="width: 310upx;height: 168upx;border-radius: 5px;" src="../../../../static/images/sharemenu/copy.png" mode=""></image>
+						<image style="width: 310upx;height: 168upx;border-radius: 5px;" src="http://47.94.106.106:8888/group1/M00/5D/28/rBHxiGGttyCAQK4UAAADmFacpaE6053840" mode=""></image>
 						<view class="" style="margin: 20upx 0;color: #333333;">实践建设</view>
 						<view class="">
 							<text style="float: left;color: #EE1D23;">￥10000</text>
@@ -39,7 +39,7 @@
 			>
 				<u-col span="6" style="background-color: #FFFFFF;padding: 20upx;margin-top: 30upx;border-radius: 10upx;align-items: center;justify-content: space-between;margin-left: -5px;margin-right: -5px;">
 					<view class="demo-layout" style="font-size: 12px;">
-						<image style="width: 310upx;height: 168upx;border-radius: 5px;" src="../../../../static/images/sharemenu/copy.png" mode=""></image>
+						<image style="width: 310upx;height: 168upx;border-radius: 5px;" src="http://47.94.106.106:8888/group1/M00/5D/28/rBHxiGGttyCAQK4UAAADmFacpaE6053840" mode=""></image>
 						<view class="" style="margin: 20upx 0;color: #333333;">实践建设</view>
 						<view class="">
 							<text style="float: left;color: #EE1D23;">￥10000</text>
@@ -57,7 +57,7 @@
 			>
 				<u-col span="6" style="background-color: #FFFFFF;padding: 20upx;margin-top: 30upx;border-radius: 10upx;align-items: center;justify-content: space-between;margin-left: -5px;margin-right: -5px;">
 					<view class="demo-layout" style="font-size: 12px;">
-						<image style="width: 310upx;height: 168upx;border-radius: 5px;" src="../../../../static/images/sharemenu/copy.png" mode=""></image>
+						<image style="width: 310upx;height: 168upx;border-radius: 5px;" src="http://47.94.106.106:8888/group1/M00/5D/28/rBHxiGGttyCAQK4UAAADmFacpaE6053840" mode=""></image>
 						<view class="" style="margin: 20upx 0;color: #333333;">实践建设</view>
 						<view class="">
 							<text style="float: left;color: #EE1D23;">￥10000</text>
@@ -75,7 +75,7 @@
 			>
 				<u-col span="6" style="background-color: #FFFFFF;padding: 20upx;margin-top: 30upx;border-radius: 10upx;align-items: center;justify-content: space-between;margin-left: -5px;margin-right: -5px;">
 					<view class="demo-layout" style="font-size: 12px;">
-						<image style="width: 310upx;height: 168upx;border-radius: 5px;" src="../../../../static/images/sharemenu/copy.png" mode=""></image>
+						<image style="width: 310upx;height: 168upx;border-radius: 5px;" src="http://47.94.106.106:8888/group1/M00/5D/28/rBHxiGGttyCAQK4UAAADmFacpaE6053840" mode=""></image>
 						<view class="" style="margin: 20upx 0;color: #333333;">实践建设</view>
 						<view class="">
 							<text style="float: left;color: #EE1D23;">￥10000</text>

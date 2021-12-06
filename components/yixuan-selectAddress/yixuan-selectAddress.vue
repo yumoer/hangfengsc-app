@@ -19,7 +19,7 @@
 						<view class="swiper-item">
 							<scroll-view class="scroll-view-item" scroll-y="true">
 								<view class="address_item" v-for="(item,index) in cityAreaArray[swiper_index]" :key="index" @click="address_item_click(swiper_index,index)">
-									<image v-if="selectIndexArr[swiper_index] === index" class="address_item_icon" src="../../static/yixuan-selectAddress/gou.png" mode=""></image>
+									<image v-if="selectIndexArr[swiper_index] === index" class="address_item_icon" src="http://47.94.106.106:8888/group1/M00/5D/29/rBHxiGGtvdiAHqGuAAAHraWaUKQ1503594" mode=""></image>
 									{{item.name}}
 								</view>
 							</scroll-view>

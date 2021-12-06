@@ -55,7 +55,7 @@
 				page:1,
 				page_size:10,
 				backTop: {
-					src: '../../static/images/back-top/top.png',
+					src: 'http://47.94.106.106:8888/group1/M00/5D/28/rBHxiGGttDGAXvXbAAAHgIVNqm88710706',
 					scrollTop: 0
 				},
 				scrollTop: 0

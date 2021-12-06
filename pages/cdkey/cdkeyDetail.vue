@@ -2,7 +2,7 @@
 	<view class="view" style="">
 		<view>
 			<!-- 商品详情 --><!-- background-color: #E8E4E1; -->
-			<view class="shop" style="padding: 40upx 10upx;width: 100%;height: 200px;background:url(../../static/timg.jpg) no-repeat 100%;">
+			<view class="shop" style="padding: 40upx 10upx;width: 100%;height: 200px;background:url(http://47.94.106.106:8888/group1/M00/5D/26/rBHxiGGtqjmATx5GAAHV1JTlDSo8241624) no-repeat 100%;">
 				<view class="shop_details" style="width: 100%;height: 200upx;">
 					<view class="image" style="float: left;padding-left: 20px;" @click="lookDetails">
 						<image style="width: 200upx;height: 200upx;" :src="exchanges.image" mode=""></image>
@@ -161,11 +161,11 @@
 				errAddress:'',
 				errTaddress:'',
 				carouselList:[
-					{image:'../../static/cdkey/image1.jpg'},
-					{image:'../../static/cdkey/image2.jpg'},
-					{image:'../../static/cdkey/image3.jpg'},
-					{image:'../../static/cdkey/image4.jpg'},
-					{image:'../../static/cdkey/image5.jpg'},
+					{image:'http://47.94.106.106:8888/group1/M00/5D/26/rBHxiGGtqjmAWcGSAAYqz4oAxas5080497'},
+					{image:'http://47.94.106.106:8888/group1/M00/5D/26/rBHxiGGtqjmAHUBCAAOGS0Uzxvo4616422'},
+					{image:'http://47.94.106.106:8888/group1/M00/5D/26/rBHxiGGtqjmAdJhcAASmoXq7e5E0433727'},
+					{image:'http://47.94.106.106:8888/group1/M00/5D/26/rBHxiGGtqjmAcedPAAbVHhfVK106634684'},
+					{image:'http://47.94.106.106:8888/group1/M00/5D/26/rBHxiGGtqjmAFuc4AATa87U6IDw1212955'},
 				]
 			}
 		},

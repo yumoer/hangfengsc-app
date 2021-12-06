@@ -21,7 +21,7 @@
 				<view class="info-time">您的商品正在加急发货中</view>
 			</view>
 			<view class="title-info-right">
-				<image style="width: 40px;height: 40px;" src="../../../static/images/order/daifahuo.png" mode=""></image>
+				<image style="width: 40px;height: 40px;" src="http://47.94.106.106:8888/group1/M00/5D/28/rBHxiGGttauAb2DsAAAMooM4i-82731514" mode=""></image>
 			</view>
 		</view>
 		<!-- 待收货 -->
@@ -31,7 +31,7 @@
 				<view class="info-time">快件已从北京市发出，正在发往石家庄接驳点</view>
 			</view>
 			<view class="title-info-right">
-				<image style="width: 40px;height: 40px;" src="../../../static/images/order/daishouhuo.png" mode=""></image>
+				<image style="width: 40px;height: 40px;" src="http://47.94.106.106:8888/group1/M00/5D/28/rBHxiGGttauAYd6RAAAOJ0fCg9M4704488" mode=""></image>
 			</view>
 		</view>
 		<!-- 交易完成 待评价-->
@@ -41,7 +41,7 @@
 				<view class="info-time">快来发表你的评价吧</view>
 			</view>
 			<view class="title-info-right">
-				<image style="width: 40px;height: 40px;" src="../../../static/images/order/jiaoyiwancheng.png" mode=""></image>
+				<image style="width: 40px;height: 40px;" src="http://47.94.106.106:8888/group1/M00/5D/28/rBHxiGGttauAF7WQAAALS9Lwcyg0130589" mode=""></image>
 			</view>
 		</view>
 		<!-- 交易完成 已评价 -->
@@ -51,7 +51,7 @@
 				<view class="info-time">感谢你完成本次交易</view>
 			</view>
 			<view class="title-info-right">
-				<image style="width: 40px;height: 40px;" src="../../../static/images/order/jiaoyiwancheng.png" mode=""></image>
+				<image style="width: 40px;height: 40px;" src="http://47.94.106.106:8888/group1/M00/5D/28/rBHxiGGttauAF7WQAAALS9Lwcyg0130589" mode=""></image>
 			</view>
 		</view>
 		<!-- 交易关闭 -->
@@ -61,7 +61,7 @@
 				<view class="info-time">该订单已取消，交易关闭</view>
 			</view>
 			<view class="title-info-right">
-				<image style="width: 40px;height: 40px;" src="../../../static/images/order/jiaoyiguanbi.png" mode=""></image>
+				<image style="width: 40px;height: 40px;" src="http://47.94.106.106:8888/group1/M00/5D/28/rBHxiGGttauAbj1eAAALqNGmsv09319254" mode=""></image>
 			</view>
 		</view>
 		<!-- 已退货 -->
@@ -71,7 +71,7 @@
 				<view class="info-time">该订单已退货，交易关闭</view>
 			</view>
 			<view class="title-info-right">
-				<image style="width: 40px;height: 40px;" src="../../../static/images/order/jiaoyiguanbi.png" mode=""></image>
+				<image style="width: 40px;height: 40px;" src="http://47.94.106.106:8888/group1/M00/5D/28/rBHxiGGttauAbj1eAAALqNGmsv09319254" mode=""></image>
 			</view>
 		</view>
 		

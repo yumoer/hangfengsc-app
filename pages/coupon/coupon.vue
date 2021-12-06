@@ -25,7 +25,7 @@
 								</button>
 							</view>
 						</view>
-						<view class="coupon_item" v-else style="background: url(../../static/index/ylq.png);color: #B3B3B3;background-size: 100% 100%;">
+						<view class="coupon_item" v-else style="background: url(http://47.94.106.106:8888/group1/M00/5D/27/rBHxiGGtr9eACGJ9AABZQmBBpyk0063174);color: #B3B3B3;background-size: 100% 100%;">
 							<view class="coupon_left">
 								<view><text class="left_money">{{Math.round(item.reduction)}}</text>元</view>
 								<view class="left_type" v-if="item.type === 0">代金券</view>
@@ -46,7 +46,7 @@
 					</view>
 				</view>
 				<view class="coupon_border" v-else style="text-align: center;padding-bottom: 20vh;">
-					<image style="width: 289px;" src="../../static/images/empty/emptyCoupon.png" mode=""></image>
+					<image style="width: 289px;" src="http://47.94.106.106:8888/group1/M00/5D/28/rBHxiGGttGKAcJ6CAAP8iT5J-S82073694" mode=""></image>
 					<view style="margin-top: 20upx;color: #999999;font-size: 16px;">您还没有优惠券</view>
 				</view>
 			</view>
@@ -158,7 +158,7 @@ page {
 					width: 100%;
 					height: 100%;
 					.coupon_item{
-						background: url(../../static/index/ljlq.png);
+						background: url('http://47.94.106.106:8888/group1/M00/5D/27/rBHxiGGtsQSAfzF-AADjw6yZBlE2116161');
 						background-size: 100% 100%;
 						width: 100%;
 						height: 90px;

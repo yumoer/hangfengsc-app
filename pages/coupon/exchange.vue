@@ -4,7 +4,7 @@
 			<lgd-tab :tabValue="tabValue" @getIndex ="getIndex"/>
 		</view>
 		<view class="row" v-if="!isEmpty">
-			<view v-for="(item,index) in tikets" @click="lookPrice(item)" :key="index" v-if="Index === 0" :class="'back_wrap'+item.coupons.type" :style="{background:item.type === 0 ? 'http://47.94.106.106:8888/group1/M00/54/9D/rBHxiGEWFyaAe6K6AABXRfeIzWw0112389' : item.type === 1 ? 'http://47.94.106.106:8888/group1/M00/54/9D/rBHxiGEWFyaAcKRzAABBvZjy-aM9721322' : '../../static/index/mjj.png'}">
+			<view v-for="(item,index) in tikets" @click="lookPrice(item)" :key="index" v-if="Index === 0" :class="'back_wrap'+item.coupons.type" :style="{background:item.type === 0 ? 'http://47.94.106.106:8888/group1/M00/54/9D/rBHxiGEWFyaAe6K6AABXRfeIzWw0112389' : item.type === 1 ? 'http://47.94.106.106:8888/group1/M00/54/9D/rBHxiGEWFyaAcKRzAABBvZjy-aM9721322' : 'http://47.94.106.106:8888/group1/M00/5D/27/rBHxiGGtrpOAXBMPAACrmwCBofk2980719'}">
 				<view class="wrap_left">
 					￥<text class="wrap_price">{{Math.round(item.coupons.reduction)}}</text>
 					<text class="wrap_type" v-if="item.coupons.type === 0">代金券</text>
@@ -21,7 +21,7 @@
 					<button class="wrap_btn" type="default" @click="naToPage(item)">使用</button>
 				</view>
 			</view>
-			<view v-for="(item,index) in tikets" :key="index" v-if="Index === 1" class="type" :class="'back_wrap'+item.coupons.type" :style="{background:item.type === 0 ? '../../static/index/djj.png' : item.type === 1 ? '../../static/index/zkj.png' : '../../static/index/mjj.png'}">
+			<view v-for="(item,index) in tikets" :key="index" v-if="Index === 1" class="type" :class="'back_wrap'+item.coupons.type" :style="{background:item.type === 0 ? 'http://47.94.106.106:8888/group1/M00/5D/27/rBHxiGGtrpOAKSgiAABXjvLqBuM9139677' : item.type === 1 ? 'http://47.94.106.106:8888/group1/M00/5D/27/rBHxiGGtr9eAFLXXAABB99Qspx42625673' : 'http://47.94.106.106:8888/group1/M00/5D/27/rBHxiGGtrpOAXBMPAACrmwCBofk2980719'}">
 				<view class="wrap_left">
 					￥<text class="wrap_price">{{Math.round(item.coupons.reduction)}}</text>
 					<text class="wrap_type" v-if="item.coupons.type === 0">代金券</text>
@@ -32,10 +32,10 @@
 					<view class="wrap_name">{{item.coupons.cat_name}}专用</view>
 					<view class="wrap_full">满 {{item.coupons.full}} 使用</view>
 					<view class="wrap_time">{{item.coupons.start_time.split('T')[0]}}~{{item.coupons.end_time.split('T')[0]}}</view>
-					<image class="wrap_image" src="../../static/index/yishiyong.png" mode=""></image>
+					<image class="wrap_image" src="http://47.94.106.106:8888/group1/M00/5D/27/rBHxiGGtr9eAGD_cAAAiyN8faAU9966996" mode=""></image>
 				</view>
 			</view>
-			<view v-for="(item,index) in tikets" :key="index" v-if="Index === 2" class="type" :class="'back_wrap'+item.coupons.type" :style="{background:item.type === 0 ? '../../static/index/djj.png' : item.type === 1 ? '../../static/index/zkj.png' : '../../static/index/mjj.png'}">
+			<view v-for="(item,index) in tikets" :key="index" v-if="Index === 2" class="type" :class="'back_wrap'+item.coupons.type" :style="{background:item.type === 0 ? 'http://47.94.106.106:8888/group1/M00/5D/27/rBHxiGGtrpOAKSgiAABXjvLqBuM9139677' : item.type === 1 ? 'http://47.94.106.106:8888/group1/M00/5D/27/rBHxiGGtr9eAFLXXAABB99Qspx42625673' : 'http://47.94.106.106:8888/group1/M00/5D/27/rBHxiGGtrpOAXBMPAACrmwCBofk2980719'}">
 				<view class="wrap_left">
 					￥<text class="wrap_price">{{Math.round(item.coupons.reduction)}}</text>
 					<text class="wrap_type" v-if="item.coupons.type === 0">代金券</text>
@@ -46,13 +46,13 @@
 					<view class="wrap_name">{{item.coupons.cat_name}}专用</view>
 					<view class="wrap_full">满 {{item.coupons.full}} 使用</view>
 					<view class="wrap_time">{{item.coupons.start_time.split('T')[0]}}~{{item.coupons.end_time.split('T')[0]}}</view>
-					<image class="wrap_image" src="../../static/index/yiguoqi.png" mode=""></image>
+					<image class="wrap_image" src="http://47.94.106.106:8888/group1/M00/5D/27/rBHxiGGtsSKAMabRAAAi3mIYsqM9721347" mode=""></image>
 				</view>
 			</view>
 		</view>
 		<!-- 空白页 -->
 		<view v-else>
-			<xw-empty :isShow="isEmpty" img="/static/images/empty/emptyCoupon.png" path="/pages/coupon/coupon" btnText="去领取" text="您还没有领取优惠券" textColor="#C0C4CC"></xw-empty>
+			<xw-empty :isShow="isEmpty" img="http://47.94.106.106:8888/group1/M00/5D/28/rBHxiGGttGKAcJ6CAAP8iT5J-S82073694" path="/pages/coupon/coupon" btnText="去领取" text="您还没有领取优惠券" textColor="#C0C4CC"></xw-empty>
 		</view>
 	</view>
 </template>
@@ -205,7 +205,7 @@
 			width: 100%;
 			height: 250upx;
 			margin-bottom: 30upx;
-			background: url('../../static/index/djj.png');
+			background: url('http://47.94.106.106:8888/group1/M00/5D/27/rBHxiGGtrpOAKSgiAABXjvLqBuM9139677');
 			background-size: 100% 100%;
 			position: relative;
 			.wrap_left{
@@ -278,7 +278,7 @@
 			width: 100%;
 			height: 250upx;
 			margin-bottom: 30upx;
-			background: url('../../static/index/zkj.png');
+			background: url('http://47.94.106.106:8888/group1/M00/5D/27/rBHxiGGtr9eAFLXXAABB99Qspx42625673');
 			background-size: 100% 100%;
 			position: relative;
 			.wrap_left{
@@ -351,7 +351,7 @@
 			width: 100%;
 			height: 250upx;
 			margin-bottom: 30upx;
-			background: url('../../static/index/mjj.png');
+			background: url('http://47.94.106.106:8888/group1/M00/5D/27/rBHxiGGtrpOAXBMPAACrmwCBofk2980719');
 			background-size: 100% 100%;
 			.wrap_left{
 				width: 32%;
