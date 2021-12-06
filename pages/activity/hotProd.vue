@@ -39,6 +39,9 @@
 			console.log(options)
 		},
 		onShow() {
+			uni.showLoading({
+				title:'加载中...'
+			})
 			this.getNewProd()
 		},
 		methods:{
@@ -52,7 +55,8 @@
 				})
 				.then(res=>{
 					console.log(res.data)
-					this.newProdList = res.data
+					this.newProdList = res.data;
+					uni.hideLoading()
 				}).catch(error=>{
 					console.log(error)
 				})

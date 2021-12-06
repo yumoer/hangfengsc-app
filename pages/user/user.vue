@@ -89,7 +89,6 @@
 				<list-cell icon="icon-user-editpwd" iconColor="#ee1d23" title="修改密码" @eventClick="navTo('/pages/set/editPass')"></list-cell>
 				<list-cell icon="icon-user-fapiao" iconColor="#ee1d23" title="发票信息" @eventClick="navTo('/pages/invoice/invoice')" tips="添加普票/增票/电子票"></list-cell>
 				<list-cell icon="icon-user-fankui" iconColor="#ee1d23" title="意见反馈" @eventClick="navTo('/pages/coupon/voucher')" tips="提交意见反馈"></list-cell>
-				<list-cell icon="icon-user-share" @eventClick="navTo('/pages/share/share')" iconColor="#ee1d23" title="分享" tips="分享给好友"></list-cell>
 				<!-- #ifdef APP-PLUS -->
 				<list-cell icon="icon-user-share" @eventClick="navTo('/pages/share/share')" iconColor="#ee1d23" title="分享" tips="分享app给好友"></list-cell>
 				<!-- #endif --> 

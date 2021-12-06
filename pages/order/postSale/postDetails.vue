@@ -9,7 +9,7 @@
 		<view class="post-item">
 			<view class="goods-box-single">
 				<u-cell-group>
-					<u-cell-item title="退款总额"  :arrow="false" :value="'￥'+goodItem.price.toFixed(2)"></u-cell-item>
+					<u-cell-item title="退款总额"  :arrow="false" :value="'￥'+goodItem.price"></u-cell-item>
 					<u-cell-item title="协商记录"></u-cell-item>
 				</u-cell-group>
 			</view>
@@ -40,8 +40,8 @@
 				<list-cell title="服务步骤" v-if="goodItem.service_step === 3" tips="审核通过"></list-cell>
 				<list-cell title="服务步骤" v-if="goodItem.service_step === 4" tips="退款中"></list-cell>
 				<list-cell title="服务步骤" v-if="goodItem.service_step === 5" tips="退款完成"></list-cell>
-				<list-cell title="提交时间" :tips="(goodItem.create_time || '').split('T')[0] + ' ' + goodItem.create_time.split('T')[1].split('.')[0]"></list-cell>
-				<list-cell title="更新时间" :tips="goodItem.update_time.split('T')[0] + ' ' + goodItem.update_time.split('T')[1].split('.')[0]"></list-cell>
+				<list-cell title="提交时间" :tips="goodItem.create_time"></list-cell>
+				<list-cell title="更新时间" :tips="goodItem.update_time"></list-cell>
 				<list-cell title="拒绝理由" :tips="goodItem.close_cause"></list-cell>
 			</view>
 		</view>
@@ -80,21 +80,23 @@
 					console.log(res)
 					res.data.forEach(ele=>{
 						this.goodItem = res.data[0]
-						console.log(this.goodItem)
+						this.goodItem.create_time = this.goodItem.create_time.split('T')[0] + ' ' + this.goodItem.create_time.split('T')[1].split('.')[0]
+						this.goodItem.update_time = this.goodItem.update_time.split('T')[0] + ' ' + this.goodItem.update_time.split('T')[1].split('.')[0]
+						this.goodItem.price = this.goodItem.price.toFixed(2)
+						if(this.goodItem.service_step === 1){
+							this.title = '用户提交'
+						}else if(this.goodItem.service_step === 2){
+							this.title = '后台审核中'
+						}else if(this.goodItem.service_step === 3){
+							this.title = '审核通过'
+						}else if(this.goodItem.service_step === 4){
+							this.title = '退款中'
+						}else if(this.goodItem.service_step === 5){
+							this.title = '退款完成'
+						}else{
+							this.title = '审核不通过'
+						}
 					})
-					if(this.goodItem.service_step === 1){
-						this.title = '用户提交'
-					}else if(this.goodItem.service_step === 2){
-						this.title = '后台审核中'
-					}else if(this.goodItem.service_step === 3){
-						this.title = '审核通过'
-					}else if(this.goodItem.service_step === 4){
-						this.title = '退款中'
-					}else if(this.goodItem.service_step === 5){
-						this.title = '退款完成'
-					}else{
-						this.title = '审核不通过'
-					}
 				}).catch(error=>{
 					console.log(error)
 				})

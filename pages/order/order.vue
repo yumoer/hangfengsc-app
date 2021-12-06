@@ -59,9 +59,9 @@
 							
 							<!-- 待付款 -->
 							<view class="action-box b-t" v-if="item.pay_status === 0 && item.order_status === 0">
-								<u-dropdown ref="uDropdown" active-color='#EE1023' @open="open(index)" @close="close(index)">
+								<!-- <u-dropdown ref="uDropdown" active-color='#EE1023' @open="open(index)" @close="close(index)">
 									<u-dropdown-item v-model="value" title="更多" :options="options"></u-dropdown-item>
-								</u-dropdown>
+								</u-dropdown> -->
 								<button class="action-btn" @click="editAddress(item)">修改地址</button>
 								<button class="action-btn recom" @click="payOrder(item)">去支付</button>
 							</view>

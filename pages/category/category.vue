@@ -14,9 +14,9 @@
 					<image style="width: 98%;height: 100px;margin-bottom: 15px;border-radius: 5px;" :src="item.image" mode=""></image>
 				</view>
 				<view class="t-list" v-if="index === cateIndex">
-					<view v-for="(titem,inde) in item.subs" :key="titem.id" class="t-item" @click="navToList(titem)" >
-						<image style="width: 140upx; height: 140upx; " mode="aspectFit" :src="titem.image!== ''?titem.image:'/static/img/errorImage.jpg'"></image>
-						<text style="text-align:center;">{{titem.name}}</text>
+					<view v-for="(titem,inde) in item.subs" :key="titem.id" class="t-item" @click="navToList(titem)">
+						<image style="width: 140upx; height: 140upx;background-color: #f7f7f7;padding: 20upx;" mode="aspectFit" :src="titem.image!== ''?titem.image:'/static/img/errorImage.jpg'"></image>
+						<text style="text-align:center;padding: 20upx;">{{titem.name}}</text>
 					</view>
 				</view>
 			</view>
@@ -128,6 +128,7 @@
 			
 			// 三级分类显示隐藏
 			showHide(index){
+				console.log(index)
 				if(this.cateIndex === index){
 					this.cateIndex = null
 					return
@@ -223,6 +224,5 @@
 		width: 176upx;
 		font-size: 26upx;
 		color: #666;
-		padding-bottom: 20upx;
 	}
 </style>

@@ -189,6 +189,9 @@
 			this.loadData();
 			this.getHotGoods()
 			this.getDate();
+			uni.showLoading({
+				title:'加载中...'
+			})
 			// #ifdef APP-PLUS
 			this.getVersion()
 			// #endif
@@ -246,6 +249,7 @@
 				.then(res=>{
 					console.log(res.data)
 					this.goodsShopList = res.data
+					uni.hideLoading()
 				}).catch(error=>{
 					console.log(error)
 				})
@@ -627,9 +631,9 @@
 					
 				}else if(value.index === 8){
 					this.$api.msg('暂未开发')
-					uni.navigateTo({
-						url:'/pages/index/subject/cqtg/cqtg'
-					})
+					// uni.navigateTo({
+					// 	url:'/pages/index/subject/cqtg/cqtg'
+					// })
 					
 				}else if(value.index === 9){
 					this.$api.msg('暂未开发')

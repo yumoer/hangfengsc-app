@@ -29,9 +29,6 @@
 						</view>
 					</label>
 				</view>
-				<!-- <view class="form-item">
-					
-				</view> -->
 			</view>
 		</view>
 		<view class="foot_box x-bc pad">
@@ -64,11 +61,8 @@
 					this.$api.msg('留言不能为空')
 				}else{
 					uniRequest({
-						url : 'http://47.94.106.106:8000/wx/contact/',
+						url : 'http://www.hfyt365.com/wx/contact/',
 						method: 'POST',
-						headers: {
-							'Authorization': 'JWT ' + uni.getStorageSync('userInfo').token,
-						},
 						data:this.query,
 					}).then(res => {
 						console.log(res)
