@@ -62,14 +62,14 @@
 								"fontSize": "22",
 								"color": "#303133",
 								"width": "32px",
-								"background": "rgba(0,0,0,.5)"
+								"background": "rgba(0,0,0,.3)"
 							},{
 								"fontSrc": "/static/css/yticon.ttf",
 								"text": "\ue7ce",
 								"fontSize": "22",
 								"color": "#303133",
 								"width": "32px",
-								"background": "rgba(0,0,0,.5)"
+								"background": "rgba(0,0,0,.3)"
 							}
 						]
 					}
@@ -760,26 +760,26 @@
 		"backgroundColor": "#ffffff",
 		"list": [{
 				"pagePath": "pages/index/index",
-				"iconPath": "http://47.94.106.106:8888/group1/M00/5D/28/rBHxiGGtuKyACtzTAAADWIaPJ3A0981283",
-				"selectedIconPath": "http://47.94.106.106:8888/group1/M00/5D/28/rBHxiGGtuKyAczhiAAAEX2QmgAg0922366",
+				"iconPath": "static/images/tabCurrent/tab-home2.png",
+				"selectedIconPath": "static/images/tabCurrent/tab-home-current2.png",
 				"text": "首页"
 			},
 			{
 				"pagePath": "pages/category/category",
-				"iconPath": "http://47.94.106.106:8888/group1/M00/5D/28/rBHxiGGtuKyAQ-LKAAAC2Lb3QrE9713432",
-				"selectedIconPath": "http://47.94.106.106:8888/group1/M00/5D/28/rBHxiGGtuKyAH4UrAAADuThGr0s4671955",
+				"iconPath": "static/images/tabCurrent/tab-cate2.png",
+				"selectedIconPath": "static/images/tabCurrent/tab-cate-current2.png",
 				"text": "分类"
 			},
 			{
 				"pagePath": "pages/cart/cart",
-				"iconPath": "http://47.94.106.106:8888/group1/M00/5D/28/rBHxiGGtuKyAfkoZAAAEYR-uv4Y9263745",
-				"selectedIconPath": "http://47.94.106.106:8888/group1/M00/5D/28/rBHxiGGtuKyACuNeAAAFpMGYZ208213015",
+				"iconPath": "static/images/tabCurrent/tab-cart2.png",
+				"selectedIconPath": "static/images/tabCurrent/tab-cart-current2.png",
 				"text": "购物车"
 			},
 			{
 				"pagePath": "pages/user/user",
-				"iconPath": "http://47.94.106.106:8888/group1/M00/5D/28/rBHxiGGtuKyATKbSAAAERdgA4Ew0998093",
-				"selectedIconPath": "http://47.94.106.106:8888/group1/M00/5D/28/rBHxiGGtuKyAINMHAAAFjPjf2t84936193",
+				"iconPath": "static/images/tabCurrent/tab-my2.png",
+				"selectedIconPath": "static/images/tabCurrent/tab-my-current2.png",
 				"text": "我的"
 			}
 		]

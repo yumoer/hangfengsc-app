@@ -125,23 +125,34 @@
 					</view>
 				</view>
 				
-				
 				<view class="price-info">
-					<view class="price-item">
-						<text class="allPrice">总价：</text>
-						<text class="price">{{price.toFixed(2)}}</text>
-					</view>
-					<view class="price-item">
-						<text class="allPrice">运费：</text>
-						<text class="price" v-if="price < 100">13.00</text>
-						<text class="price" v-else>0.00</text>
-					</view>
+					<button class="action-btn" style="display: inline-block;" type="default" v-if="goodsItem.order_status > 0 && goodsItem.pay_status > 0 && goodsItem.order_status < 5" @click="cancelOrder(goodsItem)">取消订单</button>
+					<button class="action-btn recom" style="display: inline-block;float: right;" type="default" @click="joinCart(goodsItem)">加入购物车</button>
 				</view>
 				
-				<view class="price-box" >
-					实付款
-					<text class="price">{{allPrice.toFixed(2)}}</text>
-				</view>
+				<u-collapse>
+					<u-collapse-item title="">
+						<view class="collapse-item">
+							<view class="price-info">
+								<view class="price-item">
+									<text class="allPrice">总价：</text>
+									<text class="price">{{price.toFixed(2)}}</text>
+								</view>
+								<view class="price-item">
+									<text class="allPrice">运费：</text>
+									<text class="price" v-if="price < 100">13.00</text>
+									<text class="price" v-else>0.00</text>
+								</view>
+								
+							</view>
+							<view class="price-box">
+								<text style="float: left;">实付款</text>
+								<text class="price">{{allPrice.toFixed(2)}}</text>
+							</view>
+						</view>
+					</u-collapse-item>
+				</u-collapse>
+				
 				
 				<!-- <view>
 					<view class="action-box b-t" v-if="goodsItem.order_status === 1">
@@ -161,9 +172,9 @@
 			</view>
 			
 			<view class="c-list">
-				<view class="c-row" style="font-weight: bold;">
+				<!-- <view class="c-row" style="font-weight: bold;">
 					订单信息
-				</view>
+				</view> -->
 				<view class="c-row">
 					<text class="tit">订单编号</text>
 					<view class="con-list">
@@ -211,7 +222,6 @@
 		</view>
 		<!-- 待付款 -->
 		<view class="btn-bottom" v-if="goodsItem.pay_status === 0 && goodsItem.order_status === 0">
-			<text class="btn-more">更多</text>
 			<text class="price-box" >
 				实付款
 				<text class="price">{{allPrice.toFixed(2)}}</text>
@@ -254,6 +264,12 @@
 				minute:0,
 				second:0,
 				timer:'',
+				itemList: [{
+					head: "赏识在于角度的转换",
+					body: "只要我们正确择取一个合适的参照物乃至稍降一格去看待他人，值得赏识的东西便会扑面而来",
+					open: true,
+					disabled: true,
+				}],
 			}
 		},
 		created() {
@@ -386,6 +402,57 @@
 				})
 			},
 			
+			//取消订单
+			async cancelOrder(item){
+				console.log(item)
+				uni.showLoading({
+					title: '请稍后'
+				})
+				await uniRequest({
+					url:'/orders/cancel/?id='+item.sub_order_id,
+					method:'get',
+					headers:{
+						Authorization:'JWT '+uni.getStorageSync('userInfo').token
+					},
+				}).then(res=>{
+					console.log('111')
+					this.$api.msg(res.data.massage)
+					uni.hideLoading();
+					this.getDate()
+				}).catch(error=>{
+					this.$api.msg(error.response.data.massage)
+				})
+			},
+			
+			// 加入购物车
+			joinCart(item){
+				this.$showModal({
+					title:'提示',
+				    content: '确认加入到购物车?',
+					cancelText:"取消",
+					confirmText:"确认",
+				    success: async(e) =>{
+				    	if(e.confirm){
+							item.goods.forEach(async ele=>{
+								await uniRequest({
+									url: '/carts/cart_sku/',
+									method: 'POST',
+									data:{sku_id:ele.id,count:1},
+									headers: {
+										Authorization: 'JWT ' + uni.getStorageSync('userInfo').token
+									},
+								}).then(res => {
+									this.$api.msg('已加入购物车')
+								}).catch(error => {
+									console.log(error.data)
+								})
+							})
+				    	}
+				    }
+				});
+				
+			},
+			
 			// 物流信息
 			async lookViewOrder(item){
 				uni.navigateTo({
@@ -422,7 +489,6 @@
 					url:'/pages/money/pay?orderId='+item.order_id
 				})
 			},
-			
 		}
 		
 	}
@@ -507,7 +573,7 @@
 					width: 80%;
 					height: 100%;
 					float: left;
-					margin-top: -30upx;
+					margin-top: -10upx;
 					margin-left: 20upx;
 					.add-title{
 						height: 80upx;
@@ -559,6 +625,7 @@
 			width: 140upx;
 			color: #666666;
 			font-size: 28upx;
+			font-weight: bold;
 		}
 		.con{
 			flex: 1;
@@ -581,9 +648,10 @@
 			display:flex;
 			flex-direction: column;
 			line-height: 40upx;
-			font-weight: bold;
+			text-align: right;
 			color: #333333;
 			margin-left: 40upx;
+			font-size: 26upx;
 		}
 		.red{
 			color: $uni-color-primary;
@@ -833,7 +901,7 @@
 			display: inline-block;
 		}
 		.price-box{
-			padding-left: 160upx;
+			padding-left: 170upx;
 			font-size: 28upx;
 			height: 100%;
 			color: #333333;

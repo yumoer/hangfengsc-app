@@ -47,10 +47,9 @@
 				return;
 			},
 			back() {
-				this.$emit('popupState', false)
-				// // #ifdef APP-PLUS  
-				// plus.runtime.quit();
-				// // #endif
+				// #ifdef APP-PLUS  
+				plus.runtime.quit();
+				// #endif
 			},
 			// 关闭弹框
 			consent() {

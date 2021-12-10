@@ -23,16 +23,11 @@
 			</swiper-item>
 		</swiper>
 		
-		<!-- #ifdef APP-PLUS -->
-		<popup ref="mapState" protocolPath='/pages/set/service'  policyPath='/pages/set/privacy'  @popupState="popupState"></popup>
-		<!-- #endif -->
 	</view>
 </template>
 
 <script>
-	import popup from '@/components/DuDu-popup/DuDu-popup.vue'
 	export default {
-		components: {popup},
 		data() {
 			return {
 				background: ['color1', 'color2', 'color3'],

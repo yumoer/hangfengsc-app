@@ -379,14 +379,11 @@
 				
 			};
 		},
-		onLoad(){
+		onShow() {
 			uni.showLoading({
 				title:'加载中...'
 			})
-			
-			setTimeout(function(){
-				uni.hideLoading()
-			},1000)
+			uni.hideLoading()
 		}
 	}
 </script>

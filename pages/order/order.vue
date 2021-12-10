@@ -59,33 +59,21 @@
 							
 							<!-- 待付款 -->
 							<view class="action-box b-t" v-if="item.pay_status === 0 && item.order_status === 0">
-								<!-- <u-dropdown ref="uDropdown" active-color='#EE1023' @open="open(index)" @close="close(index)">
-									<u-dropdown-item v-model="value" title="更多" :options="options"></u-dropdown-item>
-								</u-dropdown> -->
 								<button class="action-btn" @click="editAddress(item)">修改地址</button>
 								<button class="action-btn recom" @click="payOrder(item)">去支付</button>
 							</view>
 							<!-- 待发货 -->
 							<view class="action-box b-t" v-if="item.pay_status === 1 && item.order_status < 2">
-								<!-- <u-dropdown ref="uDropdown" @open="open(index,item)" @close="close">
-									<u-dropdown-item title="更多" :options="options" @change="changeOptions($event,item)"></u-dropdown-item>
-								</u-dropdown> -->
 								<button class="action-btn" @click="editAddress(item)">修改地址</button>
 								<button class="action-btn recom" @click="lookViewOrder(item,item.order_id)">查看物流</button>
 							</view>
 							<!-- 待收货 -->
 							<view class="action-box b-t" v-if="item.order_status === 3">
-								<!-- <u-dropdown>
-									<u-dropdown-item title="更多" :options="options1" @change="changeOption1($event,item)"></u-dropdown-item>
-								</u-dropdown> -->
 								<button class="action-btn" @click="lookViewOrder(item,item.order_id)">查看物流</button>
 								<button class="action-btn recom" @click="confirmOrder(item)">确认收货</button>
 							</view>
 							<!-- 待评价 -->
 							<view class="action-box b-t" v-if="item.order_status === 4 && !item.goods[0].comment">
-								<!-- <u-dropdown>
-									<u-dropdown-item title="更多" :options="options2" @change="changeOptions2($event,item,index)"></u-dropdown-item>
-								</u-dropdown> -->
 								<button class="action-btn" @click="lookViewOrder(item,item.order_id)">查看物流</button>
 								<button class="action-btn recom" @click="accessOrder(item)">去评价</button>
 							</view>
@@ -145,15 +133,6 @@
 				page_size:10,
 				currentPage:1,
 				value: 1,
-				options: [{
-						label: '加入购物车',
-						value: 1,
-					},
-					{
-						label: '取消订单',
-						value: 2,
-					}
-				],
 				private:'', //签名
 				public:'', //加密
 				navList: [{
@@ -322,54 +301,11 @@
 				// 当然，您也可以通过监听dropdown-item的@change事件进行处理
 			},
 			
-			// 更多选择
-			changeOptions(e,item){
-				console.log(e,item)
-				if( e === 1){
-					this.$api.msg('加入购物车')
-					this.joinCart(item)
-				}else if(e === 2){
-					this.$api.msg('取消订单')
-					this.cancelOrder(item)
-				}
-			},
-			
-			changeOption1(e,item){
-				console.log(e,item)
-				if( e === 1){
-					this.$api.msg('加入购物车')
-					this.joinCart(item)
-				}else if(e === 2){
-					this.$api.msg('取消订单')
-					this.cancelOrder(item)
-				}
-			},
-			
 			//顶部tab点击
 			tabClick(index){
 				this.tabCurrentIndex = index;
 			},
 			
-			// 加入购物车
-			joinCart(item){
-				item.goods.forEach(async ele=>{
-					await uniRequest({
-						url: '/carts/cart_sku/',
-						method: 'POST',
-						data:{
-							sku_id:ele.id,
-							count:1
-						},
-						headers: {
-							Authorization: 'JWT ' + uni.getStorageSync('userInfo').token
-						},
-					}).then(res => {
-						this.$api.msg('已加入购物车')
-					}).catch(error => {
-						console.log(error.data)
-					})
-				})
-			},
 			
 			//立即支付
 			payOrder(item){
@@ -490,33 +426,7 @@
 				})
 			},
 			
-			//取消订单
-			async cancelOrder(item){
-				console.log(item)
-				uni.showLoading({
-					title: '请稍后'
-				})
-				const response = await uniRequest({
-					url:'/orders/cancel/?id='+item.sub_order_id,
-					method:'get',
-					headers:{
-						Authorization:'JWT '+uni.getStorageSync('userInfo').token
-					},
-				}).then(res=>{
-					this.$api.msg(res.data.massage)
-					uni.hideLoading();
-					this.getDate(this.tabCurrentIndex)
-					let {stateTip, stateTipColor} = this.orderStateExp(6);
-					item = Object.assign(item, {
-						state: 5,
-						stateTip, 
-						stateTipColor
-					})
-				}).catch(error=>{
-					this.$api.msg(error.response.data.massage)
-				})
-				
-			},
+			
 			
 			// 评价订单
 			accessOrder(item){

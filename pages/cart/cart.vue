@@ -109,9 +109,6 @@
 		onShow(){
 			this.loadData();
 		},
-		activated() {
-			this.loadData();
-		},
 		onNavigationBarButtonTap(e) {
 			const index = e.index;
 			if(index === 0 && this.cartList.length > 0){
@@ -140,6 +137,9 @@
 		methods: {
 			//请求数据
 			async loadData(){
+				uni.showLoading({
+					title:'加载中...'
+				})
 				const response = await uniRequest({
 					url:'/carts/cart_sku/',
 					method:'get',
@@ -148,6 +148,7 @@
 					},
 				}).then(res=>{
 					if(res.status === 200 || res.status === 201){
+						uni.hideLoading()
 						let cartList = res.data.map((item,index)=>{
 							this.$set(item, 'loaded', 'loaded');
 							return item;

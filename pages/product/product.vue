@@ -68,11 +68,11 @@
 		
 		
 		<view class="c-list">
-			<view class="c-row" @click="join">
+			<view class="c-row">
 				<text class="tit">已选</text>
 				<view class="con">
 					<text class="selected-text">
-						裸粉带镜款
+						暂无类型
 					</text>
 				</view>
 				<text class="yticon icon-shengluehao2"></text>
@@ -93,7 +93,7 @@
 				</view>
 				<text class="yticon icon-you"></text>
 			</view>
-			<view class="c-row" @click="join">
+			<view class="c-row">
 				<text class="tit">参数</text>
 				<view class="con">
 					<!-- <text class="selected-text" v-for="(sItem, sIndex) in specSelected" :key="sIndex">
@@ -372,9 +372,16 @@
 			const index = e.index;
 			console.log(index)
 			if(index === 0){
-				
+				// #ifdef APP-PLUS
+				this.shareInfo()
+				// #endif
+				// #ifdef H5
+				this.share()
+				// #endif
 			}else if(index === 1){
-				
+				uni.navigateTo({
+					url:'/pages/search/search'
+				})
 			}
 		},
 		
@@ -391,6 +398,9 @@
 		
 		async onLoad(options){
 			console.log(options)
+			uni.showLoading({
+				title:'加载中...'
+			})
 			//接收传值,id里面放的是标题，因为测试数据并没写id 
 			let id = options.id;
 			let skuId = options.skuId
@@ -405,6 +415,7 @@
 					url: '/goods/mobile/get/goods/'+id+'/',
 					method: 'get',
 				}).then(async res => {
+					uni.hideLoading()
 					this.detailsArr = res.data.success
 					this.swiperLength = this.detailsArr.images.length
 					uniRequest({

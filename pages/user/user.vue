@@ -46,8 +46,8 @@
 			
 		>
 			<!-- 订单 -->
-			<view class="history-section icon">
-				<list-cell icon="icon-shouye" @eventClick="navTo('/pages/order/order?state=0')" iconColor="#ee1d23" title="我的订单" tips="全部订单"></list-cell>
+			<view class="history-section">
+				<list-cell @eventClick="navTo('/pages/order/order?state=0')" title="我的订单" tips="全部订单"></list-cell>
 				<scroll-view scroll-x class="h-list">
 					<view class="scoll-wrapper">
 						<view class="order-section">
@@ -79,21 +79,69 @@
 						</view>
 					</view>
 				</scroll-view>
-				
 			</view>
-			<view class="history-section icon">
-				<list-cell icon="icon-user-dizhi" iconColor="#ee1d23" title="收货地址" @eventClick="navTo('/pages/address/address')" tips="完善收货地址"></list-cell>
-				<list-cell icon="icon-user-pingjia" iconColor="#ee1d23" title="我的评价" @eventClick="navTo('/pages/allAssess/allAssess')" tips="查看所有商品评价"></list-cell>
-				<list-cell icon="icon-user-shoucang" iconColor="#ee1d23" title="我的收藏" @eventClick="navTo('/pages/coupon/reduction')"></list-cell>
-				<list-cell icon="icon-user-geren" iconColor="#ee1d23" title="个人资料" @eventClick="navTo('/pages/set/userInfo')" tips="修改个人资料"></list-cell>
-				<list-cell icon="icon-user-editpwd" iconColor="#ee1d23" title="修改密码" @eventClick="navTo('/pages/set/editPass')"></list-cell>
-				<list-cell icon="icon-user-fapiao" iconColor="#ee1d23" title="发票信息" @eventClick="navTo('/pages/invoice/invoice')" tips="添加普票/增票/电子票"></list-cell>
-				<list-cell icon="icon-user-fankui" iconColor="#ee1d23" title="意见反馈" @eventClick="navTo('/pages/coupon/voucher')" tips="提交意见反馈"></list-cell>
+			
+			<view class="history-section">
+				<view class="wrap">
+					<view class="img" style="top: 8px;">
+						<u-image width="32px" height="36px" src="http://47.94.106.106:8888/group1/M00/5D/54/rBHxiGGzFDOAGX7aAAAFhw_SPZY2530463"></u-image>
+					</view>
+					<list-cell class="cell" title="收货地址" @eventClick="navTo('/pages/address/address')" tips="完善收货地址"></list-cell>
+				</view>
+				<view class="wrap">
+					<view class="img">
+						<u-image width="30px" height="30px" src="http://47.94.106.106:8888/group1/M00/5D/54/rBHxiGGzFDOAGwZdAAAFgm2NRz47935958"></u-image>
+					</view>
+					<list-cell class="cell"  title="我的评价" @eventClick="navTo('/pages/allAssess/allAssess')" tips="查看所有商品评价"></list-cell>
+				</view>
+				<view class="wrap">
+					<view class="img">
+						<u-image width="30px" height="30px" src="http://47.94.106.106:8888/group1/M00/5D/54/rBHxiGGzFDOAN2fVAAAEYhAJ3Jk9629840"></u-image>
+					</view>
+					<list-cell class="cell"  title="我的收藏" @eventClick="navTo('/pages/coupon/reduction')"></list-cell>
+				</view>
+				<view class="wrap">
+					<view class="img">
+						<u-image width="30px" height="30px" src="http://47.94.106.106:8888/group1/M00/5D/54/rBHxiGGzFDOAERFaAAAEEKpfSrk1491110"></u-image>
+					</view>
+					<list-cell class="cell"  title="个人资料" @eventClick="navTo('/pages/set/userInfo')" tips="修改个人资料"></list-cell>
+				</view>
+				<view class="wrap">
+					<view class="img" style="top: 8px;">
+						<u-image width="30px" height="36px" src="http://47.94.106.106:8888/group1/M00/5D/54/rBHxiGGzFDOADfOSAAAC-rXnIxg7870927"></u-image>
+					</view>
+					<list-cell class="cell"  title="修改密码" @eventClick="navTo('/pages/set/editPass')"></list-cell>
+				</view>
+				
+				<view class="wrap">
+					<view class="img" style="top: 10px;">
+						<u-image width="30px" height="34px" src="http://47.94.106.106:8888/group1/M00/5D/54/rBHxiGGzFDOAElE3AAAC6dE4bn84679327"></u-image>
+					</view>
+					<list-cell class="cell"  title="发票信息" @eventClick="navTo('/pages/invoice/invoice')" tips="添加普票/增票/电子票"></list-cell>
+				</view>
+				
+				<view class="wrap">
+					<view class="img">
+						<u-image width="30px" height="30px" src="http://47.94.106.106:8888/group1/M00/5D/54/rBHxiGGzFDOAG0IPAAACcb7-uFo2135620"></u-image>
+					</view>
+					<list-cell class="cell"  title="意见反馈" @eventClick="navTo('/pages/coupon/voucher')" tips="提交意见反馈"></list-cell>
+				</view>
+				
 				<!-- #ifdef APP-PLUS -->
-				<list-cell icon="icon-user-share" @eventClick="navTo('/pages/share/share')" iconColor="#ee1d23" title="分享" tips="分享app给好友"></list-cell>
+				<view class="wrap">
+					<view class="img">
+						<u-image width="30px" height="30px" src="http://47.94.106.106:8888/group1/M00/5D/54/rBHxiGGzFDOAb5FJAAAFkRElRBw3370236"></u-image>
+					</view>
+					<list-cell class="cell"   @eventClick="navTo('/pages/share/share')" title="分享" tips="分享app给好友"></list-cell>
+				</view>
 				<!-- #endif --> 
 				<!-- #ifdef H5 -->
-				<list-cell icon="icon-user-xiazai" @eventClick="navTo('/pages/appDown/appDown')" iconColor="#ee1d23" title="下载中心" tips="下载app最新版本"></list-cell>
+				<view class="wrap">
+					<view class="img" style="left: 10px;">
+						<u-image width="40px" height="30px" src="http://47.94.106.106:8888/group1/M00/5D/55/rBHxiGGzGuSANoBdAAAR8ZZRY1Q0990110"></u-image>
+					</view>
+					<list-cell class="cell" @eventClick="navTo('/pages/appDown/appDown')" iconColor="#ee1d23" title="下载中心" tips="下载app最新版本"></list-cell>
+				</view>
 				<!-- #endif -->
 			</view>
 		</view>
@@ -591,30 +639,19 @@
 			margin-bottom: 18upx;
 			color: #fa436a;
 		}
-		.icon-user-editpwd{
-			font-size: 28px;
-		}
+		
 	}
 	.history-section{
 		margin-top: 20upx;
 		background: #fff;
 		border-radius:10upx;
-		
-		.sec-header{
-			display:flex;
-			align-items: center;
-			font-size: $font-base;
-			color: $font-color-dark;
-			line-height: 40upx;
-			margin-left: 30upx;
-			.mix-list-cell{
-				padding: 0 15px;
+		.wrap{
+			position: relative;
+			.img{
+				position: absolute;left: 30upx;top: 20upx;transform: scale(.6);
 			}
-			.yticon{
-				font-size: 44upx;
-				color: #5eba8f;
-				margin-right: 16upx;
-				line-height: 40upx;
+			.cell{
+				margin-left: 45px;
 			}
 		}
 		.h-list{

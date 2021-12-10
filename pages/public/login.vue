@@ -116,6 +116,10 @@
 				<text @click="toPrivacy">《行丰隐私保护政策》</text>
 			</view>
 		</view>
+		
+		<!-- #ifdef APP-PLUS -->
+		<popup ref="mapState" v-if="show" protocolPath='/pages/set/service'  policyPath='/pages/set/privacy'  @popupState="popupState"></popup>
+		<!-- #endif -->
 	</view>
 </template>
 
@@ -123,9 +127,10 @@
 	import {  
         mapMutations  
     } from 'vuex';
-	
+	import popup from '@/components/DuDu-popup/DuDu-popup.vue'
 	import uniRequest from 'uni-request';
 	export default{
+		components: {popup},
 		data(){
 			return {
 				username: '',
@@ -134,8 +139,8 @@
 				phone:false, //手机号
 				code:false, // 验证码
 				pwd:false, // 密码
-				remember:true,
 				showCode:false, // true:验证码登录  false:密码登录
+				show:false,
 				next:'',
 				system: '', // 系统版本
 				platform: '',   // 平台
@@ -249,12 +254,6 @@
 				})
 			},
 			
-			// 记住密码
-			changePayType(){
-				this.remember = !this.remember
-				console.log(this.remember)
-			},
-			
 			// 登录方式切换
 			showHide(){
 				this.showCode = !this.showCode
@@ -262,6 +261,7 @@
 			
 			// 去登陆
 			async toLogin(){
+				
 				this.logining = true;
 				const {username, password} = this;
 				
@@ -294,11 +294,10 @@
 				const response = await uniRequest.post('/user/login/',sendData);
 				console.log(response)
 				if(response.status === 200){
-					if(this.remember === true){
-						this.$api.msg('登录成功');
-						this.login(response.data);
-						uni.navigateBack()
-					}
+					this.show = true;
+					this.$api.msg('登录成功');
+					this.login(response.data);
+					uni.navigateBack()
 				}else if(response.status === 500){
 					this.$api.msg('服务器出现异常，请稍后重试');
 					this.logining = false;

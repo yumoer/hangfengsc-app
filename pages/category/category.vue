@@ -1,21 +1,21 @@
 <template>
 	<view class="content">
 		<scroll-view scroll-y class="left-aside">
-			<view v-for="item in flist" :key="item.id" class="f-item b-b" :class="{active: item.id === currentId+1}" @click="tabtap(item)">
+			<view v-for="item in flist" :key="item.id" class="f-item" :class="{active: item.id === currentId+1}" @click="tabtap(item)">
 				{{item.name}}
 			</view>
 		</scroll-view>
 		<scroll-view scroll-with-animation scroll-y class="right-aside">
 			<view v-for="(item,index) in slist[currentId]" :key="item.id" class="s-list" style="position: relative;" :id="'main-'+item.id">
 				<view class="" @click="showHide(index)">
-					<text class="s-item" style="text-shadow: 0px 0px 4px #000">{{item.name}}</text>
-					<text v-if="index === cateIndex" class="yticon icon-xiajiantou s-item" style="font-size: 20px;right: 20px;text-shadow: 0px 0px 4px #000"></text>
-					<text v-else class="yticon icon-youjiantou s-item" style="font-size: 20px;right: 20px;text-shadow: 0px 0px 4px #000"></text>
-					<image style="width: 98%;height: 100px;margin-bottom: 15px;border-radius: 5px;" :src="item.image" mode=""></image>
+					<text class="s-item">{{item.name}}</text>
+					<text v-if="index === cateIndex" class="yticon icon-xiajiantou s-item" style="font-size: 20px;right: 20px;"></text>
+					<text v-else class="yticon icon-youjiantou s-item" style="font-size: 20px;right: 20px;opacity: 1;"></text>
+					<image class="image" style="width: 98%;height: 100px;margin-bottom: 15px;border-radius: 5px;" :src="item.image" mode=""></image>
 				</view>
 				<view class="t-list" v-if="index === cateIndex">
 					<view v-for="(titem,inde) in item.subs" :key="titem.id" class="t-item" @click="navToList(titem)">
-						<image style="width: 140upx; height: 140upx;background-color: #f7f7f7;padding: 20upx;" mode="aspectFit" :src="titem.image!== ''?titem.image:'http://47.94.106.106:8888/group1/M00/5D/27/rBHxiGGtskKAJKE-AAAIN3tX7Zo0727207'"></image>
+						<image style="width: 140upx; height: 140upx;background-color: #f7f7f7;padding: 20upx;border-radius: 10upx;" mode="aspectFit" :src="titem.image!== ''?titem.image:'http://47.94.106.106:8888/group1/M00/5D/27/rBHxiGGtskKAJKE-AAAIN3tX7Zo0727207'"></image>
 						<text style="text-align:center;padding: 20upx;">{{titem.name}}</text>
 					</view>
 				</view>
@@ -39,9 +39,12 @@
 				threeItem:[]
 			}
 		},
+		onShow() {
+			this.loadData();
+		},
 		onLoad(){
 			document.getElementsByClassName('uni-page-head')[0].style = 'padding-right:10px;background:#fff;color:#000'
-			this.loadData();
+			
 		},
 		// ���������� buttons ʱ����
 		onNavigationBarButtonTap(e) {
@@ -55,9 +58,12 @@
 		},
 		methods: {
 			async loadData(){
+				uni.showLoading({
+					title:'加载中...'
+				})
 				let response = await uniRequest.get('/mobile/get/goods/category/');
-				console.log(response)
 				if(response.status === 200){
+					uni.hideLoading()
 					var slist = []
 					this.flist = response.data
 					this.flist.forEach(ele=>{
@@ -147,7 +153,17 @@
 		height: 100%;
 		background-color: #fff;
 	}
-
+	.image:after{
+		position: absolute;
+		top: 0;
+		left: 0;
+		content: '';
+		background: rgba($color: #000000, $alpha: 0.2);
+		color: #FFFFFF;
+		z-index: 1;
+		width: 100%;
+		height: 100%;
+	}
 	.content {
 		display: flex;
 	}
@@ -155,7 +171,7 @@
 		flex-shrink: 0;
 		width: 200upx;
 		height: 100%;
-		background-color: #fff;
+		background-color: #F7F7F7;
 	}
 	.f-item {
 		display: flex;
@@ -164,11 +180,13 @@
 		width: 100%;
 		height: 100upx;
 		font-size: 28upx;
-		color: $font-color-base;
+		color: #666666;
 		position: relative;
 		&.active{
-			color: $base-color;
-			background: #f8f8f8;
+			color: #333333;
+			font-weight: bold;
+			font-size: 30upx;
+			background: #FFFFFF;
 			&:before{
 				content: '';
 				position: absolute;
@@ -177,9 +195,8 @@
 				transform: translateY(-50%);
 				height: 36upx;
 				width: 8upx;
-				background-color: $base-color;
+				background-color: #EE1D23;
 				border-radius: 0 4px 4px 0;
-				opacity: .8;
 			}
 		}
 	}
@@ -194,10 +211,9 @@
 		align-items: center;
 		padding-top: 8upx;
 		font-size: 28upx;
-		color: $font-color-dark;
+		color: #FFFFFF;
 		position: absolute;
-		z-index: 1;
-		color: #F7F7F7;
+		z-index: 2;
 		font-size: 16px;
 		margin-left: 20px;
 		line-height: 100px;

@@ -15,7 +15,7 @@
         // 设置 启动界面
         "splashscreen" : {
             "alwaysShowBeforeRender" : true,
-            "waiting" : true,
+            "waiting" : false,
             "autoclose" : true,
             // "autoclose" : false,
             "delay" : 0
@@ -193,8 +193,8 @@
         "setting" : {
             "urlCheck" : true,
             "es6" : true,
-            "postcss" : false,
-            "minified" : false
+            "postcss" : true,
+            "minified" : true
         }
     },
     "h5" : {
