@@ -1,20 +1,21 @@
 {
     "name" : "行丰商城",
     "appid" : "__UNI__18D6605",
-    "description" : "uni.UNI18D6605(wgt版本：1.2.292 apk版本：1.2.31/1.2.19）",
-    "versionName" : "1.2.31",
-    "versionCode" : 1231,
+    "description" : "uni.UNI18D6605(wgt版本：1.2.334 apk版本：1.2.342/1.2.19）",
+    "versionName" : "1.2.342",
+    "versionCode" : 12342,
     "transformPx" : false,
     "app-plus" : {
         "compatible" : {
-            "runtimeVersion" : "1.0.7", //根据实际情况填写  
-            "compilerVersion" : "1.0.7" //根据实际情况填写  
+            "ignoreVersion" : true //true表示忽略版本检查提示框
         },
+        // "runtimeVersion" : "1.0.7", //根据实际情况填写  
+        // "compilerVersion" : "1.0.7" //根据实际情况填写  
         /* 5+App特有相关 */
         "usingComponents" : true,
         // 设置 启动界面
         "splashscreen" : {
-            "alwaysShowBeforeRender" : true,
+            // "alwaysShowBeforeRender" : true,
             "waiting" : false,
             "autoclose" : true,
             // "autoclose" : false,
@@ -52,7 +53,8 @@
                     "<uses-permission android:name=\"android.permission.WRITE_EXTERNAL_STORAGE\"/>",
                     "<uses-permission android:name=\"android.permission.WRITE_SETTINGS\"/>"
                 ],
-                "abiFilters" : [ "armeabi-v7a", "x86" ]
+                "abiFilters" : [ "armeabi-v7a", "x86" ],
+                "autoSdkPermissions" : true
             },
             "ios" : {
                 "idfa" : false
@@ -66,15 +68,16 @@
                     }
                 },
                 "oauth" : {
-                    "qq" : {
-                        "appid" : "1110153651"
-                    },
                     "weixin" : {
                         "appid" : "wx21f53b851acd7d86",
                         "appsecret" : "8c7966c4164908fbaba80c2a2cab4763",
                         "UniversalLinks" : "https://demo.dcloud.net.cn/ulink/"
                     },
-                    "apple" : {}
+                    "apple" : {},
+                    "qq" : {
+                        "appid" : "1110153651",
+                        "UniversalLinks" : ""
+                    }
                 },
                 "payment" : {
                     "alipay" : {},
@@ -90,7 +93,8 @@
                         "UniversalLinks" : "https://demo.dcloud.net.cn/ulink/"
                     },
                     "qq" : {
-                        "appid" : "1110153651"
+                        "appid" : "1110153651",
+                        "UniversalLinks" : ""
                     }
                 },
                 "speech" : {
@@ -183,20 +187,20 @@
             }
         }
     },
-    /* SDK配置 */
-    "quickapp" : {},
-    /* 快应用特有相关 */
-    "mp-weixin" : {
-        /* 小程序特有相关 */
-        "usingComponents" : true,
-        "appid" : "wxd81e424b4a1a38dc",
-        "setting" : {
-            "urlCheck" : true,
-            "es6" : true,
-            "postcss" : true,
-            "minified" : true
-        }
-    },
+    // /* SDK配置 */
+    // "quickapp" : {},
+    // /* 快应用特有相关 */
+    // "mp-weixin" : {
+    //     /* 小程序特有相关 */
+    //     "usingComponents" : true,
+    //     "appid" : "wxd81e424b4a1a38dc",
+    //     "setting" : {
+    //         "urlCheck" : true,
+    //         "es6" : true,
+    //         "postcss" : true,
+    //         "minified" : true
+    //     }
+    // },
     "h5" : {
         "title" : "行丰商城",
         "domain" : "http://m.hfyt365.com",
@@ -240,3 +244,8 @@
         }
     }
 }
+// "runtimeVersion" : "1.0.7", //根据实际情况填写  
+// "compilerVersion" : "1.0.7" //根据实际情况填写  
+/* 5+App特有相关 */// 设置 启动界面
+// "autoclose" : false,
+

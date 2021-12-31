@@ -109,6 +109,9 @@
 			}
 			.body{
 				width: 100%;
+				/* #ifdef APP-PLUS */
+				width: 92%;
+				/* #endif */
 				height: 100%;
 				padding: 30upx;
 				margin-top: 30upx;

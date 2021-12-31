@@ -45,7 +45,7 @@ export default {
   height: 30rpx;
   border-radius: 50%;
   min-width: 30rpx;
-  background: #fa436a;
+  background: #EE1D23;
   color: #fff;
   line-height: 30rpx;
   text-align: center;

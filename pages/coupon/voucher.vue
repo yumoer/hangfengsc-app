@@ -18,7 +18,7 @@
 							<view class="img-box">
 								<view class="preview-box" v-for="(item, index) in imgList" :key="index">
 									<image class="preview-img" :src="item.path" @click="into(index)" mode="aspectFill"></image>
-									<text class="cuIcon-close" @tap="DelImg(index)"></text>
+									<view class="cuIcon-close" @tap="DelImg(index)"><u-icon name="close"></u-icon></view>
 								</view>
 								<view class="choose-img x-c" @tap="onChooseImg" v-if="imgList.length < 1"><text class="yticon icon-jia2"></text></view>
 							</view>
@@ -63,12 +63,12 @@
 				}else if(that.email === ''){
 					this.$api.msg('联系方式不能为空')
 				}else{
+					console.log(that.content,that.imgList[0],that.email)
 					uni.uploadFile({
-						  url : 'http://47.94.106.106:8000/mobile/opinion/',
+						  url : 'http://api.hfyt365.com/mobile/opinion/',
 						  method: 'POST',
-						  headers: {
-						  	'Authorization': 'JWT ' + uni.getStorageSync('userInfo').token,
-						  	'Content-Type':'application/x-www-form-urlencoded'
+						  header: {
+						  	'Authorization': 'JWT ' + uni.getStorageSync('userInfo').token
 						  },
 						  filePath: that.tempFilePaths[0],
 						  name: 'image',
@@ -83,8 +83,10 @@
 							   setTimeout(function(){
 							   	that.$api.msg('意见提交成功')
 							   },500)
+						   }else{
+							   this.$api.msg(uploadFileRes.data.message)
 						   }
-						  }
+						  },
 					 });
 				}
 			},
@@ -100,7 +102,7 @@
 				let that = this;
 				uni.chooseImage({
 					sizeType: ['compressed', 'original'],
-					sourceType: ['album', 'camera'],
+					sourceType: ['album'],
 					count: 1,
 					success: function(res) {
 						console.log(res)
@@ -223,14 +225,16 @@ page{
 				height: 100%;
 			}
 			.cuIcon-close {
-				background: #fa436a;
+				background-color: #EE1D23;
 				border-radius: 50%;
 				width: 40rpx;
+				height: 40rpx;
 				line-height: 40rpx;
 				color: #fff;
+				font-size: 24upx;
 				text-align: center;
 				position: absolute;
-				top: -10rpx;
+				top: -6rpx;
 				right: -10rpx;
 			}
 		}

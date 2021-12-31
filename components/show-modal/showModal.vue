@@ -106,10 +106,12 @@
 				.title{
 					text-align: center;
 					font-size: 18px;
+					width: 100%;
 					font-family: Source Han Sans CN;
 					font-weight: bold;
 					color: #333333;
 					margin-top: 20px;
+					display: block;
 				}
 				.content{
 					min-height: 40px;
@@ -119,6 +121,7 @@
 					font-family: Source Han Sans CN;
 					font-weight: 500;
 					color: #666;
+					background: #FFFFFF;
 					display: flex;
 					justify-content: center;
 					align-items: center;

@@ -19,10 +19,10 @@
 								<image src="http://47.94.106.106:8888/group1/M00/5D/27/rBHxiGGtrKeAdcFCAAGWldbxTNs1880021" mode=""></image>
 							</view>
 							<view class="bottom">
-								<view class="b_left" @click="goTo('/pages/index/subject/bgsb/bgsb')">
-									<image src="/static/cqtg/flzx.png" mode=""></image>
+								<view class="b_left" @click="goTo('/pages/index/subject/flzx/flzx')">
+									<image src="http://47.94.106.106:8888/group1/M00/5D/6E/rBHxiGG4U1aAfZwAAACXenOniRY6242706" mode=""></image>
 								</view>
-								<view class="b_right" @click="goTo('/pages/index/subject/bghc/bghc')">
+								<view class="b_right" @click="goTo('/pages/index/subject/jypx/jypx')">
 									<image src="http://47.94.106.106:8888/group1/M00/5D/27/rBHxiGGtrGyAbFBpAACu5BHM_6c0483365" mode=""></image>
 								</view>
 							</view>
@@ -30,7 +30,7 @@
 					</view>
 				</view>
 			</view>
-			<view class="commodity" v-if="commodityList.length > 0">
+			<view class="commodity">
 				<view class="head">
 					<text class="title">商品类</text>
 					<!-- <text class="more">查看更多<text class="yticon icon-you"></text></text> -->
@@ -38,18 +38,18 @@
 				<view class="content">
 					<view class="wrap" v-for="(item,index) in commodityList" :key="index" @click="goToPage(item)">
 						<view class="img">
-							<u-lazy-load :image="item.image1"></u-lazy-load>
+							<u-lazy-load :image="item.image"></u-lazy-load>
 						</view>
 						<view class="name">
-							<text>{{item.name}}</text>
+							<text>{{item.title}}</text>
 						</view>
 						<view class="info">
-							<text class="price"><b>￥</b>{{item.price}}</text>
+							<text class="price"><b>￥</b>{{item.text}}</text>
 							<text class="scale">{{item.sales}}人付款</text>
 						</view>
 					</view>
 				</view>
-				<uni-load-more :status="loadingType"></uni-load-more>
+				<!-- <uni-load-more :status="loadingType"></uni-load-more> -->
 			</view>
 		</view>
 	</view>
@@ -64,8 +64,8 @@
 				commodityList:[],
 				imageList:[
 					{image:'http://47.94.106.106:8888/group1/M00/5D/27/rBHxiGGtrP-AMQtfAADrQAKzErc8096990',path:'/pages/index/subject/wxfw/wxfw'},
-					{image:'http://47.94.106.106:8888/group1/M00/5D/27/rBHxiGGtrRGASOgfAAE8ti-ee2I7165168',path:'/pages/index/subject/bghc/bghc'},
-					{image:'http://47.94.106.106:8888/group1/M00/5D/27/rBHxiGGtrBeAR4fLAACXenOniRY9433325',path:'/pages/index/subject/bgsb/bgsb'},
+					{image:'http://47.94.106.106:8888/group1/M00/5D/27/rBHxiGGtrRGASOgfAAE8ti-ee2I7165168',path:'/pages/index/subject/jypx/jypx'},
+					{image:'http://47.94.106.106:8888/group1/M00/5D/27/rBHxiGGtrBeAR4fLAACXenOniRY9433325',path:'/pages/index/subject/flzx/flzx'},
 					{image:'http://47.94.106.106:8888/group1/M00/5D/27/rBHxiGGtrSaAYlJSAAHZWOvi0605881071',path:'/pages/product/list?tid=807'}
 				],
 				loadingType: 'more', //加载更多状态
@@ -96,28 +96,28 @@
 		methods: {
 			async getData(type='add', loading){
 				//没有更多直接返回
-				if(type === 'add'){
-					if(this.loadingType === 'nomore'){
-						return;
-					}
-					this.loadingType = 'loading';
-				}else{
-					this.loadingType = 'more'
-				}
-				// let sendData = {page:this.page,page_size:this.page_size}
-				// const res = await uniRequest({
-				// 	url:'/groups/category/goods/',
-				// 	method:'get',
-				// 	params:sendData,
-				// }).then(res=>{
-				// 	// console.log(res.data)
-				// 	this.commodityList = res.data.results
-				// 	if(this.commodityList.length === 0){
-				// 		this.loadingType = 'nomore';
+				// if(type === 'add'){
+				// 	if(this.loadingType === 'nomore'){
+				// 		return;
 				// 	}
-				// }).catch(error=>{
-				// 	console.log(error)
-				// })
+				// 	this.loadingType = 'loading';
+				// }else{
+				// 	this.loadingType = 'more'
+				// }
+				let sendData = {key:"index_hwtj"}
+				const res = await uniRequest({
+					url:'/content/index/floor/',// /groups/category/goods/
+					method:'POST',
+					data:sendData,
+				}).then(res=>{
+					// console.log(res.data)
+					this.commodityList = res.data
+					// if(this.commodityList.length === 0){
+					// 	this.loadingType = 'nomore';
+					// }
+				}).catch(error=>{
+					console.log(error)
+				})
 			},
 			goTo(path){
 				uni.navigateTo({

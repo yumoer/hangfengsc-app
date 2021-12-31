@@ -1,6 +1,0 @@
-{
-  "navigationBarTitleText": "退换/售后详情",
-  "usingComponents": {
-    "list-cell": "/components/mix-list-cell"
-  }
-}

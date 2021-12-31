@@ -5,24 +5,23 @@
 		:duration="duration">
 			<swiper-item>
 				<view class="swiper-item">
-					<image src="http://47.94.106.106:8888/group1/M00/5D/28/rBHxiGGttVSAa0IbAAfrguT01pY1316332"></image>
+					<image src="../../static/images/topIcon/yindao1.jpg"></image>
 				</view>
 				<view class="jump-over" @tap="launchFlag()">{{jumpover}}</view>
 			</swiper-item>
 			<swiper-item>
 				<view class="swiper-item">
-					<image src="http://47.94.106.106:8888/group1/M00/5D/28/rBHxiGGttVSAXGQqAAb8WAXRPEA1444622"></image>
+					<image src="../../static/images/topIcon/yindao2.jpg"></image>
 				</view>
 				<view class="jump-over"  @tap="launchFlag()">{{jumpover}}</view>
 			</swiper-item>
 			<swiper-item>
 				<view class="swiper-item">
-					<image src="http://47.94.106.106:8888/group1/M00/5D/28/rBHxiGGttVSAbhnVABJqn7EUWZw1130385"></image>
+					<image src="../../static/images/topIcon/yindao3.jpg"></image>
 				</view>
 				<view class="experience" @tap="launchFlag()">{{experience}}</view>
 			</swiper-item>
 		</swiper>
-		
 	</view>
 </template>
 
@@ -61,14 +60,13 @@
 					url: '/pages/index/index'
 				});
 			},
+			
 			popupState(e){
 				console.log(e)
 			},
 			
-			
 			cancel(e){
 				console.log(e);
-				// this.show = false
 				switch(uni.getSystemInfoSync().platform){
 				    case 'android':
 				       console.log('运行Android上')
@@ -148,7 +146,7 @@
 	.jump-over,.experience{
 		position: absolute;
 		height: 60upx;
-		line-height: 62upx;
+		line-height: 56upx;
 		padding: 0 40upx;
 		border-radius: 30upx;
 		font-size: 32upx;

@@ -108,46 +108,50 @@
 			},
 			//防止冒泡和滚动穿透
 			stopPrevent(){},
+			
 			//分享操作
 			shareToFriend(type){
 				console.log(type)
-				if(type === '微信好友'){
-					uni.share({
-					    provider: "weixin",
-					    scene: "WXSceneSession",
-					    type: 0,
-					    href: "http://uniapp.dcloud.io/",
-					    title: "uni-app分享",
-					    summary: "我正在使用HBuilderX开发uni-app，赶紧跟我一起来体验！",
-					    imageUrl: "https://img-cdn-qiniu.dcloud.net.cn/uniapp/images/uni@2x.png",
-					    success: function (res) {
-					        console.log("success:" + JSON.stringify(res));
-					    },
-					    fail: function (err) {
-					        console.log("fail:" + JSON.stringify(err));
-					    }
-					});
-				}else if(type === '朋友圈'){
-					uni.share({
-					    provider: "weixin",
-					    scene: "WXSenceTimeline",
-					    type: 0,
-					    href: "http://uniapp.dcloud.io/",
-					    title: "uni-app分享",
-					    summary: "我正在使用HBuilderX开发uni-app，赶紧跟我一起来体验！",
-					    imageUrl: "https://img-cdn-qiniu.dcloud.net.cn/uniapp/images/uni@2x.png",
-					    success: function (res) {
-					        console.log("success:" + JSON.stringify(res));
-					    },
-					    fail: function (err) {
-					        console.log("fail:" + JSON.stringify(err));
-					    }
-					});
-				}else if(type === 'QQ好友'){
-					
-				}
-				// this.$api.msg(`分享给${type}`);
-				
+				this.$api.msg(`H5不支持分享`);
+				// if(type === '微信好友'){
+				// 	uni.share({
+				// 	    provider: "weixin",
+				// 	    scene: "WXSceneSession",
+				// 	    type: 0,
+				// 	    href: "http://uniapp.dcloud.io/",
+				// 	    title: "uni-app分享",
+				// 	    summary: "我正在使用HBuilderX开发uni-app，赶紧跟我一起来体验！",
+				// 	    imageUrl: "https://img-cdn-qiniu.dcloud.net.cn/uniapp/images/uni@2x.png",
+				// 	    success: function (res) {
+				// 	        console.log("success:" + JSON.stringify(res));
+				// 	    },
+				// 	    fail: function (err) {
+				// 	        console.log("fail:" + JSON.stringify(err));
+				// 	    }
+				// 	});
+				// }else if(type === '朋友圈'){
+				// 	uni.share({
+				// 	    provider: "weixin",
+				// 	    scene: "WXSenceTimeline",
+				// 	    type: 0,
+				// 	    href: "http://uniapp.dcloud.io/",
+				// 	    title: "uni-app分享",
+				// 	    summary: "我正在使用HBuilderX开发uni-app，赶紧跟我一起来体验！",
+				// 	    imageUrl: "https://img-cdn-qiniu.dcloud.net.cn/uniapp/images/uni@2x.png",
+				// 	    success: function (res) {
+				// 	        console.log("success:" + JSON.stringify(res));
+				// 	    },
+				// 	    fail: function (err) {
+				// 	        console.log("fail:" + JSON.stringify(err));
+				// 	    }
+				// 	});
+				// }else if(type === 'QQ'){
+				// 	this.$api.msg(`分享给${type}`);
+				// }else if(type === '复制'){
+				// 	this.$api.msg(`分享给${type}`);
+				// }else if(type === '更多'){
+				// 	this.$api.msg(`分享给${type}`);
+				// }
 				this.toggleMask();
 			},
 		}

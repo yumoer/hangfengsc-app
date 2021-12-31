@@ -426,9 +426,6 @@
 				position: fixed;
 				bottom: 0;
 				left: 0;
-				position: fixed;
-				left: 0;
-				bottom: 0;
 			}
 		}
 

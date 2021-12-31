@@ -1,8 +1,0 @@
-{
-  "navigationBarTitleText": "维修服务",
-  "usingComponents": {
-    "liuyuno-tabs": "/components/liuyuno-tabs/liuyuno-tabs",
-    "q-s-input": "/components/QS-inputs-split/elements/QS-input/index",
-    "q-s-picker-custom": "/components/QS-inputs-split/elements/QS-picker-custom/index"
-  }
-}

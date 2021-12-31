@@ -100,7 +100,7 @@
 				width 35%
 				height 100%
 				float left
-				background-color #f5f5f5
+				background-color #ddd
 				border-radius 10px
 				position relative
 				text{
@@ -114,7 +114,7 @@
 				width 63%
 				height 100%
 				float right
-				background-color #f5f5f5
+				background-color #ddd
 				border-radius 10px
 				text{
 					display block

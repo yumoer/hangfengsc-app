@@ -1,10 +1,9 @@
 <template>
 	<view id="privary">
 		<view>
-		  <p>版本更新日期：2018年10月20日</p>
-		  <p>版本生效日期：2019年1月1日</p> <br>
-
-		  <p><b style="text-decoration:none;font-size: 32upx;text-align: center;">行丰隐私保护政策</b></p><br>
+		  <view style="text-align: center;">
+		  	<p style="font-size: 32upx;font-weight: bold;">隐私保护政策</p>
+		  </view>
 		  <p>引言</p>
 		  <p><b>行丰（“我们”）非常重视用户的隐私和个人信息保护。您在使用我们的产品与/或服务时，我们可能会收集和使用您的相关信息。我们希望通过《行丰隐私保护政策》（“本隐私政策”）向您说明我们在您使用我们的产品与/或服务时如何收集、使用、保存、共享和转让这些信息，以及我们为您提供的访问、更新、删除和保护这些信息的方式。</b></p> 
 		  
@@ -393,12 +392,13 @@
 		padding: 20upx 30upx;
 		font-weight: 400;
 		line-height: 30px;
-		p{
-			font-size: 28upx;
-			b{
-				font-weight: 600;
-				text-decoration:underline
-			}
-		}
+		font-weight: 600;
+		// p{
+		// 	font-size: 28upx;
+		// 	b{
+		// 		font-weight: 600;
+		// 		// text-decoration:underline
+		// 	}
+		// }
 	}
 </style>

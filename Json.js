@@ -43,16 +43,16 @@ const homePageList = [
 		text: "场景采购",
 		index:5,
 	},
-	{
-		src: "http://47.94.106.106:8888/group1/M00/52/CC/rBHxiGEDnYOAWnx1AAAi9ZLILUA3920460",
-		text: "教育培训",
-		index:6,
-	},
-	{
-		src: "http://47.94.106.106:8888/group1/M00/52/CC/rBHxiGEDnYOAa6FmAAAfmKMy7s47327269",
-		text: "医疗器械",
-		index:7,
-	},
+	// {
+	// 	src: "http://47.94.106.106:8888/group1/M00/52/CC/rBHxiGEDnYOAWnx1AAAi9ZLILUA3920460",
+	// 	text: "教育培训",
+	// 	index:6,
+	// },
+	// {
+	// 	src: "http://47.94.106.106:8888/group1/M00/52/CC/rBHxiGEDnYOAa6FmAAAfmKMy7s47327269",
+	// 	text: "医疗器械",
+	// 	index:7,
+	// },
 	{
 		src: "http://47.94.106.106:8888/group1/M00/52/CC/rBHxiGEDnYOAabldAAAs6zmoaFM8074714",
 		text: "传奇团购", /* 办公耗材*/

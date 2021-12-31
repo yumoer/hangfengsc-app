@@ -20,17 +20,28 @@
 		</view>
 		
 		<!-- 主题ICON -->
-		<view class="cate-section">
+		<!-- <view class="cate-section">
 			<view class="cate-item" v-for="(homePage,index) in homePageList" :key=index @click="goIcon(homePage)">
 				<image :src="homePage.src"></image>
 				<text>{{homePage.text}}</text>
 			</view>
+		</view> -->
+		
+		<view class="cate-section">
+			<u-row gutter="16" style="width: 100%;">
+				<u-col span="3" v-for="(homePage,index) in homePageList" :key="index">
+					<view class="cate-item" @click="goIcon(homePage)">
+						<image :src="homePage.src"></image>
+						<text>{{homePage.text}}</text>
+					</view>
+				</u-col>
+			</u-row>
 		</view>
 		
 		<!-- 功能页	-->
 		<view class="func-wrapper" style="">
 			<view class="func-content" style="">
-				<swiper :indicator-dots="true" :autoplay="true" :interval="3000" :duration="1000" style="height: 285px;">
+				<swiper :indicator-dots="true" :autoplay="false" :interval="3000" :duration="1000" style="height: 285px;">
 					<swiper-item v-for="(item,index) in goodsShopList" :key="index" v-if="index < 5">
 						<view class="swiper-item" @click="navToPage('/pages/activity/hotProd')">
 							<text class="swiper-text" style="">今日爆款</text>
@@ -50,8 +61,7 @@
 		</view>
 		
 		<!-- 秒杀楼层 -->
-		<view class="seckill-section m-t" v-if="goodList.length > 0">
-			
+		<view class="seckill-section m-t" v-if="false">
 			<view class="s-header">
 				<image class="s-img" src="http://47.94.106.106:8888/group1/M00/5D/27/rBHxiGGtskKACVDgAAAQ4uuUSmc6218269" mode="widthFix"></image>
 				<text class="tip">10点场</text>
@@ -72,7 +82,7 @@
 							<text class="title clamp" style="text-align: center;">{{item.name}}</text>
 							<view class="price-box">
 								<text class="price">￥{{item.price}}</text>
-								<text class="m-price">￥{{item.old_price}}</text> 
+								<text class="m-price">￥{{item.make_price}}</text> 
 							</view>
 						</view>
 						
@@ -87,7 +97,7 @@
 				<text class="tit">为你推荐</text>
 			</view>
 		</view>
-		
+		<!-- 猜你喜欢 -->
 		<view class="guess-section">
 			<view 
 				v-for="(item, index) in skuData" :key="index"
@@ -116,39 +126,26 @@
 		</view>
 		<!-- #endif -->
 		
-		<view @click="goToPage('/pages/contact/contact')" style="position: fixed;bottom: 112px;z-index: 1;right:20px">
-			<image style="width: 40px;height: 40px;" src="http://47.94.106.106:8888/group1/M00/5D/27/rBHxiGGtsTeASQe2AAEOqkRq3hA1341374" mode=""></image>
+		<view @click="goToPage('/pages/contact/contact')" style="position: fixed;bottom: 112px;z-index: 1;right:15px;width: 88upx;height: 88upx;background-color: rgba(102,102,102,.8);border-radius: 50%;">
+			<u-icon name="kefu-ermai" color="rgba(255,255,255,.7)" size="60" style="display: flex;justify-content: center;margin-top: 16upx;"></u-icon>
 		</view>
+		<backTop :src="backTop.src" :scrollTop="backTop.scrollTop"></backTop>
 		
-		<!-- <view v-if="" @click="navTo('/pages/coupon/coupon')" style="position: fixed;bottom: 95px;right: 5px;width: 100%;height: 60px;z-index: 1;right: -85%;">
-			<image style="width: 40px;height: 40px;" src="/static/index/coupon.png" mode=""></image>
-		</view> -->
-		
-		<!-- <view class="">
-			<cmdCurtain :visible="visible" mode="top-right">
-			  <image mode="aspectFit" :src="img"></image>
-			</cmdCurtain>
-			<cmdCurtain :visible="visible" mode="top-let">
-			  <image mode="aspectFit" :src="img"></image>
-			</cmdCurtain>
-			<cmdCurtain :visible="visible" mode="top">
-			  <image mode="aspectFit" :src="img"></image>
-			</cmdCurtain>
-		</view> -->
-		
-		<backTop :src="backTop.src"  :scrollTop="backTop.scrollTop"></backTop>
+		<!-- #ifdef APP-PLUS -->
+		<dowloadApk></dowloadApk>
+		<!-- #endif -->
 	</view>
-	
 </template>
 
 <script>
 	import uniRequest from 'uni-request'
 	import uniLoadMore from '@/components/uni-load-more/uni-load-more.vue'
 	import uniCountdown from "@/components/uni-countdown/uni-countdown.vue"
+	import dowloadApk from '@/components/dowloadApk/dowloadApk.vue'
 	import backTop from '@/components/back-top/back-top.vue'
 	// import cmdCurtain from "@/components/cmd-curtain/cmd-curtain.vue"
 	export default {
-		components:{uniCountdown,uniLoadMore,backTop}, //cmdCurtain
+		components:{uniCountdown,uniLoadMore,backTop,dowloadApk}, //cmdCurtain
 		data() {
 			return {
 				show: true,
@@ -166,9 +163,6 @@
 				minute:0, //月
 				second:0, // 日
 				load:false,
-				version:'', //app版本
-				wgtver:"", // wgt把那本
-				appver:"", // apk版本
 				iconRootPath:"_www/static/images/topIcon", //
 				page:1,
 				page_size:10,
@@ -179,25 +173,27 @@
 					src: 'http://47.94.106.106:8888/group1/M00/5D/28/rBHxiGGttDGAXvXbAAAHgIVNqm88710706',
 					scrollTop: 0
 				},
-				scrollTop: 0
+				version:'', //app版本
+				wgtver:"", // wgt把那本
+				appver:"", // apk版本
 			};
 		},
 		onPageScroll(e) {
 			this.backTop.scrollTop = e.scrollTop;
 		},
 		onShow() {
-			this.loadData();
-			this.getHotGoods()
-			this.getDate();
 			uni.showLoading({
 				title:'加载中...'
 			})
-			// #ifdef APP-PLUS
-			this.getVersion()
-			// #endif
+			this.loadData();
+			this.getHotGoods()
+			this.getDate();
 		},
 		onLoad(options){
 			console.log(options)
+			// #ifdef APP-PLUS
+			this.getVersion()
+			// #endif
 		},
 		
 		//加载更多
@@ -217,6 +213,11 @@
 			const index = e.index;
 			console.log(index)
 			if (index === 0) {
+				
+				uni.navigateTo({
+					url: '/pages/notice/notice'
+				})
+			} else if (index === 1) {
 				// #ifdef APP-PLUS
 				uni.scanCode({
 					success: function (res) {
@@ -235,14 +236,9 @@
 								url: '/pages/index/code?value='+res.result
 							})
 						}
-						
 					}
 				})
 				// #endif
-				uni.navigateTo({
-					url: '/pages/notice/notice'
-				})
-			} else if (index === 1) {
 				// #ifdef APP-PLUS
 				const pages = getCurrentPages();
 				const page = pages[pages.length - 1];
@@ -282,23 +278,293 @@
 				})
 			},
 			
+			// 猜你喜欢
+			async getDate(type='add', loading){
+				//没有更多直接返回
+				if(type === 'add'){
+					if(this.loadingType === 'nomore'){return}
+					this.loadingType = 'loading';
+				}else{
+					this.loadingType = 'more'
+				}
+				
+				await uniRequest.post('/goods/new/search/',{text:'',page:this.page,page_size:this.page_size,orderBy:'',sort:''})
+				.then(res=>{
+					this.skuData = res.data.sku_list
+					if(this.skuData.length === 0){
+						this.loadingType = 'nomore';
+					}
+				}).catch(error=>{
+					console.log(error)
+				})
+			},
+			
+			// 轮播图
+			async getBanner(){
+				await uniRequest({
+					url: '/mobile/banner/',
+					method: 'GET',
+				}).then(res => {
+					console.log(res.data)
+					if(res.data.length > 0){
+						let carouselList = res.data
+						this.titleNViewBackground = carouselList[0].color;
+						this.swiperLength = carouselList.length;
+						this.carouselList = carouselList;
+					}
+				}).catch(error => {
+					console.log(error) 
+					this.$api.msg('提交失败')
+				}) 
+			},
+			
+			// 主题ICON
+			async gethomePage(){
+				let homePageList = await this.$api.json('homePageList');
+				this.homePageList = homePageList;
+			},
+			
+			// 分类精选
+			async getCateChange(){
+				const response = await uniRequest.get('/goods/categories/147/skus/?page='+this.page+'&page_size='+this.page_size+'&ordering='+this.ordering);
+				this.goodsList = response.data.results
+			},
+			
+			// 限时秒杀
+			async getLimitTime(){
+				const res = await uniRequest.get('/goods/limit/time/sku/');
+				console.log(res.data)
+				if(res.status === 200){
+					var data = new Date()
+					const Y = data.getFullYear()
+					const M = data.getMonth()+1
+					const D = data.getDate() < 10 ? '0'+data.getDate() : data.getDate()
+					const h = data.getHours() < 10 ? '0'+data.getHours() : data.getHours()
+					const m = data.getMinutes() < 10 ? '0'+data.getMinutes() : data.getMinutes()
+					const s = data.getSeconds() < 10 ? '0'+data.getSeconds() : data.getSeconds()
+					const Day = Y+'-'+M+'-'+D+' '+h+':'+m+':'+s
+					// console.log(res.data[0].now_time,Day)
+					// if(res.data[0].satrt_time === Day){
+					// 	console.log('111')
+					// 	const res = await uniRequest.get('/goods/limit/time/sku/');
+					// 	console.log(res.data[0])
+					// 	this.goodList = res.data[0].skus
+					// 	console.log(this.goodList)
+					// 	this.load = false
+					// 	this.hour = +res.data[0].start_time.split(' ')[1] - h
+					// 	this.minute = 59 - m
+					// 	this.second = 60 - s
+					// }else if(res.data[0].satrt_time !== Day){
+					// 	const res = await uniRequest.get('/goods/limit/time/sku/');
+					// 	console.log(res.data)
+					// 	if(res.data[0].skus.length > 0){
+					// 		this.goodList = res.data[0].skus
+					// 	}else{
+					// 		this.goodList = res.data[0].skus
+					// 	}
+					// 	this.load = true
+					// 	this.hour = 23 - h + +res.data.next.start_time.split(' ')[1]
+					// 	this.minute = 59 - m
+					// 	this.second = 60 - s
+					// }
+				}
+			},
+			
+			//轮播图切换修改背景色
+			swiperChange(e) {
+				const index = e.detail.current;
+				this.swiperCurrent = index;
+				this.titleNViewBackground = this.carouselList[index].color;
+			},
+			
+			// 跳转详情页
+			goToPage(url){
+				uni.navigateTo({
+					url:url
+				})
+			},
+			
+			// 跳转分类
+			toCategory(){
+				uni.switchTab({
+				      url: '/pages/category/category'
+				})
+			},
+			
+			// 跳转主题页
+			goIcon(value){
+				console.log(value.index)
+				if(value.index === 0){
+					uni.navigateTo({
+						url:'/pages/index/subject/zfcg/zfcg'
+					})
+				}else if(value.index === 1){
+					// this.$api.msg('暂未开发')
+					uni.navigateTo({
+						url:'/pages/index/subject/jdcg/jdcg'
+					})
+				}else if(value.index === 2){
+					// this.$api.msg('暂未开发')
+					uni.navigateTo({
+						url:'/pages/index/subject/hzhb/hzhb'
+					})
+				}else if(value.index === 3){
+					// this.$api.msg('暂未开发')
+					uni.navigateTo({
+						url:'/pages/index/subject/lpdz/lpdz'
+					})
+				}else if(value.index === 4){
+					uni.navigateTo({
+						url:'/pages/index/subject/wxfw/wxfw'
+					})
+				}else if(value.index === 5){
+					uni.navigateTo({
+						url:'/pages/index/subject/cjcg/cjcg'
+					})
+				}else if(value.index === 6){
+					// this.$api.msg('暂未开发')
+					uni.navigateTo({
+						url:'/pages/index/subject/jypx/jypx'
+					})
+				}else if(value.index === 7){
+					// this.$api.msg('暂未开发')
+					uni.navigateTo({
+						url:'/pages/index/subject/ylqx/ylqx'
+					})
+					
+				}else if(value.index === 8){
+					// this.$api.msg('暂未开发')
+					uni.navigateTo({
+						url:'/pages/index/subject/cqtg/cqtg'
+					})
+					
+				}else if(value.index === 9){
+					// this.$api.msg('暂未开发')
+					uni.navigateTo({
+						url:'/pages/index/subject/flzx/flzx'
+					})
+				}
+			},
+			
+			navToPage(url){
+				uni.navigateTo({
+					url
+				})
+			},
+			
+			// 跳转详情页
+			navToDetailPage(item,value) {
+				console.log(item,value)
+				//测试数据没有写id，用title代替
+				if(item._source === undefined){
+				    let id = item.id;
+					uni.navigateTo({
+						url: `/pages/product/product?id=`+id+'&value='+value
+					})
+				}else{
+					let id = item._source.id;
+					uni.navigateTo({
+						url: `/pages/product/product?id=`+id+'&value='+value
+					})
+				}
+			},
+			
 			getVersion(){
-				let that=this;
+				this.appver = plus.runtime.version;
 				plus.runtime.getProperty(plus.runtime.appid,(wgtinfo)=>{
 					console.log(wgtinfo)
-					that.wgtver =  wgtinfo.version
+					this.wgtver =  wgtinfo.version
 				});
-				that.appver = plus.runtime.version;
-				console.log(that.appver,that.wgtver)
 				uni.getSystemInfo({
 					success:(res) => {
 						console.log(res.platform);  
 						//检测当前平台，如果是安卓则启动安卓更新  
 						if(res.platform=="android"){  
 							// this.AndroidCheckUpdate();  
-							that.checkVersionClick()
+							this.checkVersionClick()
+						}else{ //苹果ios
+							console.log('该系统是ios系统')
 						}  
 					}  
+				})
+			},
+			
+			// 获取版本信息
+			async checkVersionClick(){ 
+				// __UNI__8601E36/uni.UNI18D6
+				const appveres = await uniRequest.post('/mobile/check/app/version/',{appid:'__UNI__8601E36',version:this.appver})
+				console.log(appveres.data,this.appver,this.wgtver)
+				if(this.appver !== '' && appveres.data.max_version>this.appver){
+					this.startUpDate()
+				}else{
+					const wgtveres = await uniRequest.post('/mobile/check/wgt/version/',{appid:'__UNI__8601E36',version:this.wgtver})
+					console.log(wgtveres.data,this.wgtver)
+					if(this.wgtver !== '' && wgtveres.data.max_version>this.wgtver){
+						this.startWgt()
+					}
+				}
+			},
+			
+			//开始app整包升级
+			startUpDate:function(){
+				//app版本号获取方式
+				//plus.runtime.version; 与服务器的版本进行比较;
+				let topIconPath=plus.io.convertLocalFileSystemURL(this.iconRootPath)+"/top_1.png";
+				const upDater=uni.requireNativePlugin("CL-UpDater");
+				let options={
+					title:"有新版本更新，请点击升级",
+					con:"1、更新了一些内容",
+					downUrl:"http://47.94.106.106:8000/mobile/download/apk",//提示android端需设置apk下载地址,ios只需设置苹果商店app地址;
+					hidCancelbtn:false,
+					btnBgColor:"#EE1D23",
+					// topImgBg:topIconPath//除非需要自定义头部logo，否则不需要传;
+				}
+				//必需提供下载地址;
+				upDater.startUpdate(options);
+			},	
+			
+			//wgt升级方式;
+			startWgt:function(){
+				//注意：服务器的热更新版本号必需大于本地wgt版本号
+				//http://192.168.50.201/update.wgt,
+				let topIconPath=plus.io.convertLocalFileSystemURL(this.iconRootPath)+"/top_5.png";
+				console.log(topIconPath)
+				//第一步要获取本地的wgt版本号；
+				const upDater=uni.requireNativePlugin("CL-UpDater");
+				let options={
+					title:"有小版本更新，请点击升级",
+					con:"1、更新了一些内容",
+					downUrl:"http://47.94.106.106:8000/mobile/download/wgt",
+					hidCancelbtn:false,
+					btnBgColor:"#0354a7",
+					topImgBg:topIconPath//除非需要自定义头部logo，否则不需要传;
+				}
+				
+				//第一步创建文件下载路径，并创建文件;
+				plus.io.requestFileSystem(plus.io.PUBLIC_DOWNLOADS,function(fobject){
+					console.log(fobject)
+					//设置文件下载根路径;	
+					let rootPath=fobject.root.fullPath;
+					console.log(options,rootPath)
+					upDater.wgtUpdate(options,rootPath,result=>{
+						console.log(result)
+						if(result)
+						{
+							var pathNew = plus.io.convertAbsoluteFileSystem(result);
+							console.log(pathNew);
+							plus.runtime.install(pathNew, {
+								force: false
+							}, function() {
+								//进行重新启动;
+								plus.runtime.restart();
+							}, (e) => {
+								uni.showToast({
+									title: '安装升级包失败'+JSON.stringify(e),
+									icon: 'none'
+								})								
+							});
+						}
+					});
 				})
 			},
 			
@@ -362,280 +628,6 @@
 					}
 				}
 			}, 
-			
-			// 获取版本信息
-			async checkVersionClick(){  // https://ext.dcloud.net.cn/plugin?id=543
-				const appver = {
-					appid:'__UNI__8601E36',
-					version:this.appver,
-				};
-				const appveres = await uniRequest.post('/mobile/check/app/version/',appver)
-				console.log(appveres.data,this.appver)
-				if(this.appver !== '' && appveres.data.max_version>this.appver){
-					this.startUpDate()
-				}
-				
-				const wgtver = {
-					appid:'__UNI__8601E36',
-					version:this.wgtver,
-				};
-				const wgtveres = await uniRequest.post('/mobile/check/wgt/version/',wgtver)
-				console.log(wgtveres.data,this.wgtver)
-				if(this.wgtver !== '' && wgtveres.data.max_version>this.wgtver){
-					this.startWgt()
-				}
-			},
-			
-			//开始app整包升级
-			startUpDate:function(){
-				//app版本号获取方式
-				//plus.runtime.version; 与服务器的版本进行比较;
-				const upDater=uni.requireNativePlugin("CL-UpDater");
-				let options={
-					title:"有新版本更新，请点击升级",
-					con:"1、更新了一些内容",
-					downUrl:"http://47.94.106.106:8000/mobile/download/apk",//提示android端需设置apk下载地址,ios只需设置苹果商店app地址;
-					hidCancelbtn:false,
-					btnBgColor:"#ff3300"
-				}
-				//必需提供下载地址;
-				upDater.startUpdate(options);
-			},	
-			
-			//wgt升级方式;
-			startWgt:function(){
-				//注意：服务器的热更新版本号必需大于本地wgt版本号
-				//http://192.168.50.201/update.wgt,
-				let topIconPath=plus.io.convertLocalFileSystemURL(this.iconRootPath)+"/top_5.png";
-				console.log(topIconPath)
-				let that=this;
-				//第一步要获取本地的wgt版本号；
-				const upDater=uni.requireNativePlugin("CL-UpDater");
-				let options={
-					title:"有小版本更新，请点击升级",
-					con:"1、更新了一些内容",
-					downUrl:"http://47.94.106.106:8000/mobile/download/wgt",
-					hidCancelbtn:false,
-					btnBgColor:"#ffaa00",
-					topImgBg:topIconPath//除非需要自定义头部logo，否则不需要传;
-				}
-				
-				//第一步创建文件下载路径，并创建文件;
-				plus.io.requestFileSystem(plus.io.PUBLIC_DOWNLOADS,function(fobject){
-					console.log(fobject)
-					//设置文件下载根路径;	
-					let rootPath=fobject.root.fullPath;
-					console.log(options,rootPath)
-					upDater.wgtUpdate(options,rootPath,result=>{
-						console.log(result)
-						if(result)
-						{
-							var pathNew = plus.io.convertAbsoluteFileSystem(result);
-							console.log(pathNew);
-							plus.runtime.install(pathNew, {
-								force: false
-							}, function() {
-								//进行重新启动;
-								plus.runtime.restart();
-							}, (e) => {
-								uni.showToast({
-									title: '安装升级包失败'+JSON.stringify(e),
-									icon: 'none'
-								})								
-							});
-						}
-					});
-				})
-			},
-			
-			
-			// 猜你喜欢
-			async getDate(type='add', loading){
-				//没有更多直接返回
-				if(type === 'add'){
-					if(this.loadingType === 'nomore'){
-						return;
-					}
-					this.loadingType = 'loading';
-				}else{
-					this.loadingType = 'more'
-				}
-				
-				await uniRequest.post('/goods/new/search/',{text:'',page:this.page,page_size:this.page_size,orderBy:'',sort:''})
-				.then(res=>{
-					this.skuData = res.data.sku_list
-					if(this.skuData.length === 0){
-						this.loadingType = 'nomore';
-					}
-				}).catch(error=>{
-					console.log(error)
-				})
-			},
-			
-			// 轮播图
-			async getBanner(){
-				await uniRequest({
-					url: '/mobile/banner/',
-					method: 'GET',
-				}).then(res => {
-					console.log(res.data)
-					if(res.data.length > 0){
-						let carouselList = res.data
-						this.titleNViewBackground = carouselList[0].color;
-						this.swiperLength = carouselList.length;
-						this.carouselList = carouselList;
-					}
-				}).catch(error => {
-					console.log(error) 
-					this.$api.msg('提交失败')
-				}) 
-			},
-			
-			// 主题ICON
-			async gethomePage(){
-				let homePageList = await this.$api.json('homePageList');
-				this.homePageList = homePageList;
-			},
-			
-			// 分类精选
-			async getCateChange(){
-				const response = await uniRequest.get('/goods/categories/147/skus/?page='+this.page+'&page_size='+this.page_size+'&ordering='+this.ordering);
-				this.goodsList = response.data.results
-			},
-			
-			// 限时秒杀
-			async getLimitTime(){
-				const res = await uniRequest.get('/goods/limit/time/sku/');
-				if(res.status === 200){
-					var data = new Date()
-					const Y = data.getFullYear()
-					const M = data.getMonth()+1
-					const D = data.getDate() < 10 ? '0'+data.getDate() : data.getDate()
-					const h = data.getHours() < 10 ? '0'+data.getHours() : data.getHours()
-					const m = data.getMinutes()
-					const s = data.getSeconds()
-					const Day = Y+'-'+M+'-'+D+' '+h
-					/* if(res.data.active.start_time === Day){
-						const res = await uniRequest.get('/goods/limit/time/sku/');
-						// console.log(res)
-						this.goodList = res.data.active.data
-						this.load = false
-						this.hour = +res.data.active.start_time.split(' ')[1] - h
-						this.minute = 59 - m
-						this.second = 60 - s
-					}else if(res.data.active.start_time !== Day){
-						const res = await uniRequest.get('/goods/limit/time/sku/');
-						if(res.data.active.data.length > 0){
-							this.goodList = res.data.active.data
-						}else{
-							this.goodList = res.data.next.data
-						}
-						this.load = true
-						this.hour = 23 - h + +res.data.next.start_time.split(' ')[1]
-						this.minute = 59 - m
-						this.second = 60 - s
-					} */
-				}
-			},
-			
-			//轮播图切换修改背景色
-			swiperChange(e) {
-				const index = e.detail.current;
-				this.swiperCurrent = index;
-				this.titleNViewBackground = this.carouselList[index].color;
-			},
-			
-			// 跳转详情页
-			goToPage(url){
-				uni.navigateTo({
-					url:url
-				})
-			},
-			
-			// 跳转分类
-			toCategory(){
-				uni.switchTab({
-				      url: '/pages/category/category'
-				})
-			},
-			
-			// 跳转主题页
-			goIcon(value){
-				console.log(value.index)
-				if(value.index === 0){
-					uni.navigateTo({
-						url:'/pages/index/subject/zfcg/zfcg'
-					})
-				}else if(value.index === 1){
-					// this.$api.msg('暂未开发')
-					uni.navigateTo({
-						url:'/pages/index/subject/jdcg/jdcg'
-					})
-				}else if(value.index === 2){
-					// this.$api.msg('暂未开发')
-					uni.navigateTo({
-						url:'/pages/index/subject/hzhb/hzhb'
-					})
-				}else if(value.index === 3){
-					// this.$api.msg('暂未开发')
-					uni.navigateTo({
-						url:'/pages/index/subject/lpdz/lpdz'
-					})
-				}else if(value.index === 4){
-					uni.navigateTo({
-						url:'/pages/index/subject/wxfw/wxfw'
-					})
-				}else if(value.index === 5){
-					uni.navigateTo({
-						url:'/pages/index/subject/cjcg/cjcg'
-					})
-				}else if(value.index === 6){
-					this.$api.msg('暂未开发')
-					// uni.navigateTo({
-					// 	url:'/pages/index/subject/jypx/jypx'
-					// })
-				}else if(value.index === 7){
-					this.$api.msg('暂未开发')
-					// uni.navigateTo({
-					// 	url:'/pages/index/subject/ylqx/ylqx'
-					// })
-					
-				}else if(value.index === 8){
-					this.$api.msg('暂未开发')
-					// uni.navigateTo({
-					// 	url:'/pages/index/subject/cqtg/cqtg'
-					// })
-					
-				}else if(value.index === 9){
-					this.$api.msg('暂未开发')
-					// uni.navigateTo({
-					// 	url:'/pages/index/subject/flzx/flzx'
-					// })
-				}
-			},
-			
-			navToPage(url){
-				uni.navigateTo({
-					url
-				})
-			},
-			
-			// 跳转详情页
-			navToDetailPage(item,value) {
-				console.log(item,value)
-				//测试数据没有写id，用title代替
-				if(item._source === undefined){
-				    let id = item.id;
-					uni.navigateTo({
-						url: `/pages/product/product?id=`+id+'&value='+value
-					})
-				}else{
-					let id = item._source.id;
-					uni.navigateTo({
-						url: `/pages/product/product?id=`+id+'&value='+value
-					})
-				}
-			},
 		},
 		
 	}
@@ -727,10 +719,11 @@
 	/* 分类 */
 	.cate-section {
 		display: flex;
-		justify-content: space-around;
+		justify-content: space-between;
 		align-items: center;
 		flex-wrap:wrap;
 		padding: 30upx 22upx 0 22upx; 
+		
 		.cate-item {
 			display: flex;
 			flex-direction: column;
@@ -765,21 +758,23 @@
 		height: 285px;
 		padding: 0 28rpx;
 		margin-top: 40rpx;
+		
 		.func-content{
 			width: 48%;
 			height: 285px;
 			float: left;
 			.swiper-item{
 				.swiper-text{
-					position: absolute;
+					position: fixed;
 					color: #fff;
 					width: 100%;
 					height: 100%;
 					background: linear-gradient(-180deg, rgba(3, 0, 0, 0.2), rgba(0, 0, 0, 0));
 					text-align: center;
 					line-height: 54px;
-					z-index: 1;
+					z-index: 2;
 					font-size: 18px;
+					border-radius: 15px;
 				}
 				.swiper-image{
 					width: 100%;

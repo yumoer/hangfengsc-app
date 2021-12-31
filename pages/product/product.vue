@@ -86,6 +86,19 @@
 					<text>单笔购买满99免邮费</text>
 				</view>
 			</view> -->
+			
+			<view class="c-row">
+				<text class="tit">参数</text>
+				<view class="con">
+					<!-- <text class="selected-text" v-for="(sItem, sIndex) in specSelected" :key="sIndex">
+						{{sItem.name}}
+					</text> -->
+					<text class="selected-text" v-for="(ele,index) in detailsArr.generic_spec" :key='index'>
+						<text style="margin-right: 20px;">{{ele.name}} : {{ele.value}}</text><br>
+					</text>
+				</view>
+				<text class="yticon icon-you"></text>
+			</view>
 			<view class="c-row">
 				<text class="tit">服务</text>
 				<view class="bz-list con">
@@ -93,20 +106,7 @@
 				</view>
 				<text class="yticon icon-you"></text>
 			</view>
-			<view class="c-row">
-				<text class="tit">参数</text>
-				<view class="con">
-					<!-- <text class="selected-text" v-for="(sItem, sIndex) in specSelected" :key="sIndex">
-						{{sItem.name}}
-					</text> -->
-					<text class="selected-text">
-						<text style="margin-right: 20px;">品牌</text>
-						<text>材质</text>
-					</text>
-				</view>
-				<text class="yticon icon-you"></text>
-			</view>
-			<view class="share-section" style="margin: 10upx 30upx;padding: 20upx 0;"> <!-- @click="share"-->
+			<view class="share-section" style="margin: 30upx;padding: 20upx 0;"> <!-- @click="share"-->
 				<view style="margin-right: 50upx;">
 					<image style="width: 11px;height: 11px;" src="http://47.94.106.106:8888/group1/M00/5D/27/rBHxiGGtrpOAeYTGAAABi1bLa0s2575255" mode=""></image>
 					<text style="font-size: 12px;margin-left: 6upx;">假一赔十</text>
@@ -172,7 +172,7 @@
 			</navigator>
 			<navigator url="/pages/cart/cart" open-type="switchTab" class="p-b-btn">
 				<text class="yticon icon-gwc-wei"></text>
-				<min-badge :count="num" style="position: absolute;margin-left: 40upx;top: 20upx;"></min-badge>
+				<min-badge :count="num" style="position: absolute;margin-left: 26upx;top: 20upx;"></min-badge>
 				<text>购物车</text>
 			</navigator>
 			<view class="p-b-btn" :class="{active: favorite}" @click="toFavorite">
@@ -206,8 +206,8 @@
 				<view class="yticon icon-fork" @click="toggleSpec" style="position: absolute;right: 5px;top: 5px;color: #666;"></view>
 				<view class="a-t" style="padding: 15px 0;">
 					<image style="margin-top: 0px;" :src="detailsArr.default_image_url"></image>
-					<view class="right" style="width: 100%;">
-						<text class="stock" style="font-size: 14px;text-overflow: ellipsis;overflow: hidden;display: -webkit-box;-webkit-box-orient: vertical;-webkit-line-clamp: 2;color: #333;">{{detailsArr.name}}</text>
+					<view class="right">
+						<text class="stock clamp2" style="font-size: 14px;color: #333;width: 460upx;">{{detailsArr.name}}</text>
 						<text style="display: inline-block;margin-top: 20px;">
 							<text class="price" style="color: red;float: left;">¥{{detailsArr.price}}</text>
 							<view class="selected" style="float: right;">
@@ -287,7 +287,32 @@
 				swiperCurrent:0,
 				swiperLength:0,
 				favorite: false,
-				shareList: [],
+				shareList: [
+					{
+						icon:"http://47.94.106.106:8888/group1/M00/5D/28/rBHxiGGttyCAXHxDAAAH6EWRy5I5649826",
+						text:"微信好友",
+					},
+					{
+						icon:"http://47.94.106.106:8888/group1/M00/5D/28/rBHxiGGttyCAd2rOAAAG3gthfsA0935817",
+						text:"朋友圈"
+					},
+					/* {
+						icon:"http://47.94.106.106:8888/group1/M00/5D/28/rBHxiGGttyCARmO0AAAI4ps3SkU3708486",
+						text:"微博"
+					}, */
+					{
+						icon:"http://47.94.106.106:8888/group1/M00/5D/28/rBHxiGGttyCAEJwiAAAGRfm-20g5767976",
+						text:"QQ"
+					},
+					{
+						icon:"http://47.94.106.106:8888/group1/M00/5D/28/rBHxiGGttyCAQK4UAAADmFacpaE6053840",
+						text:"复制"
+					},
+					{
+						icon:"http://47.94.106.106:8888/group1/M00/5D/28/rBHxiGGttyCAS0jVAAAGAjXZLlI2712560",
+						text:"更多"
+					},
+				],
 				imgList: [],
 				subText:'完成',
 				count:1,
@@ -852,7 +877,7 @@
 							break; */
 						case 2:
 							shareObj.provider="qq";
-							shareObj.type=1;
+							shareObj.type=0;
 							shareObj.imageUrl=shareInfo.imgUrl||"";
 							uni.share(shareObj);
 							break;

@@ -1,7 +1,7 @@
 <template>
 	<view id="service">
 		<view style="text-align: center;">
-			<p style="font-size: 32upx;">行丰用户服务协议</p>
+			<p style="font-size: 32upx;">用户服务协议</p>
 		</view>
 		<p>引言</p>
 		<p>欢迎使用行丰商城产品和服务（以下简称"行丰"）!</p>

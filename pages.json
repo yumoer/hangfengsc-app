@@ -10,7 +10,8 @@
 				"navigationBarTitleText": "入口页",
 				"titleNView": false
 			}
-		}, {
+		}, 
+		{
 			"path": "pages/index/guide",
 			"style": {
 				"navigationBarTitleText": "引导页",
@@ -53,6 +54,7 @@
 			"path": "pages/product/product",
 			"style": {
 				"navigationBarTitleText": "商品详情",
+				"scrollIndicator":"none",
 				"app-plus": {
 					"titleNView": {
 						"type": "transparent",
@@ -79,18 +81,21 @@
 		{
 			"path": "pages/index/code",
 			"style": {
+				"scrollIndicator":"none",
 				"navigationBarTitleText": "扫描详情"
 			}
 		},
 		{
 			"path": "pages/set/set",
 			"style": {
+				"scrollIndicator":"none",
 				"navigationBarTitleText": "设置"
 			}
 		},
 		{
 			"path": "pages/set/userInfo",
 			"style": {
+				"scrollIndicator":"none",
 				"navigationBarTitleText": "个人资料"
 			}
 		},
@@ -98,6 +103,7 @@
 		{
 			"path": "pages/set/avator",
 			"style": {
+				"scrollIndicator":"none",
 				"navigationBarTitleText": "修改头像"
 			}
 		},
@@ -105,6 +111,7 @@
 		{
 			"path": "uview-ui/components/u-avatar-cropper/u-avatar-cropper",
 			"style": {
+				"scrollIndicator":"none",
 				"navigationBarTitleText": "头像裁剪",
 				"navigationBarBackgroundColor": "#000000"
 			}
@@ -113,6 +120,7 @@
 		{
 			"path": "pages/set/editPass",
 			"style": {
+				"scrollIndicator":"none",
 				"navigationBarTitleText": "修改密码"
 			}
 		},
@@ -120,12 +128,14 @@
 		{
 			"path": "pages/paypwd/addpaypwd",
 			"style": {
+				"scrollIndicator":"none",
 				"navigationBarTitleText": "设置支付密码"
 			}
 		},
 		{
 			"path": "pages/cdkey/cdkey",
 			"style": {
+				"scrollIndicator":"none",
 				// "navigationBarTitleText": "券卡兑换",
 				"app-plus": {
 					"titleNView": false,
@@ -137,6 +147,7 @@
 		{
 			"path": "pages/cdkey/cdkeyDetail",
 			"style": {
+				"scrollIndicator":"none",
 				"navigationBarTitleText": "卡券详情"
 			}
 		},
@@ -144,6 +155,7 @@
 		{
 			"path": "pages/cdkey/cdkeyActivity",
 			"style": {
+				"scrollIndicator":"none",
 				"navigationBarTitleText": "兑换"
 			}
 		},
@@ -151,6 +163,7 @@
 		{
 			"path": "pages/cdkey/lookAllOrder",
 			"style": {
+				"scrollIndicator":"none",
 				"navigationBarTitleText": "我的订单",
 				"app-plus": {
 					"titleNView": {
@@ -164,6 +177,7 @@
 		{
 			"path": "pages/cdkey/cdkeyOrder",
 			"style": {
+				"scrollIndicator":"none",
 				"navigationBarTitleText": "订单详情"
 			}
 		},
@@ -171,6 +185,7 @@
 		{
 			"path": "pages/cdkey/shopDetail",
 			"style": {
+				"scrollIndicator":"none",
 				"navigationBarTitleText": "商品详情"
 			}
 		},
@@ -179,6 +194,7 @@
 		{
 			"path": "pages/cart/cart",
 			"style": {
+				"scrollIndicator":"none",
 				"navigationBarTitleText": "购物车",
 				"app-plus":{
 					"bounce": "none",
@@ -199,18 +215,21 @@
 		{
 			"path": "pages/search/search",
 			"style": {
+				"scrollIndicator":"none",
 				"navigationBarTitleText": "搜索"
 			}
 		}, 
 		{
 			"path": "pages/share/share",
 			"style": {
+				"scrollIndicator":"none",
 				"navigationBarTitleText": "分享"
 			}
 		}, 
 		{
 			"path": "pages/recharge/recharge",
 			"style": {
+				"scrollIndicator":"none",
 				"navigationBarTitleText": "",
 				"app-plus":{
 					"bounce": "none",
@@ -230,12 +249,14 @@
 		{
 			"path": "pages/recharge/deposit",
 			"style": {
+				"scrollIndicator":"none",
 				"navigationBarTitleText": "余额充值"
 			}
 		}, 
 		{
 			"path": "pages/public/login",
 			"style": {
+				"scrollIndicator":"none",
 				"navigationBarTitleText": "",
 				"navigationStyle": "custom",
 				"app-plus": {
@@ -246,6 +267,7 @@
 		},{
 			"path" : "pages/public/regist",
 			"style" : {
+				"scrollIndicator":"none",
 				"app-plus": {
 					"titleNView": false,
 					"animationType": "slide-in-bottom"
@@ -254,6 +276,7 @@
 		},{
 			"path" : "pages/public/forgetPwd",
 			"style" : {
+				"scrollIndicator":"none",
 				"app-plus": {
 					"titleNView": false,
 					"animationType": "slide-in-bottom"
@@ -262,6 +285,7 @@
 		},{
 			"path" : "pages/public/oauthCallback",
 			"style" : {
+				"scrollIndicator":"none",
 				"app-plus": {
 					"titleNView": false,
 					"animationType": "slide-in-bottom"
@@ -271,6 +295,7 @@
 		, {
 			"path": "pages/user/user",
 			"style": {
+				"scrollIndicator":"none",
 				"navigationBarTitleText": "我的",
 				"app-plus": {
 					"bounce": "none",
@@ -292,11 +317,13 @@
 		}, {
 			"path": "pages/coupon/exchange",
 			"style": {
+				"scrollIndicator":"none",
 				"navigationBarTitleText": "优惠券"
 			}
 		},{
 			"path": "pages/coupon/coupon",
 			"style": {
+				"scrollIndicator":"none",
 				"navigationBarTitleText": "",
 				"app-plus": {
 					"bounce": "none",
@@ -309,16 +336,19 @@
 		{
 			"path": "pages/coupon/voucher",
 			"style": {
+				"scrollIndicator":"none",
 				"navigationBarTitleText": "意见反馈"
 			}
 		},{
 			"path": "pages/coupon/contart",
 			"style": {
+				"scrollIndicator":"none",
 				"navigationBarTitleText": "联系我们"
 			}
 		},{
 			"path": "pages/coupon/reduction",
 			"style": {
+				"scrollIndicator":"none",
 				"navigationBarTitleText": "我的收藏",
 				"app-plus": {
 					"bounce": "none",
@@ -338,11 +368,13 @@
 		},{
 			"path": "pages/coupon/couponShop",
 			"style": {
+				"scrollIndicator":"none",
 				"navigationBarTitleText": "优惠商品"
 			}
 		},{
 			"path": "pages/order/order",
 			"style": {
+				"scrollIndicator":"none",
 				"navigationBarTitleText": "我的订单",
 				"enablePullDownRefresh": true,
 				"app-plus": {
@@ -373,20 +405,25 @@
 			}
 		},{
 			"path": "pages/money/money",
-			"style": {}
+			"style": {
+				"scrollIndicator":"none"
+			}
 		}, {
 			"path": "pages/order/createOrder",
 			"style": {
+				"scrollIndicator":"none",
 				"navigationBarTitleText": "提交订单"
 			}
 		}, {
 			"path": "pages/appDown/appDown",
 			"style": {
+				"scrollIndicator":"none",
 				"navigationBarTitleText": "下载中心"
 			}
 		}, {
 			"path": "pages/address/address",
 			"style": {
+				"scrollIndicator":"none",
 				"navigationBarTitleText": "收货地址",
 				"app-plus": {
 					"bounce": "none"
@@ -395,11 +432,13 @@
 		},{
 			"path": "pages/address/addressManage",
 			"style": {
+				"scrollIndicator":"none",
 				"navigationBarTitleText": "地址管理"
 			}
 		}, {
 			"path": "pages/invoice/invoice",
 			"style": {
+				"scrollIndicator":"none",
 				"navigationBarTitleText": "发票信息",
 				"app-plus": {
 					"bounce": "none",
@@ -419,22 +458,26 @@
 		},  {
 			"path": "pages/invoice/invoiceManage",
 			"style": {
+				"scrollIndicator":"none",
 				"navigationBarTitleText": "新增普票/电子票"
 			}
 		}, {
 			"path": "pages/invoice/invoiceManages",
 			"style": {
+				"scrollIndicator":"none",
 				"navigationBarTitleText": "新增增值税发票"
 			}
 		}, {
 			"path": "pages/money/pay",
 			"style": {
+				"scrollIndicator":"none",
 				"navigationBarTitleText": "立即支付"
 			}
 		},
 		{
 			"path": "pages/money/paySuccess",
 			"style": {
+				"scrollIndicator":"none",
 				"navigationBarTitleText": "支付成功",
 				"app-plus": {
 					"bounce": "none",
@@ -447,23 +490,27 @@
 		,{
 			"path" : "pages/notice/notice",
 			"style" : {
+				"scrollIndicator":"none",
 				"navigationBarTitleText": "通知"
 			}
 		},{
 			"path" : "pages/notice/noticeDetail",
 			"style" : {
+				"scrollIndicator":"none",
 				"navigationBarTitleText": "通知详情"
 			}
 		}
 		,{
 			"path" : "pages/search/searchList",
 			"style" : {
+				"scrollIndicator":"none",
 				"navigationBarTitleText": "商品列表"
 			}
 		}
 		,{
 			"path" : "pages/category/category",
 			"style" : {
+				"scrollIndicator":"none",
 				"navigationBarTitleText": "分类",
 				"app-plus": {
 					"bounce": "none",
@@ -485,12 +532,14 @@
 		,{
 			"path" : "pages/product/list",
 			"style" : {
+				"scrollIndicator":"none",
 				"enablePullDownRefresh": true,
 				"navigationBarTitleText": "商品列表"
 			}
 		},{
 			"path" : "pages/chat/chat",
 			"style" : {
+				"scrollIndicator":"none",
 				"enablePullDownRefresh": true,
 				"navigationBarTitleText": "客服",
 				"app-plus": {
@@ -500,57 +549,67 @@
 		},{
 			"path" : "pages/chat/chatAdmin",
 			"style" : {
+				"scrollIndicator":"none",
 				"enablePullDownRefresh": true,
 				"navigationBarTitleText": "用户"
 			}
 		},{
 			"path" : "pages/order/assess/assess",
 			"style" : {
+				"scrollIndicator":"none",
 				"navigationBarTitleText": "立即评价"
 			}
 		},{
 			"path" : "pages/order/editAdress/editAdress",
 			"style" : {
+				"scrollIndicator":"none",
 				"navigationBarTitleText": "修改地址"
 			}
 		},{
 			"path" : "pages/order/trackInfo/trackInfo",
 			"style" : {
+				"scrollIndicator":"none",
 				"navigationBarTitleText": "物流信息"
 			}
 		}
 		,{
 			"path" : "pages/order/lookDetails/lookDetails",
 			"style" : {
+				"scrollIndicator":"none",
 				"navigationBarTitleText": "订单详情"
 			}
 		}
 		,{
 			"path" : "pages/order/lookDetails/concalShops",
 			"style" : {
+				"scrollIndicator":"none",
 				"navigationBarTitleText": "申请售后"
 			}
 		}
 		,{
 			"path" : "pages/allAssess/allAssess",
 			"style" : {
+				"scrollIndicator":"none",
 				"navigationBarTitleText": "我的评价"
 			}
 		}
 		,{
 			"path" : "pages/order/postSale/postSale",
 			"style" : {
+				"scrollIndicator":"none",
 				"navigationBarTitleText": "退款售后"
 			}
 		},{
 			"path" : "pages/order/postSale/postDetails",
 			"style" : {
+				"scrollIndicator":"none",
 				"navigationBarTitleText": "退款详情"
 			}
 		}
 		,{
 			"path" : "pages/index/subject/zfcg/zfcg",
 			"style": {
+				"scrollIndicator":"none",
 				"navigationBarTitleText": "政府采购",
 				"titleNView": false,
 				"app-plus": {
@@ -564,6 +623,7 @@
 		,{
 			"path" : "pages/index/subject/jdcg/jdcg",
 			"style" : {
+				"scrollIndicator":"none",
 				"navigationBarTitleText": "军队采购",
 				"titleNView": false,
 				"app-plus": {
@@ -576,6 +636,7 @@
 		,{
 			"path" : "pages/index/subject/hzhb/hzhb",
 			"style" : {
+				"scrollIndicator":"none",
 				"navigationBarTitleText": "合作伙伴",
 				"titleNView": false,
 				"app-plus": {
@@ -588,36 +649,42 @@
 		,{
 			"path" : "pages/index/subject/lpdz/lpdz",
 			"style" : {
+				"scrollIndicator":"none",
 				"navigationBarTitleText": "礼品定制"
 			}
 		}
 		,{
 			"path" : "pages/index/subject/wxfw/wxfw",
 			"style" : {
+				"scrollIndicator":"none",
 				"navigationBarTitleText": "维修服务"
 			}
 		}
 		,{
 			"path" : "pages/index/subject/cjcg/cjcg",
 			"style" : {
+				"scrollIndicator":"none",
 				"navigationBarTitleText": "场景采购"
 			}
 		}
 		,{
 			"path" : "pages/index/subject/ylqx/ylqx",
 			"style" : {
+				"scrollIndicator":"none",
 				"navigationBarTitleText": "医疗器械"
 			}
 		}
 		,{
 			"path" : "pages/index/subject/jypx/jypx",
 			"style" : {
+				"scrollIndicator":"none",
 				"navigationBarTitleText": "教育培训" 
 			}
 		}
 		,{
 			"path" : "pages/index/subject/flzx/flzx",
 			"style" : {
+				"scrollIndicator":"none",
 				"navigationBarTitleText": "合作伙伴",
 				"titleNView": false,
 				"app-plus": {
@@ -630,6 +697,7 @@
 		,{
 			"path" : "pages/index/subject/cqtg/cqtg",
 			"style": {
+				"scrollIndicator":"none",
 				"navigationBarTitleText": "同城团购",
 				"app-plus": {
 					"bounce": "none",
@@ -651,6 +719,7 @@
 		,{
 			"path" : "pages/search/search_cq",
 			"style" : {
+				"scrollIndicator":"none",
 				"navigationBarTitleText": "搜索"
 			}
 		} 
@@ -658,6 +727,7 @@
 		,{
 			"path" : "pages/search/searchList_cq",
 			"style" : {
+				"scrollIndicator":"none",
 				"navigationBarTitleText": "搜索列表",
 				"app-plus": {
 					"bounce": "none",
@@ -678,6 +748,7 @@
 		,{
 			"path" : "pages/set/about",
 			"style" : {
+				"scrollIndicator":"none",
 				"navigationBarTitleText": "关于行丰商城"
 			}
 		},
@@ -685,6 +756,7 @@
 		{
 			"path" : "pages/set/service",
 			"style" : {
+				"scrollIndicator":"none",
 				"navigationBarTitleText": "服务协议"
 			}
 		},
@@ -692,6 +764,7 @@
 		{
 			"path" : "pages/set/verBody",
 			"style" : {
+				"scrollIndicator":"none",
 				"navigationBarTitleText": "当前系统版本"
 			}
 		},
@@ -699,13 +772,14 @@
 		{
 			"path" : "pages/set/privacy",
 			"style" : {
+				"scrollIndicator":"none",
 				"navigationBarTitleText": "隐私保护政策"
 			}
 		}
 		,{
 			"path" : "pages/contact/contact",
-			"style" :                                                                                    
-			{
+			"style" : {
+				"scrollIndicator":"none",            
 				"navigationBarTitleText": "联系客服",
 				"enablePullDownRefresh": false
 			}
@@ -713,8 +787,8 @@
 		}
         ,{
             "path" : "pages/order/lookDetails/afterSalesDetails",
-            "style" :                                                                                    
-            {
+            "style" :{
+				"scrollIndicator":"none",   
                 "navigationBarTitleText": "",
                 "enablePullDownRefresh": false
             }
@@ -722,15 +796,16 @@
         }
         ,{
             "path" : "pages/user/histories/histories",
-            "style" :                                                                                    
-            {
+            "style" :{
+				"scrollIndicator":"none",   
                 "navigationBarTitleText": "我的足迹",
                 "enablePullDownRefresh": false
             }
         }
         ,{
             "path" : "pages/activity/newProd",
-            "style" :                                             	{
+            "style" : {
+				"scrollIndicator":"none",   
                 "navigationBarTitleText": "新品首发",
                 "enablePullDownRefresh": false
             }
@@ -738,8 +813,8 @@
         },
 		{
 		    "path" : "pages/activity/hotProd",
-		    "style" :                                                                                    
-		    {
+		    "style" :{
+				"scrollIndicator":"none",   
 		        "navigationBarTitleText": "今日爆款",
 		        "enablePullDownRefresh": false
 		    }
@@ -781,6 +856,16 @@
 				"iconPath": "static/images/tabCurrent/tab-my2.png",
 				"selectedIconPath": "static/images/tabCurrent/tab-my-current2.png",
 				"text": "我的"
+			}
+		]
+	},
+	"condition" : { //模式配置，仅开发期间生效
+		"current": 0, //当前激活的模式(list 的索引项)
+		"list": [
+			{
+				"name": "", //模式名称
+				"path": "", //启动页面，必选
+				"query": "" //启动参数，在页面的onLoad函数里面得到
 			}
 		]
 	}

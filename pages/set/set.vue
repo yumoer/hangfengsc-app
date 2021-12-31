@@ -32,7 +32,7 @@
 			<text class="cell-tit">消息推送</text>
 			<switch checked color="#EE1D23" @change="switchChange" />
 		</view>
-		<view class="list-cell b-b" @click="clear" hover-class="cell-hover" :hover-stay-time="50">
+		<view class="list-cell b-b" @click="clearStroge" hover-class="cell-hover" :hover-stay-time="50">
 			<text class="cell-tit">清除缓存</text>
 			<text class="cell-more yticon icon-you"></text>
 		</view>
@@ -153,7 +153,7 @@
 				}
 			},
 			
-			clear(){
+			clearStroge(){
 				// #ifdef APP-PLUS
 				var self=this;
 				 plus.cache.calculate( function ( size ) { //size是多少个字节单位是b
@@ -169,33 +169,31 @@
 					}
 					console.log(self.size)
 					 //可以询问用户是否删除
-					  this.$showModal({
-						title:'提示',
-						content:'确认清除缓存吗?',
-						cancelText:"取消",
-						confirmText:"确认",
-						success(res) {
-						   // 用户确定要删除
-							if(res.confirm){
-							   //使用plus.cache.clear 清除应用中的缓存数据 这里清除后还要二十几KB没有清除，达不到全部清除
-								plus.cache.clear( function () {
-									uni.showToast({
-										title:'成功清除缓存'+self.size,
-										icon:'none',
-										success(e) {
-											//成功后处理
-											this.logout();
-											uni.navigateBack();
-										}
-									})
-								});	
-							}
-						}
-					  })
+					 self.$showModal({
+					 	title:'提示',
+					    content: '确认清除缓存吗?',
+					 	cancelText:"取消",
+					 	confirmText:"确认",
+					     success: (e)=>{
+					     	if(e.confirm){
+					     		plus.cache.clear( function () {
+					     			uni.showToast({
+					     				title:'成功清除缓存'+self.size,
+					     				icon:'none',
+					     				success(e) {
+					     					//成功后处理
+					     					self.logout();
+											uni.removeStorage()
+					     				}
+					     			})
+					     		});	
+					     	}
+					     }
+					 });
 				 });
 				// #endif
 				// #ifdef H5
-				uni.removeStorage({key:'userInfo'})
+				uni.removeStorage()
 				this.$showModal({
 					title:'提示',
 				    content: '确认清除缓存吗?',
@@ -203,7 +201,8 @@
 					confirmText:"确认",
 				    success: (e)=>{
 				    	if(e.confirm){
-				    		this.logout();
+							this.$api.msg('缓存清除成功')
+							uni.removeStorage()
 							uni.navigateBack();
 				    	}
 				    }
@@ -220,7 +219,7 @@
 					confirmText:"确认",
 				    success: (e)=>{
 				    	if(e.confirm){
-							uni.removeStorage({key:'userInfo'})
+							uni.removeStorage()
 				    		this.logout();
 							uni.navigateBack();
 				    	}
@@ -232,6 +231,7 @@
 				let statusTip = e.detail.value ? '打开': '关闭';
 				this.$api.msg(`${statusTip}消息推送`);
 			},
+			
 			
 			logouts(){
 				this.$showModal({
@@ -249,7 +249,7 @@
 								},
 							}).then(response=>{
 								console.log(response)
-								uni.removeStorage({key:'userInfo'})
+								uni.removeStorage()
 								this.logout();
 								uni.navigateBack();
 							}).catch(error=>{

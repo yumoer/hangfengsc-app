@@ -3,83 +3,20 @@
 		<view class="page_header">
 			<image src="http://47.94.106.106:8888/group1/M00/5D/28/rBHxiGGts_6Ae6m_AAQxtb4srSk5329960" mode=""></image>
 		</view>
-		<view class="page_content">
-			<view class="u-demo-block__content" style="color: #333333;font-size: 32upx;">资源建设</view>
+		
+		<view class="page_content" v-for="(item,index) in records" :key="index">
+			<view class="u-demo-block__content" style="color: #333333;font-size: 32upx;">{{item.txt}}</view>
 			<u-row
 					justify="space-between"
 					:gutter="10"
-			>
+			>   <!--v-if="item.details > 0" -->
 				<u-col span="6" style="background-color: #FFFFFF;padding: 20upx;margin-top: 30upx;border-radius: 10upx;align-items: center;justify-content: space-between;margin-left: -5px;margin-right: -5px;">
-					<view class="demo-layout" style="font-size: 12px;">
-						<image style="width: 310upx;height: 168upx;border-radius: 5px;" src="http://47.94.106.106:8888/group1/M00/5D/28/rBHxiGGttyCAQK4UAAADmFacpaE6053840" mode=""></image>
-						<view class="" style="margin: 20upx 0;color: #333333;">实践建设</view>
+					<view class="demo-layout" style="font-size: 12px;" >
+						<image style="width: 310upx;height: 168upx;border-radius: 5px;" src="http://47.94.106.106:8888/group1/M00/5D/27/rBHxiGGtrGyAbFBpAACu5BHM_6c0483365" mode=""></image>
+						<view class="" style="margin: 20upx 0;color: #333333;">暂无课程</view>
 						<view class="">
-							<text style="float: left;color: #EE1D23;">￥10000</text>
-							<text style="float: right;color: #999999;">321人已报名</text>
-						</view>
-					</view>
-				</u-col>
-				<u-col span="6" style="background-color: #FFFFFF;padding: 20upx;margin-top: 30upx;border-radius: 10upx;align-items: center;justify-content: space-between;margin-left: -5px;margin-right: -5px;">
-					<view class="demo-layout" style="font-size: 12px;">
-						<image style="width: 310upx;height: 168upx;border-radius: 5px;" src="http://47.94.106.106:8888/group1/M00/5D/28/rBHxiGGttyCAQK4UAAADmFacpaE6053840" mode=""></image>
-						<view class="" style="margin: 20upx 0;color: #333333;">实践建设</view>
-						<view class="">
-							<text style="float: left;color: #EE1D23;">￥10000</text>
-							<text style="float: right;color: #999999;">321人已报名</text>
-						</view>
-					</view>
-				</u-col>
-			</u-row>
-		</view>
-		<view class="page_content">
-			<view class="" style="color: #333333;font-size: 32upx;">产学合作</view>
-			<u-row
-					justify="space-between"
-					gutter="10"
-			>
-				<u-col span="6" style="background-color: #FFFFFF;padding: 20upx;margin-top: 30upx;border-radius: 10upx;align-items: center;justify-content: space-between;margin-left: -5px;margin-right: -5px;">
-					<view class="demo-layout" style="font-size: 12px;">
-						<image style="width: 310upx;height: 168upx;border-radius: 5px;" src="http://47.94.106.106:8888/group1/M00/5D/28/rBHxiGGttyCAQK4UAAADmFacpaE6053840" mode=""></image>
-						<view class="" style="margin: 20upx 0;color: #333333;">实践建设</view>
-						<view class="">
-							<text style="float: left;color: #EE1D23;">￥10000</text>
-							<text style="float: right;color: #999999;">321人已报名</text>
-						</view>
-					</view>
-				</u-col>
-			</u-row>
-		</view>
-		<view class="page_content">
-			<view class="" style="color: #333333;font-size: 32upx;">内训职培</view>
-			<u-row
-					justify="space-between"
-					gutter="10"
-			>
-				<u-col span="6" style="background-color: #FFFFFF;padding: 20upx;margin-top: 30upx;border-radius: 10upx;align-items: center;justify-content: space-between;margin-left: -5px;margin-right: -5px;">
-					<view class="demo-layout" style="font-size: 12px;">
-						<image style="width: 310upx;height: 168upx;border-radius: 5px;" src="http://47.94.106.106:8888/group1/M00/5D/28/rBHxiGGttyCAQK4UAAADmFacpaE6053840" mode=""></image>
-						<view class="" style="margin: 20upx 0;color: #333333;">实践建设</view>
-						<view class="">
-							<text style="float: left;color: #EE1D23;">￥10000</text>
-							<text style="float: right;color: #999999;">321人已报名</text>
-						</view>
-					</view>
-				</u-col>
-			</u-row>
-		</view>
-		<view class="page_content">
-			<view class="" style="color: #333333;font-size: 32upx;">继续教育</view>
-			<u-row
-					justify="space-between"
-					gutter="10"
-			>
-				<u-col span="6" style="background-color: #FFFFFF;padding: 20upx;margin-top: 30upx;border-radius: 10upx;align-items: center;justify-content: space-between;margin-left: -5px;margin-right: -5px;">
-					<view class="demo-layout" style="font-size: 12px;">
-						<image style="width: 310upx;height: 168upx;border-radius: 5px;" src="http://47.94.106.106:8888/group1/M00/5D/28/rBHxiGGttyCAQK4UAAADmFacpaE6053840" mode=""></image>
-						<view class="" style="margin: 20upx 0;color: #333333;">实践建设</view>
-						<view class="">
-							<text style="float: left;color: #EE1D23;">￥10000</text>
-							<text style="float: right;color: #999999;">321人已报名</text>
+							<text style="float: left;color: #EE1D23;">￥0.00</text>
+							<text style="float: right;color: #999999;">0人已报名</text>
 						</view>
 					</view>
 				</u-col>
@@ -90,11 +27,13 @@
 
 <script>
 	import uniRequest from 'uni-request';
+	import xwEmpty from '@/components/xw-empty/xw-empty';
 	export default {
+		components:{xwEmpty},
 		data() {
 			return {
 				banner:{},
-				
+				isEmpty:false,
 				menus: [{
 						bg: 'linear-gradient(0deg,rgba(9,216,162,1),rgba(90,242,217,1))',
 						icon: '../../../../static/jiaoyu/graduation.png',
@@ -154,6 +93,18 @@
 			this.getClass()
 			this.getDates()
 			// this.getBanner()
+		},
+		watch:{
+			//显示空白页
+			records(e){
+				console.log(e)
+				e.forEach(ele=>{
+					let empty = ele.details.length === 0 ? true: false;
+					if(this.isEmpty !== empty){
+						this.isEmpty = empty;
+					}
+				})
+			}
 		},
 		methods: {
 			async getClass(){

@@ -1,10 +1,14 @@
 <template>
 	<view class="page">
 		<view class="tabs">
+			<!-- <scroll-view class="floor-list" scroll-x>
+				<view class="scoll-wrapper">
+				</view>
+			</scroll-view> -->
 			<u-dropdown active-color='#ee0123' @border-bottom='true' :title-size='28' class="wrap" ref="uDropdown" @open="open" @close="close">
 				<u-dropdown-item v-model="value" :title="item.name" v-for="(item,index) in tabs" :key='index' @change="change">
 					<view class="clearfix" v-for="(ele,index1) in sonTabs" :key='index1' v-if="item.id === ele.id">
-						<span class='clearfix' @click='goSearch(el)' v-for="el in ele.list">{{el.value}}</span>
+						<span class='clearfix' style="float: left;font-size: 26upx;" @click='goSearch(el)' v-for="el in ele.list">{{el.value}}</span>
 					</view>
 				</u-dropdown-item>
 			</u-dropdown>
@@ -287,6 +291,13 @@
 	}
 	.tabs{
 		
+	}
+	.floor-list{
+		white-space: nowrap;
+	}
+	.scoll-wrapper{
+		display:flex;
+		align-items: flex-start;
 	}
 	.wrap{
 		padding:0 20upx;

@@ -1,9 +1,0 @@
-{
-  "navigationBarTitleText": "合作伙伴",
-  "usingComponents": {
-    "liuyuno-tabs": "/components/liuyuno-tabs/liuyuno-tabs",
-    "q-s-input": "/components/QS-inputs-split/elements/QS-input/index",
-    "q-s-infinite-pics": "/components/QS-inputs-split/elements/QS-infinitePics/index",
-    "q-s-picker-date": "/components/QS-inputs-split/elements/QS-picker-date/index"
-  }
-}

@@ -1,6 +1,0 @@
-{
-  "component": true,
-  "usingComponents": {
-    "q-stemplate": "/components/QS-inputs-split/template/template"
-  }
-}

@@ -24,7 +24,7 @@
 					</view>
 				</view>
 			</view>
-			
+			<show-modal></show-modal>
 			<!-- 底部菜单栏 -->
 			<view class="action-section" v-if="isCheck">
 				<u-checkbox-group class="checkbox">
@@ -33,16 +33,12 @@
 				<view class="total-box"></view>
 				<button type="primary" class="no-border confirm-btn" @click="toFavorite(selected)">取消收藏 ({{selected.length}})</button>
 			</view>
-			
-			<show-modal></show-modal>
 		</view>
-		
 		<view v-else>
 			<xw-empty :isShow="isEmpty" img="http://47.94.106.106:8888/group1/M00/5D/28/rBHxiGGttGKATO_0AAGQ7uLi61Q1437097" path="" btnText="" text="您还没有添加收藏" textColor="#C0C4CC"></xw-empty>
-			</view>
 		</view>
-		
 	</view>
+	
 </template>
 
 <script>
@@ -63,21 +59,21 @@
 		},
 		components:{xwEmpty},
 		onLoad(options){
-			this.ifFavorite();
-			this.getCartList();
+			console.log(options,document.getElementsByClassName('uni-btn-icon'))
 		},
-		activated(){
+		onShow() {
 			this.ifFavorite();
 			this.getCartList();
 		},
 		onNavigationBarButtonTap(e) {
 			const index = e.index;
+			console.log(index)
 			if(index === 0 && this.goodsList.length > 0){
-				if(this.isCheck === true){
-					document.getElementsByClassName('uni-btn-icon')[1].innerText = '编辑';
-				}else{
-					document.getElementsByClassName('uni-btn-icon')[1].innerText = '完成';
-				}
+				// if(this.isCheck === true){
+				// 	document.getElementsByClassName('uni-btn-icon')[1].innerText = '编辑';
+				// }else{
+				// 	document.getElementsByClassName('uni-btn-icon')[1].innerText = '完成';
+				// }
 				this.isCheck = !this.isCheck
 				this.selected = []
 				this.goodsList.forEach(ele=>{
@@ -119,11 +115,13 @@
 				}).then(res=>{
 					if(res.status === 200 || res.status === 201){
 						this.cartList = res.data;
-						if(this.isCheck && this.cartList.length > 0){
-							document.getElementsByClassName('uni-btn-icon')[1].innerText = '完成';
-						}else{
-							document.getElementsByClassName('uni-btn-icon')[1].innerText = '编辑';
-						}
+						// if(this.isCheck && this.cartList.length > 0){
+						// 	plus.document.getElementsByClassName('uni-btn-icon')[1].innerText = '完成';
+						// 	// document.getElementsByClassName('uni-btn-icon')[1].innerText = '完成';
+						// }else{
+						// 	plus.document.getElementsByClassName('uni-btn-icon')[1].innerText = '编辑';
+						// 	// document.getElementsByClassName('uni-btn-icon')[1].innerText = '编辑';
+						// }
 					}else{
 						if(res.status === 500){
 							this.$api.msg('服务器错误，请稍后重试')
@@ -166,6 +164,7 @@
 			
 			// 取消收藏
 			toFavorite(item){
+				console.log(item)
 				item.forEach(ele=>{
 					uni.showLoading()
 					uniRequest({
@@ -195,20 +194,20 @@
 			
 			// 选中某个复选框时，由checkbox时触发
 			checkboxChange(e) {
+				console.log(e)
 				if(e.value === true){
 					this.selected.push(e)
 				}else{
-					this.checked = false
-					this.selected.shift(e,1)
+					this.selected.splice(e,1)
 				}
 				console.log(this.selected)
 				this.selected.forEach(ele=>{
-					console.log(ele.value)
-					if(ele.value === true && this.goodsList.length === this.selected.length){
+					if(ele.value === true){
 						this.checked = true
+					}else{
+						this.checked = false
 					}
 				})
-				e.value = !e.value
 			},
 			
 			// 全选
@@ -216,14 +215,15 @@
 				// this.checked = !this.checked
 				let selected = []
 				this.goodsList.forEach(ele=>{
-					if(this.checked === true){
-						ele.checked = true
-					}else{
-						ele.checked = false
-					}
 					selected.push({value:ele.checked,name:ele.id})
+					if(this.checked === true){
+						ele.checked = false
+						this.selected = []
+					}else{
+						ele.checked = true
+						this.selected = selected
+					}
 				})
-				this.selected = selected
 				console.log(this.selected)
 			},
 			
@@ -231,11 +231,11 @@
 				console.log(item)
 				this.$showModal({
 					title:'提示',
-				    content: '是否确认加入购物车?',
+					content: '是否确认加入购物车?',
 					cancelText:"取消",
 					confirmText:"确认",
-				    success: async(e) =>{
-						if(e.confirm){
+				    success: (e)=>{
+				    	if(e.confirm){
 							uniRequest({
 								url: '/carts/cart_sku/',
 								method: 'POST',
@@ -259,9 +259,9 @@
 							}).catch(error => {
 								console.log(error);
 							})
-						}
-					}
-				})
+				    	}
+				    }
+				});
 			}
 		},
 	}

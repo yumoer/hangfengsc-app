@@ -269,7 +269,9 @@
 					line-height:60upx;
 					border: 1px solid #EE1D23;
 					border-radius: 18px;
-					color: #EE1D23;
+					color: #fff;
+					background: linear-gradient(to right,#EE1D23 0%,#F04023 100%);
+					box-shadow: 1px 0 5px rgba(238, 29, 35, 0.3);
 					font-size: 32upx;
 				}
 			}
@@ -342,7 +344,9 @@
 					line-height:60upx;
 					border: 1px solid #EE1D23;
 					border-radius: 18px;
-					color: #EE1D23;
+					color: #fff;
+					background: linear-gradient(to right,#EE1D23 0%,#F04023 100%);
+					box-shadow: 1px 0 5px rgba(238, 29, 35, 0.3);
 					font-size: 32upx;
 				}
 			}
@@ -414,7 +418,9 @@
 					line-height:60upx;
 					border: 1px solid #EE1D23;
 					border-radius: 18px;
-					color: #EE1D23;
+					color: #fff;
+					background: linear-gradient(to right,#EE1D23 0%,#F04023 100%);
+					box-shadow: 1px 0 5px rgba(238, 29, 35, 0.3);
 					font-size: 32upx;
 				}
 			}

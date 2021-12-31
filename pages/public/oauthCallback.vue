@@ -96,7 +96,10 @@
 				this[key] = e.detail.value;
 			},
 			navBack(){
-				uni.navigateBack();  
+				uni.navigateBack();
+				// uni.switchTab({
+				// 	url:'/pages/user/user'
+				// })
 			},
 			
 			changePayType(){

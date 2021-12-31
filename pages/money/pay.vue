@@ -32,9 +32,13 @@
 		<view class="submit-pay">
 			<text class="mix-btn" @click="goPay(payType)">立即支付</text>
 		</view>
-
+		
+		<!-- #ifdef H5 -->
 		<ssPaymentPassword ref="paymentPassword" :mode="mode" :value="pay_password" @submit="submitHandle"/>
-
+		<!-- #endif -->
+		<!-- #ifdef APP-PLUS -->
+		<pay-keyboard :show_key="show_key" @hideFun="hideFun" @getPassword="getPassword"></pay-keyboard>
+		<!-- #endif -->
 		<show-modal></show-modal>
 	</view>
 </template>
@@ -43,7 +47,8 @@
 	import uniRequest from 'uni-request';
 	import ssPaymentPassword from '@/components/sanshui-payment-password/index.vue';
 	import jsencrypt from '@/components/jsencrypt/jsencrypt.vue';
-	import jsrsasign from '@/node_modules/jsrsasign/lib/jsrsasign.js'
+	import jsrsasign from '@/node_modules/jsrsasign/lib/jsrsasign.js';
+	import payKeyboard from '@/components/keyboard.vue'
 	export default {
 		data() {
 			return {
@@ -66,11 +71,13 @@
 				mode: 0,
 				private: '', //签名
 				public: '', //加密
-				orderInfo: {}
+				orderInfo: {},
+				title: 'Hello',
+				show_key:false
 			};
 		},
 		components: {
-			ssPaymentPassword
+			ssPaymentPassword,payKeyboard
 		},
 		onBackPress(e) {
 			this.$showModal({
@@ -126,6 +133,14 @@
 					console.log(error.data)
 				})
 			},
+			
+			showFun(){
+				this.show_key = true
+			},
+			hideFun(){
+				this.show_key = false
+			},
+			
 			
 			getTime(time){
 				var date = new Date(time)
@@ -267,6 +282,7 @@
 							provider: 'alipay', // wxpay
 							orderInfo: orderInfo,
 							success: function(ress) {
+								console.log(ress)
 								uni.showToast({
 									title: '支付成功'
 								})
@@ -277,7 +293,8 @@
 							fail: function(err) {
 								console.log(err, err.errMsg)
 								uni.showModal({
-									content: "抱歉，您的支付不成功",
+									// content: "抱歉，您的支付不成功",
+									content: "支付失败,原因为: " + err.errMsg,
 									showCancel: false
 								})
 							}
@@ -310,7 +327,6 @@
 							Authorization: 'JWT ' + uni.getStorageSync('userInfo').token
 						},
 					}).then(res => {
-						console.log(res.data)
 						// 第一种写法，传对象
 						const orderInfo = {
 							"appid": res.data.appid,
@@ -322,32 +338,38 @@
 							"sign": res.data.sign
 						}
 						// 第二种写法，传对象字符串
-						console.log(JSON.stringify(orderInfo))
+						
 						uni.getProvider({
 							service: 'payment',
 							success: function(re) {
-								console.log(re.provider)
 								if (~re.provider.indexOf('wxpay')) {
 									uni.requestPayment({
 										provider: 'wxpay', // wxpay
 										orderInfo: JSON.stringify(orderInfo),
 										success: function(ress) {
+											console.log('success:' + JSON.stringify(ress));
 											uni.showToast({
-												title: '支付成功'
+												title: '支付成功',
+												showCancel: false
 											})
 											uni.switchTab({
 												url: '/pages/money/paySuccess'
 											})
 										},
 										fail: function(err) {
-											console.log(err, err.errMsg)
+											console.log('fail:' + JSON.stringify(err));
 											uni.showModal({
-												// content: "支付失败,原因为: " + err.errMsg,
-												content: '抱歉，您的支付不成功',
+												content: "支付失败,原因为: " + err.errMsg,
+												// content: '抱歉，您的支付不成功',
 												showCancel: false
 											})
+										},
+										complete:function(ress){
+											console.log(ress)
 										}
 									});
+								}else{
+									console.log('111')
 								}
 							}
 						});
@@ -364,16 +386,26 @@
 						},
 					}).then(res => {
 						console.log(res.data)
-						location.href = res.data.mweb_url
+						if(res.data.mweb_url){
+							location.href = res.data.mweb_url
+						}else{
+							this.$api.msg(res.data.message)
+						}
 						// plus.runtime.openURL(res.data.mweb_url);
 					}).catch(error => {
 						console.log(error.data)
 					})
 					// #endif
 				} else if (payType === 9) {
+					// #ifdef H5
 					this.getKey()
 					this.mode = 1
 					this.$refs.paymentPassword.modalFun('show');
+					// #endif
+					// #ifdef APP-PLUS
+					this.getKey()
+					this.show_key = true
+					// #endif
 				}
 			},
 			
@@ -431,9 +463,9 @@
 				var publiukey = this.public;
 				//限制117字符加密 (超过117字节会加载失败 中文或其他字符超过41个字符会加密失败)
 				var pubblicData = jsencrypt.setEncrypt(publiukey, data);
-				console.log(pubblicData);
 				return pubblicData
 			},
+			
 			jsencryptRsa(data) {
 				//公钥.
 				var privatekey = this.private;
@@ -444,18 +476,15 @@
 			},
 
 			async submitHandle(e) {
-				console.log(e);
 				this.pay_password = e.value
-				console.log(this.pay_password)
 				this.pay_password = this.jsencrypt(this.pay_password)
 				const orderData = {
 					order_id: this.orderId,
 					pwd: this.pay_password,
 					time: Date.parse(new Date())
 				}
-				console.log(JSON.stringify(orderData))
+				console.log(orderData)
 				const sign = this.jsencryptRsa(JSON.stringify(orderData))
-				console.log(sign)
 				const response = await uniRequest({
 					url: '/payment/balance/',
 					method: 'POST',
@@ -474,6 +503,53 @@
 						uni.showToast({
 							title: "支付成功"
 						})
+						uni.navigateTo({
+							url: '/pages/money/paySuccess'
+						})
+					} else if (response.status === 400) {
+						this.$api.msg(response.data.message || response.data[0])
+					} else if (response.status === 500) {
+						this.$api.msg('服务器错误')
+					}
+				}).catch(error => {
+					console.log(error)
+				})
+			},
+			
+			async getPassword(n){
+				console.log("用户输入的密码",n)
+				uni.showLoading({
+					title: '校验安全密码中'
+				});
+				this.pay_password = n.password
+				this.pay_password = this.jsencrypt(this.pay_password)
+				const orderData = {
+					order_id: this.orderId,
+					pwd: this.pay_password,
+					time: Date.parse(new Date())
+				}
+				const sign = this.jsencryptRsa(JSON.stringify(orderData))
+				const response = await uniRequest({
+					url: '/payment/balance/',
+					method: 'POST',
+					headers: {
+						Authorization: 'JWT ' + uni.getStorageSync('userInfo').token
+					},
+					data: {
+						order_id: this.orderId,
+						pwd: this.pay_password,
+						time: Date.parse(new Date()),
+						sign: sign,
+					}
+				}).then(response => {
+					console.log(response)
+					uni.hideLoading()
+					if (response.status === 200) {
+						console.log(response.data)
+						uni.showToast({
+							title: "支付成功"
+						})
+						this.show_key = false;
 						uni.navigateTo({
 							url: '/pages/money/paySuccess'
 						})
@@ -510,6 +586,10 @@
 	/deep/ uni-radio .uni-radio-input {
 		width: 18px;
 		height: 18px;
+	}
+	
+	.pay_btn{ width:100vw;height: 100vh;display: flex;flex-direction: column;align-items: center;justify-content: center;
+		text{ padding:20rpx 30rpx;background: #007AFF;border-radius: 10rpx;font-size:28rpx;color: #ffffff;}
 	}
 
 	.price-box {

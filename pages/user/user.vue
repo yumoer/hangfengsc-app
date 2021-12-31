@@ -5,18 +5,18 @@
 			<view class="user-info-box">  <!--  @tap="chooseAvatar" -->
 				<view class="portrait-box">
 					<image class="portrait" v-if="userInfo.portrait" :src="userInfo.portrait" mode="aspectFill" @click="navTo('/pages/set/avator')"></image>
-					<image class="portrait" v-else :src="'/static/img/missing-face.png'" mode="aspectFill" @click="navTo('/pages/public/login')"></image>
+					<image class="portrait" v-else src="http://47.94.106.106:8888/group1/M00/5D/D0/rBHxiGHJU5qAePFBAAARG8W5qpA7716379" mode="aspectFill" @click="navTo('/pages/public/login')"></image>
 				</view>
 				<view class="info-box">
 					<view class="username">{{userInfo.username || '游客'}}</view><br>
 					<text class="welcome" v-if="userInfo.username">Hi~ ，欢迎来到行丰商城！</text>
 					<text class="welcome" v-else  @click="navTo('/pages/public/login')">Hi~ , 点击登录！</text>
 				</view>
-				<view class="info-vip">
+				<!-- <view class="info-vip">
 					<view class="info-btn">
 						<text class="info-text" @click="openVip">开通VIP</text>
 					</view>
-				</view>
+				</view> -->
 			</view>
 		</view>
 		<view class="tj-sction">
@@ -25,7 +25,8 @@
 				<text>余额</text>
 			</view>
 			<view class="tj-item" @click="navTo('/pages/coupon/exchange')">
-				<text class="num">{{coupon || 0}}</text>
+				<text class="num" v-if="coupon">{{coupon}}</text>
+				<text class="num" v-else>0</text>
 				<text>优惠券</text>
 			</view>
 			<!-- <view class="tj-item">
@@ -82,45 +83,45 @@
 			</view>
 			
 			<view class="history-section">
-				<view class="wrap">
+				<view class="wrap b-b">
 					<view class="img" style="top: 8px;">
 						<u-image width="32px" height="36px" src="http://47.94.106.106:8888/group1/M00/5D/54/rBHxiGGzFDOAGX7aAAAFhw_SPZY2530463"></u-image>
 					</view>
 					<list-cell class="cell" title="收货地址" @eventClick="navTo('/pages/address/address')" tips="完善收货地址"></list-cell>
 				</view>
-				<view class="wrap">
+				<view class="wrap b-b">
 					<view class="img">
 						<u-image width="30px" height="30px" src="http://47.94.106.106:8888/group1/M00/5D/54/rBHxiGGzFDOAGwZdAAAFgm2NRz47935958"></u-image>
 					</view>
 					<list-cell class="cell"  title="我的评价" @eventClick="navTo('/pages/allAssess/allAssess')" tips="查看所有商品评价"></list-cell>
 				</view>
-				<view class="wrap">
+				<view class="wrap b-b">
 					<view class="img">
 						<u-image width="30px" height="30px" src="http://47.94.106.106:8888/group1/M00/5D/54/rBHxiGGzFDOAN2fVAAAEYhAJ3Jk9629840"></u-image>
 					</view>
 					<list-cell class="cell"  title="我的收藏" @eventClick="navTo('/pages/coupon/reduction')"></list-cell>
 				</view>
-				<view class="wrap">
+				<view class="wrap b-b">
 					<view class="img">
 						<u-image width="30px" height="30px" src="http://47.94.106.106:8888/group1/M00/5D/54/rBHxiGGzFDOAERFaAAAEEKpfSrk1491110"></u-image>
 					</view>
 					<list-cell class="cell"  title="个人资料" @eventClick="navTo('/pages/set/userInfo')" tips="修改个人资料"></list-cell>
 				</view>
-				<view class="wrap">
+				<view class="wrap b-b">
 					<view class="img" style="top: 8px;">
 						<u-image width="30px" height="36px" src="http://47.94.106.106:8888/group1/M00/5D/54/rBHxiGGzFDOADfOSAAAC-rXnIxg7870927"></u-image>
 					</view>
 					<list-cell class="cell"  title="修改密码" @eventClick="navTo('/pages/set/editPass')"></list-cell>
 				</view>
 				
-				<view class="wrap">
+				<view class="wrap b-b">
 					<view class="img" style="top: 10px;">
 						<u-image width="30px" height="34px" src="http://47.94.106.106:8888/group1/M00/5D/54/rBHxiGGzFDOAElE3AAAC6dE4bn84679327"></u-image>
 					</view>
 					<list-cell class="cell"  title="发票信息" @eventClick="navTo('/pages/invoice/invoice')" tips="添加普票/增票/电子票"></list-cell>
 				</view>
 				
-				<view class="wrap">
+				<view class="wrap b-b">
 					<view class="img">
 						<u-image width="30px" height="30px" src="http://47.94.106.106:8888/group1/M00/5D/54/rBHxiGGzFDOAG0IPAAACcb7-uFo2135620"></u-image>
 					</view>
@@ -128,15 +129,15 @@
 				</view>
 				
 				<!-- #ifdef APP-PLUS -->
-				<view class="wrap">
+				<view class="wrap b-b">
 					<view class="img">
 						<u-image width="30px" height="30px" src="http://47.94.106.106:8888/group1/M00/5D/54/rBHxiGGzFDOAb5FJAAAFkRElRBw3370236"></u-image>
 					</view>
-					<list-cell class="cell"   @eventClick="navTo('/pages/share/share')" title="分享" tips="分享app给好友"></list-cell>
+					<list-cell class="cell" @eventClick="navTo('/pages/share/share')" title="分享" tips="分享app给好友"></list-cell>
 				</view>
 				<!-- #endif --> 
 				<!-- #ifdef H5 -->
-				<view class="wrap">
+				<view class="wrap b-b">
 					<view class="img" style="left: 10px;">
 						<u-image width="40px" height="30px" src="http://47.94.106.106:8888/group1/M00/5D/55/rBHxiGGzGuSANoBdAAAR8ZZRY1Q0990110"></u-image>
 					</view>
@@ -307,6 +308,7 @@
 						Authorization: 'JWT ' + uni.getStorageSync('userInfo').token
 					},
 				}).then(res => {
+					console.log(res.data.count)
 					this.coupon = res.data.count
 				}).catch(error => {
 					console.log(error);
@@ -653,6 +655,9 @@
 			.cell{
 				margin-left: 45px;
 			}
+		}
+		.wrap:after{
+			left: 15px;
 		}
 		.h-list{
 			white-space: nowrap;

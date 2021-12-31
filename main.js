@@ -17,7 +17,7 @@ import uView from "uview-ui";
 
 import VueClipboard from 'vue-clipboard2';
 
-import jsrsasign from '@/node_modules/jsrsasign/lib/jsrsasign.js';
+import jsrsasign from './node_modules/jsrsasign/lib/jsrsasign.js';
 
 Vue.use(VueClipboard);
 Vue.use(jsrsasign);
