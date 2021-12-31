@@ -5,7 +5,7 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="6f6f1dfa-24b5-4b86-8808-c14408f38f9c" name="默认" comment="商城第二版更新">
-      <change beforePath="$PROJECT_DIR$/pages/index/index.vue" beforeDir="false" afterPath="$PROJECT_DIR$/pages/index/index.vue" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/manifest.json" beforeDir="false" afterPath="$PROJECT_DIR$/manifest.json" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -96,7 +96,7 @@
       <workItem from="1595211691854" duration="4032000" />
       <workItem from="1595217632134" duration="3864000" />
       <workItem from="1599446620600" duration="363000" />
-      <workItem from="1640922257145" duration="2284000" />
+      <workItem from="1640922257145" duration="2949000" />
     </task>
     <task id="LOCAL-00001" summary="第一次更新">
       <created>1595215491388</created>
@@ -140,7 +140,14 @@
       <option name="project" value="LOCAL" />
       <updated>1640930088418</updated>
     </task>
-    <option name="localTasksCounter" value="7" />
+    <task id="LOCAL-00007" summary="商城第二版更新">
+      <created>1640930174927</created>
+      <option name="number" value="00007" />
+      <option name="presentableId" value="LOCAL-00007" />
+      <option name="project" value="LOCAL" />
+      <updated>1640930174927</updated>
+    </task>
+    <option name="localTasksCounter" value="8" />
     <servers />
   </component>
   <component name="TimeTrackingManager">
