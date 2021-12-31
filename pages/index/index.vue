@@ -18,15 +18,7 @@
 				<text class="num">{{swiperLength}}</text>
 			</view>
 		</view>
-		
-		<!-- 主题ICON -->
-		<!-- <view class="cate-section">
-			<view class="cate-item" v-for="(homePage,index) in homePageList" :key=index @click="goIcon(homePage)">
-				<image :src="homePage.src"></image>
-				<text>{{homePage.text}}</text>
-			</view>
-		</view> -->
-		
+
 		<view class="cate-section">
 			<u-row gutter="16" style="width: 100%;">
 				<u-col span="3" v-for="(homePage,index) in homePageList" :key="index">
@@ -37,7 +29,7 @@
 				</u-col>
 			</u-row>
 		</view>
-		
+
 		<!-- 功能页	-->
 		<view class="func-wrapper" style="">
 			<view class="func-content" style="">
@@ -59,7 +51,7 @@
 				</view>
 			</view>
 		</view>
-		
+
 		<!-- 秒杀楼层 -->
 		<view class="seckill-section m-t" v-if="false">
 			<view class="s-header">
@@ -72,7 +64,7 @@
 			</view>
 			<scroll-view class="floor-list" scroll-x>
 				<view class="scoll-wrapper">
-					<view 
+					<view
 						v-for="(item, index) in goodList" :key="index"
 						class="floor-item"
 						@click="navToDetailPage(item,'time')"
@@ -82,15 +74,15 @@
 							<text class="title clamp" style="text-align: center;">{{item.name}}</text>
 							<view class="price-box">
 								<text class="price">￥{{item.price}}</text>
-								<text class="m-price">￥{{item.make_price}}</text> 
+								<text class="m-price">￥{{item.make_price}}</text>
 							</view>
 						</view>
-						
+
 					</view>
 				</view>
 			</scroll-view>
 		</view>
-		
+
 		<!-- 猜你喜欢 -->
 		<view class="f-header m-t">
 			<view class="tit-box">
@@ -99,7 +91,7 @@
 		</view>
 		<!-- 猜你喜欢 -->
 		<view class="guess-section">
-			<view 
+			<view
 				v-for="(item, index) in skuData" :key="index"
 				class="guess-item"
 				@click="navToDetailPage(item)"
@@ -113,24 +105,24 @@
 					<text class="price">￥{{item._source.price}}</text>
 					<text style="float:right;color: rgb(144, 147, 153); line-height:60upx;font-size: 28upx;margin-right: 15px;" >销量: {{item._source.sales}}</text>
 				</text>
-				
+
 			</view>
 		</view>
-		
+
 		<uni-load-more :status="loadingType"></uni-load-more>
-		
-		
+
+
 		<!-- #ifdef H5 -->
 		<view @click="goToPage('/pages/appDown/appDown')" style="position: fixed;bottom: 160px;right: 10px;width: 100%;height: 60px;z-index: 1;right: -77%;">
 			<image style="width: 100px;height: 60px;" src="http://47.94.106.106:8888/group1/M00/5D/27/rBHxiGGtskKAdULcAADI0Ra5ka84065892" mode=""></image>
 		</view>
 		<!-- #endif -->
-		
+
 		<view @click="goToPage('/pages/contact/contact')" style="position: fixed;bottom: 112px;z-index: 1;right:15px;width: 88upx;height: 88upx;background-color: rgba(102,102,102,.8);border-radius: 50%;">
 			<u-icon name="kefu-ermai" color="rgba(255,255,255,.7)" size="60" style="display: flex;justify-content: center;margin-top: 16upx;"></u-icon>
 		</view>
 		<backTop :src="backTop.src" :scrollTop="backTop.scrollTop"></backTop>
-		
+
 		<!-- #ifdef APP-PLUS -->
 		<dowloadApk></dowloadApk>
 		<!-- #endif -->
@@ -195,13 +187,13 @@
 			this.getVersion()
 			// #endif
 		},
-		
+
 		//加载更多
 		onReachBottom(){
 			this.page_size = this.page_size + 10
-			this.getDate(); 
+			this.getDate();
 		},
-		
+
 		// 标题栏input搜索框点击
 		onNavigationBarSearchInputClicked(e) {
 			uni.navigateTo({
@@ -213,7 +205,7 @@
 			const index = e.index;
 			console.log(index)
 			if (index === 0) {
-				
+
 				uni.navigateTo({
 					url: '/pages/notice/notice'
 				})
@@ -252,7 +244,7 @@
 				})
 			}
 		},
-		
+
 		methods: {
 			loadData() {
 				this.getBanner()
@@ -260,7 +252,7 @@
 				this.getLimitTime()
 				this.getCateChange()
 			},
-			
+
 			async getHotGoods(){
 				await uniRequest({
 					url:'/content/index/floor/',
@@ -277,7 +269,7 @@
 					console.log(error)
 				})
 			},
-			
+
 			// 猜你喜欢
 			async getDate(type='add', loading){
 				//没有更多直接返回
@@ -287,7 +279,7 @@
 				}else{
 					this.loadingType = 'more'
 				}
-				
+
 				await uniRequest.post('/goods/new/search/',{text:'',page:this.page,page_size:this.page_size,orderBy:'',sort:''})
 				.then(res=>{
 					this.skuData = res.data.sku_list
@@ -298,7 +290,7 @@
 					console.log(error)
 				})
 			},
-			
+
 			// 轮播图
 			async getBanner(){
 				await uniRequest({
@@ -313,23 +305,23 @@
 						this.carouselList = carouselList;
 					}
 				}).catch(error => {
-					console.log(error) 
+					console.log(error)
 					this.$api.msg('提交失败')
-				}) 
+				})
 			},
-			
+
 			// 主题ICON
 			async gethomePage(){
 				let homePageList = await this.$api.json('homePageList');
 				this.homePageList = homePageList;
 			},
-			
+
 			// 分类精选
 			async getCateChange(){
 				const response = await uniRequest.get('/goods/categories/147/skus/?page='+this.page+'&page_size='+this.page_size+'&ordering='+this.ordering);
 				this.goodsList = response.data.results
 			},
-			
+
 			// 限时秒杀
 			async getLimitTime(){
 				const res = await uniRequest.get('/goods/limit/time/sku/');
@@ -369,28 +361,28 @@
 					// }
 				}
 			},
-			
+
 			//轮播图切换修改背景色
 			swiperChange(e) {
 				const index = e.detail.current;
 				this.swiperCurrent = index;
 				this.titleNViewBackground = this.carouselList[index].color;
 			},
-			
+
 			// 跳转详情页
 			goToPage(url){
 				uni.navigateTo({
 					url:url
 				})
 			},
-			
+
 			// 跳转分类
 			toCategory(){
 				uni.switchTab({
 				      url: '/pages/category/category'
 				})
 			},
-			
+
 			// 跳转主题页
 			goIcon(value){
 				console.log(value.index)
@@ -431,13 +423,13 @@
 					uni.navigateTo({
 						url:'/pages/index/subject/ylqx/ylqx'
 					})
-					
+
 				}else if(value.index === 8){
 					// this.$api.msg('暂未开发')
 					uni.navigateTo({
 						url:'/pages/index/subject/cqtg/cqtg'
 					})
-					
+
 				}else if(value.index === 9){
 					// this.$api.msg('暂未开发')
 					uni.navigateTo({
@@ -445,13 +437,13 @@
 					})
 				}
 			},
-			
+
 			navToPage(url){
 				uni.navigateTo({
 					url
 				})
 			},
-			
+
 			// 跳转详情页
 			navToDetailPage(item,value) {
 				console.log(item,value)
@@ -468,7 +460,7 @@
 					})
 				}
 			},
-			
+
 			getVersion(){
 				this.appver = plus.runtime.version;
 				plus.runtime.getProperty(plus.runtime.appid,(wgtinfo)=>{
@@ -477,20 +469,20 @@
 				});
 				uni.getSystemInfo({
 					success:(res) => {
-						console.log(res.platform);  
-						//检测当前平台，如果是安卓则启动安卓更新  
-						if(res.platform=="android"){  
-							// this.AndroidCheckUpdate();  
+						console.log(res.platform);
+						//检测当前平台，如果是安卓则启动安卓更新
+						if(res.platform=="android"){
+							// this.AndroidCheckUpdate();
 							this.checkVersionClick()
 						}else{ //苹果ios
 							console.log('该系统是ios系统')
-						}  
-					}  
+						}
+					}
 				})
 			},
-			
+
 			// 获取版本信息
-			async checkVersionClick(){ 
+			async checkVersionClick(){
 				// __UNI__8601E36/uni.UNI18D6
 				const appveres = await uniRequest.post('/mobile/check/app/version/',{appid:'__UNI__8601E36',version:this.appver})
 				console.log(appveres.data,this.appver,this.wgtver)
@@ -504,7 +496,7 @@
 					}
 				}
 			},
-			
+
 			//开始app整包升级
 			startUpDate:function(){
 				//app版本号获取方式
@@ -521,8 +513,8 @@
 				}
 				//必需提供下载地址;
 				upDater.startUpdate(options);
-			},	
-			
+			},
+
 			//wgt升级方式;
 			startWgt:function(){
 				//注意：服务器的热更新版本号必需大于本地wgt版本号
@@ -539,11 +531,11 @@
 					btnBgColor:"#0354a7",
 					topImgBg:topIconPath//除非需要自定义头部logo，否则不需要传;
 				}
-				
+
 				//第一步创建文件下载路径，并创建文件;
 				plus.io.requestFileSystem(plus.io.PUBLIC_DOWNLOADS,function(fobject){
 					console.log(fobject)
-					//设置文件下载根路径;	
+					//设置文件下载根路径;
 					let rootPath=fobject.root.fullPath;
 					console.log(options,rootPath)
 					upDater.wgtUpdate(options,rootPath,result=>{
@@ -561,15 +553,15 @@
 								uni.showToast({
 									title: '安装升级包失败'+JSON.stringify(e),
 									icon: 'none'
-								})								
+								})
 							});
 						}
 					});
 				})
 			},
-			
+
 			// 更新提示
-			async AndroidCheckUpdate(){  
+			async AndroidCheckUpdate(){
 				const sendData = {
 					appid:'__UNI__8601E36',
 					version:this.version,
@@ -578,7 +570,7 @@
 				console.log(res,this.version)
 				if(this.version !== '' && res.data.max_version>this.version){
 					if(plus.networkinfo.getCurrentType()!=3){
-						uni.showModal({ 
+						uni.showModal({
 							title: '新版本更新',
 							content: `有新的版本发布，检测到您目前非Wifi连接，为节约您的流量，程序已停止自动更新，点击下载完成后将自动弹出安装程序。`,
 							confirmText:'立即更新',
@@ -594,23 +586,23 @@
 						});
 					}else{
 						var dtask = plus.downloader.createDownload( "http://47.94.106.106:8000/mobile/download/apk", {}, function ( d, status ) {
-							// 下载完成  
-							if ( status == 200 ) {   
-								plus.runtime.install(plus.io.convertLocalFileSystemURL(d.filename),{},{},function(error){  
-									uni.showToast({  
-										title: '安装失败',  
-										mask: false,  
-										duration: 1500  
-									});  
-								})  
-							} else {  
-								 uni.showToast({  
-									title: '更新失败',  
-									mask: false,  
-									duration: 1500  
-								 });  
-							}    
-						});  
+							// 下载完成
+							if ( status == 200 ) {
+								plus.runtime.install(plus.io.convertLocalFileSystemURL(d.filename),{},{},function(error){
+									uni.showToast({
+										title: '安装失败',
+										mask: false,
+										duration: 1500
+									});
+								})
+							} else {
+								 uni.showToast({
+									title: '更新失败',
+									mask: false,
+									duration: 1500
+								 });
+							}
+						});
 						uni.showModal({
 							title: '发现新版本',
 							content: `有新的版本发布，检测到您目前为Wifi连接，程序已启动自动更新。新版本下载完成后将自动弹出安装程序。`,
@@ -619,17 +611,17 @@
 							success: function (res) {
 								if (res.confirm) {
 									console.log('用户点击确定');
-									dtask.start();  
+									dtask.start();
 								} else if (res.cancel) {
 									console.log('用户点击取消');
 								}
 							}
-						}); 
+						});
 					}
 				}
-			}, 
+			},
 		},
-		
+
 	}
 </script>
 
@@ -722,8 +714,8 @@
 		justify-content: space-between;
 		align-items: center;
 		flex-wrap:wrap;
-		padding: 30upx 22upx 0 22upx; 
-		
+		padding: 30upx 22upx 0 22upx;
+
 		.cate-item {
 			display: flex;
 			flex-direction: column;
@@ -749,7 +741,7 @@
 		background: #fff;
 		image{
 			width:100%;
-			height: 100%; 
+			height: 100%;
 		}
 	}
 	/* 功能专区 */
@@ -758,7 +750,7 @@
 		height: 285px;
 		padding: 0 28rpx;
 		margin-top: 40rpx;
-		
+
 		.func-content{
 			width: 48%;
 			height: 285px;
@@ -805,7 +797,7 @@
 			}
 		}
 	}
-	
+
 	/* 秒杀专区 */
 	.seckill-section{
 		padding: 4upx 30upx 24upx;
@@ -871,7 +863,7 @@
 			}
 		}
 	}
-	
+
 	.f-header{
 		display:flex;
 		align-items:center;
@@ -1050,7 +1042,7 @@
 			display:flex;
 			flex-direction: column;
 			width: 48%;
-			
+
 			margin-bottom: 40upx;
 			background: #FFFFFF;
 			&:nth-child(2n+1){

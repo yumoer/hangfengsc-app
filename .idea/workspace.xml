@@ -4,14 +4,18 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="6f6f1dfa-24b5-4b86-8808-c14408f38f9c" name="默认" comment="商城第二版更新" />
+    <list default="true" id="6f6f1dfa-24b5-4b86-8808-c14408f38f9c" name="默认" comment="商城第二版更新">
+      <change beforePath="$PROJECT_DIR$/pages/index/index.vue" beforeDir="false" afterPath="$PROJECT_DIR$/pages/index/index.vue" afterDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
     <option name="LAST_RESOLUTION" value="IGNORE" />
   </component>
   <component name="Git.Settings">
+    <option name="RECENT_COMMON_BRANCH" value="master" />
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+    <option name="ROOT_SYNC" value="SYNC" />
   </component>
   <component name="JsBuildToolGruntFileManager" detection-done="true" sorting="DEFINITION_ORDER" />
   <component name="JsBuildToolPackageJson" detection-done="true" sorting="DEFINITION_ORDER" />
@@ -92,7 +96,7 @@
       <workItem from="1595211691854" duration="4032000" />
       <workItem from="1595217632134" duration="3864000" />
       <workItem from="1599446620600" duration="363000" />
-      <workItem from="1640922257145" duration="2160000" />
+      <workItem from="1640922257145" duration="2284000" />
     </task>
     <task id="LOCAL-00001" summary="第一次更新">
       <created>1595215491388</created>
@@ -129,7 +133,14 @@
       <option name="project" value="LOCAL" />
       <updated>1640928918108</updated>
     </task>
-    <option name="localTasksCounter" value="6" />
+    <task id="LOCAL-00006" summary="商城第二版更新">
+      <created>1640930088418</created>
+      <option name="number" value="00006" />
+      <option name="presentableId" value="LOCAL-00006" />
+      <option name="project" value="LOCAL" />
+      <updated>1640930088418</updated>
+    </task>
+    <option name="localTasksCounter" value="7" />
     <servers />
   </component>
   <component name="TimeTrackingManager">
