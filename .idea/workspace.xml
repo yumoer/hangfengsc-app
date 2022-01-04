@@ -5,7 +5,7 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="6f6f1dfa-24b5-4b86-8808-c14408f38f9c" name="默认" comment="商城第二版更新">
-      <change beforePath="$PROJECT_DIR$/manifest.json" beforeDir="false" afterPath="$PROJECT_DIR$/manifest.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -96,7 +96,7 @@
       <workItem from="1595211691854" duration="4032000" />
       <workItem from="1595217632134" duration="3864000" />
       <workItem from="1599446620600" duration="363000" />
-      <workItem from="1640922257145" duration="2949000" />
+      <workItem from="1640922257145" duration="3687000" />
     </task>
     <task id="LOCAL-00001" summary="第一次更新">
       <created>1595215491388</created>
@@ -147,7 +147,21 @@
       <option name="project" value="LOCAL" />
       <updated>1640930174927</updated>
     </task>
-    <option name="localTasksCounter" value="8" />
+    <task id="LOCAL-00008" summary="商城第二版更新">
+      <created>1640939937605</created>
+      <option name="number" value="00008" />
+      <option name="presentableId" value="LOCAL-00008" />
+      <option name="project" value="LOCAL" />
+      <updated>1640939937605</updated>
+    </task>
+    <task id="LOCAL-00009" summary="商城第二版更新">
+      <created>1640939998643</created>
+      <option name="number" value="00009" />
+      <option name="presentableId" value="LOCAL-00009" />
+      <option name="project" value="LOCAL" />
+      <updated>1640939998643</updated>
+    </task>
+    <option name="localTasksCounter" value="10" />
     <servers />
   </component>
   <component name="TimeTrackingManager">

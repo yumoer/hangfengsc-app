@@ -12,7 +12,7 @@
 					</view>
 				</view>
 				<!-- 第一步 -->
-				<view class="content" v-if="first">
+				<view class="content" v-if="!first">
 					<view class="input-content">
 						<view class="first">
 							<view class="input-item">
@@ -125,12 +125,13 @@
 							</view>
 						</view>
 						<view class="info">
-							<checkbox-group @change="changeType">
-								<label>
-									<checkbox :checked="allow" color="#EE1D23"/>
-									<text style="font-size: 12px;">同意《行丰用户服务协议》《行丰隐私保护政策》</text>
-								</label>
-							</checkbox-group>
+							<u-checkbox-group>
+								<u-checkbox v-model="checked" @change="checkboxChange" activeColor="red" shape="circle">
+								</u-checkbox>
+							</u-checkbox-group>
+							阅读并勾选
+							<text @click="toService">《行丰用户服务协议》</text>
+							<text @click="toPrivacy">《行丰隐私保护政策》</text>
 						</view>
 						
 						<view class="loginBtn">
@@ -166,7 +167,7 @@
 				sms_code:'', // 手机验证码
 				smsCodeMsg:'',
 				// checked:true,
-				allow:false, // 同意协议
+				checked:false, // 同意协议
 				image_code_id: '', // uuid
 				image_code_url:'', // 访问后端视图的地址，得到image
 				getText:'', // 图形验证码
@@ -195,11 +196,7 @@
 				})
 			},
 			
-			toLogin(){
-				uni.navigateTo({
-					url:'/pages/public/login'
-				})
-			},
+			
 			// 下一步
 			toNext(){
 				if(this.mobile && this.imageCode && this.sms_code){
@@ -322,8 +319,13 @@
 			
 			changeType(env){
 				console.log(env)
-				this.allow = !this.allow
-				console.log(this.allow)
+				this.checked = !this.checked
+				console.log(this.checked)
+			},
+			
+			checkboxChange(e) {
+				console.log(e)
+				this.checked = e.value
 			},
 			
 			// 发送验证码
@@ -423,7 +425,7 @@
 				if(this.username && this.password && this.password2){
 					if(!this.usernameMsg && !this.passwordMsg && !this.passwordMsg2){
 						if(this.allow !== true){
-							this.$api.msg('请同意用户协议')
+							this.$api.msg('请阅读并勾选隐私协议或用户协议')
 							return
 						}
 						const sendData = {
@@ -555,17 +557,16 @@
 			.info{
 				width: 100%;
 				height: 30px;
-				.allow{
-					font-size: 12px;
+				color: #000000;
+				text{
 					height: 30px;
-					line-height: 30px;
 					color: #999999;
 				}
 			}
 			.loginBtn{
 				width: 100%;
 				height: 50px;
-				margin-top: 20px;
+				margin-top: 30px;
 				.confirm{
 					width: 100%;
 					height: 76upx;
