@@ -558,6 +558,8 @@
 				width: 100%;
 				height: 30px;
 				color: #000000;
+				font-size: 24upx;
+				line-height: 40upx;
 				text{
 					height: 30px;
 					color: #999999;
