@@ -89,7 +89,6 @@
 				<text class="tit">为你推荐</text>
 			</view>
 		</view>
-		<!-- 猜你喜欢 -->
 		<view class="guess-section">
 			<view
 				v-for="(item, index) in skuData" :key="index"
