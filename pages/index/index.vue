@@ -122,7 +122,6 @@
 			<u-icon name="kefu-ermai" color="rgba(255,255,255,.7)" size="60" style="display: flex;justify-content: center;margin-top: 16upx;"></u-icon>
 		</view>
 		<backTop :src="backTop.src" :scrollTop="backTop.scrollTop"></backTop>
-
 		<!-- #ifdef APP-PLUS -->
 		<dowloadApk></dowloadApk>
 		<!-- #endif -->
