@@ -104,7 +104,6 @@
 					<text class="price">￥{{item._source.price}}</text>
 					<text style="float:right;color: rgb(144, 147, 153); line-height:60upx;font-size: 28upx;margin-right: 15px;" >销量: {{item._source.sales}}</text>
 				</text>
-
 			</view>
 		</view>
 
