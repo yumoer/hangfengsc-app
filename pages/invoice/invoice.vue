@@ -21,8 +21,6 @@
 			</view>
 		</view>
 		
-		
-		
 		<view v-if="couponList.length === 0">
 			<xw-empty :isShow="isEmpty" img="http://47.94.106.106:8888/group1/M00/5D/28/rBHxiGGttGKAQ85UAAHS1uzZYE40632776" path="" btnText="" text="您暂时还没有添加发票" textColor="#C0C4CC"></xw-empty>
 		</view>
@@ -34,7 +32,7 @@
 			<u-checkbox-group class="checkbox">
 				<u-checkbox @change="checkedAll" v-model="checked" active-color="red">全选</u-checkbox>
 			</u-checkbox-group>
-			<view class="total-box" @click="toBack">取消删除</view>
+			<view class="total-box" @click="toBack">返回</view>
 			<button type="primary" class="no-border confirm-btn" @click="condelete(selected)">删除 ({{selected.length}})</button>
 		</view>
 		
@@ -149,26 +147,28 @@
 				if(e.value === true){
 					this.selected.push(e)
 				}else{
-					this.checked = false
 					this.selected.shift(e,1)
 				}
-				console.log(this.selected)
-				e.value = !e.value
+				if(this.couponList.length === this.selected.length){
+					this.checked = true
+				}else{
+					this.checked = false
+				}
 			},
 			
 			// 全选
 			checkedAll() {
-				// this.checked = !this.checked
 				let selected = []
 				this.couponList.forEach(ele=>{
-					if(this.checked === true){
-						ele.checked = true
-					}else{
-						ele.checked = false
-					}
 					selected.push({value:ele.checked,name:ele.id})
+					if(this.checked === true){
+						ele.checked = false
+						this.selected = []
+					}else{
+						ele.checked = true
+						this.selected = selected
+					}
 				})
-				this.selected = selected
 			},
 			
 			// 删除
@@ -415,7 +415,7 @@
 	/* 底部栏 */
 	.action-section{
 		position:fixed;
-		bottom:30upx;
+		bottom:0;
 		margin-left: -15px;
 		z-index: 95;
 		display: flex;
@@ -424,7 +424,7 @@
 		height: 100upx;
 		padding-left: 30upx;
 		background: rgba(255,255,255,.9);
-		box-shadow: 0 0 2px 0 rgba(0,0,0,.5);
+		/* box-shadow: 0 0 2px 0 rgba(0,0,0,.5); */
 		.checkbox{
 			height:52upx;
 			position:relative;

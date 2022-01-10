@@ -92,7 +92,7 @@
 							</view>
 						</view>
 					</view>
-					<uni-load-more :status="tabItem.loadingType"></uni-load-more>
+					<uni-load-more v-if="orderList.length > 0" :status="tabItem.loadingType"></uni-load-more>
 				</scroll-view>
 			</swiper-item>
 		</swiper>
@@ -171,6 +171,9 @@
 		computed:{
 			...mapState(['userInfo'])
 		},
+		
+		
+		
 		async onLoad(options){
 			/**
 			 * 修复app端点击除全部订单外的按钮进入时不加载数据的问题
@@ -181,6 +184,15 @@
 			}
 			
 			this.loadData('tabChange',this.tabCurrentIndex)
+		},
+		
+		onNavigationBarButtonTap(e) {
+			const index = e.index;
+			if (index === 0) {
+				uni.navigateTo({
+					url:'/pages/search/search'
+				})  
+			}
 		},
 		
 		methods: {
@@ -268,7 +280,9 @@
 						//loaded新字段用于表示数据加载完毕，如果为空可以显示空白页
 						this.$set(navItem, 'loaded', true);
 						//判断是否还有数据， 有改为 more， 没有改为noMore 
-						navItem.loadingType = navItem.orderList.length > 0 ? 'noMore' : 'more'
+						navItem.loadingType = navItem.orderList.length > 0 ? 'more' : 'noMore'
+						
+						console.log(navItem.loadingType)
 					}
 				}).catch(error=>{
 					console.log(error)

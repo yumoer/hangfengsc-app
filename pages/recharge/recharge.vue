@@ -13,7 +13,7 @@
 		</view>
 		<view class="m-wrap">
 			<button type="default" class="m-btn" @click="shareInfo">充值</button>
-			<button type="default" class="m-btn empty" @click="shareInfo">提现</button>
+			<!-- <button type="default" class="m-btn empty" @click="shareInfo">充值记录</button> -->
 		</view>
 	</view>
 </template>
@@ -136,16 +136,20 @@
 	}
 	
 	.m-wrap{
-		bottom: 300upx;
+		bottom: 150upx;
 		margin: 0 auto;
 		width: 600upx;
 		position: absolute;
 		.m-btn{
-			background: linear-gradient(to right,#EE1D23,#F04023);
+			width: 560upx;
+			display: inline-block;
+			margin: 0 5px;
+			font-weight: bold;
+			background: linear-gradient(to right,#EE1D23 0%,#F04023 100%,);
 			color: #fff;
-			border-radius: 40upx;
-			width: 590upx;
-			height: 80upx;
+			border-radius: 50upx;
+			height: 90upx;
+			line-height: 90upx;
 		}
 		.empty{
 			background: #fff;

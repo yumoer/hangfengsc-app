@@ -115,13 +115,6 @@
 				}).then(res=>{
 					if(res.status === 200 || res.status === 201){
 						this.cartList = res.data;
-						// if(this.isCheck && this.cartList.length > 0){
-						// 	plus.document.getElementsByClassName('uni-btn-icon')[1].innerText = '完成';
-						// 	// document.getElementsByClassName('uni-btn-icon')[1].innerText = '完成';
-						// }else{
-						// 	plus.document.getElementsByClassName('uni-btn-icon')[1].innerText = '编辑';
-						// 	// document.getElementsByClassName('uni-btn-icon')[1].innerText = '编辑';
-						// }
 					}else{
 						if(res.status === 500){
 							this.$api.msg('服务器错误，请稍后重试')
@@ -200,19 +193,15 @@
 				}else{
 					this.selected.splice(e,1)
 				}
-				console.log(this.selected)
-				this.selected.forEach(ele=>{
-					if(ele.value === true){
-						this.checked = true
-					}else{
-						this.checked = false
-					}
-				})
+				if(this.cartList.length === this.selected.length){
+					this.checked = true
+				}else{
+					this.checked = false
+				}
 			},
 			
 			// 全选
 			checkedAll() {
-				// this.checked = !this.checked
 				let selected = []
 				this.goodsList.forEach(ele=>{
 					selected.push({value:ele.checked,name:ele.id})
@@ -224,7 +213,6 @@
 						this.selected = selected
 					}
 				})
-				console.log(this.selected)
 			},
 			
 			joinCart(item){
@@ -474,11 +462,12 @@
 			padding-right: 10upx;
 			font-size: 24upx;
 			color: $font-color-light;
+			z-index: 1;
 		}
 		.price{
 			font-size: $font-lg;
 			color: $uni-color-primary;
-			line-height: 1;
+			line-height: 30upx;
 			margin-top: 20upx;
 			&:before{
 				content: '￥';
@@ -524,7 +513,7 @@
 		height: 100upx;
 		padding-left: 30upx;
 		background: rgb(255,255,255);
-		box-shadow: 0 0 2px 0 rgba(0,0,0,.5);
+		// box-shadow: 0 0 2px 0 rgba(0,0,0,.5);
 		.checkbox{
 			height:52upx;
 			position:relative;

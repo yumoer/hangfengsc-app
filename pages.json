@@ -58,20 +58,22 @@
 				"app-plus": {
 					"titleNView": {
 						"type": "transparent",
-						"buttons": [{
+						"padding": "15px",
+						"bounce":"none",
+						"buttons": [
+							{
 								"fontSrc": "/static/css/yticon.ttf",
 								"text": "\ue61e",
 								"fontSize": "22",
-								"color": "#303133",
-								"width": "32px",
-								"background": "rgba(0,0,0,.3)"
-							},{
+								"color": "#000000",
+								"width": "36px"
+							}
+							,{
 								"fontSrc": "/static/css/yticon.ttf",
 								"text": "\ue7ce",
 								"fontSize": "22",
 								"color": "#303133",
-								"width": "32px",
-								"background": "rgba(0,0,0,.3)"
+								"width": "36px"
 							}
 						]
 					}
@@ -201,11 +203,10 @@
 					"titleNView": {
 						"buttons": [
 							{
-								"fontSrc": "/static/css/yticon.ttf",
-								"text": "编辑",
-								"fontSize": "16",
+								"type": "menu",
+								"fontSize": "22",
 								"color": "#303133",
-								"background": "rgba(0,0,0,0)"
+								"width": "32px"
 							}
 						]
 					}
@@ -234,13 +235,14 @@
 				"app-plus":{
 					"bounce": "none",
 					"titleNView": {
+						"padding": "15px",
 						"type": "default",
 						"buttons": [
-							{
-								"text": "账单明细",
-								"fontSize":"14px",
-								"color":"#666666"
-							}
+							// {
+							// 	"text": "账单",
+							// 	"fontSize":"16px",
+							// 	"color":"#666666"
+							// }
 						]
 					}
 				}
@@ -309,7 +311,6 @@
 								"width": "46px",
 								"background": "rgba(0,0,0,0)"
 							}
-							
 						]
 					}
 				}
@@ -352,14 +353,14 @@
 				"navigationBarTitleText": "我的收藏",
 				"app-plus": {
 					"bounce": "none",
+					"padding": "15px",
 					"titleNView": {
 						"buttons": [
 							{
-								"fontSrc": "/static/css/yticon.ttf",
-								"text": "编辑",
-								"fontSize": "16",
+								"type": "menu",
+								"fontSize": "22",
 								"color": "#303133",
-								"background": "rgba(0,0,0,0)"
+								"width": "32px"
 							}
 						]
 					}
@@ -380,11 +381,12 @@
 				"app-plus": {
 					"bounce": "none",
 					"titleNView": {
+						"padding": "5px",
 						"buttons": [
 							{
 								"fontSrc": "/static/css/yticon.ttf",
 								"text": "\ue642",
-								"fontSize": "22",
+								"fontSize": "20",
 								"fontWeight":"bold",
 								"marginRight":"20px",
 								"color": "#303133",
@@ -443,13 +445,13 @@
 				"app-plus": {
 					"bounce": "none",
 					"titleNView": {
+						"padding":"15px",
 						"buttons": [
 							{
-								"fontSrc": "/static/css/yticon.ttf",
-								"text": "\ue619",
-								"fontSize": "20",
+								"type": "menu",
+								"fontSize": "28",
 								"color": "#666666",
-								"background": "rgba(0,0,0,0)"
+								"width": "32px"
 							}
 						]
 					}

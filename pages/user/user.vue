@@ -217,7 +217,7 @@
 			}
 			
 		},
-		// #ifndef MP
+		
 		onNavigationBarButtonTap(e) {
 			const index = e.index;
 			if (index === 0) {
@@ -235,16 +235,6 @@
 			}
 		},
 		
-		onBackPress() {
-			//监听back键，关闭弹出菜单
-			if (this.shareObj.shareMenu.isVisible()) {
-				this.shareObj.shareMenu.hide();
-				this.shareObj.alphaBg.hide();
-				return true
-			}
-		},
-		
-		// #endif
         computed: {
 			...mapState(['hasLogin','userInfo'])
 		},

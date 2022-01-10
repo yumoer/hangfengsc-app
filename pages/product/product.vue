@@ -77,6 +77,7 @@
 				</view>
 				<text class="yticon icon-shengluehao2"></text>
 			</view>
+			
 			<!-- <view class="c-row b-b">
 				<text class="tit">促销活动</text>
 				<view class="con-list">
@@ -90,21 +91,18 @@
 			<view class="c-row">
 				<text class="tit">参数</text>
 				<view class="con">
-					<!-- <text class="selected-text" v-for="(sItem, sIndex) in specSelected" :key="sIndex">
-						{{sItem.name}}
-					</text> -->
 					<text class="selected-text" v-for="(ele,index) in detailsArr.generic_spec" :key='index'>
 						<text style="margin-right: 20px;">{{ele.name}} : {{ele.value}}</text><br>
 					</text>
 				</view>
-				<text class="yticon icon-you"></text>
+				<!-- <text class="yticon icon-you"></text> -->
 			</view>
 			<view class="c-row">
 				<text class="tit">服务</text>
 				<view class="bz-list con">
 					<text>假一赔十·退货运费险·上门取退·极速退款</text>
 				</view>
-				<text class="yticon icon-you"></text>
+				<!-- <text class="yticon icon-you"></text> -->
 			</view>
 			<view class="share-section" style="margin: 30upx;padding: 20upx 0;"> <!-- @click="share"-->
 				<view style="margin-right: 50upx;">
@@ -203,7 +201,7 @@
 			<!-- 遮罩层 -->
 			<view class="mask"></view>
 			<view class="layer attr-content" @click.stop="stopPrevent" >
-				<view class="yticon icon-fork" @click="toggleSpec" style="position: absolute;right: 5px;top: 5px;color: #666;"></view>
+				<view class="yticon icon-fork" @click="toggleSpec" style="position: absolute;right: 20upx;top: 20upx;color: #666;font-size: 38upx;"></view>
 				<view class="a-t" style="padding: 15px 0;">
 					<image style="margin-top: 0px;" :src="detailsArr.default_image_url"></image>
 					<view class="right">
@@ -212,11 +210,13 @@
 							<text class="price" style="color: red;float: left;">¥{{detailsArr.price}}</text>
 							<view class="selected" style="float: right;">
 								已选：
-								<text class="selected-text" v-for="(sItem, sIndex) in specSelected" :key="sIndex">
+								<text class="selected-text" v-for="(sItem, sIndex) in specSelected" :key="sIndex" v-if="specSelected.length > 0">
 									{{sItem.name}}
 								</text>
+								<text class="selected-text" v-if="specSelected.length === 0">
+									{{count}}个
+								</text>
 							</view>
-							<!-- <text class="stock" style="float: right;">库存：{{detailsArr.stock}}件</text> -->
 						</text>
 					</view>
 				</view>
@@ -242,6 +242,7 @@
 						<uni-number-box
 							class="step"
 							:min="1" 
+							:max="detailsArr.stock"
 							:value="count"
 							:isMin="count===1"
 							@change="bindChange"

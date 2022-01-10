@@ -5,10 +5,7 @@
 				<!-- #ifdef APP-PLUS -->
 					<image src="../../static/zy-search/voice.svg" mode="aspectFit" @click="startRecognize()" class="voice-icon"></image>
 				<!-- #endif -->
-				<template v-if="isFocus" >
-					<input maxlength="20" focus type="text" value="" confirm-type="search" @confirm="getDate()" placeholder="请输入关键词搜索" v-model.trim="searchText"/>
-				</template>
-				<template v-else>
+				<template>
 					<input maxlength="20" type="text" value="" confirm-type="search" @confirm="getDate()" placeholder="请输入关键词搜索" v-model.trim="searchText"/>
 				</template>
 				<image src="../../static/zy-search/search.svg" mode="aspectFit" @click="getDate()" class="search-icon"></image>
@@ -64,9 +61,7 @@
 			</view>
 		</view>
 		
-		<uni-load-more :status="loadingType"></uni-load-more>
-		
-		<backTop :src="backTop.src"  :scrollTop="backTop.scrollTop"></backTop>
+	
 		
 		<view class="cate-mask" :class="cateMaskState ===0 ? 'none' : cateMaskState===1 ? 'show' : ''" @click="toggleCateMask">
 			<view class="cate-content" @click.stop.prevent="stopPrevent" @touchmove.stop.prevent="stopPrevent">
@@ -116,6 +111,10 @@
 				</scroll-view>
 			</view>
 		</view>
+		
+		<uni-load-more :status="loadingType"></uni-load-more>
+		
+		<backTop :src="backTop.src"  :scrollTop="backTop.scrollTop"></backTop>
 	</view>
 	
 </template>
@@ -352,7 +351,7 @@
 				console.log(item)
 				//测试数据没有写id，用title代替
 				if(item.object === undefined){
-				    let id = item._id;
+				    let id = item._source.id;
 					uni.navigateTo({
 						url: `/pages/product/product?id=`+id
 					})
@@ -362,7 +361,6 @@
 						url: `/pages/product/product?id=`+id
 					})
 				}
-				
 			},
 			stopPrevent(){}
 		}
@@ -391,6 +389,9 @@
 		input{
 			background-color: #F7F7F7;
 			padding: 10upx 40upx;
+			/* #ifdef APP-PLUS */
+			padding: 10upx 80upx;
+			/* #endif */
 			font-size: 28upx;
 			border-radius: 10upx;
 			height: 60upx;
@@ -416,8 +417,8 @@
 	}
 	.cart{
 		position: absolute;
-		right: 15px;
-		top: 10px;
+		right: 30upx;
+		top: 26upx;
 		text{
 			font-size: 24px;
 			color: #666;
@@ -426,7 +427,10 @@
 	.navbar{
 		position: fixed;
 		left: 0;
-		top: 170upx;
+		top: 180upx;
+		/* #ifdef APP-PLUS */
+		top: 90upx;
+		/* #endif */
 		display: flex;
 		width: 100%;
 		height: 80upx;
@@ -637,6 +641,7 @@
 		flex-wrap:wrap;
 		padding: 20upx 30upx;
 		background-color: #f7f7f7;
+		border-radius: 20px;
 		.guess-item{
 			display:flex;
 			flex-direction: column;
@@ -651,7 +656,7 @@
 		.image-wrapper{
 			width: 100%;
 			height: 330upx;
-			border-radius: 0;
+			// border-radius: 0;
 			overflow: hidden;
 			image{
 				width: 100%;

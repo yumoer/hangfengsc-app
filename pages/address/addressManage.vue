@@ -62,7 +62,7 @@
 			return {
 				areaList:[],
 				allAddData:[],
-				themeColor: '#007AFF',
+				themeColor: '#ee1d23',
 				cityPickerValue: [0, 0, 0],
 				text:'',
 				addressData: {

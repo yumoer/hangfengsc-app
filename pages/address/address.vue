@@ -16,7 +16,8 @@
 					:class="{checked: item.default_address_id}"
 				>
 					<text style="color: #666;margin-left: 10upx;" @click="check(item)">设为默认</text>
-					<text style="color: #999;float: right;" @click="condelete(item)">删除</text>
+					<!-- <text style="color: #999;float: right;" @click="condelete(item)">删除</text> -->
+					<u-icon style="float: right;font-size: 38upx;color: #999;margin-top: 10upx;" name="trash-fill" @click="condelete(item)"></u-icon>
 				</view>
 			</view>
 			<text class="yticon icon-order-edit" @click.stop="addAddress('edit', item)"></text>
@@ -296,7 +297,7 @@
 		position: fixed;
 		left: 30upx;
 		right: 30upx;
-		bottom: 60upx;
+		bottom: 40upx;
 		z-index: 95;
 		display: flex;
 		align-items: center;

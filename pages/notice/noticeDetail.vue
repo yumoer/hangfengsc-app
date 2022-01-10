@@ -29,11 +29,14 @@
 		},
 		onLoad(option){
 			console.log(option)
+			uni.showLoading({
+				title:'加载中...'
+			})
 			uniRequest({
 				url:'/announcement/get/'+option.id,
 				method:'get'
 			}).then(res=>{
-				console.log(res)
+				uni.hideLoading()
 				this.notice = res.data
 			}).catch(error=>{
 				console.log(error)

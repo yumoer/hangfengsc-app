@@ -125,50 +125,33 @@
 					</view>
 				</view>
 				
+				
+				
+				<!-- <u-collapse>
+					<u-collapse-item title="">
+						
+					</u-collapse-item>
+				</u-collapse> -->
+				
+				<view class="collapse-item">
+					<view class="price-info">
+						<view class="price-item">
+							<text class="allPrice">总价：</text>
+							<text class="price">{{price.toFixed(2)}}</text>
+						</view>
+						<view class="price-item">
+							<text class="allPrice">运费：</text>
+							<text class="price" v-if="price < 100">13.00</text>
+							<text class="price" v-else>0.00</text>
+						</view>
+						
+					</view>
+				</view>
+				
 				<view class="price-info">
 					<button class="action-btn" style="display: inline-block;" type="default" v-if="goodsItem.order_status > 0 && goodsItem.pay_status > 0 && goodsItem.order_status < 5" @click="cancelOrder(goodsItem)">取消订单</button>
 					<button class="action-btn recom" style="display: inline-block;float: right;" type="default" @click="joinCart(goodsItem)">加入购物车</button>
 				</view>
-				
-				<u-collapse>
-					<u-collapse-item title="">
-						<view class="collapse-item">
-							<view class="price-info">
-								<view class="price-item">
-									<text class="allPrice">总价：</text>
-									<text class="price">{{price.toFixed(2)}}</text>
-								</view>
-								<view class="price-item">
-									<text class="allPrice">运费：</text>
-									<text class="price" v-if="price < 100">13.00</text>
-									<text class="price" v-else>0.00</text>
-								</view>
-								
-							</view>
-							<view class="price-box">
-								<text style="float: left;">实付款</text>
-								<text class="price">{{allPrice.toFixed(2)}}</text>
-							</view>
-						</view>
-					</u-collapse-item>
-				</u-collapse>
-				
-				
-				<!-- <view>
-					<view class="action-box b-t" v-if="goodsItem.order_status === 1">
-						<button class="action-btn recom" @click="editAddress(goodsItem)">修改地址</button>
-					</view>
-					<view class="action-box b-t" v-if="goodsItem.order_status === 3">
-						<button class="action-btn recom" @click="lookViewOrder(goodsItem)">查看物流</button>
-					</view>
-					<view class="action-box b-t" v-if="goodsItem.order_status === 4">
-						<button class="action-btn" @click="replaceGoods(goodItem)">退换</button>
-						<button class="action-btn recom" v-if="!goodItem.comment" @click="accessOrder(goodItem,goodsItem)">立即评价</button>
-					</view>
-					<view class="action-box b-t" v-if="goodsItem.order_status === 6">
-						<button class="action-btn recom" @click="replaceDetails(goodsItem)">退换详情</button>
-					</view>
-				</view> -->
 			</view>
 			
 			<view class="c-list">
@@ -244,6 +227,8 @@
 		<view class="btn-bottom" v-if="goodsItem.order_status === 5">
 			<button class="action-btn recom" type="default" @click="goBuyAgain(goodsItem,goodsItem.order_id)">再次购买</button>
 		</view>
+		
+		<show-modal></show-modal>
 	</view>
 </template>
 
@@ -810,7 +795,7 @@
 		}
 		
 		.price-info{
-			padding: 30upx 50upx 0 250upx;
+			padding: 0 40upx 30upx 250upx;
 			.price-item{
 				height: 60upx;
 				line-height: 60upx;

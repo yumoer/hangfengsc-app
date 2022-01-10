@@ -2,7 +2,7 @@
 	<view class="content">
 		<view class="title">
 			<image style="" src="http://47.94.106.106:8888/group1/M00/5D/28/rBHxiGGttBiAAULuAAAC5PX9usE9838075" mode=""></image>
-			<text>订单仅支持修改一次地址，请您谅解</text>
+			<text>订单地址最多五条，仅支持修改一次地址，请您谅解</text>
 		</view>
 		<view class="oAddress">
 			<view class="oa_info">
@@ -17,7 +17,7 @@
 		<view class="cAddress">
 			<view class="ca_title">
 				<text class="ca_change">选择新的收货地址</text>
-				<text class="ca_addBtn" @click="addAddress">添加新地址</text>
+				<text class="ca_addBtn" @click="editAddress">修改地址</text>
 			</view>
 			<view class="ca_list" v-for="(ele,index) in addressList" :key="index">
 				<u-checkbox-group max="1">
@@ -25,6 +25,7 @@
 						<view class="ca_body">
 							<text class="ca_name">{{ele.receiver}}</text>
 							<text class="ca_tel">{{ele.mobile}}</text>
+							
 						</view>
 						<view class="ca_address">{{ele.province}}{{ele.city}}{{ele.district}}{{ele.place}}</view>
 					</u-checkbox>
@@ -34,6 +35,7 @@
 		<view class="confirm">
 			<u-button class="btn" @click="confirmBtn">提交修改</u-button>
 		</view>
+		<show-modal></show-modal>
 	</view>
 </template>
 
@@ -89,7 +91,12 @@
 					console.log(res.data)
 					uni.hideLoading()
 					res.data.addresses.forEach(ele=>{
-						ele.checked = false
+						console.log(ele.id,this.addressInfo)
+						if(ele.place === this.addressInfo.place){
+							ele.checked = true
+						}else{
+							ele.checked = false
+						}
 					})
 					this.addressList = res.data.addresses
 				}).catch(error=>{
@@ -115,12 +122,38 @@
 			checkboxGroupChange(e){
 				console.log(e)
 			},
-			// 添加新地址
-			addAddress(){
-				console.log('添加新地址')
+			// 修改地址
+			editAddress(){
 				uni.navigateTo({
-					url:'/pages/address/addressManage?type=add&data=undefined'
+					url:'/pages/address/address'
 				})
+			},
+			// 删除
+			async condelete(data){
+				this.$showModal({
+					title:'提示',
+				    content: '确认删除地址?',
+					cancelText:"取消",
+					confirmText:"确认",
+				    success: async(e) =>{
+				    	if(e.confirm){
+							await uniRequest({
+								url: '/user/addresses/' + data.id + '/',
+								method: 'delete',
+								headers: {
+									Authorization: 'JWT ' + uni.getStorageSync('userInfo').token
+								},
+							}).then(res => {
+								this.$api.msg('地址删除成功')
+								setTimeout(() => {
+									this.getOrderList()
+								}, 1000)
+							}).catch(error => {
+								console.log(error)
+							})
+				    	}
+				    }
+				});
 			},
 			// 提交申请
 			async confirmBtn(){
@@ -220,6 +253,7 @@
 			}
 			.ca_list{
 				width: 100%;
+				position: relative;
 				height: 160upx;
 				background-color: #fff;
 				border-radius: 20upx;
