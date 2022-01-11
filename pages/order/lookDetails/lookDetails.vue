@@ -507,7 +507,7 @@
 			color: #fff;
 			float: left;
 			height: 100%;
-			padding: 40upx 100upx;
+			padding: 35upx 80upx;
 			.info-money{
 				font-size: 36upx;
 				font-weight: bold;

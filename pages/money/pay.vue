@@ -3,8 +3,7 @@
 		<view class="price-box">
 			<view class="" style="display: flex;">
 				<text class="time">剩余支付时间 : </text>
-				<uni-countdown color="#999" background-color="#f7f7f7" border-color="#00B26A" :show-day="false"
-					:showHour="false" :showColon="false" :minute="minute" :second="second" @timeup="timeChange">
+				<uni-countdown color="#999" background-color="#f7f7f7" border-color="#00B26A" :show-day="false" :showHour="false" :showColon="false" :minute="minute" :second="second" @timeup="timeChange">
 				</uni-countdown>
 			</view>
 
@@ -104,6 +103,7 @@
 		onLoad(options) {
 			this.orderId = options.orderId
 			this.getOrderList()
+			
 		},
 		destroyed() {
 			if (this.timer) { // 注意在vue实例销毁前，清除我们的定时器
@@ -144,6 +144,7 @@
 			
 			getTime(time){
 				var date = new Date(time)
+				
 				var min = date.getMinutes();  //2. 获取当前分钟
 				date.setMinutes(min+20);  //3. 设置当前时间+10分钟：把当前分钟数+10后的值重新设置为date对象的分钟数
 				var y = date.getFullYear();
@@ -153,6 +154,7 @@
 				var f = date.getMinutes() < 10 ? ('0' + date.getMinutes()) : date.getMinutes()
 				var s = date.getSeconds() < 10 ? ('0' + date.getSeconds()) : date.getSeconds()
 				var star = y+'-'+m+'-'+d + " " + h + ":" + f + ":" + s;
+				alear(star)
 				this.nowTime = star;
 			},
 			
@@ -179,6 +181,8 @@
 			
 			// 倒计时
 			async timeChange(e) {
+				console.log(e)
+				
 				await uniRequest({
 					url:'/orders/cancel/',
 					method:'get',

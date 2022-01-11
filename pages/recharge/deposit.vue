@@ -13,7 +13,7 @@
 				<text style="font-size: 20px;">充值卡号</text>
 			</view>
 			<view class="d-input">
-				<u-input class="input" style="text-align: center;" v-model="recharge" placeholder="请输入充值卡号" :type="type" maxlength="20" clearable/>
+				<u-input class="input" style="text-align: center;" v-model="recharge" placeholder="请输入充值卡号" maxlength="20" clearable/>
 			</view>
 			<view class="d-red">
 				<text class="d-text">温馨提示：最多可输入20位字符</text>

@@ -547,7 +547,7 @@
 		margin-bottom:80upx;
 		/* #endif */
 		position:fixed;
-		bottom:18upx;
+		bottom:0;
 		z-index: 95;
 		display: flex;
 		align-items: center;
@@ -555,7 +555,7 @@
 		height: 100upx;
 		padding-left: 42upx;
 		background: rgba(255,255,255,1);
-		box-shadow: 0 0 1px 0 rgba(0,0,0,.5);
+		/* box-shadow: 0 0 1px 0 rgba(0,0,0,.5); */
 		.checkbox{
 			height:52upx;
 			position:relative;
@@ -615,7 +615,8 @@
 			.coupon{
 				font-size: $font-sm;
 				color: $font-color-light;
-				margin-right: 112upx;
+				/* margin-right: 112upx; */
+				width: 222upx;
 				font-size: 20upx;
 				text{
 					color: $font-color-dark;
