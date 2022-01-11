@@ -202,12 +202,7 @@
 					"bounce": "none",
 					"titleNView": {
 						"buttons": [
-							// {
-							// 	"type": "menu",
-							// 	"fontSize": "22",
-							// 	"color": "#303133",
-							// 	"width": "32px"
-							// }
+							
 						]
 					}
 				}
