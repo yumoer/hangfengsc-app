@@ -72,14 +72,12 @@
 
 <style lang="scss">
 	page{
-		width:100%;
-		min-height:100%;
-		background: #060B83 url("http://47.94.106.106:8888/group1/M00/59/0B/rBHxiGE5qMiARtm9AAVzm3F1Qz49599976") no-repeat top center / 100%;
-		position: relative;
-		padding: 0 30upx;
 		.content{
 			width: 100%;
-			position: relative;
+			max-width: 100%;
+			min-height:100%;
+			background: #060B83 url("http://47.94.106.106:8888/group1/M00/59/0B/rBHxiGE5qMiARtm9AAVzm3F1Qz49599976") no-repeat top center / 100%;
+			padding: 0 30upx;
 			padding-top: 410upx;
 			padding-bottom: 36rpx;
 			box-sizing: border-box;
@@ -109,9 +107,6 @@
 			}
 			.body{
 				width: 100%;
-				/* #ifdef APP-PLUS */
-				width: 92%;
-				/* #endif */
 				height: 100%;
 				padding: 30upx;
 				margin-top: 30upx;

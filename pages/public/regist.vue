@@ -12,7 +12,7 @@
 					</view>
 				</view>
 				<!-- 第一步 -->
-				<view class="content" v-if="!first">
+				<view class="content" v-if="first">
 					<view class="input-content">
 						<view class="first">
 							<view class="input-item">

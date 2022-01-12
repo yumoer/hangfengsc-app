@@ -26,6 +26,16 @@
 					</radio>
 				</label>
 			</view>
+			<!-- <view class="type-item b-b" v-if="platform">
+				<text class="yticon icon-yuezhifu"></text>
+				<view class="con">
+					<text class="tit">苹果</text>
+				</view>
+				<label class="radio">
+					<radio value="" color="#EE1D23" :checked='payType == 7' />
+					</radio>
+				</label>
+			</view> -->
 		</view>
 
 		<view class="submit-pay">
@@ -55,6 +65,7 @@
 				payList:[
 					{icon:'yticon icon-weixinzhifu',payName:'微信',payDesc:'推荐使用微信支付',payType:8},
 					{icon:'yticon icon-alipay',payName:'支付宝',payDesc:'',payType:2},
+					{icon:'yticon icon-iphone',payName:'苹果',payDesc:'',payType:7},
 					{icon:'yticon icon-yuezhifu',payName:'余额',payDesc:'',payType:9}
 				],
 				price: null,
@@ -72,7 +83,9 @@
 				public: '', //加密
 				orderInfo: {},
 				title: 'Hello',
-				show_key:false
+				show_key:false,
+				platform:false
+				
 			};
 		},
 		components: {
@@ -101,6 +114,19 @@
 			},1000)
 		},
 		onLoad(options) {
+			// #ifdef APP-PLUS
+			uni.getSystemInfo({
+				success: (res) => {
+					console.log(res)
+					this.platform = res.platform === 'ios' ? true : false
+				},
+				fail: (err) => {},
+				complete: () => {
+			
+				}
+			})
+			// #endif
+			
 			this.orderId = options.orderId
 			this.getOrderList()
 			
@@ -270,6 +296,7 @@
 			},
 
 			async goPay(payType) {
+				plus.nativeUI.toast(payType)
 				if (payType === 2) {
 					// #ifdef APP-PLUS
 					await uniRequest({
@@ -410,7 +437,58 @@
 					this.getKey()
 					this.show_key = true
 					// #endif
+				}else if(payType === 7){
+					// #ifdef APP-PLUS
+					this.requestOrder()
+					// #endif
 				}
+			},
+			
+			requestOrder() {
+				uni.showLoading({
+					title:'检测支付环境...'
+				})
+				iapChannel.requestOrder(productIds, (orderList) => { //必须调用此方法才能进行 iap 支付
+					this.disabled = false;
+					console.log('requestOrder success666: ' + JSON.stringify(orderList));
+					uni.hideLoading();
+				}, (e) => {
+					console.log('requestOrder failed: ' + JSON.stringify(e));
+					uni.hideLoading();
+					this.errorMsg()
+				});
+			},
+			requestPayment(e) {
+				this.loading = true;
+				uni.requestPayment({
+					provider: 'appleiap',
+					orderInfo: {
+						productid: productId
+					},
+					success: (e) => {
+						uni.showModal({
+							content: "感谢您的赞助",
+							showCancel: false
+						})
+					},
+					fail: (e) => {
+						uni.showModal({
+							content: "支付失败,原因为: " + e.errMsg,
+							showCancel: false
+						})
+					},
+					complete: () => {
+						console.log("payment结束")
+						this.loading = false;
+					}
+				})
+			},
+			
+			errorMsg(){
+				uni.showModal({
+					content: "暂不支持苹果 iap 支付",
+					showCancel: false
+				})
 			},
 			
 			getKey(){

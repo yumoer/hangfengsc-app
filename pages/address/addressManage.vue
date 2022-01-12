@@ -40,13 +40,12 @@
 					<switch style="transform: scale(.7);" @change="switchChange" color="#EE1D23" :checked="addressData.default" />
 				</view>
 			</view>
-			
-			<view class="submit-btn">
-				<button class="add-btn" @click="confirm(addressData)">保存</button>
-			</view>
-			
-			<show-modal></show-modal>
 		</view>
+		
+		<view class="submit-btn">
+			<button class="add-btn" @click="confirm(addressData)">保存</button>
+		</view>
+		<show-modal></show-modal>
 	</view>
 </template>
 
@@ -363,6 +362,7 @@
 		border-radius: 10px;
 		padding: 20upx;
 		background-color: #fff;
+		position: relative;
 	}
 	.textInput{
 		display: block;
@@ -412,8 +412,10 @@
 	.shibieBtn{
 		width: 190upx;
 		height: 70upx;
-		background: linear-gradient(to right,#EE1D23,#F04023);
-		color: #fff;
+		// background: linear-gradient(to right,#EE1D23,#F04023);
+		background-color: #fff;
+		border:1px solid #EE1D23;
+		color: #EE1D23;
 		border-radius: 20px;
 		font-size: 14px;
 		line-height: 70upx;
@@ -435,19 +437,16 @@
 
 	.submit-btn{
 		width: 88%;
-		height: 80upx;
-		position: absolute;
-		bottom: 80upx;
+		height: 100upx;
+		margin: 0 auto;
 		.add-btn {
-			display: flex;
-			align-items: center;
-			justify-content: center;
+			position: fixed;
+			bottom: 30upx;
 			width: 590upx;
-			letter-spacing: 6upx;
+			letter-spacing: 10upx;
 			height: 80upx;
 			font-size: $font-lg;
 			color: #fff;
-			text-align: center;
 			background : linear-gradient(to right,#EE1D23,#F04023);
 			border-radius: 40upx;
 			box-shadow: 1px 2px 5px rgba(219, 63, 96, 0.6);

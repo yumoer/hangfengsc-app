@@ -88,8 +88,8 @@
 							src="http://47.94.106.106:8888/group1/M00/5D/27/rBHxiGGtskKAUipZAAADkkRJA542224955" mode="">
 						</image>
 					</view>
-					<view class="qqLogin" v-if="system >= 13 && platform=='ios'" @click="appleLogin">
-						<image style="width: 45upx;height: 50upx;"
+					<view class="qqLogin" v-if="system >= 13 && platform === 'ios'" @click="appleLogin">
+						<image style="width: 60upx;height: 60upx;"
 							src="http://47.94.106.106:8888/group1/M00/5D/27/rBHxiGGtskKAPrjjAAB8Ujjhkfo8180173" mode="">
 						</image>
 					</view>
@@ -110,7 +110,7 @@
 							src="http://47.94.106.106:8888/group1/M00/5D/27/rBHxiGGtskKAUipZAAADkkRJA542224955" mode="">
 						</image>
 					</view>
-					<view class="qqLogin" v-if="system >= 13 && platform=='ios'" @click="appleLogin">
+					<view class="qqLogin" v-if="system >= 13 && platform === 'ios'" @click="appleLogin">
 						<image style="width: 45upx;height: 50upx;"
 							src="http://47.94.106.106:8888/group1/M00/5D/27/rBHxiGGtskKAPrjjAAB8Ujjhkfo8180173" mode="">
 						</image>
@@ -159,7 +159,7 @@
 			uni.getSystemInfo({
 				success: (res) => {
 					console.log(res)
-					this.system = res.system
+					this.system = res.system.split(' ')[1].split('.')[0]
 					this.platform = res.platform
 				},
 				fail: (err) => {},
@@ -331,7 +331,7 @@
 
 			// qq登录 h5
 			async qq_login() {
-				if(this.checked){
+				if (this.checked) {
 					await uniRequest({
 						url: '/oauth/qq/authorization/?next=http://m.hfyt365.com/pages/public/oauthCallback',
 						method: 'get',
@@ -347,15 +347,15 @@
 							message: '服务器错误'
 						})
 					})
-				}else{
+				} else {
 					this.$api.msg('请阅读并勾选隐私协议或用户协议')
 				}
 			},
-			
-			
+
+
 			// wx登录 h5
 			async wx_login() {
-				if(this.checked){
+				if (this.checked) {
 					await uniRequest({
 						url: '/oauth/wechat/authorization/?next=http://m.hfyt365.com/pages/public/oauthCallback',
 						method: 'get',
@@ -371,51 +371,75 @@
 							message: '服务器错误'
 						})
 					})
-				}else{
+				} else {
 					this.$api.msg('请阅读并勾选隐私协议或用户协议')
 				}
 			},
-			
+
 
 			// 苹果登录 app
 			async appleLogin() {
-				var appleOauth = null;
-				plus.oauth.getServices(function(services) {
-					console.log(services)
-					plus.nativeUI.toast(JSON.stringify(services))
-					for (var i in services) {
-						var service = services[i];
-						// 获取苹果授权登录对象，苹果授权登录id 为 'apple' iOS13以下系统，不会返回苹果登录对应的 service
-						if (service.id == 'apple') {
-							appleOauth = service;
-							break;
-						}
+				if (this.checked) {
+					if(this.system > 13){
+						uni.login({
+							provider: "apple",
+							success: (loginRes) => {
+								uni.getUserInfo({
+									provider: 'apple',
+									success: (userInfoRes) => {
+										// 获取用户信息成功  
+										plus.nativeUI.showWaiting('登陆中...')
+									},
+									fail: (err) => {
+										plus.nativeUI.toast('登陆失败')
+									}
+								})
+							},
+							fail: (err) => {
+								plus.nativeUI.toast('授权登陆失败')
+							}
+						})
+					}else{
+						var appleOauth = null;
+						plus.oauth.getServices(function(services) {
+							plus.nativeUI.toast(JSON.stringify(services))
+							for (var i in services) {
+								var service = services[i];
+								// 获取苹果授权登录对象，苹果授权登录id 为 'apple' iOS13以下系统，不会返回苹果登录对应的 service
+								if (service.id == 'apple') {
+									appleOauth = service;
+									break;
+								}
+							}
+							if (!appleOauth) {
+								plus.nativeUI.toast('暂不支持apple账户登陆')
+								return
+							}
+							appleOauth.login(function(oauth) {
+								// 授权成功，苹果授权返回的信息在 oauth.target.appleInfo 中
+								plus.nativeUI.showWaiting('登陆中...')
+								//向后台发送登陆需要的参数
+							}, function(err) {
+								// 授权失败 error
+								console.log(err);
+								plus.nativeUI.toast('授权登陆失败')
+							}, {
+								// 默认只会请求用户名字信息，如需请求用户邮箱信息，需要设置 scope: 'email'
+								scope: 'email'
+							})
+						}, function(err) {
+							console.log(err);
+							// 获取 services 失败
+						})
 					}
-				 if (!appleOauth) {
-						plus.nativeUI.toast('暂不支持apple账户登陆')
-						return
-					}
-					appleOauth.login(function(oauth) {
-						// 授权成功，苹果授权返回的信息在 oauth.target.appleInfo 中
-						plus.nativeUI.showWaiting('登陆中...')
-						//向后台发送登陆需要的参数
-					}, function(err) {
-						// 授权失败 error
-						console.log(err);
-						plus.nativeUI.toast('授权登陆失败')
-				 }, {
-						// 默认只会请求用户名字信息，如需请求用户邮箱信息，需要设置 scope: 'email'
-						scope: 'email'
-					})
-				}, function(err) {
-					console.log(err);
-					// 获取 services 失败
-				})
+				} else {
+					this.$api.msg('请阅读并勾选隐私协议或用户协议')
+				}
 			},
 
 			// qq登录 app
 			async QQ_login() {
-				if(this.checked){
+				if (this.checked) {
 					var vm = this;
 					uni.getProvider({
 						service: 'oauth',
@@ -430,19 +454,29 @@
 											provider: 'qq',
 											success: function(infoRes) {
 												console.log(infoRes)
-												uniRequest.get('/oauth/qq/user/openid?openid=' +infoRes.userInfo.openId).then(res => {
+												uniRequest.get(
+														'/oauth/qq/user/openid?openid=' +
+														infoRes.userInfo.openId)
+													.then(res => {
 														console.log(res)
-														if (res.data.message ===false) {
+														if (res.data
+															.message === false
+															) {
 															uni.navigateTo({
-																url: "/pages/public/oauthCallback?type=qq&openid=" +infoRes.userInfo.openId
+																url: "/pages/public/oauthCallback?type=qq&openid=" +
+																	infoRes
+																	.userInfo
+																	.openId
 															})
-														} else if (res.data.message === true) {
+														} else if (res.data
+															.message === true
+															) {
 															vm.login(res.data)
 															uni.navigateBack();
 														}
 													}).catch(error => {
-												 console.log(error)
-												})
+														console.log(error)
+													})
 											}
 										})
 									}
@@ -450,16 +484,16 @@
 							}
 						}
 					});
-				}else{
+				} else {
 					this.$api.msg('请阅读并勾选隐私协议或用户协议')
 				}
-				
+
 			},
 
 
 			// 微信登录 app
 			async WX_login() {
-				if(this.checked){
+				if (this.checked) {
 					var vm = this;
 					uni.getProvider({
 						service: 'oauth',
@@ -476,30 +510,33 @@
 											success: function(infoRes) {
 												console.log(infoRes)
 												uniRequest.get(
-													'/oauth/wechat/user/openid/?openid=' +
-													infoRes.userInfo.openId).then(
-													res => {
-														console.log(res.data)
-														if (res.data.message ===
-															false) {
-															uni.navigateTo({
-																url: "/pages/public/oauthCallback?type=weixin&openid=" +
-																	infoRes
-																	.userInfo
-																	.openId +
-																	"&nuionid=" +
-																	infoRes
-																	.userInfo
-																	.nuionid
-															})
-														} else if (res.data.message ===
-															true) {
-															vm.login(res.data);
-															uni.navigateBack();
-														}
-													}).catch(error => {
-												 console.log(error)
-												})
+														'/oauth/wechat/user/openid/?openid=' +
+														infoRes.userInfo.openId)
+													.then(
+														res => {
+															console.log(res.data)
+															if (res.data
+																.message ===
+																false) {
+																uni.navigateTo({
+																	url: "/pages/public/oauthCallback?type=weixin&openid=" +
+																		infoRes
+																		.userInfo
+																		.openId +
+																		"&nuionid=" +
+																		infoRes
+																		.userInfo
+																		.nuionid
+																})
+															} else if (res.data
+																.message ===
+																true) {
+																vm.login(res.data);
+																uni.navigateBack();
+															}
+														}).catch(error => {
+														console.log(error)
+													})
 											}
 										})
 									}
@@ -507,7 +544,7 @@
 							}
 						}
 					});
-				}else{
+				} else {
 					this.$api.msg('请阅读并勾选隐私协议或用户协议')
 				}
 			}

@@ -73,11 +73,11 @@
                         "appsecret" : "8c7966c4164908fbaba80c2a2cab4763",
                         "UniversalLinks" : "https://demo.dcloud.net.cn/ulink/"
                     },
-                    "apple" : {},
                     "qq" : {
                         "appid" : "1110153651",
                         "UniversalLinks" : ""
-                    }
+                    },
+                    "apple" : {}
                 },
                 "payment" : {
                     "alipay" : {},

@@ -80,94 +80,88 @@
 </script>
 
 <style lang="scss">
-	page{
-		width:100%;
+	.content{
+		width: 100%;
 		min-height:100%;
 		background: #f1a8a1 url("http://47.94.106.106:8888/group1/M00/58/F5/rBHxiGE5XomAfK1WAAG5KgbdLCs8167457") no-repeat top center / 100%;
 		position: relative;
-		padding: 30upx;
-		.content{
+		padding: 0 30upx;
+		position: relative;
+		padding-top: 410upx;
+		box-sizing: border-box;
+		padding-bottom: 30upx;
+		.header{
 			width: 100%;
-			position: relative;
-			padding-top: 410upx;
-			box-sizing: border-box;
-			.header{
+			display: flex;
+			justify-content: center;
+			.goods{
 				width: 100%;
-				display: flex;
-				justify-content: center;
-				.goods{
-					width: 100%;
-					height: 340upx;
-					.item{
-						width: 30%;
-						display: inline-block;
-						/* #ifdef H5 */
-						margin: 25px -10px 15px 15px;
-						/* #endif */
-						/* #ifdef APP-PLUS */
-						margin: 25px -10px 15px 12px;
-						/* #endif */
-						&:last-child{
-							margin-right: 0;
-						}
-						.price{
-							width: 100px;
-							text-align: center;
-							color: #fff;
-							font-size: 28upx;
-							margin-top: 10upx;
-						}
+				height: 360upx;
+				.item{
+					width: 30%;
+					display: inline-block;
+					/* #ifdef H5 */
+					margin: 45px -10px 15px 15px;
+					/* #endif */
+					/* #ifdef APP-PLUS */
+					margin: 45px -6px 15px 15px;
+					/* #endif */
+					&:last-child{
+						margin-right: 0;
+					}
+					.price{
+						width: 100px;
+						text-align: center;
+						color: #fff;
+						font-size: 28upx;
+						margin-top: 10upx;
 					}
 				}
 			}
-			.body{
-				width: 100%;
-				/* #ifdef APP-PLUS */
-				width: 93%;
-				/* #endif */
-				overflow-x: hidden;
-				height: 100%;
-				padding: 30upx;
+		}
+		.body{
+			width: 100%;
+			overflow-x: hidden;
+			height: 100%;
+			padding: 0 30upx;
+			margin-top: 40upx;
+			background-color: #fff;
+			border-radius: 20upx;
+			.item-list{
+				height: 280upx;
 				margin-top: 30upx;
-				background-color: #fff;
-				border-radius: 20upx;
-				.item-list{
-					height: 280upx;
-					.item-image{
-						float: left;
-						width: 45%;
+				.item-image{
+					float: left;
+					width: 45%;
+				}
+				.item-right{
+					float: left;
+					width: 55%;
+					.logo{
+						
 					}
-					.item-right{
-						float: left;
-						width: 55%;
-						.logo{
-							
-						}
-						.title{
-							color: #333333;
-							font-size: 32upx;
-						}
-						.info{
-							margin-top: 60upx;
-							.price{
-								color: #EE1D23;
-								font-size: 28upx;
-								float: left;
-								text{
-									font-size: 32upx;
-								}
+					.title{
+						color: #333333;
+						font-size: 32upx;
+					}
+					.info{
+						margin-top: 60upx;
+						.price{
+							color: #EE1D23;
+							font-size: 28upx;
+							float: left;
+							text{
+								font-size: 32upx;
 							}
-							.stock{
-								float: right;
-								color: #999999;
-								font-size: 24upx;
-							}
+						}
+						.stock{
+							float: right;
+							color: #999999;
+							font-size: 24upx;
 						}
 					}
 				}
 			}
 		}
-		
 	}
-	
 </style>

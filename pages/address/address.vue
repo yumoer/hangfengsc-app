@@ -14,8 +14,9 @@
 					class="yticon icon-xuanzhong checkbox"
 					v-if="source !== '1'"
 					:class="{checked: item.default_address_id}"
+					@click="check(item)"
 				>
-					<text style="color: #666;margin-left: 10upx;" @click="check(item)">设为默认</text>
+					<text style="color: #666;margin-left: 10upx;">设为默认</text>
 					<!-- <text style="color: #999;float: right;" @click="condelete(item)">删除</text> -->
 					<u-icon style="float: right;font-size: 38upx;color: #999;margin-top: 10upx;" name="trash-fill" @click="condelete(item)"></u-icon>
 				</view>
@@ -27,8 +28,10 @@
 			<xw-empty :isShow="isEmpty" img="http://47.94.106.106:8888/group1/M00/5D/28/rBHxiGGttGKAel1PAAHt0EOW0gY8956509" text="您暂时还没有添加地址" textColor="#C0C4CC"></xw-empty>
 			<button class="add-btn" @click="addAddress('add')">添加新地址</button>
 		</view>
+		
 		<show-modal></show-modal>
 	</view>
+	
 </template>
 
 <script>
@@ -297,7 +300,7 @@
 		position: fixed;
 		left: 30upx;
 		right: 30upx;
-		bottom: 40upx;
+		bottom: 20upx;
 		z-index: 95;
 		display: flex;
 		align-items: center;

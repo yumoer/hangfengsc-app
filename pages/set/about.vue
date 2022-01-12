@@ -34,7 +34,7 @@
 			};
 		},
 		onLoad(){
-			
+			this.getVersion()
 		},
 		methods:{
 			navTo(url){

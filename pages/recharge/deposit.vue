@@ -18,7 +18,9 @@
 			<view class="d-red">
 				<text class="d-text">温馨提示：最多可输入20位字符</text>
 			</view>
-			<button type="default" class="d-btn" @click="shareInfo">立即充值</button>
+			<view class="m-wrap">
+				<button type="default" class="d-btn" @click="shareInfo">立即充值</button>
+			</view>
 		</view>
 	</view>
 	
@@ -165,14 +167,19 @@
 				margin-top: 20px;
 			}
 		}
-		.d-btn{
-			background: linear-gradient(to right,#EE1D23,#F04023);
-			color: #fff;
-			margin-top: 30px;
-			width: 590upx;
-			height: 80upx;
-			border-radius: 40upx;
-			margin-top: 250px;
+		.m-wrap{
+			position: absolute;
+			bottom: 100upx;
+			width: 100%;
+			.d-btn{
+				width: 590upx;
+				margin: 0 auto;
+				font-weight: bold;
+				background: linear-gradient(to right,#EE1D23 0%,#F04023 100%,);
+				color: #fff;
+				border-radius: 40upx;
+			}
 		}
+		
 	}
 </style>

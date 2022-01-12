@@ -69,11 +69,6 @@
 			const index = e.index;
 			console.log(index)
 			if(index === 0 && this.goodsList.length > 0){
-				// if(this.isCheck === true){
-				// 	document.getElementsByClassName('uni-btn-icon')[1].innerText = '编辑';
-				// }else{
-				// 	document.getElementsByClassName('uni-btn-icon')[1].innerText = '完成';
-				// }
 				this.isCheck = !this.isCheck
 				this.selected = []
 				this.goodsList.forEach(ele=>{
@@ -115,6 +110,7 @@
 				}).then(res=>{
 					if(res.status === 200 || res.status === 201){
 						this.cartList = res.data;
+						console.log(this.cartList)
 					}else{
 						if(res.status === 500){
 							this.$api.msg('服务器错误，请稍后重试')
@@ -193,7 +189,8 @@
 				}else{
 					this.selected.splice(e,1)
 				}
-				if(this.cartList.length === this.selected.length){
+				
+				if(this.goodsList.length === this.selected.length){
 					this.checked = true
 				}else{
 					this.checked = false
@@ -452,6 +449,7 @@
 			float: right;
 			font-size: 28upx;
 			height: 80upx;
+			line-height: 40upx;
 			color: $font-color-dark;
 			overflow: hidden;
 		}
