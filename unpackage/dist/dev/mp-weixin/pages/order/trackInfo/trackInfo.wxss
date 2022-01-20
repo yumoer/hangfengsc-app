@@ -1,0 +1,30 @@
+@charset "UTF-8";
+/* uni.scss */
+/* 页面左右间距 */
+/* 文字尺寸 */
+/*文字颜色*/
+/* 边框颜色 */
+/* 图片加载中颜色 */
+/* 行为相关颜色 */
+/* 页面左右间距 */
+/*文字颜色*/
+/* 边框颜色 */
+/* 背景颜色 */
+/* 行为相关颜色 */
+.total-wrap.data-v-a087d18e {
+  height: auto;
+  box-sizing: border-box;
+  padding: 20rpx;
+  background: #fff;
+}
+.total-wrap .logistics-title.data-v-a087d18e {
+  height: 72rpx;
+  box-sizing: border-box;
+  padding: 36rpx 0 8rpx;
+  line-height: 28rpx;
+  color: #4B4B4B;
+  font-size: 26rpx;
+  font-family: 'PingFangSC-Medium';
+  text-align: left;
+}
+

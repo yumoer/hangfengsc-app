@@ -1,0 +1,9 @@
+{
+  "defaultTitle": "商品详情",
+  "usingComponents": {
+    "uni-rate": "/components/uni-rate/uni-rate",
+    "min-badge": "/components/min-badge/min-badge",
+    "uni-number-box": "/components/uni-number-box/uni-number-box",
+    "shares": "/components/share"
+  }
+}

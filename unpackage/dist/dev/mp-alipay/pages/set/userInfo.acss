@@ -1,0 +1,153 @@
+@charset "UTF-8";
+/* uni.scss */
+/* 主题色 */
+/* 页面左右间距 */
+/* 文字尺寸 */
+/*文字颜色*/
+/* 边框颜色 */
+/* 图片加载中颜色 */
+/* 行为相关颜色 */
+/* 页面左右间距 */
+/*文字颜色*/
+/* 边框颜色 */
+/* 背景颜色 */
+/* 行为相关颜色 */
+/************************************************************
+** 请将全局样式拷贝到项目的全局 CSS 文件或者当前页面的顶部 **
+** 否则页面将无法正常显示                                  **
+************************************************************/
+page {
+  font-size: 16px;
+}
+page {
+  margin: 0;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen', 'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue', 'Microsoft Yahei', sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+view,
+image,
+text {
+  box-sizing: border-box;
+  flex-shrink: 0;
+}
+#app {
+  width: 100vw;
+  height: 100vh;
+}
+.flex-row {
+  display: flex;
+  flex-direction: row;
+}
+.flex-col {
+  display: flex;
+  flex-direction: column;
+}
+.justify-start {
+  display: flex;
+  justify-content: flex-start;
+}
+.justify-center {
+  display: flex;
+  justify-content: center;
+}
+.justify-end {
+  display: flex;
+  justify-content: flex-end;
+}
+.justify-evenly {
+  display: flex;
+  justify-content: space-evenly;
+}
+.justify-around {
+  display: flex;
+  justify-content: space-around;
+}
+.justify-between {
+  display: flex;
+  justify-content: space-between;
+}
+.items-start {
+  display: flex;
+  align-items: flex-start;
+}
+.items-center {
+  display: flex;
+  align-items: center;
+}
+.items-end {
+  display: flex;
+  align-items: flex-end;
+}
+.content {
+  padding: 30rpx;
+}
+.wrap {
+  width: 100%;
+  height: 330rpx;
+  background: #fff;
+  border-radius: 20rpx;
+}
+.row {
+  display: flex;
+  align-items: center;
+  position: relative;
+  padding: 0 30rpx;
+  height: 110rpx;
+}
+.row .tit {
+  flex-shrink: 0;
+  width: 160rpx;
+  font-size: 30rpx;
+  color: #303133;
+}
+.row .input {
+  flex: 1;
+  font-size: 30rpx;
+  color: #303133;
+}
+.row .icon-shouhuodizhi {
+  font-size: 36rpx;
+  color: #909399;
+}
+.default-row {
+  margin-top: 16rpx;
+}
+.default-row .tit {
+  flex: 1;
+}
+.default-row switch {
+  -webkit-transform: translateX(16rpx) scale(0.9);
+          transform: translateX(16rpx) scale(0.9);
+}
+.add-btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 590rpx;
+  height: 80rpx;
+  margin: 60rpx auto;
+  font-size: 32rpx;
+  letter-spacing: 6rpx;
+  border-radius: 40rpx;
+  color: #fff;
+  background: linear-gradient(to right, #EE1D23 0%, #F04023 100%);
+  box-shadow: 1px 0 5px rgba(238, 29, 35, 0.3);
+}
+.del-btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-left: 20rpx;
+  width: 160rpx;
+  height: 80rpx;
+  border-radius: 40rpx;
+  background: linear-gradient(to right, #EE1D23 0%, #F04023 100%);
+  color: #fff;
+  font-size: 32rpx;
+  box-shadow: 1px 2px 5px rgba(219, 63, 96, 0.4);
+}
+.u-default-hover {
+  color: rgba(255, 255, 255, 0.6) !important;
+}
+

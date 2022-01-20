@@ -1,0 +1,170 @@
+@charset "UTF-8";
+/* uni.scss */
+/* 主题色 */
+/* 页面左右间距 */
+/* 文字尺寸 */
+/*文字颜色*/
+/* 边框颜色 */
+/* 图片加载中颜色 */
+/* 行为相关颜色 */
+/* 页面左右间距 */
+/*文字颜色*/
+/* 边框颜色 */
+/* 背景颜色 */
+/* 行为相关颜色 */
+/************************************************************
+** 请将全局样式拷贝到项目的全局 CSS 文件或者当前页面的顶部 **
+** 否则页面将无法正常显示                                  **
+************************************************************/
+page {
+  font-size: 16px;
+}
+page {
+  margin: 0;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen', 'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue', 'Microsoft Yahei', sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+view,
+image,
+text {
+  box-sizing: border-box;
+  flex-shrink: 0;
+}
+#app {
+  width: 100vw;
+  height: 100vh;
+}
+.flex-row {
+  display: flex;
+  flex-direction: row;
+}
+.flex-col {
+  display: flex;
+  flex-direction: column;
+}
+.justify-start {
+  display: flex;
+  justify-content: flex-start;
+}
+.justify-center {
+  display: flex;
+  justify-content: center;
+}
+.justify-end {
+  display: flex;
+  justify-content: flex-end;
+}
+.justify-evenly {
+  display: flex;
+  justify-content: space-evenly;
+}
+.justify-around {
+  display: flex;
+  justify-content: space-around;
+}
+.justify-between {
+  display: flex;
+  justify-content: space-between;
+}
+.items-start {
+  display: flex;
+  align-items: flex-start;
+}
+.items-center {
+  display: flex;
+  align-items: center;
+}
+.items-end {
+  display: flex;
+  align-items: flex-end;
+}
+page {
+  background: #f8f8f8;
+}
+.content {
+  padding: 30rpx;
+  border-radius: 20rpx;
+}
+.invoice {
+  width: 100%;
+  height: 100%;
+  background-color: #fff;
+  border-radius: 20rpx;
+}
+.row {
+  display: flex;
+  align-items: center;
+  position: relative;
+  padding: 0 30rpx;
+  height: 110rpx;
+}
+.row .tit {
+  flex-shrink: 0;
+  width: 210rpx;
+  font-size: 28rpx;
+  color: #666666;
+}
+.row .input {
+  flex: 1;
+  font-size: 28rpx;
+  color: #333333;
+  font-weight: bold;
+}
+.row .icon-shouhuodizhi {
+  font-size: 36rpx;
+  color: #909399;
+}
+.default-row {
+  margin-top: 16rpx;
+}
+.default-row .tit {
+  flex: 1;
+}
+.default-row switch {
+  -webkit-transform: translateX(16rpx) scale(0.9);
+          transform: translateX(16rpx) scale(0.9);
+}
+.fixed-button {
+  position: relative;
+  width: 100%;
+  display: flex;
+}
+.fixed-button .add-btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 290rpx;
+  height: 80rpx;
+  margin: 60rpx auto;
+  font-size: 32rpx;
+  color: #fff;
+  background-image: linear-gradient(to right, #EE1D23, #F04023);
+  border-radius: 40rpx;
+  box-shadow: 1px 2px 5px rgba(219, 63, 96, 0.6);
+}
+.fixed-button .add-btns {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 590rpx;
+  height: 80rpx;
+  margin: 60rpx auto;
+  font-size: 32rpx;
+  color: #fff;
+  background-image: linear-gradient(to right, #EE1D23, #F04023);
+  border-radius: 40rpx;
+  box-shadow: 1px 2px 5px rgba(219, 63, 96, 0.6);
+}
+.fixed-button .del-btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 290rpx;
+  height: 80rpx;
+  margin: 60rpx auto;
+  font-size: 32rpx;
+  border-radius: 60rpx;
+  box-shadow: 1px 2px 5px rgba(219, 63, 96, 0.4);
+}
+

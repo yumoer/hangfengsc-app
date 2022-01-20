@@ -1,0 +1,11 @@
+{
+  "defaultTitle": "我的订单",
+  "pullRefresh": true,
+  "usingComponents": {
+    "xw-empty": "/components/xw-empty/xw-empty",
+    "uni-load-more": "/components/uni-load-more/uni-load-more",
+    "u-mask": "/uview-ui/components/u-mask/u-mask",
+    "min-badge": "/components/min-badge/min-badge",
+    "uni-section": "/components/uni-section/uni-section"
+  }
+}

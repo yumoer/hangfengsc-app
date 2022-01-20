@@ -1,0 +1,1 @@
+<view class="wrap data-v-0d293ade"><view class="u-avatar-wrap data-v-0d293ade"><image class="u-avatar-demo data-v-0d293ade" src="{{avatar}}" mode="aspectFill"></image></view><u-button bind:tap="__e" vue-id="34017095-1" data-event-opts="{{[['^tap',[['chooseAvatar']]]]}}" class="data-v-0d293ade" bind:__l="__l" vue-slots="{{['default']}}">选择图片</u-button></view>

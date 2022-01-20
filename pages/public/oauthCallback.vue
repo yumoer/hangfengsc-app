@@ -58,6 +58,7 @@
 				type:'',
 				code:'',
 				nuionid:'',
+				access_token:''
 			}
 		},
 		onLoad(options){
@@ -67,6 +68,7 @@
 			this.openid = options.openid
 			this.code = options.code
 			this.nuionid = options.nuionid
+			this.access_token = options.access_token
 			this.message()
 		},
 		methods: {
@@ -89,8 +91,9 @@
 			},
 				
 			message(){
-				this.$api.msg('请绑定手机号')
+				this.$api.msg('请绑定账户')
 			},
+			
 			inputChange(e){
 				const key = e.currentTarget.dataset.key;
 				this[key] = e.detail.value;
@@ -136,19 +139,27 @@
 					password,
 					openid:this.openid,
 					nuionid:this.nuionid,
+					access_token:this.access_token
 				};
 				console.log(sendData)
 				if(this.type === 'qq'){
 					uniRequest.post('/oauth/qq/user/openid/',sendData).then(res=>{
 						console.log(res)
-						this.$api.msg('111')
+						this.login(res.data);
+						uni.navigateBack({delta:2});
+					}).catch(error=>{
+						console.log(error)
+					})
+				}else if(this.type === 'weixin'){
+					uniRequest.post('/oauth/wechat/user/openid/',sendData).then(res=>{
+						console.log(res)
 						this.login(res.data);
 						uni.navigateBack({delta:2});
 					}).catch(error=>{
 						console.log(error)
 					})
 				}else{
-					uniRequest.post('/oauth/wechat/user/openid/',sendData).then(res=>{
+					uniRequest.post('/oauth/apple/user/openid/',sendData).then(res=>{
 						console.log(res)
 						this.login(res.data);
 						uni.navigateBack({delta:2});

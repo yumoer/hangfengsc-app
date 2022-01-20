@@ -1,0 +1,204 @@
+@charset "UTF-8";
+/* uni.scss */
+/* 主题色 */
+/* 页面左右间距 */
+/* 文字尺寸 */
+/*文字颜色*/
+/* 边框颜色 */
+/* 图片加载中颜色 */
+/* 行为相关颜色 */
+/* 页面左右间距 */
+/*文字颜色*/
+/* 边框颜色 */
+/* 背景颜色 */
+/* 行为相关颜色 */
+/************************************************************
+** 请将全局样式拷贝到项目的全局 CSS 文件或者当前页面的顶部 **
+** 否则页面将无法正常显示                                  **
+************************************************************/
+page {
+  font-size: 16px;
+}
+page {
+  margin: 0;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen', 'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue', 'Microsoft Yahei', sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+view,
+image,
+text {
+  box-sizing: border-box;
+  flex-shrink: 0;
+}
+#app {
+  width: 100vw;
+  height: 100vh;
+}
+.flex-row {
+  display: flex;
+  flex-direction: row;
+}
+.flex-col {
+  display: flex;
+  flex-direction: column;
+}
+.justify-start {
+  display: flex;
+  justify-content: flex-start;
+}
+.justify-center {
+  display: flex;
+  justify-content: center;
+}
+.justify-end {
+  display: flex;
+  justify-content: flex-end;
+}
+.justify-evenly {
+  display: flex;
+  justify-content: space-evenly;
+}
+.justify-around {
+  display: flex;
+  justify-content: space-around;
+}
+.justify-between {
+  display: flex;
+  justify-content: space-between;
+}
+.items-start {
+  display: flex;
+  align-items: flex-start;
+}
+.items-center {
+  display: flex;
+  align-items: center;
+}
+.items-end {
+  display: flex;
+  align-items: flex-end;
+}
+.wrapper {
+  z-index: 1999;
+  position: absolute;
+  top: -44px;
+  left: 0;
+  bottom: 0;
+  right: 0;
+}
+.wrapper .content_view {
+  z-index: 999;
+  background: white;
+  position: absolute;
+  height: 80%;
+  left: 0;
+  bottom: 0;
+  right: 0;
+  border-top-left-radius: 20px;
+  border-top-right-radius: 20px;
+}
+.wrapper .content_view .title_view {
+  height: 12%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0 10px;
+}
+.wrapper .content_view .title_view .title {
+  font-size: uni-font-size-sm;
+}
+.wrapper .content_view .title_view .close_view {
+  height: 60px;
+  width: 60px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.wrapper .content_view .select_top {
+  height: 8%;
+  display: flex;
+  justify-content: start;
+  align-items: center;
+  padding: 10px;
+  position: relative;
+  box-sizing: border-box;
+}
+.wrapper .content_view .select_top .select_top_item {
+  width: 80px;
+  font-size: 14px;
+  text-overflow: ellipsis;
+  overflow: hidden;
+  white-space: nowrap;
+}
+.wrapper .content_view .select_top .indicator {
+  position: absolute;
+  width: 30px;
+  height: 2px;
+  background: #dd524d;
+  left: 16px;
+  bottom: 0;
+  transition: left 0.5s ease;
+}
+.wrapper .content_view .swiper {
+  height: 80%;
+  position: relative;
+  left: 0;
+  top: 0;
+  bottom: 0;
+  right: 0;
+}
+.wrapper .content_view .swiper .swiper-item {
+  height: 100%;
+}
+.wrapper .content_view .swiper .swiper-item .scroll-view-item {
+  height: 100%;
+  padding: 0 10px;
+}
+.wrapper .content_view .swiper .swiper-item .scroll-view-item .address_item {
+  padding: 5px 0;
+  font-size: 14px;
+  display: flex;
+  align-items: center;
+}
+.wrapper .content_view .swiper .swiper-item .scroll-view-item .address_item .address_item_icon {
+  width: 20px;
+  height: 20px;
+  margin-right: 10px;
+}
+.wrapper .mask {
+  position: absolute;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  right: 0;
+  background: #999;
+  opacity: 0.7;
+}
+.content-enter {
+  -webkit-transform: translateY(100%);
+          transform: translateY(100%);
+}
+.content-enter-to {
+  -webkit-transform: translateY(0%);
+          transform: translateY(0%);
+}
+.content-enter-active {
+  transition: -webkit-transform 0.5s;
+  transition: transform 0.5s;
+  transition: transform 0.5s, -webkit-transform 0.5s;
+}
+.content-leave {
+  -webkit-transform: translateY(0%);
+          transform: translateY(0%);
+}
+.content-leave-to {
+  -webkit-transform: translateY(100%);
+          transform: translateY(100%);
+}
+.content-leave-active {
+  transition: -webkit-transform 0.5s;
+  transition: transform 0.5s;
+  transition: transform 0.5s, -webkit-transform 0.5s;
+}
+

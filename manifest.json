@@ -1,9 +1,9 @@
 {
     "name" : "行丰商城",
     "appid" : "__UNI__18D6605",
-    "description" : "uni.UNI18D6605(wgt版本：1.2.334 apk版本：1.2.342/1.2.19）",
-    "versionName" : "1.2.342",
-    "versionCode" : 12342,
+    "description" : "uni.UNI18D6605(wgt版本：1.2.334 apk版本：1.2.342/1.2.344）",
+    "versionName" : "1.2.347",
+    "versionCode" : 12347,
     "transformPx" : false,
     "app-plus" : {
         "compatible" : {
@@ -25,7 +25,9 @@
             "Share" : {},
             "OAuth" : {},
             "Payment" : {},
-            "Speech" : {}
+            "Speech" : {},
+            "FaceID" : {},
+            "Webview-x5" : {}
         },
         /* 模块配置 */
         "distribute" : {
@@ -37,16 +39,16 @@
                     "<uses-permission android:name=\"android.permission.ACCESS_FINE_LOCATION\"/>",
                     "<uses-permission android:name=\"android.permission.ACCESS_NETWORK_STATE\"/>",
                     "<uses-permission android:name=\"android.permission.ACCESS_WIFI_STATE\"/>",
+                    "<uses-permission android:name=\"android.permission.CALL_PHONE\"/>",
                     "<uses-permission android:name=\"android.permission.CHANGE_NETWORK_STATE\"/>",
                     "<uses-permission android:name=\"android.permission.CHANGE_WIFI_STATE\"/>",
                     "<uses-permission android:name=\"android.permission.GET_ACCOUNTS\"/>",
-                    "<uses-permission android:name=\"android.permission.CALL_PHONE\"/>",
-                    "<uses-permission android:name=\"android.permission.READ_PHONE_STATE\"/>",
                     "<uses-permission android:name=\"android.permission.INTERNET\"/>",
                     "<uses-permission android:name=\"android.permission.MODIFY_AUDIO_SETTINGS\"/>",
                     "<uses-permission android:name=\"android.permission.MOUNT_UNMOUNT_FILESYSTEMS\"/>",
                     "<uses-permission android:name=\"android.permission.READ_CONTACTS\"/>",
                     "<uses-permission android:name=\"android.permission.READ_LOGS\"/>",
+                    "<uses-permission android:name=\"android.permission.READ_PHONE_STATE\"/>",
                     "<uses-permission android:name=\"android.permission.VIBRATE\"/>",
                     "<uses-permission android:name=\"android.permission.WAKE_LOCK\"/>",
                     "<uses-permission android:name=\"android.permission.WRITE_CONTACTS\"/>",
@@ -57,7 +59,21 @@
                 "autoSdkPermissions" : false
             },
             "ios" : {
-                "idfa" : false
+                "idfa" : false,
+                "privacyDescription" : {
+                    "NSPhotoLibraryUsageDescription" : "获取相册读信息用于为用户提供相册图片素材",
+                    "NSPhotoLibraryAddUsageDescription" : "获取相册写信息用于为用户将图片保存至手机相册",
+                    "NSMicrophoneUsageDescription" : "获取麦克风信息用于为用户提供语音搜索信息",
+                    "NSSpeechRecognitionUsageDescription" : "获取系统语音识别信息用于为用户提供语音识别文字搜索信息",
+                    "NSLocalNetworkUsageDescription" : "访问本地网络信息用于为用户提供网络获取商品和功能提交信息",
+                    "NSCameraUsageDescription" : "获取拍摄头信息用于为用户提供自定义头像和意见反馈文件上传信息"
+                },
+                "capabilities" : {
+                    "entitlements" : {
+                        "com.apple.developer.associated-domains" : [ "applinks:www.hfyt365.com" ]
+                    }
+                },
+                "urltypes" : "hfyt,hfsc,hfscapp"
             },
             /* ios打包配置 */
             "sdkConfigs" : {
@@ -71,11 +87,11 @@
                     "weixin" : {
                         "appid" : "wx21f53b851acd7d86",
                         "appsecret" : "8c7966c4164908fbaba80c2a2cab4763",
-                        "UniversalLinks" : "https://demo.dcloud.net.cn/ulink/"
+                        "UniversalLinks" : "https://www.hfyt365.com/uni-universallinks/__UNI__18D6605/"
                     },
                     "qq" : {
-                        "appid" : "1110153651",
-                        "UniversalLinks" : ""
+                        "appid" : "1110509875",
+                        "UniversalLinks" : "https://www.hfyt365.com/qq_conn/1110509875/"
                     },
                     "apple" : {}
                 },
@@ -83,22 +99,27 @@
                     "alipay" : {},
                     "weixin" : {
                         "appid" : "wx21f53b851acd7d86",
-                        "UniversalLinks" : "https://demo.dcloud.net.cn/ulink/"
+                        "UniversalLinks" : "https://www.hfyt365.com/uni-universallinks/__UNI__18D6605/"
                     },
                     "appleiap" : {}
                 },
                 "share" : {
                     "weixin" : {
                         "appid" : "wx21f53b851acd7d86",
-                        "UniversalLinks" : "https://demo.dcloud.net.cn/ulink/"
+                        "UniversalLinks" : "https://www.hfyt365.com/uni-universallinks/__UNI__18D6605/"
                     },
                     "qq" : {
-                        "appid" : "1110153651",
-                        "UniversalLinks" : ""
+                        "appid" : "1110509875",
+                        "UniversalLinks" : "https://www.hfyt365.com/qq_conn/1110509875/"
                     }
                 },
                 "speech" : {
-                    "ifly" : {}
+                    // "ifly" : {},
+                    "baidu" : {
+                        "appid" : "25502050",
+                        "apikey" : "PQlQ32rzoDBzoQLijtSRmEYh",
+                        "secretkey" : "CTGLngzttlTzoSp9cxGqqB7cSy0CbSXk"
+                    }
                 },
                 "push" : {},
                 "ad" : {},
@@ -163,9 +184,10 @@
                         "retina40" : "unpackage/res/启动页.png",
                         "retina40l" : "unpackage/res/启动页.png",
                         "retina35" : "unpackage/res/启动页.png"
-                    }
+                    },
+                    "storyboard" : "unpackage/res/启动页_slices.zip"
                 },
-                "iosStyle" : "default",
+                "iosStyle" : "common",
                 "useOriginalMsgbox" : true,
                 "androidStyle" : "default"
             }
@@ -187,20 +209,20 @@
             }
         }
     },
-    // /* SDK配置 */
-    // "quickapp" : {},
-    // /* 快应用特有相关 */
-    // "mp-weixin" : {
-    //     /* 小程序特有相关 */
-    //     "usingComponents" : true,
-    //     "appid" : "wxd81e424b4a1a38dc",
-    //     "setting" : {
-    //         "urlCheck" : true,
-    //         "es6" : true,
-    //         "postcss" : true,
-    //         "minified" : true
-    //     }
-    // },
+    /* SDK配置 */
+    "quickapp" : {},
+    /* 快应用特有相关 */
+    "mp-weixin" : {
+        /* 小程序特有相关 */
+        "usingComponents" : true,
+        "appid" : "wxd81e424b4a1a38dc",
+        "setting" : {
+            "urlCheck" : true,
+            "es6" : true,
+            "postcss" : true,
+            "minified" : true
+        }
+    },
     "h5" : {
         "title" : "行丰商城",
         "domain" : "http://m.hfyt365.com",
@@ -242,7 +264,9 @@
         "setting" : {
             "minified" : false
         }
-    }
+    },
+    "_qq_spaceID" : "698865c9-4c05-43f6-bb9a-c7641b1919e8",
+    "_spaceID" : "698865c9-4c05-43f6-bb9a-c7641b1919e8"
 }
 // "runtimeVersion" : "1.0.7", //根据实际情况填写  
 // "compilerVersion" : "1.0.7" //根据实际情况填写  

@@ -3,12 +3,14 @@
 		<view class="price-box">
 			<view class="" style="display: flex;">
 				<text class="time">剩余支付时间 : </text>
-				<uni-countdown color="#999" background-color="#f7f7f7" border-color="#00B26A" :show-day="false" :showHour="false" :showColon="false" :minute="minute" :second="second" @timeup="timeChange">
+				<uni-countdown color="#999" background-color="#f7f7f7" border-color="#00B26A" :show-day="false"
+					:showHour="false" :showColon="false" :minute="minute" :second="second" @timeup="timeChange">
 				</uni-countdown>
 			</view>
 
 			<text class="price">{{price}}</text>
-			<text class="time" @click="navoToPage('/pages/order/lookDetails/lookDetails?order_id='+orderInfo.order_sub[0].order_id)">
+			<text class="time"
+				@click="navoToPage('/pages/order/lookDetails/lookDetails?order_id='+orderInfo.order_sub[0].order_id)">
 				查看订单详情
 				<!-- <text class="yticon icon-you" style="font-size: 12px;margin-left: 10upx;"></text> -->
 			</text>
@@ -26,24 +28,14 @@
 					</radio>
 				</label>
 			</view>
-			<!-- <view class="type-item b-b" v-if="platform">
-				<text class="yticon icon-yuezhifu"></text>
-				<view class="con">
-					<text class="tit">苹果</text>
-				</view>
-				<label class="radio">
-					<radio value="" color="#EE1D23" :checked='payType == 7' />
-					</radio>
-				</label>
-			</view> -->
 		</view>
 
 		<view class="submit-pay">
 			<text class="mix-btn" @click="goPay(payType)">立即支付</text>
 		</view>
-		
+
 		<!-- #ifdef H5 -->
-		<ssPaymentPassword ref="paymentPassword" :mode="mode" :value="pay_password" @submit="submitHandle"/>
+		<ssPaymentPassword ref="paymentPassword" :mode="mode" :value="pay_password" @submit="submitHandle" />
 		<!-- #endif -->
 		<!-- #ifdef APP-PLUS -->
 		<pay-keyboard :show_key="show_key" @hideFun="hideFun" @getPassword="getPassword"></pay-keyboard>
@@ -53,6 +45,9 @@
 </template>
 
 <script>
+	let iapChannel = null,
+	productId = 'HelloUniappPayment1',//要购买的产品
+	productIds = ['HelloUniappPayment1', 'HelloUniappPayment6'];//产品列表，不需要把所有的产品id都放进去
 	import uniRequest from 'uni-request';
 	import ssPaymentPassword from '@/components/sanshui-payment-password/index.vue';
 	import jsencrypt from '@/components/jsencrypt/jsencrypt.vue';
@@ -62,34 +57,54 @@
 		data() {
 			return {
 				payType: 8,
-				payList:[
-					{icon:'yticon icon-weixinzhifu',payName:'微信',payDesc:'推荐使用微信支付',payType:8},
-					{icon:'yticon icon-alipay',payName:'支付宝',payDesc:'',payType:2},
-					{icon:'yticon icon-iphone',payName:'苹果',payDesc:'',payType:7},
-					{icon:'yticon icon-yuezhifu',payName:'余额',payDesc:'',payType:9}
+				payList: [{
+						icon: 'yticon icon-weixinzhifu',
+						payName: '微信',
+						payDesc: '推荐使用微信支付',
+						payType: 8
+					},
+					{
+						icon: 'yticon icon-alipay',
+						payName: '支付宝',
+						payDesc: '',
+						payType: 2
+					},
+					// {
+					// 	icon: 'yticon icon-iphone',
+					// 	payName: '苹果',
+					// 	payDesc: '',
+					// 	payType: 7
+					// },
+					{
+						icon: 'yticon icon-yuezhifu',
+						payName: '余额',
+						payDesc: '',
+						payType: 9
+					}
 				],
 				price: null,
 				disPrice: null,
 				coupons_id: 0,
 				pay_password: '',
-				nowTime:'',
-				orderId:null,
+				nowTime: '',
+				orderId: null,
 				minute: 0,
 				second: 0,
-				timer:'',
-				time:'',
+				timer: '',
+				time: '',
 				mode: 0,
 				private: '', //签名
 				public: '', //加密
 				orderInfo: {},
 				title: 'Hello',
-				show_key:false,
-				platform:false
-				
+				show_key: false,
+				platform: false,
+				loading: false
 			};
 		},
 		components: {
-			ssPaymentPassword,payKeyboard
+			ssPaymentPassword,
+			payKeyboard
 		},
 		onBackPress(e) {
 			this.$showModal({
@@ -109,9 +124,9 @@
 			return true
 		},
 		created() {
-			this.timer = setInterval(()=>{
+			this.timer = setInterval(() => {
 				this.initTime()
-			},1000)
+			}, 1000)
 		},
 		onLoad(options) {
 			// #ifdef APP-PLUS
@@ -122,26 +137,29 @@
 				},
 				fail: (err) => {},
 				complete: () => {
-			
+
 				}
 			})
-			// #endif
 			
+
+			// #endif
+
 			this.orderId = options.orderId
 			this.getOrderList()
-			
 		},
 		destroyed() {
 			if (this.timer) { // 注意在vue实例销毁前，清除我们的定时器
-			   clearInterval(this.timer);
+				clearInterval(this.timer);
 			}
 		},
 		methods: {
-			async getOrderList(){
+			async getOrderList() {
 				await uniRequest({
 					url: '/orders/info/',
 					method: 'post',
-					data: {id:this.orderId},
+					data: {
+						id: this.orderId
+					},
 					headers: {
 						Authorization: 'JWT ' + uni.getStorageSync('userInfo').token
 					},
@@ -159,31 +177,31 @@
 					console.log(error.data)
 				})
 			},
-			
-			showFun(){
+
+			showFun() {
 				this.show_key = true
 			},
-			hideFun(){
+			hideFun() {
 				this.show_key = false
 			},
-			
-			
-			getTime(time){
+
+
+			getTime(time) {
 				var date = new Date(time)
-				
-				var min = date.getMinutes();  //2. 获取当前分钟
-				date.setMinutes(min+20);  //3. 设置当前时间+10分钟：把当前分钟数+10后的值重新设置为date对象的分钟数
+
+				var min = date.getMinutes(); //2. 获取当前分钟
+				date.setMinutes(min + 20); //3. 设置当前时间+10分钟：把当前分钟数+10后的值重新设置为date对象的分钟数
 				var y = date.getFullYear();
 				var m = (date.getMonth() + 1) < 10 ? ("0" + (date.getMonth() + 1)) : (date.getMonth() + 1);
 				var d = date.getDate() < 10 ? ("0" + date.getDate()) : date.getDate();
 				var h = date.getHours() < 10 ? ('0' + date.getHours()) : date.getHours()
 				var f = date.getMinutes() < 10 ? ('0' + date.getMinutes()) : date.getMinutes()
 				var s = date.getSeconds() < 10 ? ('0' + date.getSeconds()) : date.getSeconds()
-				var star = y+'-'+m+'-'+d + " " + h + ":" + f + ":" + s;
+				var star = y + '-' + m + '-' + d + " " + h + ":" + f + ":" + s;
 				alear(star)
 				this.nowTime = star;
 			},
-			
+
 			//选择支付方式
 			async changePayType(type) {
 				this.payType = type;
@@ -192,8 +210,8 @@
 					url: '/orders/change/paymethod/',
 					method: 'POST',
 					data: {
-						order_id:this.orderId,
-						pay_method:type
+						order_id: this.orderId,
+						pay_method: type
 					},
 					headers: {
 						Authorization: 'JWT ' + uni.getStorageSync('userInfo').token
@@ -204,33 +222,33 @@
 					console.log(error.data)
 				})
 			},
-			
+
 			// 倒计时
 			async timeChange(e) {
 				console.log(e)
-				
+
 				await uniRequest({
-					url:'/orders/cancel/',
-					method:'get',
-					params:{
-						id:this.orderId
+					url: '/orders/cancel/',
+					method: 'get',
+					params: {
+						id: this.orderId
 					},
-					headers:{
-						Authorization:'JWT '+uni.getStorageSync('userInfo').token
+					headers: {
+						Authorization: 'JWT ' + uni.getStorageSync('userInfo').token
 					},
-				}).then(res=>{
+				}).then(res => {
 					uni.showToast({
 						title: '订单已取消',
-						icon:'error'
+						icon: 'error'
 					})
 					uni.switchTab({
 						url: '/pages/cart/cart'
 					})
-				}).catch(error=>{
+				}).catch(error => {
 					console.log(error)
 				})
 			},
-			
+
 			initTime() {
 				var date = new Date(); //1. js获取当前时间
 				var now = date.getTime(); //获得当前时间与1970年1月1日时间相差的毫秒数
@@ -296,7 +314,6 @@
 			},
 
 			async goPay(payType) {
-				plus.nativeUI.toast(payType)
 				if (payType === 2) {
 					// #ifdef APP-PLUS
 					await uniRequest({
@@ -369,7 +386,7 @@
 							"sign": res.data.sign
 						}
 						// 第二种写法，传对象字符串
-						
+
 						uni.getProvider({
 							service: 'payment',
 							success: function(re) {
@@ -378,7 +395,8 @@
 										provider: 'wxpay', // wxpay
 										orderInfo: JSON.stringify(orderInfo),
 										success: function(ress) {
-											console.log('success:' + JSON.stringify(ress));
+											console.log('success:' + JSON.stringify(
+												ress));
 											uni.showToast({
 												title: '支付成功',
 												showCancel: false
@@ -390,16 +408,17 @@
 										fail: function(err) {
 											console.log('fail:' + JSON.stringify(err));
 											uni.showModal({
-												content: "支付失败,原因为: " + err.errMsg,
+												content: "支付失败,原因为: " + err
+													.errMsg,
 												// content: '抱歉，您的支付不成功',
 												showCancel: false
 											})
 										},
-										complete:function(ress){
+										complete: function(ress) {
 											console.log(ress)
 										}
 									});
-								}else{
+								} else {
 									console.log('111')
 								}
 							}
@@ -417,9 +436,9 @@
 						},
 					}).then(res => {
 						console.log(res.data)
-						if(res.data.mweb_url){
+						if (res.data.mweb_url) {
 							location.href = res.data.mweb_url
-						}else{
+						} else {
 							this.$api.msg(res.data.message)
 						}
 						// plus.runtime.openURL(res.data.mweb_url);
@@ -437,19 +456,32 @@
 					this.getKey()
 					this.show_key = true
 					// #endif
-				}else if(payType === 7){
+				} else if (payType === 7) {
 					// #ifdef APP-PLUS
-					this.requestOrder()
+					plus.payment.getChannels((channels) => {
+						console.log(channels,"获取到channel" + JSON.stringify(channels))
+						for (var i in channels) {
+							var channel = channels[i];
+							if (channel.id === 'appleiap') {
+								iapChannel = channel;
+								this.requestOrder();
+							}
+						}
+						if (!iapChannel) {
+							this.errorMsg()
+						}
+					}, (error) => {
+						this.errorMsg()
+					});
 					// #endif
 				}
 			},
-			
+
 			requestOrder() {
 				uni.showLoading({
-					title:'检测支付环境...'
+					title: '检测支付环境...'
 				})
 				iapChannel.requestOrder(productIds, (orderList) => { //必须调用此方法才能进行 iap 支付
-					this.disabled = false;
 					console.log('requestOrder success666: ' + JSON.stringify(orderList));
 					uni.hideLoading();
 				}, (e) => {
@@ -460,6 +492,12 @@
 			},
 			requestPayment(e) {
 				this.loading = true;
+				/*orderInfo可传参数一览
+					productid: (String 类型 )(必填) 商品的标识，你在苹果那里添加的商品标识
+					username: (String 类型 )(可选) 购买用户名称，我喜欢在这里传入订单号，这样支付成功时就可以获得订单号
+					quantity: (String 类型 )(可选) 商品数量，默认为 "1"
+					optimize:(Boolean)(可选) HX 3.1.10 版本新增参数，解决用户未绑定支付方式造成的丢单问题；
+				*/
 				uni.requestPayment({
 					provider: 'appleiap',
 					orderInfo: {
@@ -470,6 +508,18 @@
 							content: "感谢您的赞助",
 							showCancel: false
 						})
+						uni.request({
+							url: 'https://www.example.com/request', //仅为示例，并非真实接口地址。
+							data: {
+								parasm: e
+							},
+							success: (res) => {
+								uni.showModal({
+									content: "支付成功",
+									showCancel: false
+								})
+							}
+						});
 					},
 					fail: (e) => {
 						uni.showModal({
@@ -483,15 +533,26 @@
 					}
 				})
 			},
-			
-			errorMsg(){
+
+			//恢复购买方法
+			restoreComplateRequest() {
+				iapChannel.restoreComplateRequest({}, function(results) {
+					// results 格式为数组存放恢复的IAP商品交易信息对象 IAPTransaction，需要将返回的支付凭证传给后端进行二次认证
+				});
+			},
+
+			applePriceChange(e) {
+				productId = e.detail.value;
+			},
+
+			errorMsg() {
 				uni.showModal({
 					content: "暂不支持苹果 iap 支付",
 					showCancel: false
 				})
 			},
-			
-			getKey(){
+
+			getKey() {
 				uniRequest({
 					url: '/payment/secret/key/',
 					method: 'GET',
@@ -512,7 +573,7 @@
 					console.log(error)
 				})
 			},
-			
+
 			//公共方法挂载
 			getCode(publiukey, data) {
 				//此处操作与后端约定参数
@@ -547,7 +608,7 @@
 				var pubblicData = jsencrypt.setEncrypt(publiukey, data);
 				return pubblicData
 			},
-			
+
 			jsencryptRsa(data) {
 				//公钥.
 				var privatekey = this.private;
@@ -597,9 +658,9 @@
 					console.log(error)
 				})
 			},
-			
-			async getPassword(n){
-				console.log("用户输入的密码",n)
+
+			async getPassword(n) {
+				console.log("用户输入的密码", n)
 				uni.showLoading({
 					title: '校验安全密码中'
 				});
@@ -644,10 +705,10 @@
 					console.log(error)
 				})
 			},
-			
-			navoToPage(url){
+
+			navoToPage(url) {
 				uni.navigateTo({
-					url:url
+					url: url
 				})
 			},
 		}
@@ -669,9 +730,22 @@
 		width: 18px;
 		height: 18px;
 	}
-	
-	.pay_btn{ width:100vw;height: 100vh;display: flex;flex-direction: column;align-items: center;justify-content: center;
-		text{ padding:20rpx 30rpx;background: #007AFF;border-radius: 10rpx;font-size:28rpx;color: #ffffff;}
+
+	.pay_btn {
+		width: 100vw;
+		height: 100vh;
+		display: flex;
+		flex-direction: column;
+		align-items: center;
+		justify-content: center;
+
+		text {
+			padding: 20rpx 30rpx;
+			background: #007AFF;
+			border-radius: 10rpx;
+			font-size: 28rpx;
+			color: #ffffff;
+		}
 	}
 
 	.price-box {
@@ -710,6 +784,7 @@
 		padding-left: 60upx;
 		margin: 30upx;
 		border-radius: 20upx;
+
 		.type-item {
 			height: 120upx;
 			padding: 20upx 0;

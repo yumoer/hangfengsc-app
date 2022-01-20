@@ -1,0 +1,9 @@
+{
+  "defaultTitle": "修改地址",
+  "usingComponents": {
+    "u-checkbox-group": "/uview-ui/components/u-checkbox-group/u-checkbox-group",
+    "u-checkbox": "/uview-ui/components/u-checkbox/u-checkbox",
+    "u-button": "/uview-ui/components/u-button/u-button",
+    "show-modal": "/components/show-modal/showModal"
+  }
+}

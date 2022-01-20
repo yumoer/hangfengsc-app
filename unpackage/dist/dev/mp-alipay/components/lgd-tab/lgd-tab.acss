@@ -1,0 +1,23 @@
+
+.scrollView {
+	width: 100%;
+	white-space: nowrap;
+	margin-bottom: 10px;
+}
+.tabBox {
+	display: flex;
+	align-items: center;
+}
+.items {
+	padding: 6px 20rpx;
+}
+.tabText {
+	color: #666666;
+}
+.active {
+	font-weight: bold;
+}
+.underscore {
+	transition: .2s all;
+}
+

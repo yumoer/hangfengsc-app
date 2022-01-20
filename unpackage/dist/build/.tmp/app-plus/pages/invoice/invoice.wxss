@@ -1,0 +1,231 @@
+@charset "UTF-8";
+/* 页面左右间距 */
+/* 文字尺寸 */
+/*文字颜色*/
+/* 边框颜色 */
+/* 图片加载中颜色 */
+/* 行为相关颜色 */
+page {
+  /* padding-bottom: 120upx; */
+  height: 0%;
+}
+.content {
+  position: relative;
+}
+.list {
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: flex;
+  -webkit-box-align: center;
+  -webkit-align-items: center;
+          align-items: center;
+  padding: 20rpx 30rpx;
+  background: #6b6b6b;
+  position: relative;
+}
+.coupon-item {
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+  -webkit-flex-direction: column;
+          flex-direction: column;
+  /* margin: 20upx 24upx; */
+  background: #fff;
+}
+.coupon-item .con {
+    display: -webkit-box;
+    display: -webkit-flex;
+    display: flex;
+    -webkit-box-align: center;
+    -webkit-align-items: center;
+            align-items: center;
+    position: relative;
+    height: 120rpx;
+    padding: 0 30rpx;
+}
+.coupon-item .con:after {
+      position: absolute;
+      left: 0;
+      bottom: 0;
+      content: '';
+      width: 100%;
+      height: 0;
+      border-bottom: 1px dashed #f3f3f3;
+      -webkit-transform: scaleY(50%);
+              transform: scaleY(50%);
+}
+.coupon-item .left {
+    display: -webkit-box;
+    display: -webkit-flex;
+    display: flex;
+    -webkit-box-orient: vertical;
+    -webkit-box-direction: normal;
+    -webkit-flex-direction: column;
+            flex-direction: column;
+    -webkit-box-pack: center;
+    -webkit-justify-content: center;
+            justify-content: center;
+    -webkit-box-flex: 1;
+    -webkit-flex: 1;
+            flex: 1;
+    overflow: hidden;
+    height: 100rpx;
+}
+.coupon-item .title {
+    font-size: 32rpx;
+    color: #303133;
+    margin-bottom: 10rpx;
+}
+.coupon-item .time {
+    font-size: 24rpx;
+    color: #909399;
+}
+.coupon-item .right {
+    display: -webkit-box;
+    display: -webkit-flex;
+    display: flex;
+    -webkit-box-orient: vertical;
+    -webkit-box-direction: normal;
+    -webkit-flex-direction: column;
+            flex-direction: column;
+    -webkit-box-pack: center;
+    -webkit-justify-content: center;
+            justify-content: center;
+    -webkit-box-align: center;
+    -webkit-align-items: center;
+            align-items: center;
+    font-size: 26rpx;
+    color: #606266;
+    height: 100rpx;
+}
+.coupon-item .price {
+    font-size: 34rpx;
+    color: #fa436a;
+}
+.coupon-item .price:before {
+      font-size: 34rpx;
+}
+.coupon-item .tips {
+    font-size: 24rpx;
+    color: #909399;
+    line-height: 60rpx;
+    padding-left: 30rpx;
+}
+.coupon-item .circle {
+    position: absolute;
+    left: -6rpx;
+    bottom: -10rpx;
+    z-index: 10;
+    width: 20rpx;
+    height: 20rpx;
+    background: #f3f3f3;
+    border-radius: 100px;
+}
+.coupon-item .circle.r {
+      left: auto;
+      right: -6rpx;
+}
+.wrapper {
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+  -webkit-flex-direction: column;
+          flex-direction: column;
+  -webkit-box-flex: 1;
+  -webkit-flex: 1;
+          flex: 1;
+}
+.address-box {
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: flex;
+  -webkit-box-align: center;
+  -webkit-align-items: center;
+          align-items: center;
+}
+.address-box .tag {
+    font-size: 24rpx;
+    color: #fa436a;
+    margin-right: 10rpx;
+    background: #fffafb;
+    border: 1px solid #ffb4c7;
+    border-radius: 4rpx;
+    padding: 4rpx 12rpx;
+    line-height: 1;
+    width: 24px;
+}
+.address-box .address {
+    font-size: 30rpx;
+    color: #303133;
+}
+.u-box {
+  font-size: 28rpx;
+  color: #909399;
+  margin-top: 16rpx;
+}
+.u-box .name {
+    margin-right: 30rpx;
+}
+.icon-bianji {
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: flex;
+  -webkit-box-align: center;
+  -webkit-align-items: center;
+          align-items: center;
+  height: 80rpx;
+  font-size: 40rpx;
+  color: #909399;
+  padding-left: 20rpx;
+}
+.add-btn {
+  position: fixed;
+  left: 30rpx;
+  right: 30rpx;
+  bottom: 16rpx;
+  z-index: 95;
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: flex;
+  -webkit-box-align: center;
+  -webkit-align-items: center;
+          align-items: center;
+  -webkit-box-pack: center;
+  -webkit-justify-content: center;
+          justify-content: center;
+  width: 690rpx;
+  height: 80rpx;
+  font-size: 32rpx;
+  color: #fff;
+  background-color: #fa436a;
+  border-radius: 10rpx;
+  box-shadow: 1px 2px 5px rgba(219, 63, 96, 0.4);
+}
+.add-btns {
+  position: fixed;
+  left: 30rpx;
+  right: 30rpx;
+  bottom: 120rpx;
+  z-index: 95;
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: flex;
+  -webkit-box-align: center;
+  -webkit-align-items: center;
+          align-items: center;
+  -webkit-box-pack: center;
+  -webkit-justify-content: center;
+          justify-content: center;
+  width: 690rpx;
+  height: 80rpx;
+  font-size: 32rpx;
+  color: #fff;
+  background-color: #fa436a;
+  border-radius: 10rpx;
+  box-shadow: 1px 2px 5px rgba(219, 63, 96, 0.4);
+}
+

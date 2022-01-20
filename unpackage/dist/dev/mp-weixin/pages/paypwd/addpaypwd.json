@@ -1,0 +1,8 @@
+{
+  "navigationBarTitleText": "设置支付密码",
+  "usingComponents": {
+    "wakary-input": "/components/wakary-input/wakary-input",
+    "wakary-inputs": "/components/wakary-input/wakary-inputs",
+    "wakary-inputss": "/components/wakary-input/wakary-inputss"
+  }
+}

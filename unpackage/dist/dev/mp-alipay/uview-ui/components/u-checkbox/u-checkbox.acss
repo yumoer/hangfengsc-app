@@ -1,0 +1,135 @@
+@charset "UTF-8";
+/* uni.scss */
+/* 主题色 */
+/* 页面左右间距 */
+/* 文字尺寸 */
+/*文字颜色*/
+/* 边框颜色 */
+/* 图片加载中颜色 */
+/* 行为相关颜色 */
+/* 页面左右间距 */
+/*文字颜色*/
+/* 边框颜色 */
+/* 背景颜色 */
+/* 行为相关颜色 */
+/************************************************************
+** 请将全局样式拷贝到项目的全局 CSS 文件或者当前页面的顶部 **
+** 否则页面将无法正常显示                                  **
+************************************************************/
+page.data-v-54acf820 {
+  font-size: 16px;
+}
+page.data-v-54acf820 {
+  margin: 0;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen', 'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue', 'Microsoft Yahei', sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+view.data-v-54acf820,
+image.data-v-54acf820,
+text.data-v-54acf820 {
+  box-sizing: border-box;
+  flex-shrink: 0;
+}
+#app.data-v-54acf820 {
+  width: 100vw;
+  height: 100vh;
+}
+.flex-row.data-v-54acf820 {
+  display: flex;
+  flex-direction: row;
+}
+.flex-col.data-v-54acf820 {
+  display: flex;
+  flex-direction: column;
+}
+.justify-start.data-v-54acf820 {
+  display: flex;
+  justify-content: flex-start;
+}
+.justify-center.data-v-54acf820 {
+  display: flex;
+  justify-content: center;
+}
+.justify-end.data-v-54acf820 {
+  display: flex;
+  justify-content: flex-end;
+}
+.justify-evenly.data-v-54acf820 {
+  display: flex;
+  justify-content: space-evenly;
+}
+.justify-around.data-v-54acf820 {
+  display: flex;
+  justify-content: space-around;
+}
+.justify-between.data-v-54acf820 {
+  display: flex;
+  justify-content: space-between;
+}
+.items-start.data-v-54acf820 {
+  display: flex;
+  align-items: flex-start;
+}
+.items-center.data-v-54acf820 {
+  display: flex;
+  align-items: center;
+}
+.items-end.data-v-54acf820 {
+  display: flex;
+  align-items: flex-end;
+}
+.u-checkbox.data-v-54acf820 {
+  display: inline-flex;
+  align-items: center;
+  overflow: hidden;
+  -webkit-user-select: none;
+          user-select: none;
+  line-height: 1.8;
+}
+.u-checkbox__icon-wrap.data-v-54acf820 {
+  color: #606266;
+  flex: none;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  box-sizing: border-box;
+  width: 42rpx;
+  height: 42rpx;
+  color: transparent;
+  text-align: center;
+  transition-property: color, border-color, background-color;
+  font-size: 20px;
+  border: 1px solid #c8c9cc;
+  transition-duration: 0.2s;
+}
+.u-checkbox__icon-wrap--circle.data-v-54acf820 {
+  border-radius: 100%;
+}
+.u-checkbox__icon-wrap--square.data-v-54acf820 {
+  border-radius: 6rpx;
+}
+.u-checkbox__icon-wrap--checked.data-v-54acf820 {
+  color: #fff;
+  background-color: #2979ff;
+  border-color: #2979ff;
+}
+.u-checkbox__icon-wrap--disabled.data-v-54acf820 {
+  background-color: #ebedf0;
+  border-color: #c8c9cc;
+}
+.u-checkbox__icon-wrap--disabled--checked.data-v-54acf820 {
+  color: #c8c9cc !important;
+}
+.u-checkbox__label.data-v-54acf820 {
+  word-wrap: break-word;
+  margin-left: 10rpx;
+  margin-right: 24rpx;
+  color: #606266;
+  font-size: 30rpx;
+}
+.u-checkbox__label--disabled.data-v-54acf820 {
+  color: #c8c9cc;
+}
+

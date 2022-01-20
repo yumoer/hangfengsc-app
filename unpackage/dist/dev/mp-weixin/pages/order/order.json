@@ -1,0 +1,11 @@
+{
+  "navigationBarTitleText": "我的订单",
+  "usingComponents": {
+    "uni-load-more": "/components/uni-load-more/uni-load-more",
+    "u-mask": "/uview-ui/components/u-mask/u-mask",
+    "empty": "/components/empty",
+    "min-badge": "/components/min-badge/min-badge",
+    "uni-section": "/components/uni-section/uni-section",
+    "ss-payment-password": "/components/sanshui-payment-password/index"
+  }
+}

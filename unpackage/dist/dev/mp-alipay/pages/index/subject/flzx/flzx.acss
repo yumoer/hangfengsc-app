@@ -1,0 +1,233 @@
+.container {
+  background-color: #f7f7f7;
+  width: 100vw;
+  height: 100vh;
+  overflow-y: auto;
+}
+.container .section_1 {
+  background-image: url('https://codefun-proj-user-res-1256085488.cos.ap-guangzhou.myqcloud.com/613cb91e630da20011c12dc4/619f41699eab8900119cb8dd/16378270251077263864.png');
+  background-size: 100% 100%;
+  background-repeat: no-repeat;
+}
+.container .section_1 .section_2 {
+  padding: 1.19rem 0.78rem 0.94rem 1.03rem;
+  background-image: linear-gradient(0deg, rgba(0, 0, 0, 0.7) 0%, rgba(0, 0, 0, 0.2) 100%);
+  border-radius: 0px 0px 0.63rem 0.63rem;
+}
+.container .section_1 .section_2 .group {
+  padding-left: 1.28rem;
+  padding-right: 0.16rem;
+  color: #ffffff;
+  font-size: 1.03rem;
+  line-height: 0.78rem;
+  letter-spacing: -0.021rem;
+  white-space: nowrap;
+}
+.container .section_1 .section_2 .group .text {
+  margin-top: 0.13rem;
+}
+.container .section_1 .section_2 .icon_2 {
+  margin-left: 0.75rem;
+  margin-top: 1.56rem;
+  width: 0.56rem;
+  height: 1rem;
+}
+.container .section_1 .section_2 .text_1 {
+  margin-top: 6.63rem;
+  color: #ffffff;
+  font-size: 1.19rem;
+  line-height: 1.13rem;
+  letter-spacing: 0.12rem;
+  white-space: nowrap;
+}
+.container .section_1 .section_2 .group_2 {
+  margin-top: 1.38rem;
+  color: #ffffff;
+  font-size: 0.88rem;
+  line-height: 1.31rem;
+}
+.container .section_1 .section_2 .group_2 .icon_3 {
+  margin-top: 0.97rem;
+  align-self: center;
+  width: 1rem;
+  height: 0.56rem;
+}
+.container .group_3 {
+  padding: 1.56rem 0.8rem 2.34rem;
+}
+.container .group_3 .text_3 {
+  color: #111111;
+  font-size: 1rem;
+  line-height: 0.97rem;
+  letter-spacing: 0.1rem;
+  white-space: nowrap;
+}
+.container .group_3 .list {
+  margin-top: 0.94rem;
+}
+.container .group_3 .list .grid {
+  height: 62.19rem;
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  grid-row-gap: 1.28rem;
+}
+.container .group_3 .list .grid .grid-item {
+  color: #666666;
+  font-size: 0.88rem;
+  line-height: 0.84rem;
+  letter-spacing: 0.087rem;
+  white-space: nowrap;
+  padding: 2.5rem 0 1.28rem;
+  background-color: #ffffff;
+  border-radius: 0.63rem;
+  margin: 0 0.4rem;
+}
+.container .group_3 .list .grid .grid-item .text_4 {
+  margin-top: 1.75rem;
+}
+.container .group_3 .list .grid .image_1 {
+  width: 5.03rem;
+  height: 5.03rem;
+}
+.container .group_3 .list .list-item {
+  margin-top: 1.56rem;
+}
+.container .group_3 .list .list-item .text_16 {
+  margin-left: 0.094rem;
+  color: #333333;
+  font-size: 1rem;
+  line-height: 0.97rem;
+  letter-spacing: 0.1rem;
+  white-space: nowrap;
+}
+.container .group_3 .group_6 {
+  padding-top: 1.56rem;
+}
+.container .group_3 .group_6 .list-item_1 {
+  padding: 0.88rem 0;
+  position: relative;
+}
+.container .group_3 .group_6 .list-item_1 .section_13 {
+  padding: 1.25rem 0;
+  background-color: #ffffff;
+  border-radius: 0.63rem;
+}
+.container .group_3 .group_6 .list-item_1 .section_13 .top-group .text_21 {
+  margin-right: 0.094rem;
+  color: #333333;
+  font-size: 1rem;
+  line-height: 0.97rem;
+  letter-spacing: 0.1rem;
+  white-space: nowrap;
+}
+.container .group_3 .group_6 .list-item_1 .section_13 .top-group .text_21 .text_38 {
+  margin-right: 0.13rem;
+  color: #333333;
+  font-size: 1rem;
+  line-height: 0.97rem;
+  letter-spacing: 0.1rem;
+  white-space: nowrap;
+}
+.container .group_3 .group_6 .list-item_1 .section_13 .top-group .text_21 .text_39 {
+  margin-right: 7.28rem;
+  margin-top: 0.34rem;
+  color: #666666;
+  font-size: 0.63rem;
+  line-height: 0.63rem;
+  white-space: nowrap;
+}
+.container .group_3 .group_6 .list-item_1 .section_13 .top-group .text_23 {
+  margin-right: 7.56rem;
+  margin-top: 0.34rem;
+  color: #666666;
+  font-size: 0.63rem;
+  line-height: 0.63rem;
+  white-space: nowrap;
+}
+.container .group_3 .group_6 .list-item_1 .section_13 .top-group .text_23 .text_40 {
+  color: #999999;
+  font-size: 0.75rem;
+  line-height: 1.31rem;
+}
+.container .group_3 .group_6 .list-item_1 .section_13 .top-group .text_23 .text_41 {
+  color: #666666;
+  font-size: 0.75rem;
+  line-height: 1.31rem;
+}
+.container .group_3 .group_6 .list-item_1 .section_13 .top-group .text_23 .text_42 {
+  color: #333333;
+  font-size: 0.88rem;
+  line-height: 1.31rem;
+}
+.container .group_3 .group_6 .list-item_1 .section_13 .top-group .text_32 {
+  line-height: 0.94rem;
+}
+.container .group_3 .group_6 .list-item_1 .section_13 .top-group .text_33 {
+  margin-right: 7.34rem;
+}
+.container .group_3 .group_6 .list-item_1 .section_13 .top-group .view_10 {
+  margin-right: initial;
+  color: initial;
+  font-size: initial;
+  line-height: initial;
+  letter-spacing: initial;
+  white-space: initial;
+}
+.container .group_3 .group_6 .list-item_1 .section_13 .top-group .view_11 {
+  margin-right: initial;
+  margin-top: 0.63rem;
+  color: initial;
+  font-size: initial;
+  line-height: initial;
+  white-space: initial;
+  align-self: flex-end;
+  width: 12rem;
+}
+.container .group_3 .group_6 .list-item_1 .section_13 .top-group .text_44 {
+  margin-right: 0.13rem;
+}
+.container .group_3 .group_6 .list-item_1 .section_13 .top-group .text_45 {
+  margin-right: 6.09rem;
+}
+.container .group_3 .group_6 .list-item_1 .section_13 .center-group {
+  margin-top: 0.63rem;
+  align-self: flex-end;
+  width: 12rem;
+}
+.container .group_3 .group_6 .list-item_1 .section_13 .center-group .text_25 {
+  color: #999999;
+  font-size: 0.75rem;
+  line-height: 1.31rem;
+}
+.container .group_3 .group_6 .list-item_1 .section_13 .center-group .text_27 {
+  color: #666666;
+  font-size: 0.75rem;
+  line-height: 1.31rem;
+}
+.container .group_3 .group_6 .list-item_1 .section_13 .center-group .text_29 {
+  color: #333333;
+  font-size: 0.88rem;
+  line-height: 1.31rem;
+}
+.container .group_3 .group_6 .list-item_1 .section_13 .bottom-text-wrapper {
+  margin-right: 1rem;
+  margin-top: 0.69rem;
+  padding: 0.66rem 0 0.72rem;
+  align-self: flex-end;
+  color: #ffffff;
+  font-size: 0.88rem;
+  line-height: 0.84rem;
+  white-space: nowrap;
+  background-image: linear-gradient(-45deg, #f04023 0%, #ee1d23 100%);
+  box-shadow: 0px 0.063rem 0.31rem rgba(238, 29, 35, 0.3);
+  border-radius: 1.09rem;
+  width: 5.91rem;
+}
+.container .group_3 .group_6 .list-item_1 .image_13 {
+  width: 8rem;
+  height: 11.5rem;
+  position: absolute;
+  left: 0.5rem;
+  top: 0;
+}
+

@@ -1,0 +1,1 @@
+<view class="{{[isOpen?'cmd-curtain':'cmd-curtain--closed']}}"><view class="cmd-curtain__container"><view class="cmd-curtain__body"><slot></slot><view data-event-opts="{{[['tap',[['$_close',['$event']]]]]}}" class="{{['cmd-curtain__btn-close',setModeClass]}}" bindtap="__e"></view></view></view></view>

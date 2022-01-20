@@ -1,0 +1,28 @@
+@charset "UTF-8";
+/* 页面左右间距 */
+/* 文字尺寸 */
+/*文字颜色*/
+/* 边框颜色 */
+/* 图片加载中颜色 */
+/* 行为相关颜色 */
+page .cate-section {
+  position: relative;
+  z-index: 4;
+  border-radius: 16rpx 16rpx 0 0;
+  margin-top: -20rpx;
+}
+page .carousel-section {
+  padding: 0;
+}
+page .carousel-section .titleNview-placing {
+    padding-top: 0;
+    height: 0;
+}
+page .carousel-section .carousel .carousel-item {
+    padding: 0;
+}
+page .carousel-section .swiper-dots {
+    left: 45rpx;
+    bottom: 40rpx;
+}
+

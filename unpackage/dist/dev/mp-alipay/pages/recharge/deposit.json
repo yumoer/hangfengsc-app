@@ -1,0 +1,6 @@
+{
+  "defaultTitle": "余额充值",
+  "usingComponents": {
+    "u-input": "/uview-ui/components/u-input/u-input"
+  }
+}

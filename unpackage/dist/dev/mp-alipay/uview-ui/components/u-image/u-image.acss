@@ -1,0 +1,104 @@
+@charset "UTF-8";
+/* uni.scss */
+/* 主题色 */
+/* 页面左右间距 */
+/* 文字尺寸 */
+/*文字颜色*/
+/* 边框颜色 */
+/* 图片加载中颜色 */
+/* 行为相关颜色 */
+/* 页面左右间距 */
+/*文字颜色*/
+/* 边框颜色 */
+/* 背景颜色 */
+/* 行为相关颜色 */
+/************************************************************
+** 请将全局样式拷贝到项目的全局 CSS 文件或者当前页面的顶部 **
+** 否则页面将无法正常显示                                  **
+************************************************************/
+page.data-v-32babe48 {
+  font-size: 16px;
+}
+page.data-v-32babe48 {
+  margin: 0;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen', 'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue', 'Microsoft Yahei', sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+view.data-v-32babe48,
+image.data-v-32babe48,
+text.data-v-32babe48 {
+  box-sizing: border-box;
+  flex-shrink: 0;
+}
+#app.data-v-32babe48 {
+  width: 100vw;
+  height: 100vh;
+}
+.flex-row.data-v-32babe48 {
+  display: flex;
+  flex-direction: row;
+}
+.flex-col.data-v-32babe48 {
+  display: flex;
+  flex-direction: column;
+}
+.justify-start.data-v-32babe48 {
+  display: flex;
+  justify-content: flex-start;
+}
+.justify-center.data-v-32babe48 {
+  display: flex;
+  justify-content: center;
+}
+.justify-end.data-v-32babe48 {
+  display: flex;
+  justify-content: flex-end;
+}
+.justify-evenly.data-v-32babe48 {
+  display: flex;
+  justify-content: space-evenly;
+}
+.justify-around.data-v-32babe48 {
+  display: flex;
+  justify-content: space-around;
+}
+.justify-between.data-v-32babe48 {
+  display: flex;
+  justify-content: space-between;
+}
+.items-start.data-v-32babe48 {
+  display: flex;
+  align-items: flex-start;
+}
+.items-center.data-v-32babe48 {
+  display: flex;
+  align-items: center;
+}
+.items-end.data-v-32babe48 {
+  display: flex;
+  align-items: flex-end;
+}
+.u-image.data-v-32babe48 {
+  position: relative;
+  transition: opacity 0.5s ease-in-out;
+}
+.u-image__image.data-v-32babe48 {
+  width: 100%;
+  height: 100%;
+}
+.u-image__loading.data-v-32babe48, .u-image__error.data-v-32babe48 {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  background-color: #f3f4f6;
+  color: #909399;
+  font-size: 46rpx;
+}
+

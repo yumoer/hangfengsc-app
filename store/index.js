@@ -11,7 +11,7 @@ const store = new Vuex.Store({
 	},
 	mutations: {
 		login(state, provider) {
-			console.log(state, provider)
+			console.log(state, provider);
 			state.hasLogin = true;
 			// state.uerInfo.userName = provider.user_name 
 			state.userInfo = provider;

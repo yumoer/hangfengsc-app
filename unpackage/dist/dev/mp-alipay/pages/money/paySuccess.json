@@ -1,0 +1,6 @@
+{
+  "defaultTitle": "支付成功",
+  "usingComponents": {
+    "u-mask": "/uview-ui/components/u-mask/u-mask"
+  }
+}

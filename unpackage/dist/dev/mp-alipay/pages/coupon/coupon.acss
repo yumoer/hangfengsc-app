@@ -1,0 +1,105 @@
+page {
+  background: #f7f7f7;
+}
+.coupon_box {
+  position: relative;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100vh;
+  background: #9b070e;
+}
+.coupon_box .coupon_wrap {
+  text-align: center;
+  width: 100%;
+}
+.coupon_box .coupon_wrap .coupon_image {
+  text-align: center;
+  width: 100%;
+  height: 220px;
+}
+.coupon_box .coupon_row {
+  width: 100%;
+  height: auto;
+  padding: 29px 15px;
+}
+.coupon_box .coupon_row .coupon_content {
+  background: #ffd;
+  width: 100%;
+  height: 100%;
+  border-radius: 10px;
+  padding: 7px;
+}
+.coupon_box .coupon_row .coupon_content .coupon_border {
+  border: 1px solid rgba(177,38,39,0.3);
+  width: 100%;
+  height: 100%;
+  border-radius: 10px;
+  padding: 21px 12px;
+}
+.coupon_box .coupon_row .coupon_content .coupon_border .coupon_body {
+  width: 100%;
+  height: 100%;
+}
+.coupon_box .coupon_row .coupon_content .coupon_border .coupon_body .coupon_item {
+  background: url("http://47.94.106.106:8888/group1/M00/5D/27/rBHxiGGtsQSAfzF-AADjw6yZBlE2116161");
+  background-size: 100% 100%;
+  width: 100%;
+  height: 90px;
+  margin-bottom: 15px;
+  color: #f5391d;
+}
+.coupon_box .coupon_row .coupon_content .coupon_border .coupon_body .coupon_item .coupon_left {
+  width: 30%;
+  height: 100%;
+  text-align: center;
+  padding-top: 13px;
+  float: left;
+}
+.coupon_box .coupon_row .coupon_content .coupon_border .coupon_body .coupon_item .coupon_left .left_type {
+  font-size: 12px;
+}
+.coupon_box .coupon_row .coupon_content .coupon_border .coupon_body .coupon_item .coupon_left .left_money {
+  font-size: 32px;
+  padding-right: 2px;
+  font-weight: bold;
+}
+.coupon_box .coupon_row .coupon_content .coupon_border .coupon_body .coupon_item .coupon_center {
+  width: 40%;
+  height: 100%;
+  padding-top: 12px;
+  float: left;
+  font-weight: bold;
+}
+.coupon_box .coupon_row .coupon_content .coupon_border .coupon_body .coupon_item .coupon_center .center_class {
+  font-size: 16px;
+}
+.coupon_box .coupon_row .coupon_content .coupon_border .coupon_body .coupon_item .coupon_center .center_full {
+  font-size: 12px;
+  margin: 4px 0;
+}
+.coupon_box .coupon_row .coupon_content .coupon_border .coupon_body .coupon_item .coupon_center .center_time {
+  font-size: 10px;
+  width: 150px;
+}
+.coupon_box .coupon_row .coupon_content .coupon_border .coupon_body .coupon_item .coupon_right {
+  width: 30%;
+  height: 100%;
+  padding-top: 12px;
+  float: right;
+}
+.coupon_box .coupon_row .coupon_content .coupon_border .coupon_body .coupon_item .coupon_right .right_btn {
+  width: 60px;
+  height: 60px;
+  border-radius: 50%;
+  margin-left: 5px;
+  margin-top: 5px;
+  background: #fae3a8;
+  line-height: 28px;
+}
+.coupon_box .coupon_row .coupon_content .coupon_border .coupon_body .coupon_item .coupon_right .right_btn .right_text {
+  font-size: 14px;
+  line-height: 10px;
+  color: #ee483c;
+}
+

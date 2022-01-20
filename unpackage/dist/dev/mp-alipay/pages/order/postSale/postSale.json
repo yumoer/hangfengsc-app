@@ -1,0 +1,7 @@
+{
+  "defaultTitle": "退款售后",
+  "usingComponents": {
+    "uni-load-more": "/components/uni-load-more/uni-load-more",
+    "uni-section": "/components/uni-section/uni-section"
+  }
+}

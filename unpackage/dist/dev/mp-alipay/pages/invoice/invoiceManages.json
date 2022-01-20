@@ -1,0 +1,6 @@
+{
+  "defaultTitle": "新增增值税发票",
+  "usingComponents": {
+    "show-modal": "/components/show-modal/showModal"
+  }
+}

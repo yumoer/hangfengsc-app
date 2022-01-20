@@ -1,0 +1,197 @@
+@charset "UTF-8";
+/* uni.scss */
+/* 主题色 */
+/* 页面左右间距 */
+/* 文字尺寸 */
+/*文字颜色*/
+/* 边框颜色 */
+/* 图片加载中颜色 */
+/* 行为相关颜色 */
+/* 页面左右间距 */
+/*文字颜色*/
+/* 边框颜色 */
+/* 背景颜色 */
+/* 行为相关颜色 */
+/************************************************************
+** 请将全局样式拷贝到项目的全局 CSS 文件或者当前页面的顶部 **
+** 否则页面将无法正常显示                                  **
+************************************************************/
+page {
+  font-size: 16px;
+}
+page {
+  margin: 0;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen', 'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue', 'Microsoft Yahei', sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+view,
+image,
+text {
+  box-sizing: border-box;
+  flex-shrink: 0;
+}
+#app {
+  width: 100vw;
+  height: 100vh;
+}
+.flex-row {
+  display: flex;
+  flex-direction: row;
+}
+.flex-col {
+  display: flex;
+  flex-direction: column;
+}
+.justify-start {
+  display: flex;
+  justify-content: flex-start;
+}
+.justify-center {
+  display: flex;
+  justify-content: center;
+}
+.justify-end {
+  display: flex;
+  justify-content: flex-end;
+}
+.justify-evenly {
+  display: flex;
+  justify-content: space-evenly;
+}
+.justify-around {
+  display: flex;
+  justify-content: space-around;
+}
+.justify-between {
+  display: flex;
+  justify-content: space-between;
+}
+.items-start {
+  display: flex;
+  align-items: flex-start;
+}
+.items-center {
+  display: flex;
+  align-items: center;
+}
+.items-end {
+  display: flex;
+  align-items: flex-end;
+}
+.keyborad {
+  width: 100vw;
+  height: 100vh;
+  position: fixed;
+  bottom: 0px;
+  top: 0px;
+  left: 0px;
+  right: 0px;
+  z-index: 100;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  -webkit-transform: translateY(100%);
+          transform: translateY(100%);
+  transition: all 0.4s;
+}
+.keyborad .key_main {
+  width: 100vw;
+  height: 900rpx;
+  background: rgba(245, 245, 245, 0.9);
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+.keyborad .key_main .main_title {
+  font-size: 34rpx;
+  color: #000000;
+  height: 100rpx;
+  display: flex;
+  align-items: center;
+  letter-spacing: 2rpx;
+  width: 100%;
+  box-sizing: border-box;
+  padding: 0px 20rpx;
+  border-bottom: 2rpx solid #e1e1e1;
+}
+.keyborad .key_main .main_title image {
+  width: 48rpx;
+  height: 48rpx;
+  position: relative;
+  z-index: 10;
+}
+.keyborad .key_main .main_title text {
+  flex: 1;
+  margin-left: -48rpx;
+  display: flex;
+  justify-content: center;
+}
+.keyborad .key_main .main_content {
+  width: 100%;
+  box-sizing: border-box;
+  padding: 0px 30rpx;
+  margin-top: 40rpx;
+}
+.keyborad .key_main .main_content .content_num {
+  width: 100%;
+  height: 100rpx;
+  border: 2rpx solid #DBDBDB;
+  border-radius: 10rpx;
+  display: flex;
+  align-items: center;
+}
+.keyborad .key_main .main_content .content_num .content_item {
+  flex: 1;
+  height: 100%;
+  border-right: 2rpx solid #DBDBDB;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.keyborad .key_main .main_content .content_num .content_item:last-child {
+  border-right: none;
+}
+.keyborad .key_main .main_content .main_forget {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  font-size: 28rpx;
+  color: #007AFF;
+  margin-top: 40rpx;
+}
+.keyborad .key_main .main_keyboard {
+  width: 100%;
+  height: 500rpx;
+  background: #FFFFFF;
+  display: flex;
+  flex-flow: wrap;
+}
+.keyborad .key_main .main_keyboard .key_null, .keyborad .key_main .main_keyboard .key_del {
+  background: #e2e7eb;
+}
+.keyborad .key_main .main_keyboard image {
+  width: 48rpx;
+  height: 48rpx;
+}
+.keyborad .key_main .main_keyboard .key_num, .keyborad .key_main .main_keyboard .key_null, .keyborad .key_main .main_keyboard .key_del, .keyborad .key_main .main_keyboard .key_0 {
+  width: 250rpx;
+  height: 125rpx;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.keyborad .key_main .main_keyboard .key_num {
+  border-right: 2rpx solid #f1f4f4;
+  border-bottom: 2rpx solid #f1f4f4;
+  box-sizing: border-box;
+}
+.keyborad .key_main .main_keyboard .key_num:nth-child(8) {
+  border-bottom: none;
+}
+.keyborad .key_main .main_keyboard .key_0 {
+  border-top: 2rpx solid #f1f4f4;
+}
+

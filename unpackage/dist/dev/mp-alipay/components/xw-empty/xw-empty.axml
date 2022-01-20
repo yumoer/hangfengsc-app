@@ -1,0 +1,1 @@
+<block a:if="{{isShow}}"><view class="empty"><image class="empty_image" src="{{img}}" mode="widthFix"></image><text style="{{'color:'+(textColor)+';'}}">{{text}}</text><block a:if="{{path}}"><button data-event-opts="{{[['tap',[['navTo',['$0'],['path']]]]]}}" class="add-btn" onTap="__e">{{btnText}}</button></block></view></block>

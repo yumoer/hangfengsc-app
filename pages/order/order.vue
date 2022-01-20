@@ -78,15 +78,15 @@
 								<button class="action-btn recom" @click="accessOrder(item)">去评价</button>
 							</view>
 							
-							<!-- 交易成功 -->
+							<!-- 交易成功 已完成-->
 							<view class="action-box b-t" v-if="item.order_status === 4 && item.goods[0].comment">
 								<button class="action-btn recom" @click="goBuyAgain(item,item.order_id)">再次购买</button>
 							</view>
-							<!-- 交易关闭 -->
+							<!-- 交易关闭 已取消-->
 							<view class="action-box b-t" v-if="item.order_status === 5">
 								<button class="action-btn recom" @click="goBuyAgain(item,item.order_id)">再次购买</button>
 							</view>
-							<!-- 退换 -->
+							<!-- 退换 已退换-->
 							<view class="action-box b-t" v-if="item.order_status === 6">
 								<button class="action-btn recom" @click="goBuyAgain(item,item.order_id)">再次购买</button>
 							</view>

@@ -1,0 +1,7 @@
+{
+  "defaultTitle": "地址管理",
+  "usingComponents": {
+    "show-modal": "/components/show-modal/showModal",
+    "mpvue-city-picker": "/components/mpvue-citypicker/mpvueCityPicker"
+  }
+}

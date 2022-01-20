@@ -1,0 +1,6 @@
+{
+  "defaultTitle": "分享",
+  "usingComponents": {
+    "shares": "/components/share"
+  }
+}

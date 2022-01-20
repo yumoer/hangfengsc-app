@@ -1,0 +1,255 @@
+@charset "UTF-8";
+/* uni.scss */
+/* 主题色 */
+/* 页面左右间距 */
+/* 文字尺寸 */
+/*文字颜色*/
+/* 边框颜色 */
+/* 图片加载中颜色 */
+/* 行为相关颜色 */
+/* 页面左右间距 */
+/*文字颜色*/
+/* 边框颜色 */
+/* 背景颜色 */
+/* 行为相关颜色 */
+/************************************************************
+** 请将全局样式拷贝到项目的全局 CSS 文件或者当前页面的顶部 **
+** 否则页面将无法正常显示                                  **
+************************************************************/
+page {
+  font-size: 16px;
+}
+page {
+  margin: 0;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen', 'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue', 'Microsoft Yahei', sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+view,
+image,
+text {
+  box-sizing: border-box;
+  flex-shrink: 0;
+}
+#app {
+  width: 100vw;
+  height: 100vh;
+}
+.flex-row {
+  display: flex;
+  flex-direction: row;
+}
+.flex-col {
+  display: flex;
+  flex-direction: column;
+}
+.justify-start {
+  display: flex;
+  justify-content: flex-start;
+}
+.justify-center {
+  display: flex;
+  justify-content: center;
+}
+.justify-end {
+  display: flex;
+  justify-content: flex-end;
+}
+.justify-evenly {
+  display: flex;
+  justify-content: space-evenly;
+}
+.justify-around {
+  display: flex;
+  justify-content: space-around;
+}
+.justify-between {
+  display: flex;
+  justify-content: space-between;
+}
+.items-start {
+  display: flex;
+  align-items: flex-start;
+}
+.items-center {
+  display: flex;
+  align-items: center;
+}
+.items-end {
+  display: flex;
+  align-items: flex-end;
+}
+.wrap {
+  width: 100%;
+  height: 100%;
+}
+.wrap .wrap-header {
+  width: 100%;
+  height: 570rpx;
+  background: url("http://47.94.106.106:8888/group1/M00/53/87/rBHxiGEKRgKAUwsqAAu6_A43jKo0155421") no-repeat top center/100%;
+}
+.wrap .wrap-header .header {
+  padding-top: 380rpx;
+  padding-left: 30rpx;
+}
+.wrap .wrap-header .header .header-name {
+  color: #FFFFFF;
+  font-size: 36rpx;
+  margin-bottom: 10rpx;
+  font-weight: bold;
+}
+.wrap .wrap-header .header .header-info {
+  color: #FFFFFF;
+  font-size: 24rpx;
+}
+.wrap .company {
+  width: 100%;
+  height: 336rpx;
+  background-color: #fff;
+  padding: 30rpx;
+  position: relative;
+}
+.wrap .company .company-like {
+  width: 110rpx;
+  height: 110rpx;
+  border-radius: 50%;
+  background-color: #fff;
+  box-shadow: 0 0 7rpx 0 rgba(238, 29, 35, 0.1);
+  position: absolute;
+  right: 15rpx;
+  top: -60rpx;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  --animate-duration: 1s;
+  --animate-delay: 1s;
+  --animate-repeat: 1;
+}
+.wrap .company .company-like .icon {
+  width: 58rpx;
+  height: 50rpx;
+}
+.wrap .company .company-like .animate_heartBeat {
+  -webkit-animation-name: heartBeat;
+          animation-name: heartBeat;
+  -webkit-animation-duration: calc(1s * 1.3);
+          animation-duration: calc(1s * 1.3);
+  -webkit-animation-duration: calc(var(--animate-duration) * 1.3);
+          animation-duration: calc(var(--animate-duration) * 1.3);
+  -webkit-animation-timing-function: ease-in-out;
+          animation-timing-function: ease-in-out;
+  -webkit-animation-iteration-count: infinite;
+          animation-iteration-count: infinite;
+}
+@-webkit-keyframes heartBeat {
+0% {
+    -webkit-transform: scale(1);
+            transform: scale(1);
+}
+14% {
+    -webkit-transform: scale(1.3);
+            transform: scale(1.3);
+}
+28% {
+    -webkit-transform: scale(1);
+            transform: scale(1);
+}
+42% {
+    -webkit-transform: scale(1.3);
+            transform: scale(1.3);
+}
+70% {
+    -webkit-transform: scale(1);
+            transform: scale(1);
+}
+}
+@keyframes heartBeat {
+0% {
+    -webkit-transform: scale(1);
+            transform: scale(1);
+}
+14% {
+    -webkit-transform: scale(1.3);
+            transform: scale(1.3);
+}
+28% {
+    -webkit-transform: scale(1);
+            transform: scale(1);
+}
+42% {
+    -webkit-transform: scale(1.3);
+            transform: scale(1.3);
+}
+70% {
+    -webkit-transform: scale(1);
+            transform: scale(1);
+}
+}
+.wrap .company .company-info {
+  font-size: 28rpx;
+  color: #333333;
+  width: 620rpx;
+  line-height: 46rpx;
+  height: 240rpx;
+}
+.wrap .websitesWrapper {
+  background: #f7f7f7;
+  padding-top: 20rpx;
+  height: 700rpx;
+}
+.wrap .websitesWrapper .websites {
+  background-color: #fff;
+  height: 100%;
+  padding: 30rpx;
+  box-sizing: border-box;
+}
+.wrap .websitesWrapper .websites .title {
+  color: #333333;
+  font-weight: bold;
+  font-size: 32rpx;
+  height: 42rpx;
+  line-height: 42rpx;
+}
+.wrap .websitesWrapper .websites .cardWrapper {
+  width: 100%;
+  display: flex;
+  height: calc(100% - 20rpx);
+}
+.wrap .websitesWrapper .websites .cardWrapper .cardContainer {
+  width: 100%;
+  top: calc(20rpx + 160rpx);
+  height: calc(280rpx + 160rpx);
+  box-sizing: border-box;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: relative;
+}
+.wrap .websitesWrapper .websites .cardWrapper .cardContainer .card {
+  width: 100%;
+  height: 280rpx;
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: 100%;
+  overflow: hidden;
+  position: absolute;
+  transition: all 0.2s;
+  border-radius: 20rpx;
+  top: 0;
+  left: 0;
+}
+.wrap .websitesWrapper .websites .cardWrapper .cardContainer .card .logo {
+  width: 400rpx;
+  height: 80rpx;
+  background-repeat: no-repeat;
+  background-size: contain;
+  margin: 30rpx 0 0 52rpx;
+}
+.wrap .websitesWrapper .websites .cardWrapper .cardContainer .card .text {
+  position: absolute;
+  right: 29rpx;
+  bottom: 35rpx;
+  color: #fff;
+  font-size: 32rpx;
+}
+

@@ -1,0 +1,5 @@
+
+.uni-icons .uni-collapse-cell__title-arrow .uni-collapse-cell__title-arrow-active{
+	display: none;
+}
+

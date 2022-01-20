@@ -1,0 +1,190 @@
+@charset "UTF-8";
+/* uni.scss */
+/* 主题色 */
+/* 页面左右间距 */
+/* 文字尺寸 */
+/*文字颜色*/
+/* 边框颜色 */
+/* 图片加载中颜色 */
+/* 行为相关颜色 */
+/* 页面左右间距 */
+/*文字颜色*/
+/* 边框颜色 */
+/* 背景颜色 */
+/* 行为相关颜色 */
+/************************************************************
+** 请将全局样式拷贝到项目的全局 CSS 文件或者当前页面的顶部 **
+** 否则页面将无法正常显示                                  **
+************************************************************/
+page {
+  font-size: 16px;
+}
+page {
+  margin: 0;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen', 'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue', 'Microsoft Yahei', sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+view,
+image,
+text {
+  box-sizing: border-box;
+  flex-shrink: 0;
+}
+#app {
+  width: 100vw;
+  height: 100vh;
+}
+.flex-row {
+  display: flex;
+  flex-direction: row;
+}
+.flex-col {
+  display: flex;
+  flex-direction: column;
+}
+.justify-start {
+  display: flex;
+  justify-content: flex-start;
+}
+.justify-center {
+  display: flex;
+  justify-content: center;
+}
+.justify-end {
+  display: flex;
+  justify-content: flex-end;
+}
+.justify-evenly {
+  display: flex;
+  justify-content: space-evenly;
+}
+.justify-around {
+  display: flex;
+  justify-content: space-around;
+}
+.justify-between {
+  display: flex;
+  justify-content: space-between;
+}
+.items-start {
+  display: flex;
+  align-items: flex-start;
+}
+.items-center {
+  display: flex;
+  align-items: center;
+}
+.items-end {
+  display: flex;
+  align-items: flex-end;
+}
+ .u-checkbox__label {
+  margin-left: 30rpx;
+}
+.content {
+  padding: 0 30rpx 130rpx 30rpx;
+  height: auto;
+  margin-bottom: 100rpx;
+}
+.content .title {
+  height: 80rpx;
+  line-height: 80rpx;
+}
+.content .title image {
+  width: 26rpx;
+  height: 26rpx;
+}
+.content .title text {
+  font-size: 24rpx;
+  color: #000000;
+  margin-left: 20rpx;
+}
+.content .oAddress {
+  width: 100%;
+  height: 190rpx;
+  background-color: #FFFFFF;
+  border-radius: 20rpx;
+}
+.content .oAddress .oa_info {
+  padding: 20rpx 30rpx;
+  line-height: 50rpx;
+}
+.content .oAddress .oa_info .oa_title {
+  color: #333333;
+  font-size: 28rpx;
+}
+.content .oAddress .oa_info .oa_body .oa_name {
+  color: #111111;
+  font-size: 32rpx;
+  font-weight: bold;
+}
+.content .oAddress .oa_info .oa_body .oa_tel {
+  color: #666666;
+  font-size: 28rpx;
+  margin-left: 20rpx;
+}
+.content .oAddress .oa_info .oa_address {
+  color: #666666;
+  font-size: 28rpx;
+}
+.content .cAddress .ca_title {
+  height: 110rpx;
+  line-height: 110rpx;
+}
+.content .cAddress .ca_title .ca_change {
+  font-size: 32rpx;
+  color: #333333;
+  font-weight: bold;
+  float: left;
+}
+.content .cAddress .ca_title .ca_addBtn {
+  float: right;
+  font-size: 28rpx;
+  color: #666666;
+}
+.content .cAddress .ca_list {
+  width: 100%;
+  position: relative;
+  height: 160rpx;
+  background-color: #fff;
+  border-radius: 20rpx;
+  padding: 20rpx 30rpx;
+  margin-bottom: 30rpx;
+}
+.content .cAddress .ca_list .ca_body {
+  width: 100%;
+}
+.content .cAddress .ca_list .ca_body .ca_name {
+  color: #111111;
+  font-size: 32rpx;
+  font-weight: bold;
+}
+.content .cAddress .ca_list .ca_body .ca_tel {
+  color: #666666;
+  font-size: 28rpx;
+  margin-left: 20rpx;
+}
+.content .cAddress .ca_list .ca_address {
+  color: #666666;
+  font-size: 28rpx;
+  width: 580rpx;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+.content .confirm {
+  position: fixed;
+  bottom: 20px;
+  left: 0;
+  width: 100%;
+  text-align: center;
+}
+.content .confirm .btn {
+  width: 590rpx;
+  height: 80rpx;
+  background: linear-gradient(to right, #EE1D23, #F04023);
+  color: #fff;
+  border-radius: 40rpx;
+}
+

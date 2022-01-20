@@ -1,0 +1,28 @@
+@charset "UTF-8";
+/* uni.scss */
+/* 页面左右间距 */
+/* 文字尺寸 */
+/*文字颜色*/
+/* 边框颜色 */
+/* 图片加载中颜色 */
+/* 行为相关颜色 */
+/* 页面左右间距 */
+/*文字颜色*/
+/* 边框颜色 */
+/* 背景颜色 */
+/* 行为相关颜色 */
+.wrap.data-v-0d293ade {
+  padding: 40rpx;
+}
+.u-avatar-wrap.data-v-0d293ade {
+  margin-top: 80rpx;
+  overflow: hidden;
+  margin-bottom: 80rpx;
+  text-align: center;
+}
+.u-avatar-demo.data-v-0d293ade {
+  width: 150rpx;
+  height: 150rpx;
+  border-radius: 100rpx;
+}
+

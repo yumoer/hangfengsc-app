@@ -1,0 +1,9 @@
+{
+  "defaultTitle": "退款详情",
+  "usingComponents": {
+    "u-image": "/uview-ui/components/u-image/u-image",
+    "u-cell-group": "/uview-ui/components/u-cell-group/u-cell-group",
+    "u-cell-item": "/uview-ui/components/u-cell-item/u-cell-item",
+    "list-cell": "/components/mix-list-cell"
+  }
+}

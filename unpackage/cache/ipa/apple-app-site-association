@@ -1,0 +1,11 @@
+{
+    "applinks" : {
+        "apps" : [],
+        "details" : [
+            {
+                "appID" : "VW4FYPG3G2.io.dcloud.hfscapp",
+                "paths" : [ "*", "/qq_conn/1110509875/*" ]
+            }
+        ]
+    }
+}

@@ -1,0 +1,9 @@
+{
+  "defaultTitle": "发票信息",
+  "usingComponents": {
+    "u-checkbox-group": "/uview-ui/components/u-checkbox-group/u-checkbox-group",
+    "u-checkbox": "/uview-ui/components/u-checkbox/u-checkbox",
+    "xw-empty": "/components/xw-empty/xw-empty",
+    "show-modal": "/components/show-modal/showModal"
+  }
+}

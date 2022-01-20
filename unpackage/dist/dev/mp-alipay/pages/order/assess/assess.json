@@ -1,0 +1,11 @@
+{
+  "defaultTitle": "立即评价",
+  "usingComponents": {
+    "u-input": "/uview-ui/components/u-input/u-input",
+    "u-rate": "/uview-ui/components/u-rate/u-rate",
+    "u-checkbox-group": "/uview-ui/components/u-checkbox-group/u-checkbox-group",
+    "u-checkbox": "/uview-ui/components/u-checkbox/u-checkbox",
+    "u-button": "/uview-ui/components/u-button/u-button",
+    "uni-section": "/components/uni-section/uni-section"
+  }
+}

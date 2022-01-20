@@ -1,0 +1,6 @@
+{
+  "defaultTitle": "设置",
+  "usingComponents": {
+    "show-modal": "/components/show-modal/showModal"
+  }
+}

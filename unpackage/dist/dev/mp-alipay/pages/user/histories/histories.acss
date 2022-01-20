@@ -1,0 +1,132 @@
+@charset "UTF-8";
+/* uni.scss */
+/* 主题色 */
+/* 页面左右间距 */
+/* 文字尺寸 */
+/*文字颜色*/
+/* 边框颜色 */
+/* 图片加载中颜色 */
+/* 行为相关颜色 */
+/* 页面左右间距 */
+/*文字颜色*/
+/* 边框颜色 */
+/* 背景颜色 */
+/* 行为相关颜色 */
+/************************************************************
+** 请将全局样式拷贝到项目的全局 CSS 文件或者当前页面的顶部 **
+** 否则页面将无法正常显示                                  **
+************************************************************/
+page {
+  font-size: 16px;
+}
+page {
+  margin: 0;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen', 'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue', 'Microsoft Yahei', sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+view,
+image,
+text {
+  box-sizing: border-box;
+  flex-shrink: 0;
+}
+#app {
+  width: 100vw;
+  height: 100vh;
+}
+.flex-row {
+  display: flex;
+  flex-direction: row;
+}
+.flex-col {
+  display: flex;
+  flex-direction: column;
+}
+.justify-start {
+  display: flex;
+  justify-content: flex-start;
+}
+.justify-center {
+  display: flex;
+  justify-content: center;
+}
+.justify-end {
+  display: flex;
+  justify-content: flex-end;
+}
+.justify-evenly {
+  display: flex;
+  justify-content: space-evenly;
+}
+.justify-around {
+  display: flex;
+  justify-content: space-around;
+}
+.justify-between {
+  display: flex;
+  justify-content: space-between;
+}
+.items-start {
+  display: flex;
+  align-items: flex-start;
+}
+.items-center {
+  display: flex;
+  align-items: center;
+}
+.items-end {
+  display: flex;
+  align-items: flex-end;
+}
+.content {
+  width: 100%;
+  padding: 30rpx;
+}
+.content .guess-section {
+  display: flex;
+  flex-wrap: wrap;
+  width: 100%;
+}
+.content .guess-section .guess-item {
+  display: flex;
+  flex-direction: column;
+  width: 48%;
+  margin-bottom: 30rpx;
+  background: #fff;
+  border-radius: 20rpx;
+}
+.content .guess-section .guess-item:nth-child(2n+1) {
+  margin-right: 4%;
+}
+.content .guess-section .image-wrapper {
+  width: 100%;
+  height: 340rpx;
+  border-radius: 3px;
+  overflow: hidden;
+}
+.content .guess-section .image-wrapper image {
+  width: 100%;
+  height: 100%;
+  opacity: 1;
+}
+.content .guess-section .title {
+  font-size: 28rpx;
+  padding: 0 20rpx;
+  color: #303133;
+  line-height: 80rpx;
+}
+.content .guess-section .price {
+  font-size: 32rpx;
+  color: #fa436a;
+  line-height: 60rpx;
+}
+.content .guess-section .icon {
+  float: right;
+  padding: 10rpx;
+  border-radius: 50%;
+  margin-top: 3px;
+  color: #FFFFFF;
+  background-color: #EE1D23;
+}
+

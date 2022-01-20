@@ -1,0 +1,9 @@
+{
+  "defaultTitle": "立即支付",
+  "usingComponents": {
+    "uni-countdown": "/components/uni-countdown/uni-countdown",
+    "show-modal": "/components/show-modal/showModal",
+    "ss-payment-password": "/components/sanshui-payment-password/index",
+    "pay-keyboard": "/components/keyboard"
+  }
+}

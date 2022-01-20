@@ -1,0 +1,44 @@
+@charset "UTF-8";
+/* uni.scss */
+/* 页面左右间距 */
+/* 文字尺寸 */
+/*文字颜色*/
+/* 边框颜色 */
+/* 图片加载中颜色 */
+/* 行为相关颜色 */
+/* 页面左右间距 */
+/*文字颜色*/
+/* 边框颜色 */
+/* 背景颜色 */
+/* 行为相关颜色 */
+page {
+  font-size: 14px;
+}
+.w1200 {
+  width: 100%;
+  padding: 15px;
+  margin: 0 auto;
+}
+.title {
+  margin: 0 auto;
+  text-align: center;
+  font-size: 16px;
+  background: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAANYAAAA4CAYAAACBrQbcAAABnUlEQVR4nO3dwW3CMACGUbtC6ghs0H06DTNkmu7DBhmBU3qAVtwIrv9Q8HsSt4hwyKfYionrsixLgddXtzzZ25Yng1HsHv0DYCtTbbtpHRoGdcJiCFOtrVOephoNBRnCYVlqOUdyz6eZsCBAWBBgjsUQvmotHyuOO3Y6X7ewTvPc66sgYb/imG4Xcdc71vt+zW+Hh7gVTdeL1xwLLnouQRIWXPRc8yQshrLVwlhhMZStVuIKCwKEBQEeEMOV65XsU61NK9tLKaX2+qPjaZ49x+Jp9b5+DQUhQFgQICwIEBYECAsChAUBwoIAYUGAsCBAWBAgLAgQFgQICwKEBQHCggBhQYCwIEBYECAsCBAWBAgLAnal4eWgU63LZevJUsp576Fy3q3h5jYon53eCgX/2d3vFfzZefx6B/I1G3rBSAwFIUBYECAsCBAWBAgLAoQFAcKCgN77Y93cB+U033yGDE+vZ1irirGHFiPoEtZx5XGtu+PBszHHgoC/hLXc+5lqdctiCK1DwbtXxJfyOxQUFy+vPuBfHMLi5ZljQcA3AIRLK5RkEtQAAAAASUVORK5CYII=) no-repeat center center;
+  height: 80px;
+  line-height: 80px;
+  /*margin-bottom:40px;*/
+}
+._p {
+  font-size: 34rpx;
+  line-height: 50rpx;
+}
+.last ._a:last-child {
+  margin-left: 50px;
+  line-height: 80px;
+  height: 80px;
+  border: 1px solid #880000;
+  padding: 0 40px;
+  color: #880000;
+  background: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAA4AAAAZCAYAAAABmx/yAAABTklEQVQ4jZ3UwStmURgH4MdHGrK2IdtZSGFrZaGpCRumyEY2CFv5EzTD1ISU0jSNmt0UsqRYyYJm2CkhKSU1k5lIMotzaj7X/cZ35+zuee/TOff9vd2SSYYxL+PKYQad/wO/YxwNWeEv9GABtVkgnGEIX1CZBcI3vMMSSrNAWMEGprNCmEW5EFMmCGNoQ3shWFZg/x79WMMJ9os9EX6iV4GY/gUJMY0InX4U03MQdvFeIqZiICGmTbwtBlYlnj+gQowprauNOMSoMIZH8b1rXGEKx0nYhFVM4CNa8SrWXqBaHJAcfuehWXQIMVzgB17G+g1OsY2tHO7y0BvsCQNQI2Q4mNaAHOowF9F53F9CH9bREq/5BN6gOw/BcrzyA76iKw2+TiC4xQGasYiBNHiZ9g34JAz6pTB69UlYaG3HE2v8/S8VBQmj9hk7mMwv/AHAMUcz6mRTpgAAAABJRU5ErkJggg==) no-repeat 25px;
+}
+

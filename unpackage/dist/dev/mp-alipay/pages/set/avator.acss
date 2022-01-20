@@ -1,0 +1,107 @@
+@charset "UTF-8";
+/* uni.scss */
+/* 主题色 */
+/* 页面左右间距 */
+/* 文字尺寸 */
+/*文字颜色*/
+/* 边框颜色 */
+/* 图片加载中颜色 */
+/* 行为相关颜色 */
+/* 页面左右间距 */
+/*文字颜色*/
+/* 边框颜色 */
+/* 背景颜色 */
+/* 行为相关颜色 */
+/************************************************************
+** 请将全局样式拷贝到项目的全局 CSS 文件或者当前页面的顶部 **
+** 否则页面将无法正常显示                                  **
+************************************************************/
+page.data-v-0d293ade {
+  font-size: 16px;
+}
+page.data-v-0d293ade {
+  margin: 0;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen', 'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue', 'Microsoft Yahei', sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+view.data-v-0d293ade,
+image.data-v-0d293ade,
+text.data-v-0d293ade {
+  box-sizing: border-box;
+  flex-shrink: 0;
+}
+#app.data-v-0d293ade {
+  width: 100vw;
+  height: 100vh;
+}
+.flex-row.data-v-0d293ade {
+  display: flex;
+  flex-direction: row;
+}
+.flex-col.data-v-0d293ade {
+  display: flex;
+  flex-direction: column;
+}
+.justify-start.data-v-0d293ade {
+  display: flex;
+  justify-content: flex-start;
+}
+.justify-center.data-v-0d293ade {
+  display: flex;
+  justify-content: center;
+}
+.justify-end.data-v-0d293ade {
+  display: flex;
+  justify-content: flex-end;
+}
+.justify-evenly.data-v-0d293ade {
+  display: flex;
+  justify-content: space-evenly;
+}
+.justify-around.data-v-0d293ade {
+  display: flex;
+  justify-content: space-around;
+}
+.justify-between.data-v-0d293ade {
+  display: flex;
+  justify-content: space-between;
+}
+.items-start.data-v-0d293ade {
+  display: flex;
+  align-items: flex-start;
+}
+.items-center.data-v-0d293ade {
+  display: flex;
+  align-items: center;
+}
+.items-end.data-v-0d293ade {
+  display: flex;
+  align-items: flex-end;
+}
+.wrap.data-v-0d293ade {
+  padding: 40rpx;
+}
+.u-avatar-wrap.data-v-0d293ade {
+  margin-top: 130rpx;
+  overflow: hidden;
+  margin-bottom: 180rpx;
+  text-align: center;
+}
+.u-default-hover.data-v-0d293ade {
+  color: rgba(255, 255, 255, 0.6) !important;
+}
+.u-avatar-demo.data-v-0d293ade {
+  width: 300rpx;
+  height: 300rpx;
+  border: 6rpx solid #fff;
+  border-radius: 50%;
+}
+.changeBtn.data-v-0d293ade {
+  width: 590rpx;
+  height: 80rpx;
+  color: #fff;
+  border-radius: 40rpx;
+  background: linear-gradient(to right, #EE1D23, #F04023);
+}
+

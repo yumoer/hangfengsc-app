@@ -1,0 +1,7 @@
+{
+  "navigationBarTitleText": "立即评价",
+  "usingComponents": {
+    "uni-section": "/components/uni-section/uni-section",
+    "my-issue": "/components/myIssue"
+  }
+}

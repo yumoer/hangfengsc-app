@@ -1,0 +1,124 @@
+@charset "UTF-8";
+/* uni.scss */
+/* 页面左右间距 */
+/* 文字尺寸 */
+/*文字颜色*/
+/* 边框颜色 */
+/* 图片加载中颜色 */
+/* 行为相关颜色 */
+/* 页面左右间距 */
+/*文字颜色*/
+/* 边框颜色 */
+/* 背景颜色 */
+/* 行为相关颜色 */
+/**
+ * 幕帘样式属性变量
+ */
+.cmd-curtain {
+  display: block;
+  position: fixed;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  background-color: rgba(0, 0, 0, 0.3);
+  z-index: 1080;
+  /* modifiers */
+}
+.cmd-curtain__container {
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: flex;
+  position: relative;
+  margin: 0 auto;
+  width: 80%;
+  height: 100%;
+  -webkit-box-pack: center;
+  -webkit-justify-content: center;
+          justify-content: center;
+  -webkit-box-align: center;
+  -webkit-align-items: center;
+          align-items: center;
+  box-sizing: border-box;
+  opacity: 1;
+}
+.cmd-curtain__body {
+  position: relative;
+  width: 100%;
+}
+.cmd-curtain__btn-close {
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: flex;
+  position: absolute;
+  width: 64rpx;
+  height: 64rpx;
+  margin-left: -32rpx;
+  left: 50%;
+  bottom: -88rpx;
+  -webkit-box-align: center;
+  -webkit-align-items: center;
+          align-items: center;
+  -webkit-box-pack: center;
+  -webkit-justify-content: center;
+          justify-content: center;
+  border: 2rpx solid #FFF;
+  border-radius: 50%;
+  box-sizing: border-box;
+  z-index: 1080;
+}
+.cmd-curtain__btn-close::before, .cmd-curtain__btn-close::after {
+  content: '';
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  display: inline-block;
+  width: 34rpx;
+  height: 2rpx;
+  border-radius: 1rpx;
+  background: #FFF;
+}
+.cmd-curtain__btn-close::before {
+  -webkit-transform: translate3d(-50%, -50%, 0) rotate(45deg);
+          transform: translate3d(-50%, -50%, 0) rotate(45deg);
+}
+.cmd-curtain__btn-close::after {
+  -webkit-transform: translate3d(-50%, -50%, 0) rotate(-45deg);
+          transform: translate3d(-50%, -50%, 0) rotate(-45deg);
+}
+.cmd-curtain__btn-close--top {
+  margin-left: -32rpx;
+  top: -88rpx;
+  left: 50%;
+  bottom: auto;
+}
+.cmd-curtain__btn-close--top-left {
+  top: -88rpx;
+  left: 0;
+  bottom: auto;
+}
+.cmd-curtain__btn-close--top-right {
+  top: -88rpx;
+  left: auto;
+  right: 0;
+  bottom: auto;
+}
+.cmd-curtain__btn-close--bottom {
+  margin-left: -32rpx;
+  bottom: -88rpx;
+  left: 50%;
+}
+.cmd-curtain__btn-close--bottom-left {
+  bottom: -88rpx;
+  left: 0;
+}
+.cmd-curtain__btn-close--bottom-right {
+  bottom: -88rpx;
+  left: auto;
+  right: 0;
+}
+.cmd-curtain--closed {
+  visibility: hidden;
+  display: none;
+}
+

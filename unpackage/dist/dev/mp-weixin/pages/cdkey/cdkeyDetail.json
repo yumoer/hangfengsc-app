@@ -1,0 +1,9 @@
+{
+  "navigationBarTitleText": "卡券详情",
+  "usingComponents": {
+    "u-popup": "/uview-ui/components/u-popup/u-popup",
+    "neil-modal": "/components/neil-modal/neil-modal",
+    "u-field": "/uview-ui/components/u-field/u-field",
+    "city-select": "/components/cityDate/u-city-select"
+  }
+}

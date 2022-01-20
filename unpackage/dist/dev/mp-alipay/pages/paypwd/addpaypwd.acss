@@ -1,0 +1,149 @@
+@charset "UTF-8";
+/* uni.scss */
+/* 主题色 */
+/* 页面左右间距 */
+/* 文字尺寸 */
+/*文字颜色*/
+/* 边框颜色 */
+/* 图片加载中颜色 */
+/* 行为相关颜色 */
+/* 页面左右间距 */
+/*文字颜色*/
+/* 边框颜色 */
+/* 背景颜色 */
+/* 行为相关颜色 */
+/************************************************************
+** 请将全局样式拷贝到项目的全局 CSS 文件或者当前页面的顶部 **
+** 否则页面将无法正常显示                                  **
+************************************************************/
+page.data-v-6e042816 {
+  font-size: 16px;
+}
+page.data-v-6e042816 {
+  margin: 0;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen', 'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue', 'Microsoft Yahei', sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+view.data-v-6e042816,
+image.data-v-6e042816,
+text.data-v-6e042816 {
+  box-sizing: border-box;
+  flex-shrink: 0;
+}
+#app.data-v-6e042816 {
+  width: 100vw;
+  height: 100vh;
+}
+.flex-row.data-v-6e042816 {
+  display: flex;
+  flex-direction: row;
+}
+.flex-col.data-v-6e042816 {
+  display: flex;
+  flex-direction: column;
+}
+.justify-start.data-v-6e042816 {
+  display: flex;
+  justify-content: flex-start;
+}
+.justify-center.data-v-6e042816 {
+  display: flex;
+  justify-content: center;
+}
+.justify-end.data-v-6e042816 {
+  display: flex;
+  justify-content: flex-end;
+}
+.justify-evenly.data-v-6e042816 {
+  display: flex;
+  justify-content: space-evenly;
+}
+.justify-around.data-v-6e042816 {
+  display: flex;
+  justify-content: space-around;
+}
+.justify-between.data-v-6e042816 {
+  display: flex;
+  justify-content: space-between;
+}
+.items-start.data-v-6e042816 {
+  display: flex;
+  align-items: flex-start;
+}
+.items-center.data-v-6e042816 {
+  display: flex;
+  align-items: center;
+}
+.items-end.data-v-6e042816 {
+  display: flex;
+  align-items: flex-end;
+}
+.pay-wran.data-v-6e042816 {
+  width: 100%;
+  height: 80rpx;
+  background-color: #F7F7F7;
+  padding: 0 20rpx;
+}
+.pay-text.data-v-6e042816 {
+  font-size: 14px;
+  color: #999;
+  line-height: 80rpx;
+}
+.wrap.data-v-6e042816 {
+  width: 100%;
+  height: 100%;
+  padding: 30rpx;
+  background: #fff;
+}
+.pay-next.data-v-6e042816 {
+  color: #fff;
+  margin: 20px auto;
+  width: 590rpx;
+  height: 80rpx;
+  border-radius: 40rpx;
+  background: linear-gradient(to right, #EE1D23, #F04023);
+}
+.row.data-v-6e042816 {
+  display: flex;
+  align-items: center;
+  position: relative;
+  padding: 0 30rpx;
+  height: 110rpx;
+}
+.row .tit.data-v-6e042816 {
+  flex-shrink: 0;
+  width: 160rpx;
+  font-size: 30rpx;
+  color: #303133;
+}
+.row .addWidth.data-v-6e042816 {
+  width: 200rpx;
+}
+.row .input.data-v-6e042816 {
+  flex: 1;
+  font-size: 30rpx;
+  color: #303133;
+}
+.row .icon-shouhuodizhi.data-v-6e042816 {
+  font-size: 36rpx;
+  color: #909399;
+}
+.pay-submit.data-v-6e042816 {
+  background: linear-gradient(to right, #EE1D23, #F04023);
+  color: #fff;
+  margin-top: 30px;
+  width: 590rpx;
+  height: 80rpx;
+  border-radius: 40rpx;
+}
+.pay-prev.data-v-6e042816 {
+  background: #fff;
+  color: #666;
+  margin-top: 15px;
+  width: 590rpx;
+  height: 80rpx;
+  border-radius: 40rpx;
+  border: 2rpx solid #999;
+}
+

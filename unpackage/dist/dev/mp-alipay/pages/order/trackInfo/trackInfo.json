@@ -1,0 +1,6 @@
+{
+  "defaultTitle": "物流信息",
+  "usingComponents": {
+    "track-node": "/components/trackNode"
+  }
+}

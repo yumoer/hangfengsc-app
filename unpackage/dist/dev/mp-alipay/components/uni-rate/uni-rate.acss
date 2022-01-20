@@ -1,0 +1,102 @@
+@charset "UTF-8";
+/* uni.scss */
+/* 主题色 */
+/* 页面左右间距 */
+/* 文字尺寸 */
+/*文字颜色*/
+/* 边框颜色 */
+/* 图片加载中颜色 */
+/* 行为相关颜色 */
+/* 页面左右间距 */
+/*文字颜色*/
+/* 边框颜色 */
+/* 背景颜色 */
+/* 行为相关颜色 */
+/************************************************************
+** 请将全局样式拷贝到项目的全局 CSS 文件或者当前页面的顶部 **
+** 否则页面将无法正常显示                                  **
+************************************************************/
+page.data-v-b7a28ab8 {
+  font-size: 16px;
+}
+page.data-v-b7a28ab8 {
+  margin: 0;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen', 'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue', 'Microsoft Yahei', sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+view.data-v-b7a28ab8,
+image.data-v-b7a28ab8,
+text.data-v-b7a28ab8 {
+  box-sizing: border-box;
+  flex-shrink: 0;
+}
+#app.data-v-b7a28ab8 {
+  width: 100vw;
+  height: 100vh;
+}
+.flex-row.data-v-b7a28ab8 {
+  display: flex;
+  flex-direction: row;
+}
+.flex-col.data-v-b7a28ab8 {
+  display: flex;
+  flex-direction: column;
+}
+.justify-start.data-v-b7a28ab8 {
+  display: flex;
+  justify-content: flex-start;
+}
+.justify-center.data-v-b7a28ab8 {
+  display: flex;
+  justify-content: center;
+}
+.justify-end.data-v-b7a28ab8 {
+  display: flex;
+  justify-content: flex-end;
+}
+.justify-evenly.data-v-b7a28ab8 {
+  display: flex;
+  justify-content: space-evenly;
+}
+.justify-around.data-v-b7a28ab8 {
+  display: flex;
+  justify-content: space-around;
+}
+.justify-between.data-v-b7a28ab8 {
+  display: flex;
+  justify-content: space-between;
+}
+.items-start.data-v-b7a28ab8 {
+  display: flex;
+  align-items: flex-start;
+}
+.items-center.data-v-b7a28ab8 {
+  display: flex;
+  align-items: center;
+}
+.items-end.data-v-b7a28ab8 {
+  display: flex;
+  align-items: flex-end;
+}
+.uni-rate.data-v-b7a28ab8 {
+  display: flex;
+  display: inline-flex;
+  line-height: 0;
+  font-size: 0;
+  flex-direction: row;
+}
+.uni-rate__icon.data-v-b7a28ab8 {
+  position: relative;
+  line-height: 0;
+  font-size: 0;
+}
+.uni-rate__icon-on.data-v-b7a28ab8 {
+  overflow: hidden;
+  position: absolute;
+  top: 0;
+  left: 0;
+  line-height: 1;
+  text-align: left;
+}
+

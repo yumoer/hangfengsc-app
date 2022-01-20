@@ -1,0 +1,7 @@
+{
+  "navigationBarTitleText": "同城团购",
+  "usingComponents": {
+    "u-lazy-load": "/uview-ui/components/u-lazy-load/u-lazy-load",
+    "uni-load-more": "/components/uni-load-more/uni-load-more"
+  }
+}

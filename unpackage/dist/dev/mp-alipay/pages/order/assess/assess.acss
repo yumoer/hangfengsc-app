@@ -1,0 +1,265 @@
+@charset "UTF-8";
+/* uni.scss */
+/* 主题色 */
+/* 页面左右间距 */
+/* 文字尺寸 */
+/*文字颜色*/
+/* 边框颜色 */
+/* 图片加载中颜色 */
+/* 行为相关颜色 */
+/* 页面左右间距 */
+/*文字颜色*/
+/* 边框颜色 */
+/* 背景颜色 */
+/* 行为相关颜色 */
+/************************************************************
+** 请将全局样式拷贝到项目的全局 CSS 文件或者当前页面的顶部 **
+** 否则页面将无法正常显示                                  **
+************************************************************/
+page {
+  font-size: 16px;
+}
+page {
+  margin: 0;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen', 'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue', 'Microsoft Yahei', sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+view,
+image,
+text {
+  box-sizing: border-box;
+  flex-shrink: 0;
+}
+#app {
+  width: 100vw;
+  height: 100vh;
+}
+.flex-row {
+  display: flex;
+  flex-direction: row;
+}
+.flex-col {
+  display: flex;
+  flex-direction: column;
+}
+.justify-start {
+  display: flex;
+  justify-content: flex-start;
+}
+.justify-center {
+  display: flex;
+  justify-content: center;
+}
+.justify-end {
+  display: flex;
+  justify-content: flex-end;
+}
+.justify-evenly {
+  display: flex;
+  justify-content: space-evenly;
+}
+.justify-around {
+  display: flex;
+  justify-content: space-around;
+}
+.justify-between {
+  display: flex;
+  justify-content: space-between;
+}
+.items-start {
+  display: flex;
+  align-items: flex-start;
+}
+.items-center {
+  display: flex;
+  align-items: center;
+}
+.items-end {
+  display: flex;
+  align-items: flex-end;
+}
+ .u-input--border {
+  padding: 0 0 !important;
+  border: none;
+}
+ .uni-page-body {
+  background-color: #000000 !important;
+}
+ .u-list-item {
+  width: 160rpx !important;
+  height: 160rpx !important;
+  background-color: #fff;
+  border: 1px dashed #999999;
+  color: #999999;
+  margin: 0;
+}
+ .uicon-plus {
+  font-size: 60rpx !important;
+  top: 14rpx !important;
+}
+/depp/ .uicon-star {
+  font-size: 24px;
+}
+ .u-btn--error {
+  width: 590rpx;
+  height: 80rpx;
+  border-radius: 40rpx;
+  background: linear-gradient(to right, #EE1D23 0%, #F04023 100%);
+}
+.content {
+  height: 100%;
+  padding: 30rpx;
+}
+.swiper-box {
+  height: calc(100% - 40px);
+}
+.list-scroll-content {
+  height: 100%;
+}
+.yt-list-cell {
+  display: flex;
+  align-items: center;
+  padding: 10rpx 30rpx 10rpx 40rpx;
+  line-height: 70rpx;
+  position: relative;
+}
+.yt-list-cell.cell-hover {
+  background: #fafafa;
+}
+.yt-list-cell.b-b:after {
+  left: 30rpx;
+}
+.yt-list-cell .cell-icon {
+  height: 32rpx;
+  width: 32rpx;
+  font-size: 22rpx;
+  color: #fff;
+  text-align: center;
+  line-height: 32rpx;
+  background: #f85e52;
+  border-radius: 4rpx;
+  margin-right: 12rpx;
+}
+.yt-list-cell .cell-icon.hb {
+  background: #ffaa0e;
+}
+.yt-list-cell .cell-icon.lpk {
+  background: #3ab54a;
+}
+.yt-list-cell .cell-more {
+  align-self: center;
+  font-size: 24rpx;
+  color: #909399;
+  margin-left: 8rpx;
+  margin-right: -10rpx;
+}
+.yt-list-cell .cell-tit {
+  flex: 1;
+  font-size: 26rpx;
+  color: #909399;
+  margin-right: 10rpx;
+}
+.yt-list-cell .cell-tip {
+  font-size: 26rpx;
+  color: #303133;
+}
+.yt-list-cell .cell-tip.disabled {
+  color: #909399;
+}
+.yt-list-cell .cell-tip.active {
+  color: #fa436a;
+}
+.yt-list-cell .cell-tip.red {
+  color: #fa436a;
+}
+.yt-list-cell.desc-cell .cell-tit {
+  max-width: 90rpx;
+}
+.yt-list-cell .desc {
+  flex: 1;
+  font-size: 28rpx;
+  color: #303133;
+}
+.order-item {
+  display: block;
+  flex-direction: column;
+  background: #fff;
+  border-radius: 20rpx;
+}
+.order-item .goods-box-single {
+  display: flex;
+  padding: 30rpx;
+}
+.order-item .goods-box-single .goods-img {
+  display: block;
+  width: 190rpx;
+  height: 190rpx;
+}
+.order-item .goods-box-single .right {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  padding: 0 0 0 24rpx;
+  overflow: hidden;
+}
+.order-item .goods-box-single .right .title {
+  font-size: 30rpx;
+  color: #303133;
+  line-height: 50rpx;
+}
+.order-item .goods-box-single .right .other {
+  margin-top: 36rpx;
+}
+.order-item .goods-box-single .right .other .price {
+  font-size: 36rpx;
+  color: red;
+}
+.order-item .goods-box-single .right .other .price:before {
+  content: '￥';
+  font-size: 24rpx;
+  margin: 0 2rpx 0 8rpx;
+}
+.order-item .goods-box-single .right .other .attr-box {
+  font-size: 26rpx;
+  color: #909399;
+  padding: 10rpx 12rpx;
+}
+.order-item .goods-box-single .example-body {
+  flex-direction: row;
+  flex-wrap: wrap;
+  justify-content: center;
+  padding: 0;
+  font-size: 14rpx;
+  background-color: #ffffff;
+}
+.order-item .goods-box-assess {
+  padding: 0 30rpx;
+}
+.order-item .goods-box-assess .imageVideo {
+  width: 200rpx;
+}
+.order-item .goods-box-assess .imageVideo .addImage {
+  width: 180rpx;
+  font-size: 24rpx;
+  color: #999999;
+}
+.order-item .goods-box-assess .rate {
+  margin: 40rpx 0;
+}
+.order-item .goods-box-assess .rate .rate_title {
+  color: #333333;
+  font-size: 32rpx;
+  font-weight: bold;
+  margin-right: 40rpx;
+}
+.order-item .goods-box-assess .assess {
+  padding-bottom: 20rpx;
+}
+.confirm {
+  position: fixed;
+  bottom: 40rpx;
+  left: 0;
+  width: 100%;
+}
+

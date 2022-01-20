@@ -1,0 +1,11 @@
+{
+  "defaultTitle": "场景采购",
+  "usingComponents": {
+    "u-dropdown": "/uview-ui/components/u-dropdown/u-dropdown",
+    "u-dropdown-item": "/uview-ui/components/u-dropdown-item/u-dropdown-item",
+    "u-row": "/uview-ui/components/u-row/u-row",
+    "u-col": "/uview-ui/components/u-col/u-col",
+    "u-loadmore": "/uview-ui/components/u-loadmore/u-loadmore",
+    "u-loading-page": "/uview-ui/components/u-loading-page/u-loading-page"
+  }
+}

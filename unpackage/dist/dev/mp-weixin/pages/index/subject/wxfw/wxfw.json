@@ -1,0 +1,6 @@
+{
+  "navigationBarTitleText": "维修服务",
+  "usingComponents": {
+    "liuyuno-tabs": "/components/liuyuno-tabs/liuyuno-tabs"
+  }
+}

@@ -1,0 +1,176 @@
+.data-v-e04b8374 .uni-swiper-dot-active {
+  background-color: #e01222;
+  width: 24px;
+  height: 8px;
+  border-radius: 5px;
+  margin-right: 5px;
+}
+.data-v-e04b8374 .uni-page-head-btn {
+  margin: 0 4px;
+}
+#page.data-v-e04b8374 {
+  width: 100%;
+  height: 100%;
+  background-color: #f5f5f5;
+}
+#page .main.data-v-e04b8374 {
+  width: 100%;
+  height: 100%;
+  padding: 15px;
+}
+#page .main .banner.data-v-e04b8374 {
+  width: 100%;
+  height: 200px;
+}
+#page .main .banner image.data-v-e04b8374 {
+  width: 100%;
+  height: 100%;
+  border-radius: 5px;
+}
+#page .main .server.data-v-e04b8374 {
+  width: 100%;
+  height: 100%;
+}
+#page .main .server .head.data-v-e04b8374 {
+  width: 100%;
+  height: 60px;
+  line-height: 60px;
+}
+#page .main .server .head .title.data-v-e04b8374 {
+  font-size: 18px;
+  font-weight: bold;
+  float: left;
+}
+#page .main .server .head .more.data-v-e04b8374 {
+  font-size: 14px;
+  float: right;
+  color: #999;
+}
+#page .main .server .content.data-v-e04b8374 {
+  width: 100%;
+  height: 180px;
+}
+#page .main .server .content .wrap.data-v-e04b8374 {
+  width: 100%;
+  height: 100%;
+}
+#page .main .server .content .wrap .left.data-v-e04b8374 {
+  width: 166px;
+  height: 166px;
+  display: inline-block;
+  float: left;
+}
+#page .main .server .content .wrap .left image.data-v-e04b8374 {
+  width: 100%;
+  height: 100%;
+}
+#page .main .server .content .wrap .right.data-v-e04b8374 {
+  width: 166px;
+  height: 166px;
+  display: inline-block;
+  float: right;
+}
+#page .main .server .content .wrap .right .top.data-v-e04b8374 {
+  width: 100%;
+  height: 80px;
+}
+#page .main .server .content .wrap .right .top image.data-v-e04b8374 {
+  width: 100%;
+  height: 100%;
+}
+#page .main .server .content .wrap .right .bottom.data-v-e04b8374 {
+  width: 100%;
+  height: 80px;
+  margin-top: 6px;
+}
+#page .main .server .content .wrap .right .bottom .b_left.data-v-e04b8374 {
+  width: 80px;
+  height: 100%;
+  float: left;
+}
+#page .main .server .content .wrap .right .bottom .b_left image.data-v-e04b8374 {
+  width: 100%;
+  height: 100%;
+}
+#page .main .server .content .wrap .right .bottom .b_right.data-v-e04b8374 {
+  width: 80px;
+  height: 100%;
+  float: right;
+}
+#page .main .server .content .wrap .right .bottom .b_right image.data-v-e04b8374 {
+  width: 100%;
+  height: 100%;
+}
+#page .main .commodity.data-v-e04b8374 {
+  width: 100%;
+  height: 100%;
+}
+#page .main .commodity .head.data-v-e04b8374 {
+  width: 100%;
+  height: 60px;
+  line-height: 60px;
+}
+#page .main .commodity .head .title.data-v-e04b8374 {
+  font-size: 18px;
+  font-weight: bold;
+  float: left;
+}
+#page .main .commodity .head .more.data-v-e04b8374 {
+  font-size: 14px;
+  float: right;
+  color: #999;
+}
+#page .main .commodity .content.data-v-e04b8374 {
+  width: 100%;
+  height: 100%;
+}
+#page .main .commodity .content .wrap.data-v-e04b8374 {
+  width: 48%;
+  height: 250px;
+  background-color: #fff;
+  display: inline-block;
+  margin-bottom: 16px;
+  border-radius: 5px;
+}
+#page .main .commodity .content .wrap.data-v-e04b8374:nth-child(2n+1) {
+  margin-right: 4%;
+}
+#page .main .commodity .content .wrap .img.data-v-e04b8374 {
+  width: 100%;
+  height: 165px;
+}
+#page .main .commodity .content .wrap .img image.data-v-e04b8374 {
+  width: 100%;
+  height: 100%;
+}
+#page .main .commodity .content .wrap .name.data-v-e04b8374 {
+  margin: 5px;
+  font-weight: 500;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  display: -webkit-box;
+  color: #333;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 2;
+}
+#page .main .commodity .content .wrap .info.data-v-e04b8374 {
+  width: 100%;
+  height: 20px;
+  line-height: 20px;
+  padding: 5px;
+}
+#page .main .commodity .content .wrap .info .price.data-v-e04b8374 {
+  color: #ee0122;
+  font-weight: bold;
+  float: left;
+}
+#page .main .commodity .content .wrap .info .price ._b.data-v-e04b8374 {
+  font-size: 12px;
+  font-weight: 400;
+}
+#page .main .commodity .content .wrap .info .scale.data-v-e04b8374 {
+  color: #aeaeae;
+  float: right;
+  font-size: 12px;
+}
+

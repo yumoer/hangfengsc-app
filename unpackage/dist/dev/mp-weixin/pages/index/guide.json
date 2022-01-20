@@ -1,0 +1,7 @@
+{
+  "navigationBarTitleText": "引导页",
+  "titleNView": false,
+  "usingComponents": {
+    "popup": "/components/DuDu-popup/DuDu-popup"
+  }
+}

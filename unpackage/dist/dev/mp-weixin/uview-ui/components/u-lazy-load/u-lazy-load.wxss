@@ -1,0 +1,25 @@
+@charset "UTF-8";
+/* uni.scss */
+/* 页面左右间距 */
+/* 文字尺寸 */
+/*文字颜色*/
+/* 边框颜色 */
+/* 图片加载中颜色 */
+/* 行为相关颜色 */
+/* 页面左右间距 */
+/*文字颜色*/
+/* 边框颜色 */
+/* 背景颜色 */
+/* 行为相关颜色 */
+.u-wrap.data-v-28c0cdd0 {
+  background-color: #eee;
+  overflow: hidden;
+}
+.u-lazy-item.data-v-28c0cdd0 {
+  width: 100%;
+  -webkit-transform: transition3d(0, 0, 0);
+          transform: transition3d(0, 0, 0);
+  will-change: transform;
+  display: block;
+}
+

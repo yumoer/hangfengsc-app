@@ -1,0 +1,6 @@
+{
+  "defaultTitle": "申请售后",
+  "usingComponents": {
+    "u-image": "/uview-ui/components/u-image/u-image"
+  }
+}

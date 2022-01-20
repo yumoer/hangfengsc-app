@@ -1,0 +1,157 @@
+@charset "UTF-8";
+/* uni.scss */
+/* 主题色 */
+/* 页面左右间距 */
+/* 文字尺寸 */
+/*文字颜色*/
+/* 边框颜色 */
+/* 图片加载中颜色 */
+/* 行为相关颜色 */
+/* 页面左右间距 */
+/*文字颜色*/
+/* 边框颜色 */
+/* 背景颜色 */
+/* 行为相关颜色 */
+/************************************************************
+** 请将全局样式拷贝到项目的全局 CSS 文件或者当前页面的顶部 **
+** 否则页面将无法正常显示                                  **
+************************************************************/
+page {
+  font-size: 16px;
+}
+page {
+  margin: 0;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen', 'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue', 'Microsoft Yahei', sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+view,
+image,
+text {
+  box-sizing: border-box;
+  flex-shrink: 0;
+}
+#app {
+  width: 100vw;
+  height: 100vh;
+}
+.flex-row {
+  display: flex;
+  flex-direction: row;
+}
+.flex-col {
+  display: flex;
+  flex-direction: column;
+}
+.justify-start {
+  display: flex;
+  justify-content: flex-start;
+}
+.justify-center {
+  display: flex;
+  justify-content: center;
+}
+.justify-end {
+  display: flex;
+  justify-content: flex-end;
+}
+.justify-evenly {
+  display: flex;
+  justify-content: space-evenly;
+}
+.justify-around {
+  display: flex;
+  justify-content: space-around;
+}
+.justify-between {
+  display: flex;
+  justify-content: space-between;
+}
+.items-start {
+  display: flex;
+  align-items: flex-start;
+}
+.items-center {
+  display: flex;
+  align-items: center;
+}
+.items-end {
+  display: flex;
+  align-items: flex-end;
+}
+.content {
+  width: 100%;
+  min-height: 100%;
+  background: #f1a8a1 url("http://47.94.106.106:8888/group1/M00/58/F5/rBHxiGE5XomAfK1WAAG5KgbdLCs8167457") no-repeat top center/100%;
+  position: relative;
+  padding: 0 30rpx;
+  position: relative;
+  padding-top: 410rpx;
+  box-sizing: border-box;
+  padding-bottom: 30rpx;
+}
+.content .header {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+}
+.content .header .goods {
+  width: 100%;
+  height: 360rpx;
+}
+.content .header .goods .item {
+  width: 30%;
+  display: inline-block;
+}
+.content .header .goods .item:last-child {
+  margin-right: 0;
+}
+.content .header .goods .item .price {
+  width: 100px;
+  text-align: center;
+  color: #fff;
+  font-size: 28rpx;
+  margin-top: 10rpx;
+}
+.content .body {
+  width: 100%;
+  overflow-x: hidden;
+  height: 100%;
+  padding: 0 30rpx;
+  margin-top: 40rpx;
+  background-color: #fff;
+  border-radius: 20rpx;
+}
+.content .body .item-list {
+  height: 280rpx;
+  margin-top: 30rpx;
+}
+.content .body .item-list .item-image {
+  float: left;
+  width: 45%;
+}
+.content .body .item-list .item-right {
+  float: left;
+  width: 55%;
+}
+.content .body .item-list .item-right .title {
+  color: #333333;
+  font-size: 32rpx;
+}
+.content .body .item-list .item-right .info {
+  margin-top: 60rpx;
+}
+.content .body .item-list .item-right .info .price {
+  color: #EE1D23;
+  font-size: 28rpx;
+  float: left;
+}
+.content .body .item-list .item-right .info .price text {
+  font-size: 32rpx;
+}
+.content .body .item-list .item-right .info .stock {
+  float: right;
+  color: #999999;
+  font-size: 24rpx;
+}
+

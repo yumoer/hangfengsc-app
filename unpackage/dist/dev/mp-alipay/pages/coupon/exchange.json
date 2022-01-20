@@ -1,0 +1,7 @@
+{
+  "defaultTitle": "优惠券",
+  "usingComponents": {
+    "lgd-tab": "/components/lgd-tab/lgd-tab",
+    "xw-empty": "/components/xw-empty/xw-empty"
+  }
+}

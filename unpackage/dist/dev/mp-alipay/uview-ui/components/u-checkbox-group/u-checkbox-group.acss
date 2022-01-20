@@ -1,0 +1,82 @@
+@charset "UTF-8";
+/* uni.scss */
+/* 主题色 */
+/* 页面左右间距 */
+/* 文字尺寸 */
+/*文字颜色*/
+/* 边框颜色 */
+/* 图片加载中颜色 */
+/* 行为相关颜色 */
+/* 页面左右间距 */
+/*文字颜色*/
+/* 边框颜色 */
+/* 背景颜色 */
+/* 行为相关颜色 */
+/************************************************************
+** 请将全局样式拷贝到项目的全局 CSS 文件或者当前页面的顶部 **
+** 否则页面将无法正常显示                                  **
+************************************************************/
+page.data-v-703eade0 {
+  font-size: 16px;
+}
+page.data-v-703eade0 {
+  margin: 0;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen', 'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue', 'Microsoft Yahei', sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+view.data-v-703eade0,
+image.data-v-703eade0,
+text.data-v-703eade0 {
+  box-sizing: border-box;
+  flex-shrink: 0;
+}
+#app.data-v-703eade0 {
+  width: 100vw;
+  height: 100vh;
+}
+.flex-row.data-v-703eade0 {
+  display: flex;
+  flex-direction: row;
+}
+.flex-col.data-v-703eade0 {
+  display: flex;
+  flex-direction: column;
+}
+.justify-start.data-v-703eade0 {
+  display: flex;
+  justify-content: flex-start;
+}
+.justify-center.data-v-703eade0 {
+  display: flex;
+  justify-content: center;
+}
+.justify-end.data-v-703eade0 {
+  display: flex;
+  justify-content: flex-end;
+}
+.justify-evenly.data-v-703eade0 {
+  display: flex;
+  justify-content: space-evenly;
+}
+.justify-around.data-v-703eade0 {
+  display: flex;
+  justify-content: space-around;
+}
+.justify-between.data-v-703eade0 {
+  display: flex;
+  justify-content: space-between;
+}
+.items-start.data-v-703eade0 {
+  display: flex;
+  align-items: flex-start;
+}
+.items-center.data-v-703eade0 {
+  display: flex;
+  align-items: center;
+}
+.items-end.data-v-703eade0 {
+  display: flex;
+  align-items: flex-end;
+}
+

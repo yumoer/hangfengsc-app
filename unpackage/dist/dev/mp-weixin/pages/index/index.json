@@ -1,0 +1,10 @@
+{
+  "navigationBarTitleText": "行丰商城",
+  "usingComponents": {
+    "uni-countdown": "/components/uni-countdown/uni-countdown",
+    "uni-load-more": "/components/uni-load-more/uni-load-more",
+    "yomol-upgrade": "/components/yomol-upgrade/yomol-upgrade",
+    "back-top": "/components/back-top/back-top",
+    "cmd-curtain": "/components/cmd-curtain/cmd-curtain"
+  }
+}

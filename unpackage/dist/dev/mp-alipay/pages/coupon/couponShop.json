@@ -1,0 +1,6 @@
+{
+  "defaultTitle": "优惠商品",
+  "usingComponents": {
+    "xw-empty": "/components/xw-empty/xw-empty"
+  }
+}

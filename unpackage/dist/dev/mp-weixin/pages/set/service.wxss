@@ -1,0 +1,22 @@
+@charset "UTF-8";
+/* uni.scss */
+/* 页面左右间距 */
+/* 文字尺寸 */
+/*文字颜色*/
+/* 边框颜色 */
+/* 图片加载中颜色 */
+/* 行为相关颜色 */
+/* 页面左右间距 */
+/*文字颜色*/
+/* 边框颜色 */
+/* 背景颜色 */
+/* 行为相关颜色 */
+#service {
+  padding: 20rpx 30rpx;
+  font-weight: 600;
+  line-height: 30px;
+}
+#service ._p {
+  font-size: 28rpx;
+}
+

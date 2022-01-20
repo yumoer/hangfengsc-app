@@ -1,0 +1,6 @@
+{
+  "defaultTitle": "我的评价",
+  "usingComponents": {
+    "xw-empty": "/components/xw-empty/xw-empty"
+  }
+}

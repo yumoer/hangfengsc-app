@@ -1,0 +1,175 @@
+@charset "UTF-8";
+/* uni.scss */
+/* 主题色 */
+/* 页面左右间距 */
+/* 文字尺寸 */
+/*文字颜色*/
+/* 边框颜色 */
+/* 图片加载中颜色 */
+/* 行为相关颜色 */
+/* 页面左右间距 */
+/*文字颜色*/
+/* 边框颜色 */
+/* 背景颜色 */
+/* 行为相关颜色 */
+/************************************************************
+** 请将全局样式拷贝到项目的全局 CSS 文件或者当前页面的顶部 **
+** 否则页面将无法正常显示                                  **
+************************************************************/
+page {
+  font-size: 16px;
+}
+page {
+  margin: 0;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen', 'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue', 'Microsoft Yahei', sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+view,
+image,
+text {
+  box-sizing: border-box;
+  flex-shrink: 0;
+}
+#app {
+  width: 100vw;
+  height: 100vh;
+}
+.flex-row {
+  display: flex;
+  flex-direction: row;
+}
+.flex-col {
+  display: flex;
+  flex-direction: column;
+}
+.justify-start {
+  display: flex;
+  justify-content: flex-start;
+}
+.justify-center {
+  display: flex;
+  justify-content: center;
+}
+.justify-end {
+  display: flex;
+  justify-content: flex-end;
+}
+.justify-evenly {
+  display: flex;
+  justify-content: space-evenly;
+}
+.justify-around {
+  display: flex;
+  justify-content: space-around;
+}
+.justify-between {
+  display: flex;
+  justify-content: space-between;
+}
+.items-start {
+  display: flex;
+  align-items: flex-start;
+}
+.items-center {
+  display: flex;
+  align-items: center;
+}
+.items-end {
+  display: flex;
+  align-items: flex-end;
+}
+page,
+.content {
+  height: 100%;
+  background-color: #fff;
+}
+.image:after {
+  position: absolute;
+  top: 0;
+  left: 0;
+  content: '';
+  background: rgba(0, 0, 0, 0.2);
+  color: #FFFFFF;
+  z-index: 1;
+  width: 100%;
+  height: 100%;
+}
+.content {
+  display: flex;
+}
+.left-aside {
+  flex-shrink: 0;
+  width: 200rpx;
+  height: 100%;
+  background-color: #F7F7F7;
+}
+.f-item {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  height: 100rpx;
+  font-size: 28rpx;
+  color: #666666;
+  position: relative;
+}
+.f-item.active {
+  color: #333333;
+  font-weight: bold;
+  font-size: 30rpx;
+  background: #FFFFFF;
+}
+.f-item.active:before {
+  content: '';
+  position: absolute;
+  left: 0;
+  top: 50%;
+  -webkit-transform: translateY(-50%);
+          transform: translateY(-50%);
+  height: 36rpx;
+  width: 8rpx;
+  background-color: #EE1D23;
+  border-radius: 0 4px 4px 0;
+}
+.right-aside {
+  flex: 1;
+  overflow: hidden;
+  padding-left: 20rpx;
+}
+.s-item {
+  display: flex;
+  align-items: center;
+  padding-top: 8rpx;
+  font-size: 28rpx;
+  color: #FFFFFF;
+  position: absolute;
+  z-index: 2;
+  font-size: 16px;
+  margin-left: 20px;
+  line-height: 100px;
+  height: 100px;
+}
+.t-list {
+  display: flex;
+  flex-wrap: wrap;
+  width: 100%;
+  background: #fff;
+  padding-top: 12rpx;
+}
+.t-list:after {
+  content: '';
+  flex: 99;
+  height: 0;
+}
+.t-item {
+  flex-shrink: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  width: 176rpx;
+  font-size: 26rpx;
+  color: #666;
+}
+

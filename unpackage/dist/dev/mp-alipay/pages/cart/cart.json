@@ -1,0 +1,7 @@
+{
+  "defaultTitle": "购物车",
+  "usingComponents": {
+    "xw-empty": "/components/xw-empty/xw-empty",
+    "uni-number-box": "/components/uni-number-box/uni-number-box"
+  }
+}

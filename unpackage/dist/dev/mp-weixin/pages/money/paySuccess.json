@@ -1,0 +1,7 @@
+{
+  "navigationBarTitleText": "订单提交成功",
+  "usingComponents": {
+    "u-mask": "/uview-ui/components/u-mask/u-mask",
+    "ss-payment-password": "/components/sanshui-payment-password/index"
+  }
+}

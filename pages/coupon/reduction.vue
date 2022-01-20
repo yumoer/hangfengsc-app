@@ -189,7 +189,6 @@
 				}else{
 					this.selected.splice(e,1)
 				}
-				
 				if(this.goodsList.length === this.selected.length){
 					this.checked = true
 				}else{

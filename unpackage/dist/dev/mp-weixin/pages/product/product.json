@@ -1,0 +1,8 @@
+{
+  "navigationBarTitleText": "详情展示",
+  "usingComponents": {
+    "min-badge": "/components/min-badge/min-badge",
+    "uni-number-box": "/components/uni-number-box/uni-number-box",
+    "shares": "/components/share"
+  }
+}

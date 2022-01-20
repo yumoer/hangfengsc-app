@@ -1,0 +1,30 @@
+@charset "UTF-8";
+/* 页面左右间距 */
+/* 文字尺寸 */
+/*文字颜色*/
+/* 边框颜色 */
+/* 图片加载中颜色 */
+/* 行为相关颜色 */
+#zfcg .title {
+  padding: 10rpx;
+  font-size: 30rpx;
+  line-height: 48rpx;
+  color: #333;
+  text-indent: 2em;
+}
+#zfcg .body .wrap {
+  margin-top: 20rpx;
+}
+#zfcg .body .wrap .item {
+    margin-bottom: 30rpx;
+    padding: 0 10rpx;
+    text-align: center;
+}
+#zfcg .body .wrap .item .img {
+      width: 100%;
+      height: 100rpx;
+}
+#zfcg .body .wrap .item .name {
+      font-size: 27rpx;
+}
+
