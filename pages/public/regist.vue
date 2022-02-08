@@ -314,7 +314,7 @@
 				}
 			},
 			navBack(){
-				uni.navigateBack();  
+				uni.navigateBack();
 			},
 			
 			changeType(env){
@@ -343,12 +343,12 @@
 									}
 								},1000)
 							}else if(res.status === 400){
-								this.$api.msg(res.data.non_field_errors[0])
-								if(res.data.non_field_errors[0] === '无效验证码'){
-									// this.generate_image_code();
-									uni.redirectTo({
-										url:'/pages/public/regist'
-									})
+								this.$api.msg(res.data.message)
+								if(res.data.message === '图片验证码无效'){
+									this.generate_image_code();
+									// uni.redirectTo({
+									// 	url:'/pages/public/regist'
+									// })
 								}
 							}
 						}).catch(error=>{
@@ -420,12 +420,11 @@
 			
 			// 注册
 			async toRegist(){
-				// const {username,mobile, password,password2,imageCode,allow} = this;
 				// 用户名验证
 				if(this.username && this.password && this.password2){
 					if(!this.usernameMsg && !this.passwordMsg && !this.passwordMsg2){
-						if(this.allow !== true){
-							this.$api.msg('请阅读并勾选隐私协议或用户协议')
+						if(this.checked === false){
+							this.$api.msg('请阅读并勾选隐私协议和用户协议')
 							return
 						}
 						const sendData = {
@@ -435,7 +434,7 @@
 							password2:this.password2,
 							imageCode:this.imageCode,
 							sms_code:this.sms_code,
-							allow:this.allow+'',
+							allow:this.checked+''
 						 };
 						uniRequest.post('/user/register/',sendData).then(res=>{
 							console.log(res)

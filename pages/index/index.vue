@@ -33,10 +33,12 @@
 		<!-- 功能页	-->
 		<view class="func-wrapper" style="">
 			<view class="func-content" style="">
+				<text class="swiper-text" style="">今日爆款</text>
 				<swiper :indicator-dots="true" :autoplay="false" :interval="3000" :duration="1000" style="height: 285px;">
+					
 					<swiper-item v-for="(item,index) in goodsShopList" :key="index" v-if="index < 5">
+						
 						<view class="swiper-item" @click="navToPage('/pages/activity/hotProd')">
-							<text class="swiper-text" style="">今日爆款</text>
 							<image class="swiper-image" :src="item.image" mode=""></image>
 						</view>
 					</swiper-item>
@@ -95,15 +97,16 @@
 				class="guess-item"
 				@click="navToDetailPage(item)"
 				v-if="item.object !== null"
+				
 			>
 				<view class="image-wrapper" >
-					<image style="border: 1px solid #ddd;" :src="item._source.detail_image" mode="aspectFill"></image>
+					<image :src="item._source.detail_image" mode="aspectFill"></image>
+					<text class="title clamp2">{{item._source.name}}</text>
+					<text style="padding: 20upx;">
+						<text class="price">￥{{item._source.price}}</text>
+						<text style="float:right;color: rgb(144, 147, 153); line-height:60upx;font-size: 24upx;margin-right: 15px;" >销量: {{item._source.sales}}</text>
+					</text>
 				</view>
-				<text class="title clamp2">{{item._source.name}}</text>
-				<text style="display: inline-block;">
-					<text class="price">￥{{item._source.price}}</text>
-					<text style="float:right;color: rgb(144, 147, 153); line-height:60upx;font-size: 28upx;margin-right: 15px;" >销量: {{item._source.sales}}</text>
-				</text>
 			</view>
 		</view>
 
@@ -728,7 +731,6 @@
 			margin-bottom: 14upx;
 			border-radius: 50%;
 			opacity: .7;
-			// box-shadow: 2upx 2upx 2upx rgba(250, 67, 106, 0.3);
 		}
 	}
 	.ad-1{
@@ -747,27 +749,31 @@
 		height: 285px;
 		padding: 0 28rpx;
 		margin-top: 40rpx;
-
+		background-color: #F5F5F5;	
 		.func-content{
 			width: 48%;
 			height: 285px;
 			float: left;
+			position: relative;
+			.swiper-text{
+				position: absolute;
+				top: 0;
+				left: 0;
+				color: #fff;
+				width: 100%;
+				height: 60px;
+				background: linear-gradient(-180deg, rgba(3, 0, 0, 0.2), rgba(0, 0, 0, 0));
+				text-align: center;
+				line-height: 50px;
+				z-index: 2;
+				font-size: 16px;
+				border-radius: 30upx;
+			}
 			.swiper-item{
-				.swiper-text{
-					position: fixed;
-					color: #fff;
-					width: 100%;
-					height: 100%;
-					background: linear-gradient(-180deg, rgba(3, 0, 0, 0.2), rgba(0, 0, 0, 0));
-					text-align: center;
-					line-height: 54px;
-					z-index: 2;
-					font-size: 18px;
-					border-radius: 15px;
-				}
 				.swiper-image{
 					width: 100%;
 					height: 285px;
+					border-radius: 30upx;
 				}
 			}
 		}
@@ -1039,35 +1045,35 @@
 			display:flex;
 			flex-direction: column;
 			width: 48%;
-
 			margin-bottom: 40upx;
-			background: #FFFFFF;
 			&:nth-child(2n+1){
 				margin-right: 4%;
 			}
 		}
 		.image-wrapper{
 			width: 100%;
-			height: 330upx;
-			border-radius: 3px;
-			overflow: hidden;
+			height: 100%;
+			background: #FFFFFF;
+			border-radius: 30upx;
 			image{
 				width: 100%;
-				height: 100%;
+				height: 330upx;
 				opacity: 1;
+				border-radius: 30upx 30upx 0 0;
+			}
+			.title{
+				font-size: 26upx;
+				color: #333333;
+				margin: 5px 10px;
+				height: 36px;
+			}
+			.price{
+				font-size: 28upx;
+				color: $uni-color-primary;
+				line-height: 60upx;
+				
 			}
 		}
-		.title{
-			font-size: 28upx;
-			color: #333333;
-			padding: 10px;
-			height: 50px;
-		}
-		.price{
-			font-size: $font-lg;
-			color: $uni-color-primary;
-			line-height: 60upx;
-			padding-left: 10px;
-		}
+		
 	}
 </style>

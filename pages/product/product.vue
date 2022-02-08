@@ -411,16 +411,16 @@
 			}
 		},
 		
-		
-		onBackPress() {
+		onBackPress(e) {
 			//监听back键，关闭弹出菜单
-			if (this.shareObj.shareMenu) { // this.shareObj.shareMenu.isVisible()
-				this.shareObj.shareMenu.hide();
-				this.shareObj.alphaBg.hide();
-				return true
+			if (e.from == 'backbutton') {
+				if (this.shareObj.shareMenu) { // this.shareObj.shareMenu.isVisible()
+					this.shareObj.shareMenu.hide();
+					this.shareObj.alphaBg.hide();
+					return true
+				}
 			}
 		},
-		
 		
 		async onLoad(options){
 			console.log(options)
@@ -878,6 +878,7 @@
 							break; */
 						case 2:
 							shareObj.provider="qq";
+							shareObj.scene = ""
 							shareObj.type=0;
 							shareObj.imageUrl=shareInfo.imgUrl||"";
 							uni.share(shareObj);

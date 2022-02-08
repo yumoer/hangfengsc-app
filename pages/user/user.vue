@@ -4,7 +4,7 @@
 			<image class="bg" src="http://47.94.106.106:8888/group1/M00/53/AC/rBHxiGEM6WOAet97AAMVY9-EXjo1115258"></image>
 			<view class="user-info-box">  <!--  @tap="chooseAvatar" -->
 				<view class="portrait-box">
-					<image class="portrait" v-if="userInfo.portrait" :src="userInfo.portrait" mode="aspectFill" @click="navTo('/pages/set/avator')"></image>
+					<image class="portrait" v-if="userInfo.username" :src="userInfo.portrait" mode="aspectFill" @click="navTo('/pages/set/avator')"></image>
 					<image class="portrait" v-else src="http://47.94.106.106:8888/group1/M00/5D/D0/rBHxiGHJU5qAePFBAAARG8W5qpA7716379" mode="aspectFill" @click="navTo('/pages/public/login')"></image>
 				</view>
 				<view class="info-box">

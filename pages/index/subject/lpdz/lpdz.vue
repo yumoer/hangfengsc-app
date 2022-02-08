@@ -7,10 +7,12 @@
 			<u-grid
 					:border="false"
 					col="4"
+					
 			>
 				<u-grid-item
 						v-for="(listItem,listIndex) in cateList"
 						:key="listIndex"
+						@click="goToSearch(listItem.name)"
 				>
 					<u-image :showLoading="true" shape="circle" :src="listItem.iconURL" width="60px" height="60px"></u-image>
 					<text class="grid-text">{{listItem.name}}</text>
@@ -30,7 +32,7 @@
 					justify="space-between"
 					:gutter="10"
 				>
-					<u-col span="6" class="slider" v-for="(item,index) in hotList" :key='index'>
+					<u-col span="6" class="slider" v-for="(item,index) in hotList" :key='index' @click="goToSearch(item.name)">
 						<view class="demo-layout">
 							<image style="width: 100%;height: 480upx;border-radius: 5px;" :src="item.imageURL" mode=""></image>
 							<view class="name">{{item.name}}</view>
@@ -47,7 +49,7 @@
 				<swiper class="swiper">
 					<swiper-item>
 						<u-grid :col="3" hover-class="hover-class">
-							<u-grid-item v-if="index < 3" v-for="(item, index) in topicList" :index="index" :key="index">
+							<u-grid-item v-if="index < 3" v-for="(item, index) in topicList" :index="index" @click="goToSearch(item.text)" :key="index">
 								<image style="width: 212upx;height: 212upx;" :src="item.imageURL" mode=""></image>
 								<text class="grid-text" style="position: absolute;color: #FFFFFF;font-size: 28upx;line-height: 212upx;">{{ item.text }}</text>
 							</u-grid-item>
@@ -431,6 +433,11 @@
 			goToDetail(item){
 				uni.navigateTo({
 					url:'/pages/product/product?id='+item.id+'&value='
+				})
+			},
+			goToSearch(name){
+				uni.navigateTo({
+					url:'/pages/search/searchList?value='+name
 				})
 			},
 			tabClick(value){
