@@ -2,10 +2,10 @@
 	<view class="app">
 		<view class="price-box">
 			<view class="" style="display: flex;">
-				<text class="time">剩余支付时间 : </text>
+				<!-- <text class="time">剩余支付时间 : </text>
 				<uni-countdown color="#999" background-color="#f7f7f7" border-color="#00B26A" :show-day="false"
 					:showHour="false" :showColon="false" :minute="minute" :second="second" @timeup="timeChange">
-				</uni-countdown>
+				</uni-countdown> -->
 			</view>
 
 			<text class="price">{{price}}</text>
@@ -109,7 +109,7 @@
 		onBackPress(e) {
 			this.$showModal({
 				title: '确认放弃支付?',
-				content: `您的订单将在${this.time}后自动关闭，请尽快完成支付`,
+				content: `您的订单返回后二十分钟将自动关闭，请尽快完成支付`,
 				cancelText: "取消",
 				confirmText: "确认",
 				success: async (e) => {
@@ -169,7 +169,7 @@
 						this.orderInfo = res.data
 						this.payType = res.data.pay_method
 						this.price = Number(res.data.total_amount).toFixed(2)
-						this.getTime(res.data.create_time)
+						// this.getTime(res.data.create_time)
 					} else {
 						this.$api.msg(res.data.message || res.data[0])
 					}
@@ -319,6 +319,7 @@
 					await uniRequest({
 						url: '/payment/ali/app/orders/' + this.orderId + '/',
 						method: 'get',
+						
 						headers: {
 							Authorization: 'JWT ' + uni.getStorageSync('userInfo').token
 						},
@@ -331,10 +332,12 @@
 							orderInfo: orderInfo,
 							success: function(ress) {
 								console.log(ress)
+								let data = JSON.stringify(ress)
 								uni.showToast({
-									title: '支付成功'
+									title: '支付成功',
+									showCancel: false
 								})
-								uni.switchTab({
+								uni.navigateTo({
 									url: '/pages/money/paySuccess'
 								})
 							},
@@ -353,7 +356,7 @@
 					// #endif
 					// #ifdef H5
 					const res = await uniRequest({
-						url: '/payment/ali/orders/' + this.orderId + '/?mobile=1',
+						url: '/payment/ali/orders/' + this.orderId + '/?mobile=1&next=http://m.hfyt365.com/#/pages/money/paySuccess',
 						method: 'get',
 						headers: {
 							Authorization: 'JWT ' + uni.getStorageSync('userInfo').token
@@ -401,7 +404,7 @@
 												title: '支付成功',
 												showCancel: false
 											})
-											uni.switchTab({
+											uni.navigateTo({
 												url: '/pages/money/paySuccess'
 											})
 										},

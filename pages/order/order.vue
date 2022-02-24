@@ -5,7 +5,7 @@
 				v-for="(item, index) in navList" :key="index" 
 				class="nav-item" 
 				:class="{current: tabCurrentIndex === index}"
-				@click="tabClick(index)"
+				@click="tabClick(index,item)"
 			>
 				{{item.text}}
 			</view>
@@ -43,7 +43,7 @@
 							
 							<view class="price-box">
 								<text style="margin-right: 80px;">
-									运费:<text class="price">13.00</text>
+									运费:<text class="price">{{Number(item.total_amount) > 100 ? '0.00' : '13.00' }}</text>
 								</text>
 								<text>
 									优惠:<text class="price">0.00</text>
@@ -52,36 +52,36 @@
 							
 							<view class="price-box">
 								<text style="font-size: 16px;">
-									<text>需付款:</text>
+									<text>{{item.pay_status === 0 && item.order_status === 0 ? '需' : '已'}}付款:</text>
 									<text class="price" style="color: #EE1D23;">{{item.total_amount}}</text>
 								</text>
 							</view>
 							
 							<!-- 待付款 -->
 							<view class="action-box b-t" v-if="item.pay_status === 0 && item.order_status === 0">
-								<button class="action-btn" @click="editAddress(item)">修改地址</button>
+								<!-- <button class="action-btn" @click="editAddress(item)">修改地址</button> -->
 								<button class="action-btn recom" @click="payOrder(item)">去支付</button>
 							</view>
 							<!-- 待发货 -->
 							<view class="action-box b-t" v-if="item.pay_status === 1 && item.order_status < 2">
-								<button class="action-btn" @click="editAddress(item)">修改地址</button>
-								<button class="action-btn recom" @click="lookViewOrder(item,item.order_id)">查看物流</button>
+								<button class="action-btn recom" @click="editAddress(item)">修改地址</button>
 							</view>
 							<!-- 待收货 -->
 							<view class="action-box b-t" v-if="item.order_status === 3">
 								<button class="action-btn" @click="lookViewOrder(item,item.order_id)">查看物流</button>
 								<button class="action-btn recom" @click="confirmOrder(item)">确认收货</button>
 							</view>
-							<!-- 待评价 -->
-							<view class="action-box b-t" v-if="item.order_status === 4 && !item.goods[0].comment">
-								<button class="action-btn" @click="lookViewOrder(item,item.order_id)">查看物流</button>
-								<button class="action-btn recom" @click="accessOrder(item)">去评价</button>
+							<!-- 待评价 已完成-->
+							<view class="action-box b-t" v-if="item.order_status === 4 ">
+								<!-- <button class="action-btn" @click="lookViewOrder(item,item.order_id)">查看物流</button> -->
+								<button class="action-btn recom" @click="lookDetails(item)">查看详情</button>
 							</view>
 							
 							<!-- 交易成功 已完成-->
-							<view class="action-box b-t" v-if="item.order_status === 4 && item.goods[0].comment">
+							<!-- <view class="action-box b-t" v-if="item.order_status === 4 && item.goods[0].comment !== null">
 								<button class="action-btn recom" @click="goBuyAgain(item,item.order_id)">再次购买</button>
-							</view>
+							</view> -->
+							
 							<!-- 交易关闭 已取消-->
 							<view class="action-box b-t" v-if="item.order_status === 5">
 								<button class="action-btn recom" @click="goBuyAgain(item,item.order_id)">再次购买</button>
@@ -172,7 +172,11 @@
 			...mapState(['userInfo'])
 		},
 		
-		
+		// watch:{
+		// 	tabCurrentIndex(val){
+		// 		console.log(val)
+		// 	}
+		// },
 		
 		async onLoad(options){
 			/**
@@ -181,13 +185,13 @@
 			 */
 			if(options.state){
 				this.tabCurrentIndex = Number(options.state);
+				this.loadData('tabChange',this.tabCurrentIndex)
 			}
-			
-			this.loadData('tabChange',this.tabCurrentIndex)
 		},
 		
 		onNavigationBarButtonTap(e) {
 			const index = e.index;
+			console.log(index)
 			if (index === 0) {
 				uni.navigateTo({
 					url:'/pages/search/search'
@@ -195,13 +199,12 @@
 			}
 		},
 		
+		
 		methods: {
 			//获取订单列表
 			async loadData(source,status){
 				//这里是将订单挂载到tab列表下
 				let navItem = this.navList[status];
-				let data = navItem.data;
-				
 				if(source === 'tabChange' && navItem.loaded === true){
 					//tab切换只有第一次需要加载数据
 					return;
@@ -220,6 +223,7 @@
 				let index = this.tabCurrentIndex;
 				let navItem = this.navList[index];
 				let data = navItem.data;
+				console.log(data)
 				navItem.loadingType = 'loading'
 				await uniRequest({
 					url:'/mobile/order/list/',
@@ -230,41 +234,65 @@
 					},
 				}).then(res=>{
 					if(res.status === 200){
+						console.log(this.orderList)
 						this.orderList = res.data.data
 						uni.hideLoading()
 						let orderList = this.orderList.filter(item=>{
-							switch (item.pay_status){
-								// 待付款
-								case 0:
-									item.state = 1
-									break;
-								// 已支付
-								case 1:
-									item.state = 2
-									break;
-								// 已退款
-								case 2:
-									item.state = 7
-									break;
+							
+							// 待付款
+							if(item.pay_status === 0 && item.order_status === 0){
+								item.state = 1
+							// 已支付
+							}else if(item.pay_status === 1 && item.order_status === 0){
+								item.state = 2
+							// 已退款
+							}else if(item.pay_status === 1 && item.order_status === 6){
+								item.state = 6
+							// 待收货
+							}else if(item.pay_status === 1 && item.order_status === 3){
+								item.state = 3
+							// 已完成
+							}else if(item.pay_status === 1 && item.order_status === 4){
+								item.state = 4
+							// 已取消
+							}else if(item.pay_status === 1 && item.order_status === 5){
+								item.state = 5
+							// 已退货
+							}else if(item.pay_status === 2 && item.order_status === 6){
+								item.state = 6
 							}
-							switch (item.order_status){
-								// 待收货
-								case 3:
-									item.state = 3
-									break;
-								// 已完成
-								case 4:
-									item.state = 4
-									break;
-								// 已取消
-								case 5:
-									item.state = 5
-									break;
-								// 已退货
-								case 6:
-									item.state = 6
-									break;
-							}
+							// switch (item.pay_status){
+							// 	// 待付款
+							// 	case 0:
+							// 		item.state = 1
+							// 		break;
+							// 	// 已支付
+							// 	case 1:
+							// 		item.state = 2
+							// 		break;
+							// 	// 已退款
+							// 	case 2:
+							// 		item.state = 7
+							// 		break;
+							// }
+							// switch (item.order_status){
+							// 	// 待收货
+							// 	case 3:
+							// 		item.state = 3
+							// 		break;
+							// 	// 已完成
+							// 	case 4:
+							// 		item.state = 4
+							// 		break;
+							// 	// 已取消
+							// 	case 5:
+							// 		item.state = 5
+							// 		break;
+							// 	// 已退货
+							// 	case 6:
+							// 		item.state = 6
+							// 		break;
+							// }
 							//添加不同状态下订单的表现形式
 							item = Object.assign(item, this.orderStateExp(item.state));
 							/* //演示数据所以自己进行状态筛选
@@ -281,7 +309,6 @@
 						this.$set(navItem, 'loaded', true);
 						//判断是否还有数据， 有改为 more， 没有改为noMore 
 						navItem.loadingType = navItem.orderList.length > 0 ? 'more' : 'noMore'
-						
 						console.log(navItem.loadingType)
 					}
 				}).catch(error=>{
@@ -298,7 +325,8 @@
 			changeTab(e){
 				this.currentPage = 1
 				this.tabCurrentIndex = e.target.current;
-				this.loadData('tabChange',this.tabCurrentIndex)
+				// this.loadData('tabChange',this.tabCurrentIndex)
+				this.getDate(e.target.current)
 			},
 			
 			open(index) {
@@ -316,7 +344,8 @@
 			},
 			
 			//顶部tab点击
-			tabClick(index){
+			tabClick(index,item){
+				console.log(index,item)
 				this.tabCurrentIndex = index;
 			},
 			
@@ -411,30 +440,16 @@
 				}).then(res=>{
 					if(res.status === 204){
 						console.log(res)
-						if(res.data.order_id === item.order_id){
+						if(item.order_id){
+							uni.hideLoading();
+							uni.showToast({
+								title:'收货成功'
+							})
 							setTimeout(()=>{
-								let {stateTip, stateTipColor} = this.orderStateExp(5);
-								item = Object.assign(item, {
-									state: 4,
-									stateTip, 
-									stateTipColor
-								})
-								if(this.tabCurrentIndex === 3){
-									this.getDate('待收货')
-									this.$api.msg('收货成功')
-									uni.hideLoading();
-								}else if(this.tabCurrentIndex === 0){
-									this.getDate('全部')
-									//取消订单后删除待付款中该项
-									this.$api.msg('收货成功')
-									uni.hideLoading();
-								}
-								
-							}, 600)
-							
+								location.reload()
+							}, 1500)
 						}
 					}
-					
 				}).catch(error=>{
 					
 				})
@@ -461,14 +476,11 @@
 					case 3:
 						stateTip = '待收货'; break;
 					case 4:
-						stateTip = '交易完成'; break;
+						stateTip = '已完成'; break;
 					case 5:
-						stateTip = '交易关闭'; break;
+						stateTip = '已取消'; break;
 					case 6:
 						stateTip = '已退货';break;
-					// case 7:
-					// 	stateTip = '已退换'; break;
-					//更多自定义
 				}
 				return {stateTip, stateTipColor};
 			}

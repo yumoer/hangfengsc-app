@@ -78,9 +78,11 @@
 				}).then(res=>{
 					console.log(res)
 					res.data.forEach(ele=>{
-						this.price += ele.price * ele.count
+						console.log(ele.price,ele.count)
+						this.price = ele.price * ele.count
 					})
 					this.price = this.price.toFixed(2)
+					console.log(this.price)
 					this.navList = res.data
 				}).catch(error=>{
 					console.log(error)

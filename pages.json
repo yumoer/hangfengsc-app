@@ -786,7 +786,7 @@
             "path" : "pages/order/lookDetails/afterSalesDetails",
             "style" :{
 				"scrollIndicator":"none",   
-                "navigationBarTitleText": "",
+                "navigationBarTitleText": "提交申请",
                 "enablePullDownRefresh": false
             }
             

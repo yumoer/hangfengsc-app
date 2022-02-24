@@ -62,6 +62,7 @@
 			this.orderId = options.order_id
 			this.subOrderId = options.sub_order_id
 			this.goodItem = JSON.parse(decodeURIComponent(options.item))
+			console.log(this.goodItem)
 		},
 		methods: {
 			changeItem(item){

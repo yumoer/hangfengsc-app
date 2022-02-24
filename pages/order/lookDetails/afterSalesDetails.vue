@@ -11,17 +11,28 @@
 				</view>
 			</view>
 		</view>
-		<view class="rate_type">
-			<view class="rate_title">退款信息</view>
+		<view class="rate_type" v-if="type === '1'">
+			<view class="rate_title">退货信息</view>
 			<u-cell-group>
-				<u-cell-item title="退款金额" :arrow="false" value="￥ 139.23"></u-cell-item>
+				<u-cell-item title="退货金额" :arrow="false" :value="'￥'+this.goodItem.price"></u-cell-item>
 			</u-cell-group>
 			<view class="goods-box-assess">
-				<view class="assess_title">退款原因</view>
-				<u-input v-model="desc" type="textarea" :border="true" :height="200" :auto-height="true" placeholder="请添加您的说明，有助于售后问题的处理"/>
+				<view class="assess_title">退货原因</view>
+				<u-input v-model="desc" style="border: none;" type="textarea" :border="true" :height="200" :auto-height="true" placeholder="请添加您的说明，有助于售后问题的处理"/>
 				<view class="imageVideo">
 					<u-upload action="#" ref="uUpload" uploadText="" :file-list="fileList" :max-size="4 * 1024 * 1024" :max-count="4" :auto-upload="false" @on-choose-complete="onChooseComplete"></u-upload>
-					<text class="addImage">添加图片/视频</text>
+					<text class="addImage">添加图片</text>
+				</view>
+			</view>
+		</view>
+		<view class="rate_type" v-if="type === '2'">
+			<view class="rate_title">换货信息</view>
+			<view class="goods-box-assess">
+				<view class="assess_title">换货原因</view>
+				<u-input v-model="desc" type="textarea" :border="true" :height="200" :auto-height="true" placeholder="请添加您的说明，有助于售后问题的处理"/>
+				<view class="imageVideo">
+					<u-upload action="#" style="background: #FFFFFF;" ref="uUpload" uploadText="" :file-list="fileList" :max-size="4 * 1024 * 1024" :max-count="4" :auto-upload="false" @on-choose-complete="onChooseComplete"></u-upload>
+					<text class="addImage">添加图片</text>
 				</view>
 			</view>
 		</view>
@@ -50,9 +61,10 @@
 		},
 		onLoad(options) {
 			this.type = options.type;
-			this.orderId = options.orderId;
+			this.orderId = options.orderId ;
 			this.subOrderId = options.subOrderId;
 			this.goodItem = JSON.parse(decodeURIComponent(options.item))
+			console.log(this.goodItem)
 		},
 		methods:{
 			onChooseComplete(lists, name){
@@ -60,9 +72,8 @@
 				this.fileList = lists
 			},
 			async confirmBtn(){
-				console.log(this.fileList)
 				if(this.desc === ''){
-					this.$api.msg('请输入退换货原因')
+					this.$api.msg('请输入原因')
 					return false
 				}
 				// if(this.image1 === ''){
@@ -71,6 +82,7 @@
 				// }
 				if(this.fileList.length > 0){
 					this.fileList.forEach((ele,index)=>{
+						console.log(ele)
 					})
 				}
 				await uniRequest({
@@ -95,11 +107,13 @@
 					},
 				}).then(res=>{
 					if(res.status === 200){
-						this.$api.msg('提交成功')
+						uni.showToast({
+							title:'提交成功'
+						})
 						console.log(res.data)
-						setTimeout(function(){
-							uni.navigateBack()
-						},300)
+						setTimeout(()=>{
+							location.reload()
+						}, 1500)
 					}else{
 						this.$api.msg(res.data.message)
 					}
@@ -317,11 +331,12 @@
 			line-height: 100upx;
 		}
 		.imageVideo{
-			width: 100%;
+			width: 180upx;
+			text-align: center;
 			.addImage{
-				width: 180upx;
 				font-size: 24upx;
 				color: #999999;
+				letter-spacing: 6upx;
 			}
 		}
 		.rate{

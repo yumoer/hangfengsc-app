@@ -8,7 +8,7 @@
 			<view class="pay_slider">
 				<view class="pay_btn">
 					<navigator @click="navToPage('/pages/index/index')" class="action-btn">返回首页</navigator>
-					<navigator url="/pages/order/order?state=0" class="action-btn recom">查看订单</navigator>
+					<navigator @click="navToPage('/pages/order/order?state=0')" class="action-btn recom">查看订单</navigator>
 				</view>
 			</view>
 		</view>
@@ -83,7 +83,7 @@
 				})
 			},
 			navToPage(url){
-				uni.switchTab({
+				uni.redirectTo({
 					url:url
 				})
 			}

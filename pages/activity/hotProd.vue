@@ -1,7 +1,7 @@
 <template>
 	<view class="content">
 		<view class="body">
-			<view class="item-list" v-for="(item,index) in newProdList" :key="index" v-if="index > 2" @click="navToPage(item)">
+			<view class="item-list" v-for="(item,index) in newProdList" :key="index" @click="navToPage(item)">
 				<view class="item-image">
 					<image style="width: 260upx;height: 260upx;" :src="item.image" mode=""></image>
 				</view>
@@ -14,8 +14,8 @@
 					</view>
 					<view class="info">
 						<view class="price">
-							爆款价
-							<text>{{item.text}}</text>
+							<text style="font-size: 24upx;">爆款价</text>
+							<text style="font-size: 28upx;">{{item.text}}</text>
 						</view>
 						<view class="stock">
 							<text>{{item.sales}}人付款</text>
@@ -127,6 +127,7 @@
 						.title{
 							color: #333333;
 							font-size: 32upx;
+							margin-top: 20upx;
 						}
 						.info{
 							margin-top: 60upx;

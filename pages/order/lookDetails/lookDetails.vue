@@ -4,9 +4,8 @@
 		<view class="order-title" v-if="goodsItem.pay_status === 0 && goodsItem.order_status === 0">
 			<view class="title-info">
 				<view class="info-money">待买家付款</view>
-				<view class="info-time">剩余时间： 
-					<uni-countdown color="#fff" background-color="#EE1D23" border-color="#00B26A" :show-day="false"
-						:showHour="false" :showColon="false" :minute="minute" :second="second" @timeup="timeChange">
+				<view class="info-time" v-if="minute !== 0 && second !== 0 ">剩余时间： 
+					<uni-countdown color="#fff" background-color="#EE1D23" border-color="#00B26A" :show-day="false" :showHour="false" :showColon="false" :minute="minute" :second="second" @timeup="timeChange">
 					</uni-countdown>
 				</view>
 			</view>
@@ -28,7 +27,7 @@
 		<view class="order-title" v-if="goodsItem.order_status === 3">
 			<view class="title-info">
 				<view class="info-money">运输中</view>
-				<view class="info-time">快件已从北京市发出，正在发往石家庄接驳点</view>
+				<view class="info-time">快件已发出，正发往目的地</view>
 			</view>
 			<view class="title-info-right">
 				<image style="width: 40px;height: 40px;" src="http://47.94.106.106:8888/group1/M00/5D/28/rBHxiGGttauAYd6RAAAOJ0fCg9M4704488" mode=""></image>
@@ -90,9 +89,9 @@
 							<text>{{goodsAddress.province}}{{goodsAddress.city}}{{goodsAddress.district}}{{goodsAddress.place}}</text>
 						</view>
 					</view>
-					<!-- <view class="add-right">
+					<view class="add-right">
 						<i class="yticon icon-you"></i>
-					</view> -->
+					</view>
 				</view>
 				
 			</view>
@@ -120,18 +119,13 @@
 						</view>
 						<!-- 交易完成已评价 -->
 						<view class="setBtn" v-if="goodsItem.order_status === 4 && goodItem.comment">
-							<button class="action-btn recom" type="default" @click="replaceDetails(goodsItem)">申请售后</button>
+							<button class="action-btn" type="default" @click="replaceDetails(goodsItem)">申请售后</button>
+						</view>
+						<view class="setBtn" v-if="goodsItem.order_status !== 4">
+							<button class="action-btn" v-if="goodsItem.order_status === 6" type="default" @click="lookDetails(goodsItem)">售后详情</button>
 						</view>
 					</view>
 				</view>
-				
-				
-				
-				<!-- <u-collapse>
-					<u-collapse-item title="">
-						
-					</u-collapse-item>
-				</u-collapse> -->
 				
 				<view class="collapse-item">
 					<view class="price-info">
@@ -148,9 +142,10 @@
 					</view>
 				</view>
 				
-				<view class="price-info">
-					<button class="action-btn" style="display: inline-block;" type="default" v-if="goodsItem.order_status > 0 && goodsItem.pay_status > 0 && goodsItem.order_status < 5" @click="cancelOrder(goodsItem)">取消订单</button>
-					<button class="action-btn recom" style="display: inline-block;float: right;" type="default" @click="joinCart(goodsItem)">加入购物车</button>
+				<view class="setBtn">
+					<button class="action-btn recom" style="display: inline-block;float: right;margin-right: 20px;margin: 0 20px 10px 0;" type="default" @click="joinCart(goodsItem)">加入购物车</button>
+					<button class="action-btn" style="display: inline-block;float: right;margin-right: 10px;" type="default" v-if="goodsItem.order_status === 0 && goodsItem.pay_status === 0" @click="cancelOrder(goodsItem)">取消订单</button>
+					<button class="action-btn" style="display: inline-block;float: right;margin-right: 10px;" type="default" v-if="goodsItem.pay_status === 1 && goodsItem.order_status === 0" @click="refundOrder(goodsItem)">退款</button>
 				</view>
 			</view>
 			
@@ -211,20 +206,30 @@
 			</text>
 			<button class="action-btn recom" type="default" @click="payBtn(goodsItem)">立即支付</button>
 		</view>
+		
 		<!-- 待发货 -->
 		<view class="btn-bottom" v-if="goodsItem.pay_status === 1 && goodsItem.order_status < 2">
-			<button class="action-btn recom" type="default" @click="lookViewOrder(goodsItem)">查看物流</button>
-			<button class="action-btn" type="default" @click="payBtn">修改地址</button>
+			<button class="action-btn recom" style="background-color: #FFFFFF;" type="default" @click="editAddress(goodsItem)">修改地址</button>
 		</view>
+		
 		<!-- 待收货 -->
 		<view class="btn-bottom" v-if="goodsItem.order_status === 3">
-			<text class="btn-more">更多</text>
-			<button class="action-btn" type="default" @click="payBtn">查看物流</button>
-			<button class="action-btn recom" type="default" @click="payBtn">确认收货</button>
+			<button class="action-btn recom" type="default" @click="confirmOrder(goodsItem)">确认收货</button>
+			<button class="action-btn" type="default" @click="lookViewOrder(goodsItem)">查看物流</button>
+		</view>
+		
+		<!-- 交易完成 -->
+		<view class="btn-bottom" v-if="goodsItem.order_status === 4">
+			<button class="action-btn recom" type="default" @click="goBuyAgain(goodsItem,goodsItem.order_id)">再次购买</button>
 		</view>
 		
 		<!-- 交易关闭 -->
 		<view class="btn-bottom" v-if="goodsItem.order_status === 5">
+			<button class="action-btn recom" type="default" @click="goBuyAgain(goodsItem,goodsItem.order_id)">再次购买</button>
+		</view>
+		
+		<!-- 退货完成 -->
+		<view class="btn-bottom" v-if="goodsItem.order_status === 6">
 			<button class="action-btn recom" type="default" @click="goBuyAgain(goodsItem,goodsItem.order_id)">再次购买</button>
 		</view>
 		
@@ -361,7 +366,16 @@
 			
 			// 修改地址
 			editAddress(item){
-				this.$api.msg('修改地址')
+				// this.$api.msg('修改地址')
+				uni.navigateTo({
+					url:'/pages/order/editAdress/editAdress?orderId='+item.order_id
+				})
+			},
+			
+			refundOrder(item){
+				uni.navigateTo({
+					url:'/pages/order/lookDetails/afterSalesDetails?type='+1+'&item=' + encodeURIComponent(JSON.stringify(item.goods[0]))+'&orderId='+item.order_id + '&subOrderId='+item.sub_order_id
+				})
 			},
 			
 			// 再次购买
@@ -387,6 +401,38 @@
 				})
 			},
 			
+			// 确认收货
+			async confirmOrder(item){
+				console.log(item)
+				uni.showLoading({
+					title: '请稍后'
+				})
+				await uniRequest({
+					url:'/orders/confirm/receipt/',
+					method:'post',
+					data:{
+						id:item.sub_order_id
+					},
+					headers:{
+						Authorization:'JWT '+uni.getStorageSync('userInfo').token
+					},
+				}).then(res=>{
+					if(res.status === 204){
+						console.log(res)
+						if(res.data.order_id === item.order_id){
+							setTimeout(()=>{
+								//取消订单后删除待付款中该项
+								this.$api.msg('收货成功')
+								uni.hideLoading();
+							}, 600)
+						}
+					}
+					
+				}).catch(error=>{
+					
+				})
+			},
+			
 			//取消订单
 			async cancelOrder(item){
 				console.log(item)
@@ -400,12 +446,18 @@
 						Authorization:'JWT '+uni.getStorageSync('userInfo').token
 					},
 				}).then(res=>{
-					console.log('111')
 					this.$api.msg(res.data.massage)
 					uni.hideLoading();
 					this.getDate()
 				}).catch(error=>{
 					this.$api.msg(error.response.data.massage)
+				})
+			},
+			
+			lookDetails(item){
+				console.log(item)
+				uni.navigateTo({
+					url:'/pages/order/postSale/postDetails?sub_id='+item.sub_order_id
 				})
 			},
 			
@@ -440,8 +492,9 @@
 			
 			// 物流信息
 			async lookViewOrder(item){
+				console.log(item)
 				uni.navigateTo({
-					url:'/pages/order/trackInfo/trackInfo?order_id='+item.order_id
+					url:'/pages/order/trackInfo/trackInfo?order_id='+item.sub_order_id
 				})
 			},
 			
@@ -452,6 +505,7 @@
 					this.navList.forEach(ele=>{
 						if(ele.sku_id === item.sku_id){
 							item = ele
+							
 						}
 					})
 				}
@@ -506,6 +560,7 @@
 			font-size: 32upx;
 			color: #fff;
 			float: left;
+			width: 70%;
 			height: 100%;
 			padding: 35upx 80upx;
 			.info-money{
@@ -525,6 +580,7 @@
 		.title-info-right{
 			float: right;
 			color: #fff;
+			width: 30%;
 			height: 100%;
 			padding: 50upx 80upx;
 		}
@@ -541,7 +597,9 @@
 			border-radius: 20upx;
 			padding: 30upx;
 			.address{
+				width: 100%;
 				height: 100%;
+				float: left;
 				.add-left{
 					width: 10%;
 					height: 100%;
@@ -648,6 +706,7 @@
 		flex-direction: column;
 		background: #fff;
 		margin-top: 30upx;
+		width: 100%;
 		border-radius: 20upx;
 		.item-info{
 			font-size: 36upx;
@@ -764,20 +823,18 @@
 					}
 				}
 				.setBtn{
-					display: flex;
 					.action-btn{
-						width: 200upx;
-						height: 70upx;
+						width: 160upx;
+						height: 60upx;
 						margin-top: 16upx;
-						margin-left: 24upx;
-						padding: 0;
 						float: right;
 						text-align: center;
-						line-height: 65upx;
+						line-height: 56upx;
 						font-size: $font-sm + 2upx;
-						color: #ee1d23;
-						border: 1px solid #ee1d23;
+						color: #303133;
+						border: 1upx solid rgba(0,0,0,.2);
 						border-radius: 100px;
+						background: #FFFFFF;
 						&:after{
 							border-radius: 100px;
 						}
@@ -795,10 +852,12 @@
 		}
 		
 		.price-info{
-			padding: 0 40upx 30upx 250upx;
+			margin: 20upx -1upx;
 			.price-item{
 				height: 60upx;
 				line-height: 60upx;
+				width: 52%;
+				margin-left: 40%;
 			}
 			.allPrice{
 				color: #333;
@@ -858,6 +917,7 @@
 			color: $font-color-dark;
 			background: #fff;
 			border-radius: 100px;
+			background: #FFFFFF;
 			&:after{
 				border-radius: 100px;
 			}
@@ -886,7 +946,7 @@
 			display: inline-block;
 		}
 		.price-box{
-			padding-left: 170upx;
+			padding-left: 30upx;
 			font-size: 28upx;
 			height: 100%;
 			color: #333333;
@@ -928,6 +988,7 @@
 			color: #ee1d23;
 			border: 1px solid #ee1d23;
 			border-radius: 100px;
+			background: #FFFFFF;
 			&:after{
 				border-radius: 100px;
 			}
