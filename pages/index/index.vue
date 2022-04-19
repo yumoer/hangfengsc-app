@@ -182,7 +182,7 @@
 			this.getDate();
 		},
 		onLoad(options){
-			console.log(options)
+			// console.log(options)
 			// #ifdef APP-PLUS
 			this.getVersion()
 			// #endif
@@ -262,7 +262,7 @@
 					}
 				})
 				.then(res=>{
-					console.log(res.data)
+					// console.log(res.data)
 					this.goodsShopList = res.data
 					uni.hideLoading()
 				}).catch(error=>{
@@ -297,7 +297,7 @@
 					url: '/mobile/banner/',
 					method: 'GET',
 				}).then(res => {
-					console.log(res.data)
+					// console.log(res.data)
 					if(res.data.length > 0){
 						let carouselList = res.data
 						this.titleNViewBackground = carouselList[0].color;
@@ -325,7 +325,7 @@
 			// 限时秒杀
 			async getLimitTime(){
 				const res = await uniRequest.get('/goods/limit/time/sku/');
-				console.log(res.data)
+				// console.log(res.data)
 				if(res.status === 200){
 					var data = new Date()
 					const Y = data.getFullYear()
@@ -446,7 +446,7 @@
 
 			// 跳转详情页
 			navToDetailPage(item,value) {
-				console.log(item,value)
+				// console.log(item,value)
 				//测试数据没有写id，用title代替
 				if(item._source === undefined){
 				    let id = item.id;
@@ -464,12 +464,12 @@
 			getVersion(){
 				this.appver = plus.runtime.version;
 				plus.runtime.getProperty(plus.runtime.appid,(wgtinfo)=>{
-					console.log(wgtinfo)
+					// console.log(wgtinfo)
 					this.wgtver =  wgtinfo.version
 				});
 				uni.getSystemInfo({
 					success:(res) => {
-						console.log(res.platform);
+						// console.log(res.platform);
 						//检测当前平台，如果是安卓则启动安卓更新
 						if(res.platform=="android"){
 							// this.AndroidCheckUpdate();
@@ -485,7 +485,7 @@
 			async checkVersionClick(){
 				// __UNI__8601E36/uni.UNI18D6
 				const appveres = await uniRequest.post('/mobile/check/app/version/',{appid:'__UNI__8601E36',version:this.appver})
-				console.log(appveres.data,this.appver,this.wgtver)
+				// console.log(appveres.data,this.appver,this.wgtver)
 				if(this.appver !== '' && appveres.data.max_version>this.appver){
 					this.startUpDate()
 				}else{

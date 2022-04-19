@@ -79,7 +79,7 @@
 		},
 		
 		onLoad(option) {
-			console.log(option)
+			// console.log(option)
 			this.getAllAddress()
 			let title = '新增收货地址';
 			this.addressData.default = false
@@ -109,14 +109,14 @@
 							Authorization: 'JWT ' + uni.getStorageSync('userInfo').token
 						},
 					}).then(res => {
-						console.log(res)
+						// console.log(res)
 						if(res.status === 200){
 						  this.$api.msg('默认地址设置成功')
 						}else{
 							this.$api.msg('error')
 						}
 					}).catch(error => {
-						console.log(error.res);
+						// console.log(error.res);
 						if(error.res === undefined){
 							this.$api.msg('服务器错误');
 						}
@@ -127,13 +127,13 @@
 			},
 			
 			onCancel(e) {
-				console.log(e)
+				// console.log(e)
 			},
 			chooseCity() {
 				this.$refs.mpvueCityPicker.show()
 			},
 			onConfirm(e) {
-				console.log(e)
+				// console.log(e)
 				this.addressData.province_id = e.provinceCode
 				this.addressData.city_id = e.cityCode
 				this.addressData.district_id = e.areaCode
@@ -159,10 +159,10 @@
 			
 			// 识别
 			distinguish(){
-				console.log(this.text)
+				// console.log(this.text)
 				if(this.text){
 					const parseResult = AddressParse(this.text, 0)
-					console.log(parseResult)
+					// console.log(parseResult)
 					this.addressData.receiver = parseResult.name
 					this.addressData.mobile = parseResult.phone
 					this.addressData.addressName = parseResult.province + ' ' + parseResult.city + ' ' + parseResult.area
@@ -192,7 +192,7 @@
 				// 先判断定位权限是否开启
 				uni.chooseLocation({
 					success: async (data) => {
-						console.log(data)
+						// console.log(data)
 						// #ifdef H5
 						 // 先判断定位权限是否开启
 						const datass = {
@@ -200,7 +200,7 @@
 							"S":data.latitude
 						}
 						const ress = await uniRequest.post('/areas/tx/province/areasViews/',datass)
-						console.log(ress.data)
+						// console.log(ress.data)
 						this.addressData.province_id = ress.data.province.id
 						this.addressData.city_id = ress.data.city.id
 						this.addressData.district_id = ress.data.district.id
@@ -213,7 +213,7 @@
 							"S":data.latitude
 						}
 						const res = await uniRequest.post('/areas/gd/province/areasViews/',datas)
-						console.log(res.data)
+						// console.log(res.data)
 						this.addressData.province_id = res.data.province.id
 						this.addressData.city_id = res.data.city.id
 						this.addressData.district_id = res.data.district.id
@@ -221,7 +221,7 @@
 						this.addressData.address = data.address;
 						// #endif
 					},fail(e){
-						console.log(e)
+						// console.log(e)
 						this.openSetting()
 					}
 				})
@@ -254,7 +254,7 @@
 			
 			// 修改地址
 			async setAddress(content) {
-				console.log(content)
+				// console.log(content)
 				await uniRequest({
 					url: '/user/addresses/' + this.addressData.id + '/',
 					data: content,
@@ -263,7 +263,7 @@
 						Authorization: 'JWT ' + uni.getStorageSync('userInfo').token
 					},
 				}).then(res => {
-					console.log(res)
+					// console.log(res)
 					//this.$api.prePage()获取上一页实例，可直接调用上页所有数据和方法，在App.vue定义
 					this.$api.prePage().refreshList(this.addressData, this.manageType);
 					this.$api.msg(`地址${this.manageType=='edit' ? '修改': '添加'}成功`);
@@ -297,7 +297,7 @@
 						Authorization: 'JWT ' + uni.getStorageSync('userInfo').token
 					},
 				}).then(res => {
-					console.log(res)
+					// console.log(res)
 					if(res.status === 200 || res.status === 201){
 						this.$api.msg('地址新增成功')
 						setTimeout(() => {
@@ -313,7 +313,7 @@
 
 			//提交
 			async confirm(data) {
-				console.log(data)
+				// console.log(data)
 				if (!data.receiver) {
 					this.$api.msg('请填写收货人姓名');
 					return;

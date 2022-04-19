@@ -2,37 +2,25 @@
 	<form>
 		<view class="page_box">
 			<view class="banner">
-				<img style="width: 100%;height: 180px;border-radius: 20upx;margin-bottom: 20upx;" src="http://47.94.106.106:8888/group1/M00/5D/27/rBHxiGGtrpOAa7ffAAD0IVeyOag3405377" alt="">
+				<img style="width: 100%;height: 100%;z-index: -1;" src="http://47.94.106.106:8888/group1/M00/61/B3/rBHxiGJeHZaAB4DSAJAZjP9QcA48836547" alt="">
 			</view>
-			<view class="content_box pad">
-				<view class="form-item">
-					<label>
-						<view class="inp-title">姓名</view>
-						<input class="inp mb" maxlength="30" v-model="query.name" name="name" placeholder="请输入您的姓名" placeholder-class="pl-style" />
-					</label>
-					<label>
-						<view class="inp-title">联系方式</view>
-						<input clearable class="inp mb" type="number" maxlength="12" v-model="query.tel" name="tel" placeholder="请输入您的手机号" placeholder-class="pl-style" />
-					</label>
-					<label>
-						<view class="inp-title mb1">留言</view>
-						<view class="area-box">
-							<textarea
-								clearable
-								class="inp-area"
-								v-model="query.comment"
-								name="comment"
-								maxlength="200"
-								placeholder="简要描述您的留言"
-								placeholder-class="pl-style"
-							/>
-						</view>
-					</label>
-				</view>
+			<view class="content_box pad" style="position: absolute;bottom: 110px;left: 0;width: 100%;padding: 0 40px;">
+				<u-form :model="query" ref="uForm">
+					<u-form-item label="姓名" style="font-size: 30upx;border-bottom: none;">
+						<u-input v-model="query.name" clearable type="text" :border="true" placeholder="请输入您的姓名" />
+					</u-form-item>
+					<u-form-item label="电话" style="font-size: 30upx;">
+						<u-input v-model="query.tel" clearable type="text" :border="true" placeholder="请留下您的联系方式" />
+					</u-form-item>
+					<u-form-item label="留言" style="font-size: 30upx;">
+						<u-input v-model="query.comment" clearable type="textarea" :border="true" :height="150" :maxlength="200" placeholder="简要留下您想要说的话~" />
+					</u-form-item>
+					
+				</u-form>
 			</view>
-		</view>
-		<view class="foot_box x-bc pad">
-			<button class="cu-btn post-btn" @tap="addFeedback">提交</button>
+			<view class="foot_box x-bc pad">
+				<button class="cu-btn post-btn" @tap="addFeedback">提交</button>
+			</view>
 		</view>
 	</form>
 </template>
@@ -75,6 +63,9 @@
 					})
 				}
 			},
+			change(e) {
+			  console.log('change', e);
+			}
 		}
 	}
 </script>
@@ -84,7 +75,11 @@ page{
 	padding: 0px;
 }
 .page_box {
-	padding: 30upx;
+	padding: 0;
+	position: relative;
+}
+.content_box{
+	
 }
 .icon-jia2{
 	font-size: 60upx;
@@ -198,13 +193,12 @@ page{
 	display: flex;
 	height: 80rpx;
 	width: 100%;
-	position: fixed;
-	bottom: 60upx;
+	position: absolute;
+	bottom: 100upx;
 	.contact-btn {
 		flex: 1;
 		height: 70rpx;
-		background-image:linear-gradient(to right,#EE1D23 0%,#F04023 100%) ;
-		box-shadow: 0px 2rpx 5rpx 0px rgba(102, 103, 104, 0.46);
+		background:#1839ff;
 		border-radius: 35rpx;
 		font-size: 28rpx;
 		font-family: PingFang SC;
@@ -214,8 +208,7 @@ page{
 	.post-btn {
 		height: 80rpx;
 		width: 590upx;
-		background-image:linear-gradient(to right,#EE1D23 0%,#F04023 100%) ;
-		box-shadow: 0px 7rpx 6rpx 0rpx rgba(229, 138, 0, 0.22);
+		background:#1839ff;
 		border-radius: 37rpx;
 		font-size: 28rpx;
 		font-family: PingFang SC;
@@ -243,5 +236,11 @@ page{
 .uni-radio-input-checked {
 	background-color: #f37b1d !important;
 	border: #f37b1d !important;
+}
+/deep/ .u-border-bottom:after{
+	border-bottom: none;
+}
+/deep/ .u-form-item--left{
+	align-items: left;
 }
 </style>

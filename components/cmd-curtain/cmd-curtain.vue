@@ -55,7 +55,7 @@
        * 监听显示状态
        */
       visible(val) {
-		  console.log(val,'1111') 
+		  // console.log(val,'1111') 
 		  this.isOpen = true;
       }
     },

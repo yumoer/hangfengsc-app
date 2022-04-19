@@ -25,7 +25,7 @@ export default function initModal(v) {
 		},
 		showModal(state,data) {
 			state = Object.assign(state,data)
-			console.log(state);
+			// console.log(state);
 			state.show = true
 		},
 		success(state,res) {

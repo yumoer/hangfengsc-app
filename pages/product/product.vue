@@ -62,10 +62,7 @@
 			<view v-for="(spec,index) in specs[0].data" :key="index" style="display: inline-block;padding: 5px;margin-left: 15px;" v-bind:class="{'back':spec.sku === Number(sku_id)}" @click="getPages(spec.sku)">
 				<text>{{spec.value}}</text>
 			</view>
-			
 		</view>
-		
-		
 		
 		<view class="c-list">
 			<view class="c-row">
@@ -136,9 +133,9 @@
 							<text class="time">{{result.create_time}}</text>
 						</view>
 					</text>
-					<text >
+					<view >
 						<uni-rate :size="16" :value="result.score" style="margin-left: -2px;" color="#ee1d23" active-color="#ee1d23" />
-					</text>
+					</view>
 					<text class="con">{{result.comment}}</text>
 				</view>
 			</view>
@@ -206,7 +203,7 @@
 					<image style="margin-top: 0px;" :src="detailsArr.default_image_url"></image>
 					<view class="right">
 						<text class="stock clamp2" style="font-size: 14px;color: #333;width: 460upx;">{{detailsArr.name}}</text>
-						<text style="display: inline-block;margin-top: 20px;">
+						<view style="display: inline-block;margin-top: 20px;">
 							<text class="price" style="color: red;float: left;">¥{{detailsArr.price}}</text>
 							<view class="selected" style="float: right;">
 								已选：
@@ -217,7 +214,7 @@
 									{{count}}个
 								</text>
 							</view>
-						</text>
+						</view>
 					</view>
 				</view>
 				
@@ -415,15 +412,19 @@
 			//监听back键，关闭弹出菜单
 			if (e.from == 'backbutton') {
 				if (this.shareObj.shareMenu) { // this.shareObj.shareMenu.isVisible()
+					console.log(this.shareObj.shareMenu)
 					this.shareObj.shareMenu.hide();
 					this.shareObj.alphaBg.hide();
+					uni.navigateBack()
 					return true
 				}
+			}else{
+				uni.navigateBack()
 			}
 		},
 		
 		async onLoad(options){
-			console.log(options)
+			// console.log(options)
 			uni.showLoading({
 				title:'加载中...'
 			})
@@ -432,7 +433,7 @@
 			let skuId = options.skuId
 			this.skuId = skuId
 			this.sku_id = id
-			console.log(this.sku_id)
+			// console.log(this.sku_id)
 			this.value = options.value
 			this.ifFavorite()
 			if(id){
@@ -448,7 +449,7 @@
 						url: '/goods/'+id+'/specs/',
 						method: 'POST',
 					}).then(res => {
-						console.log(res.data.result)
+						// console.log(res.data.result)
 						if(res.status === 200){
 							this.simulatedDATA.specifications = res.data.result.specifications
 							this.simulatedDATA.sku_spec = res.data.result.sku_spec
@@ -461,17 +462,17 @@
 								})
 							})
 							this.specList = res.data.result.specifications
-							console.log(this.specList,this.specChildList)
+							// console.log(this.specList,this.specChildList)
 							
 							//规格 默认选中第一条
-							console.log(this.detailsArr)
+							// console.log(this.detailsArr)
 							this.detailsArr.sku_spec.values.split(',').forEach(ele=>{
 								for(let cItem of this.specChildList){
 									if(cItem.name === ele){
 										console.log(cItem)
 										this.$set(cItem, 'selected', true);
 										this.specSelected.push(cItem);
-										console.log(this.specSelected)
+										// console.log(this.specSelected)
 										break; //forEach不能使用break
 									}
 								}
@@ -483,7 +484,7 @@
 					if(this.value === 'time'){
 						this.tip = '限时抢购(每天10点开抢)'
 						const res = await uniRequest.get('/goods/limit/time/sku/');
-						console.log(res)
+						// console.log(res)
 						if(res.status === 200){
 							res.data.active.data.forEach(ele=>{
 								if(ele.id+'' === id){

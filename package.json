@@ -1,5 +1,10 @@
 {
   "dependencies": {
-    "uni-request": "^1.0.2"
+    "uni-request": "^1.0.2",
+    "uview-ui": "^2.0.30"
+  },
+  "devDependencies": {
+    "sass": "^1.50.1",
+    "sass-loader": "^10.2.1"
   }
 }

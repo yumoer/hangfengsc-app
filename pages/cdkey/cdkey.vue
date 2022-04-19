@@ -84,7 +84,7 @@
 			}
 		},
 		onLoad(options){
-			console.log(options.open_id)
+			// console.log(options.open_id)
 			this.open_id = options.open_id
 			this.generate_image_code()
 		},
@@ -118,15 +118,15 @@
 				// 严格一点的使用uuid保证编号唯一， 不是很严谨的情况下，也可以使用时间戳
 				this.image_code_id = this.generate_uuid();
 				
-				console.log(this.image_code_id)
+				// console.log(this.image_code_id)
 				
 				// 设置页面中验证码img标签的src属性
 				this.image_code_url = "http://api.hfyt365.com/verify/image_codes/" + this.image_code_id + "/";
-				console.log(this.image_code_url)
+				// console.log(this.image_code_url)
 				
 				setTimeout(()=>{
 					uniRequest.get('/verify/image_codes/text/'+this.image_code_id+'/').then(res=>{
-						console.log(res.data)
+						// console.log(res.data)
 						if(res.status === 200){
 							if(res.data.text !== undefined){
 								this.getText = res.data.text.toLowerCase()
@@ -187,9 +187,9 @@
 					open_id:this.open_id
 				};
 				uniRequest.post('/goods/exchange/info/',sendData).then(res=>{
-					console.log(res)
+					// console.log(res)
 					if(res.status === 200){  
-						console.log(res.data)
+						// console.log(res.data)
 						if(res.data.exchange_user === undefined){
 							uni.navigateTo({
 								url:'/pages/cdkey/cdkeyOrder?data='+JSON.stringify(res.data)

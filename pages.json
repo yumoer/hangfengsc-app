@@ -339,7 +339,10 @@
 			"path": "pages/coupon/contart",
 			"style": {
 				"scrollIndicator":"none",
-				"navigationBarTitleText": "联系我们"
+				"navigationBarTitleText": "联系我们",
+				"app-plus": {
+					"bounce": "none"
+				}
 			}
 		},{
 			"path": "pages/coupon/reduction",

@@ -66,7 +66,7 @@
 				},
 			}).then(res=>{
 				list  = res[1].data[0]
-				console.log(list)
+				// console.log(list)
 				// this.msgList = list
 				if(list.sender !== null){
 					this.chatList[0].tisNum = 1
@@ -87,7 +87,7 @@
 					url: 'ws://socket.hfyt365.com/admin/socket',  //测试接口，需填上自己服务器IP
 					success() {
 						uni.onSocketOpen(function(res) {
-							console.log(res)
+							// console.log(res)
 							if(res.message !== undefined){
 								uni.showToast({
 									icon: 'none',
@@ -134,7 +134,7 @@
 					success: function() {
 						uni.onSocketMessage(function(res) {
 							var ret = JSON.parse(res.data);
-							console.log(ret)
+							// console.log(ret)
 							if(ret.type === 'message' && ret.message === '该用户不存在或已下线'){
 								uni.showToast({
 									icon: 'none',
@@ -156,7 +156,7 @@
 				});
 			},
 			toChat(chat){
-				console.log(chat)
+				// console.log(chat)
 				uni.navigateTo({
 					url:"/pages/chat/chatAdmin?data="+JSON.stringify(chat)
 				})

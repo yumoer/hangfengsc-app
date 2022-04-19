@@ -197,7 +197,7 @@
 								success: function() {
 									uni.onSocketMessage(function(res) {
 										var s = JSON.parse(res.data);
-										console.log(s)
+										// console.log(s)
 										if(s.id === undefined && s.users !== undefined){
 											s.users.forEach(ele=>{
 												that.userList = ele
@@ -209,12 +209,12 @@
 													method:'get',
 												}).then(res=>{
 													list  = res[1].data.reverse()
-													console.log(list)
+													// console.log(list)
 													// 获取消息中的图片,并处理显示尺寸
 													for(let i=0;i<list.length;i++){
 														if(list[i].type=='img'){
 															list[i] = this.setPicSize(list[i]);
-															console.log("list[i]: " + JSON.stringify(list[i]));
+															// console.log("list[i]: " + JSON.stringify(list[i]));
 															this.msgImgList.push(list[i].msg.url);
 														}
 													}
@@ -241,7 +241,7 @@
 														that.scrollAnimation = true;
 													});
 												}).catch(error=>{
-												   console.log(error)
+												   // console.log(error)
 												})
 											})
 										}else{
@@ -323,7 +323,7 @@
 				// let content = this.replaceEmoji(this.textMsg);
 				let content = this.textMsg
 				let msg = {content:content}
-				console.log(msg)
+				// console.log(msg)
 				this.sendMsg(msg,'str');
 				this.textMsg = '';
 				// 滚动到底部
@@ -335,7 +335,7 @@
 			//替换表情符号为图片
 			replaceEmoji(str){
 				let replacedStr = str.replace(/\[([^(\]|\[)]*)\]/g,(item, index)=>{
-					console.log("item: " + item);
+					// console.log("item: " + item);
 					for(let i=0;i<this.emojiList.length;i++){
 						let row = this.emojiList[i];
 						for(let j=0;j<row.length;j++){
@@ -344,8 +344,7 @@
 								//在线表情路径，图文混排必须使用网络路径
 								let onlinePath = 'https://s2.ax1x.com/2019/04/12/'
 								let imgstr = '<img src="'+onlinePath+this.onlineEmoji[EM.url]+'">';
-								console.log(imgstr)
-								console.log("imgstr: " + imgstr);
+								// console.log("imgstr: " + imgstr);
 								return imgstr;
 							}
 						}
@@ -363,8 +362,8 @@
 							uni.getImageInfo({
 								src: res.tempFilePaths[i],
 								success: (image)=>{
-									console.log(image.width);
-									console.log(image.height);
+									// console.log(image.width);
+									// console.log(image.height);
 									let msg = {url:res.tempFilePaths[i],w:image.width,h:image.height};
 									this.sendMsg(msg,'img');
 								}
@@ -375,15 +374,15 @@
 			},
 			// 发送消息
 			sendMsg(content,type){
-				console.log(content,type)
+				// console.log(content,type)
 				var that = this
 				//实际应用中，此处应该提交长连接，模板仅做本地处理。
 				var nowDate = new Date();
 				let lastid = that.msgList[that.msgList.length-1].id;
-				console.log(lastid)
+				// console.log(lastid)
 				lastid++;
 				let msg = {id:lastid,username:'售后客服',face:"http://47.94.106.106:8888/group1/M00/5D/29/rBHxiGGtvxqAHy_MAAATQe8aejA9677557",time:nowDate.getHours()+":"+nowDate.getMinutes(),type:type,msg:content};
-				console.log(msg)
+				// console.log(msg)
 				that.screenMsg(msg);
 				var obj = {
 					"type":type,

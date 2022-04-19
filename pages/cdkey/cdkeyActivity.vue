@@ -30,11 +30,11 @@ export default {
 	methods:{
 		// 长按事件
 		longpress : function () {
-			console.log('ok');
+			// console.log('ok');
 			uni.saveImageToPhotosAlbum({
 				filePath: this.imgSrc,
 				success:()=>{
-					console.log('save success');
+					// console.log('save success');
 					uni.showToast({
 						title:"图片已经保存到您的相册~"
 					})

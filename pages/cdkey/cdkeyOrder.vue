@@ -104,7 +104,7 @@
 		  trackNode,
 		},
 		onLoad(options){
-			console.log(options)
+			// console.log(options)
 			this.exchange_user = options.exchange_user
 			this.card_number = uni.getStorageSync('card_number')
 			if(this.exchange_user === undefined){

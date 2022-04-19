@@ -37,7 +37,7 @@ export default {
 	},
 	methods: {
 		navTo(url){
-			console.log(url)
+			// console.log(url)
 			uni.switchTab({
 				url: url
 			})

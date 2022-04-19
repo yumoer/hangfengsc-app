@@ -11,7 +11,7 @@
 			}
 		},
 		onLoad(options){
-			console.log(options,'1111111111111111111111111111111111111111111')
+			// console.log(options)
 			// #ifdef APP-PLUS
 			this.getVersion()
 			// #endif
@@ -20,7 +20,7 @@
 			getVersion(){
 				this.appver = plus.runtime.version;
 				plus.runtime.getProperty(plus.runtime.appid,(wgtinfo)=>{
-					console.log(wgtinfo)
+					// console.log(wgtinfo)
 					this.wgtver =  wgtinfo.version
 				});
 				uni.getSystemInfo({
@@ -42,7 +42,7 @@
 				// __UNI__8601E36/uni.UNI18D6
 				const appveres = await uniRequest.post('/mobile/check/app/version/',{appid:'__UNI__8601E36',version:this.appver})
 				
-				console.log(appveres.data,this.appver,this.wgtver)
+				// console.log(appveres.data,this.appver,this.wgtver)
 				if(this.appver !== '' && appveres.data.max_version > this.appver){
 					this.startUpDate()
 				}else{
@@ -51,7 +51,7 @@
 						version:this.wgtver,
 					};
 					const wgtveres = await uniRequest.post('/mobile/check/wgt/version/',wgtver)
-					console.log(wgtveres.data,this.wgtver)
+					// console.log(wgtveres.data,this.wgtver)
 					if(wgtveres.data.status){
 						this.startWgt()
 					}
@@ -81,7 +81,7 @@
 				//注意：服务器的热更新版本号必需大于本地wgt版本号
 				//http://192.168.50.201/update.wgt,
 				let topIconPath=plus.io.convertLocalFileSystemURL(this.iconRootPath)+"/top_5.png";
-				console.log(topIconPath)
+				// console.log(topIconPath)
 				let that=this;
 				//第一步要获取本地的wgt版本号；
 				const upDater=uni.requireNativePlugin("CL-UpDater");
@@ -96,16 +96,16 @@
 				
 				//第一步创建文件下载路径，并创建文件;
 				plus.io.requestFileSystem(plus.io.PUBLIC_DOWNLOADS,function(fobject){
-					console.log(fobject)
+					// console.log(fobject)
 					//设置文件下载根路径;	
 					let rootPath=fobject.root.fullPath;
 					console.log(options,rootPath)
 					upDater.wgtUpdate(options,rootPath,result=>{
-						console.log(result)
+						// console.log(result)
 						if(result)
 						{
 							var pathNew = plus.io.convertAbsoluteFileSystem(result);
-							console.log(pathNew);
+							// console.log(pathNew);
 							plus.runtime.install(pathNew, {
 								force: false
 							}, function() {
@@ -129,7 +129,7 @@
 					version:this.version,
 				};
 				const res = await uniRequest.post('/mobile/check/app/version/',sendData)
-				console.log(res,this.version)
+				// console.log(res,this.version)
 				if(this.version !== '' && res.data.max_version>this.version){
 					if(plus.networkinfo.getCurrentType()!=3){
 						uni.showModal({ 

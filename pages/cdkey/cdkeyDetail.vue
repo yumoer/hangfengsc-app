@@ -171,11 +171,11 @@
 		},
 		components: {neilModal,citySelect,selectAddress},
 		onLoad(options){
-			console.log(options)
+			// console.log(options)
 			this.exchange_user = options.exchange_user
 			this.card_number = uni.getStorageSync('card_number')
 			uniRequest.get('/orders/exchange/?exchange_user='+this.exchange_user).then(res=>{
-				console.log(res.data)
+				// console.log(res.data)
 				if(res.status === 200){  
 					this.exchanges = res.data
 				}
@@ -186,7 +186,7 @@
 				console.log(error)
 			})
 			
-			console.log(this.list)
+			// console.log(this.list)
 		},
 		
 		
@@ -202,11 +202,11 @@
 				this.$refs.selectAddress.show()
 			},
 			cityChange(e) {
-				console.log(e)
+				// console.log(e)
 				this.Taddress = e.province.label +  e.city.label + e.area.label;
 			},
 			successSelectAddress(address){ //选择成功回调
-				console.log(address)
+				// console.log(address)
 				this.Taddress = address;
 			},
 			/* 填写地址 */
@@ -220,9 +220,8 @@
 			},
 			/* 查看订单 */
 			lookOrder(){
-				console.log('222')
 				uniRequest.get('/orders/exchange/?pk='+this.addresss).then(res=>{
-					console.log(res.data)
+					// console.log(res.data)
 					if(res.status === 200){  
 						// this.exchanges = res.data
 					}
@@ -253,7 +252,6 @@
 						this.errMobile = ''
 						this.errTaddress = ''
 						this.errAddress = '详细地址不能为空'
-						console.log(this)
 					}else{
 						this.show = false
 						this.errName = ''
@@ -271,7 +269,7 @@
 							card_paw:uni.getStorageSync('card_paw')
 						};
 						uniRequest.post('/orders/exchange/',sendData).then(res=>{
-							console.log(res.data)
+							// console.log(res.data)
 							if(res.status === 200){  
 								this.show = false
 								this.$api.msg('地址填写成功')

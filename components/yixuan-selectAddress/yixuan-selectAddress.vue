@@ -59,7 +59,7 @@
 					}, 500);
 			},
 			select_top_item_click(index) {
-				console.log('select_top_item_click')
+				// console.log('select_top_item_click')
 				this.currentIndex = index
 				this.$nextTick(() => {
 					this.changeIndicator(index)
@@ -95,7 +95,7 @@
 					let itemCenterX = 10 + index * 80 + itemWidth / 2
 					let left = itemCenterX - indicatorWidth / 2
 					
-					console.log('changeIndicator',itemWidth,index)
+					// console.log('changeIndicator',itemWidth,index)
 					
 					this.indicatorStyleLeft = left
 				 
@@ -112,7 +112,7 @@
 				
 					let currentObj = this.cityData[index]
 					let city = currentObj.name
-					console.log(city)
+					// console.log(city)
 					this.dataList.splice(swiper_index,5,city)
 					this.dataList.splice(swiper_index + 1,0,'请选择')
 					this.cityAreaArray.splice(swiper_index + 1, 1,currentObj["city"])
@@ -221,7 +221,7 @@
 		.select_top{
 			height: 8%;
 			display: flex;
-			justify-content: start;
+			justify-content: flex-start;
 			align-items: center;
 			padding: 10px;
 			position: relative;

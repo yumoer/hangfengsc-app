@@ -81,7 +81,7 @@
 						Authorization:'JWT '+uni.getStorageSync('userInfo').token
 					},
 				}).then(res=>{
-					console.log(res)
+					// console.log(res)
 					if(res.status === 200){
 						uni.hideLoading()
 						this.results = res.data.results
@@ -102,11 +102,11 @@
 				}
 			},
 			async getShops(sku){
-				console.log(sku)
+				// console.log(sku)
 				
 			},
 			goTo(id){
-				console.log(id)
+				// console.log(id)
 				uni.navigateTo({
 					url: `/pages/product/product?id=${id}`
 				})

@@ -34,8 +34,8 @@ uniRequest.interceptors.response.use(async function(response) {
 	if(response.status === 500 || response.status === 502){
 		Vue.prototype.$api.msg('服务器错误,请稍后重试')
 	}
-	console.log(response)
-    console.log('返回进入拦截成功')
+	// console.log(response)
+    // console.log('返回进入拦截成功')
     return Promise.resolve(response);
 }, function(error) {
 	console.log(error)

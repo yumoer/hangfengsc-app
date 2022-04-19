@@ -36,7 +36,7 @@
 			};
 		},
 		onLoad(options){
-			console.log(options)
+			// console.log(options)
 		},
 		onShow() {
 			uni.showLoading({
@@ -54,7 +54,7 @@
 					}
 				})
 				.then(res=>{
-					console.log(res.data)
+					// console.log(res.data)
 					this.newProdList = res.data;
 					uni.hideLoading()
 				}).catch(error=>{

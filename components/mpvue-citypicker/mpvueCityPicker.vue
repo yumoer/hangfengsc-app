@@ -162,14 +162,14 @@ export default {
       this.$emit(emitName, pickObj);
     },
     _getLabel() {
-		console.log(this.areaDataList[this.pickerValue[2]])
+		// console.log(this.areaDataList[this.pickerValue[2]])
 	  let pcikerLabel =
 		this.provinceDataList[this.pickerValue[0]].name +
 		' ' +
 		this.cityDataList[this.pickerValue[1]].name +
 		' ' +
 		this.areaDataList[this.pickerValue[2]].name;
-		console.log(pcikerLabel)
+		// console.log(pcikerLabel)
       return pcikerLabel;
     },
 	_getProvinceCode(){

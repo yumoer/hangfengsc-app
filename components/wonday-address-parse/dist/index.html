@@ -122,7 +122,7 @@
         const onTextAreaBlur = (e) => {
             const address = e.target.value
             const parseResult = ZhAddressParse(address)
-            console.log(parseResult)
+            // console.log(parseResult)
             $('#result').empty();
             $('#result').append(`<ul>${Object.entries(parseResult).map(([k, v]) => `<li>${k}：${v}</li>`).join('')}</ul>`)
         }

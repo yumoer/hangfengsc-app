@@ -211,7 +211,7 @@
 							Authorization:'JWT '+uni.getStorageSync('userInfo').token
 						},
 					}).then(res=>{
-						console.log(res)
+						// console.log(res)
 						if(res.status === 200){
 							this.loadData()
 						}else{
@@ -336,7 +336,7 @@
 			},
 			// 删除
 			deleteGoods(){
-				console.log(this.selected,this.cartList)
+				// console.log(this.selected,this.cartList)
 				let checkList = []
 				this.cartList.forEach(ele=>{
 					if(ele.selected === true){
@@ -376,7 +376,7 @@
 			
 			// 移入收藏
 			joinCollect(){
-				console.log(this.selected,this.cartList)
+				// console.log(this.selected,this.cartList)
 				let checkList = []
 				this.cartList.forEach(ele=>{
 					if(ele.selected === true){
@@ -401,7 +401,7 @@
 									Authorization:'JWT '+uni.getStorageSync('userInfo').token
 								},
 							}).then(res=>{
-								console.log(res.data)
+								// console.log(res.data)
 								if(res.data === '添加成功'){
 									uni.hideLoading();
 									setTimeout(()=>{

@@ -51,7 +51,7 @@
 		components:{xwEmpty},
 		onLoad(option) {
 			uniRequest.get('/orders/exchange/list/?user='+option.oid).then(res=>{
-				console.log(res.data)
+				// console.log(res.data)
 				if(res.data.length < 1){
 					this.noOrder = true
 				}

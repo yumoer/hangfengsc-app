@@ -22,7 +22,6 @@
 			// #ifdef APP-PLUS
 			//app关闭默认的启动 方法关闭启动图。但是这个时间不能太晚，6s 超时后依旧会主动关闭。
 			setTimeout(()=>{
-				console.log('111')
 				plus.navigator.closeSplashscreen();
 			},2400)
 			// #endif

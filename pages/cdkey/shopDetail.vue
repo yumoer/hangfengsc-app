@@ -43,13 +43,13 @@
 			}
 		},
 		onLoad(option) {
-			console.log(option.data)
+			// console.log(option.data)
 			this.exchanges = JSON.parse(option.data)
 		},
 		methods: {
 			//轮播图切换修改背景色
 			swiperChange(e) {
-				console.log(e)
+				// console.log(e)
 				const index = e.detail.current;
 				this.swiperCurrent = index;
 			},

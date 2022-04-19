@@ -50,7 +50,7 @@
 			delNumFun(){
 				if(this.password.length == 0) return
 				this.password = this.password.substring(0,this.password.length - 1)
-				console.log("删除后的结果",this.password)
+				// console.log("删除后的结果",this.password)
 			},
 			forgetFun(){
 				uni.navigateTo({

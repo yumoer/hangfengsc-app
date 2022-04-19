@@ -111,7 +111,7 @@
 			
 			//分享操作
 			shareToFriend(type){
-				console.log(type)
+				// console.log(type)
 				this.$api.msg(`H5不支持分享`);
 				// if(type === '微信好友'){
 				// 	uni.share({

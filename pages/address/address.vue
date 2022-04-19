@@ -54,7 +54,7 @@
 		},
 		onNavigationBarButtonTap(e) {
 			const index = e.index;
-			console.log(index)
+			// console.log(index)
 			if(index === 0){
 				uni.navigateTo({
 					url: `/pages/address/addressManage?type=add&data=undefined`
@@ -65,7 +65,7 @@
 			//显示空白页
 			addressList(e){
 				let empty = e.length === 0 ? true: false;
-				console.log(this.isEmpty,empty)
+				// console.log(this.isEmpty,empty)
 				if(this.isEmpty !== empty){
 					this.isEmpty = empty;
 				}
@@ -82,7 +82,7 @@
 						Authorization:'JWT '+uni.getStorageSync('userInfo').token
 					},
 				}).then(res=>{
-					console.log(res.data)
+					// console.log(res.data)
 					uni.hideLoading()
 					this.addressList = res.data.addresses
 					if(type === "add"){
@@ -112,7 +112,7 @@
 			
 			// 删除
 			async condelete(data){
-				console.log(data)
+				// console.log(data)
 				this.$showModal({
 					title:'提示',
 				    content: '确认删除地址?',
@@ -160,7 +160,7 @@
 									  this.getAddress()
 									}
 								}).catch(error => {
-									console.log(error.response);
+									// console.log(error.response);
 									if(error.response === undefined){
 										this.$api.msg('服务器错误');
 									}
@@ -182,7 +182,7 @@
 				}
 			},
 			addAddress(type, item){
-				console.log(item)
+				// console.log(item)
 				uni.navigateTo({
 					url: `/pages/address/addressManage?type=${type}&data=${JSON.stringify(item)}`
 				})
@@ -191,7 +191,7 @@
 			
 			//添加或修改成功之后回调
 			refreshList(data, type){
-				console.log(data, type);
+				// console.log(data, type);
 				//添加或修改后事件，这里直接在最前面添加了一条数据，实际应用中直接刷新地址列表即可
 				if(type === 'add'){
 					this.getAddress(data,type)

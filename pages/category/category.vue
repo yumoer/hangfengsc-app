@@ -49,7 +49,7 @@
 		// ���������� buttons ʱ����
 		onNavigationBarButtonTap(e) {
 			const index = e.index;
-			console.log(index)
+			// console.log(index)
 			if (index === 0) {
 				uni.navigateTo({
 					url: '/pages/search/search'
@@ -70,12 +70,12 @@
 						slist.push(ele.subs)
 					})
 					this.slist = slist
-					console.log(this.slist)
+					// console.log(this.slist)
 				}
 			},
 			//һ����������
 			tabtap(item){
-				console.log(item)
+				// console.log(item)
 				if(!this.sizeCalcState){
 					this.calcSize();
 				}
@@ -105,7 +105,6 @@
 			calcSize(){
 				let h = 0;
 				this.slist.forEach(item=>{
-					console.log()
 					if(item !== undefined){
 						let view = uni.createSelectorQuery().select("#main-" + [0].id);
 						view.fields({
@@ -134,7 +133,7 @@
 			
 			// ����������ʾ����
 			showHide(index){
-				console.log(index)
+				// console.log(index)
 				if(this.cateIndex === index){
 					this.cateIndex = null
 					return

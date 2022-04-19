@@ -46,7 +46,7 @@
 			};
 		},
 		onLoad(options){
-			console.log(options)
+			// console.log(options)
 		},
 		onShow() {
 			uni.showLoading({
